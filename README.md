@@ -2,7 +2,7 @@
 
 ## Introducción
 ¡Gracias por participar en el programa de aprendizaje de Android!
-Aquí encontraras las instrucciones del desafío.
+Aquí encontrarás las instrucciones del desafío.
 
 ## El Desafío
 El propósito de este desafío es que puedas demostrar tus habilidades de desarrollo en Android. Esta es tu oportunidad para demostrar todo lo que has aprendido durante el curso.
@@ -10,8 +10,8 @@ En este desafío, construirás una aplicación de Android completa por tu propia
 Esperamos que encuentres este ejercicio desafiante y llamativo.
 El propósito es construir una aplicación que use la API pública de Bitso, la cuál debe incluir:
 
-- Una pantalla que muestre todas las monedas disponibles
-- Una pantalla de detalle para cada moneda
+- Una pantalla (utilizando Jetpack Compose) que muestre todas las monedas disponibles
+- Una pantalla (utilizando Jetpack Compose) de detalle para cada moneda
 - Persistencia local
 - Cobertura de tests
 
@@ -22,7 +22,7 @@ Estos son los requerimientos principales que evaluaremos:
 - Hacer uso de todo lo que has aprendido durante el curso:
     - Mejores prácticas
     - Diseño de API
-    - Diseño de UI
+    - Diseño de UI (Jetpack Compose)
     - Patrones de diseño
     - Testing 
 
@@ -51,7 +51,7 @@ Con base en el material de autoestudio y las mentorías hasta este entregable, s
   - https://bitso.com/api_info#ticker
   - https://bitso.com/api_info#order-book 
 - Busca imágenes que representen las monedas y agrega dichas imágenes a la lista de monedas.
-- Trabaja con MVVM y LiveData para poder diseñar la aplicación:
+- Trabaja con Jetpack Compose, MVVM y LiveData para poder diseñar la aplicación:
     - Crear una pantalla que va a mostrar una lista de las monedas utilizando el servicio `available-books`
     - Crear una pantalla de detalle que mostrará el último precio, el más alto y el más bajo. Además, mostrar una lista de `bids` y `asks` haciendo uso del servicio `order-book`
 - Hacer uso de buenas prácticas
@@ -66,7 +66,7 @@ Con base en el material de autoestudio y las mentorías hasta este entregable, s
 - Agregar la librería `OkHttp` para hacer uso del `HttpLoggingInterceptor` para todos los eventos de red, y además añadir el header `User-Agent`
 - Implementar `function type`, `lambdas` y `extension function`
 - Agregar algunas pruebas unitarias y de vista.
-- Hacer _refactor_ de la vista, actualiza tus layouts haciendo uso de `ConstraintLayout`
+- Hacer _refactor_ de la vista, actualiza tu UI haciendo uso de `Jetpack Compose`
 - Hacer uso de buenas prácticas
 
 > Nota: la lista anterior de este entregable es sólo una guía para ayudarte a distribuir la carga de trabajo; puedes entregar más o menos elementos si es necesario. De igual manera, si entregas menos elementos en este punto, tendrás que cubrir los elementos restantes en el siguiente entregable.
@@ -112,7 +112,7 @@ Para publicar tu trabajo, deberás seguir estos pasos:
 - [junit](https://developer.android.com/training/testing/junit-rules)
 - [mockito](https://www.vogella.com/tutorials/Mockito/article.html)
 - [espresso](https://developer.android.com/training/testing/espresso)
-- [ConstraintLayout](https://developer.android.com/reference/androidx/constraintlayout/widget/ConstraintLayout)
+- [Jetpack Compose](https://developer.android.com/jetpack/compose/documentation)
 - [Setup CI/CD](https://firebase.google.com/docs/test-lab/android/continuous)
 - [CircleCI](https://circleci.com/docs/2.0/language-android/)
 - [Bitrise](https://devcenter.bitrise.io/getting-started/getting-started-with-android-apps/)
