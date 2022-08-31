@@ -87,7 +87,7 @@ Con base en el material de autoestudio y las mentorías hasta este entregable, s
 
 Para publicar tu trabajo, deberás seguir estos pasos:
 
-1. Crear un `pull request` con tu código, apuntando a la rama `master` del [repositorio baz-android-bootcamp-2022](https://github.com/wizelineacademy/android-bootcamp-capstone-project-2021).
+1. Crear un `pull request` con tu código, apuntando a la rama `master`
 2. Llenar este formato _TBD_
 3. Mantente al pendiente de la retroalimentación.
 4. Genera los cambios conforme a los comentarios de tu mentor.
@@ -220,3 +220,4 @@ Para publicar tu trabajo, deberás seguir estos pasos:
 2. Llenar este [formato](https://forms.gle/1ceEaPW3LABJqUCz6)
 3. Mantente al pendiente de la retroalimentación.
 4. Genera los cambios conforme a los comentarios de tu mentor.
+
