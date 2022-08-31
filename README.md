@@ -91,35 +91,3 @@ Para publicar tu trabajo, deberás seguir estos pasos:
 2. Llenar este formato _TBD_
 3. Mantente al pendiente de la retroalimentación.
 4. Genera los cambios conforme a los comentarios de tu mentor.
-
-## Documentación
-
-### Material de auto-estudio
-
-- [Retrofit](https://square.github.io/retrofit/)
-- [GSON](https://github.com/google/gson)
-- [Data Classes](https://kotlinlang.org/docs/reference/data-classes.html)
-- [Picasso](https://square.github.io/picasso/)
-- [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
-- [Live Data](https://developer.android.com/topic/libraries/architecture/livedata)
-- [Parallelism and Concurrency](https://android.jlelse.eu/kotlin-coroutines-threads-concurrency-and-parallelism-101-78a56e09d373)
-- [Function type](https://kotlinlang.org/docs/reference/lambdas.html#instantiating-a-function-type)
-- [Lambdas](https://kotlinlang.org/docs/reference/lambdas.html#lambda-expressions-and-anonymous-functions)
-- [Extension functions](https://kotlinlang.org/docs/reference/extensions.html)
-- [Generics](https://kotlinlang.org/docs/reference/generics.html#generics)
-- [Room](https://developer.android.com/training/data-storage/room)
-- [OkHttp](https://square.github.io/okhttp/)
-- [junit](https://developer.android.com/training/testing/junit-rules)
-- [mockito](https://www.vogella.com/tutorials/Mockito/article.html)
-- [espresso](https://developer.android.com/training/testing/espresso)
-- [ConstraintLayout](https://developer.android.com/reference/androidx/constraintlayout/widget/ConstraintLayout)
-- [Setup CI/CD](https://firebase.google.com/docs/test-lab/android/continuous)
-- [CircleCI](https://circleci.com/docs/2.0/language-android/)
-- [Bitrise](https://devcenter.bitrise.io/getting-started/getting-started-with-android-apps/)
-- [Linters](https://ktlint.github.io/)
-- [Co-routines](https://developer.android.com/kotlin/coroutines)
-- [Suspend Functions](https://kotlinlang.org/docs/reference/coroutines/composing-suspending-functions.html)
-- [DI](https://developer.android.com/training/dependency-injection/manual)
-- [DI Framework](https://developer.android.com/training/dependency-injection/hilt-android)
-- [Navigation Component](https://developer.android.com/guide/navigation/navigation-getting-started)
-- [RxAndroid](https://github.com/ReactiveX/RxAndroid)
