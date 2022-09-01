@@ -13,7 +13,6 @@ El propósito es construir una aplicación que use la API pública de Bitso, la 
 - Una pantalla que muestre todas las monedas disponibles
 - Una pantalla de detalle para cada moneda
 - Persistencia local
-- Cobertura de tests
 
 ## Requerimientos
 
@@ -24,7 +23,6 @@ Estos son los requerimientos principales que evaluaremos:
     - Diseño de API
     - Diseño de UI
     - Patrones de diseño
-    - Testing 
 
 ## Para empezar
 
