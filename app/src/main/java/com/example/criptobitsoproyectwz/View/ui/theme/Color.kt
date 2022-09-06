@@ -1,4 +1,4 @@
-package com.example.criptobitsoproyectwz.ui.theme
+package com.example.criptobitsoproyectwz.View.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
