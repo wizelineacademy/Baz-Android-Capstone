@@ -1,4 +1,4 @@
-package com.example.capproject.models.book
+package com.example.capproject.models.Book
 
 data class Structure(
     val maker: String,

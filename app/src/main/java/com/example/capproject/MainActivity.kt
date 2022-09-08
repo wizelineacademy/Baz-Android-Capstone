@@ -1,8 +1,6 @@
 package com.example.capproject
 
-import android.app.Application
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -18,11 +16,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.capproject.items.Generalitem2
-import com.example.capproject.models.book.Payload
+import com.example.capproject.models.Book.Payload
 import com.example.capproject.ui.theme.CapProjectTheme
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
-
 
 
 @AndroidEntryPoint
@@ -47,6 +43,9 @@ fun Greeting(
     viewModel:binanceViewModel = hiltViewModel()
 )
 {
+    val a=viewModel.getCoinInfo("btc_mxn")
+    println("recibi $a")
+
     var listanueva= mutableListOf<Payload>()
 
     val newlist2:List<Payload> = viewModel.openedPayloads

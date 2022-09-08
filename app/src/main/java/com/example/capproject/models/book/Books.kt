@@ -1,6 +1,4 @@
-package com.example.capproject.models.book
-
-import com.example.capproject.models.book.Payload
+package com.example.capproject.models.Book
 
 data class Books(
     val payload: List<Payload>,

@@ -1,9 +1,8 @@
 package com.example.capproject.interfaces
 
-import com.example.capproject.models.OrderBooks.Broakerbook
 import com.example.capproject.models.Tickers.Ticker
 import com.example.capproject.models.Tickers.tickets
-import com.example.capproject.models.book.Books
+import com.example.capproject.models.Book.Books
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -20,8 +19,8 @@ interface BinanceDataSource {
     @GET("available_books")
     suspend fun getBooks() : Books
 
-    @GET("order_book/")
-    suspend fun specificBook(@Query("book") book:String ) : Broakerbook
+    //@GET("order_book/")
+   // suspend fun specificBook(@Query("book") book:String ) : Broakerbook
 //--------
 
 

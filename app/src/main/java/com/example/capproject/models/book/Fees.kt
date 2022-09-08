@@ -1,4 +1,4 @@
-package com.example.capproject.models.book
+package com.example.capproject.models.Book
 
 data class Fees(
     val flat_rate: FlatRate,
