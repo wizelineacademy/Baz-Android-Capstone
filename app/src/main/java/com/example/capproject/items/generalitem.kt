@@ -2,11 +2,9 @@ package com.example.capproject.items
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.SnackbarResult
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,6 +17,7 @@ import com.example.capproject.R
 import com.example.capproject.models.book.Payload
 
 
+//item informativo divisas
 @Composable
 fun Generalitem2(lista: Payload) {
 
@@ -88,5 +87,5 @@ private fun moneda (icono:String): String{
         "bat_mxn"-> "BAT"
         else -> icono
     }
-    return icon.toString()
+    return icon
 }

@@ -12,10 +12,13 @@ import com.example.capproject.models.book.Books
 import com.example.capproject.models.book.Payload
 import com.example.capproject.models.OrderBooks.Broakerbook
 import com.example.capproject.models.Tickers.tickets
+import com.example.capproject.repository.BinanceRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
-
-class binanceViewModel :ViewModel() {
+@HiltViewModel
+class binanceViewModel @Inject constructor(private val binanceRepositoryImp: BinanceRepository) :ViewModel() {
 
     private var criptodivisa: List<tickets> by mutableStateOf(listOf())
     private var orderinfo: List<Broakerbook> by mutableStateOf(listOf())
@@ -40,7 +43,7 @@ class binanceViewModel :ViewModel() {
             while (true) {
                 delay(2500)
                 println("llamando")
-                getbooks1()
+                getbooks()
                 delay(2500)
                 println("llamado")
             }
@@ -73,15 +76,9 @@ class binanceViewModel :ViewModel() {
 
     ///funciona
     fun getbooks() {
-        val apiService = ApiBinance.getInstance()
         try {
             viewModelScope.launch {
-                val criptodivisa = apiService.getBooks()
-                delay(5000)
-                openedBooks = listOf(criptodivisa)
-                openedPayloads = criptodivisa.payload
-                _OpenedBooks.value = openedBooks
-                //     println("aqui : $openedBooks")
+               openedPayloads=binanceRepositoryImp.getbooks()
             }
         } catch (e: Exception) {
             errorMessage = e.toString()
@@ -95,6 +92,7 @@ class binanceViewModel :ViewModel() {
         openedBooks = lista
         _OpenedBooks.value = openedBooks
         _OpenedPayloads.value=filter
+        openedPayloads=filter
     }
 
      fun getbooks1() {
@@ -133,7 +131,11 @@ sealed class casescripto {
         }
         //listOf(books)
     }
+
 }
+
+
+
 
 interface criptoNews{
     fun openedbooks(lista: List<Books>, filter: List<Payload>)

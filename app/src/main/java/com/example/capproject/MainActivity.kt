@@ -1,5 +1,6 @@
 package com.example.capproject
 
+import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -15,50 +16,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Observer
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.capproject.items.Generalitem2
 import com.example.capproject.models.book.Payload
 import com.example.capproject.ui.theme.CapProjectTheme
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 
-class MainActivity : ComponentActivity() {
-    private var listanueva= mutableListOf<Payload>()
+
+
+@AndroidEntryPoint
+class MainActivity  : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val vm=binanceViewModel()
-
-        //
-
             setContent {
-
-                var salida:Boolean by remember{
-                    mutableStateOf(false)
-                }
-
-                val Payloads = Observer<List<Payload>> { newName ->
-                    if (newName.isNotEmpty())
-                    {
-
-                        listanueva= newName.filter {
-                            it.book.contains("mxn",)
-                        } as MutableList<Payload>
-
-                        salida=true
-                    }
-                    else salida=false
-                }
-
-                //
-                vm.OpenedPayloads.observe(this, Payloads)
-                //
-
-                vm.getbooks1()
-
                 CapProjectTheme {
                     // A surface container using the 'background' color from the theme
                     Surface(modifier = Modifier.fillMaxSize(),
-                        color = MaterialTheme.colors.background) {
-                        if (salida)
-                        Greeting(listanueva)
+                        color = MaterialTheme.colors.background)
+                    {
+                        Greeting()
                     }
                 }
             }
@@ -66,21 +43,54 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(newlist2: MutableList<Payload>) {
+fun Greeting(
+    viewModel:binanceViewModel = hiltViewModel()
+)
+{
+    var listanueva= mutableListOf<Payload>()
 
-    Log.d("noticias 3",newlist2.toString())
+    val newlist2:List<Payload> = viewModel.openedPayloads
+
+    //depuramos la lista a solo valores en peso mexicano
+    newlist2.let {
+        listanueva=it.filter {
+            it.book.contains("mxn")
+        } as MutableList<Payload>
+    }
+//
+
+/*
+    val Payloads = Observer<List<Payload>> { newName ->
+        if (newName.isNotEmpty())
+        {
+            listanueva= newName.filter {
+                it.book.contains("mxn",)
+            } as MutableList<Payload>
+
+    }
+    }
+
+    //
+    viewModel.OpenedPayloads.observe(this, Payloads)
+    //
+*/
+
 
     Column() {
         LazyColumn(
-            modifier = Modifier.fillMaxWidth().fillMaxHeight(0.93F),
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.93F),
             contentPadding = PaddingValues(16.dp)
         ) {
-            itemsIndexed(newlist2) {_,list->
+            itemsIndexed(listanueva) {_,list->
                 Generalitem2(list)
             }
         }
+        //Disclaimer
        Text(text = " * Precios expresados en Moneda Nacional", color = Color.LightGray)
-        Text(text = "   solo de carácter informativo", color = Color.LightGray)
+       Text(text = "   solo son de carácter informativo", color = Color.LightGray)
+        //
     }
 }
 
@@ -90,6 +100,6 @@ fun Greeting(newlist2: MutableList<Payload>) {
 @Composable
 fun DefaultPreview() {
     CapProjectTheme {
-//        Greeting(newlist1)
+       Greeting()
     }
 }

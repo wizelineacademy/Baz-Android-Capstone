@@ -14,8 +14,6 @@ import retrofit2.http.Query
 
 
 interface ApiBinance {
-
-
 //--------
 @GET("ticker") //get all
 suspend fun getTicker() : Ticker
@@ -32,7 +30,9 @@ suspend fun getBooks() : Books
 suspend fun specificBook(@Query("book") book:String ) : Broakerbook
 //--------
 
+
     companion object {
+
         private var apiService: ApiBinance? = null
 
         fun getInstance(): ApiBinance {
