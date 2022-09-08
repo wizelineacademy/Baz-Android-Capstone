@@ -6,8 +6,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.SnackbarResult
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -16,60 +18,75 @@ import androidx.compose.ui.unit.dp
 import com.example.capproject.R
 import com.example.capproject.models.book.Payload
 
-@Composable
-fun generalitem(name: String, maximumValue: String, minimumPrice: String) {
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .padding(2.dp)
-        .background(Color.LightGray)){
-        Card(modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(4.dp)),
-        border = BorderStroke(width = 2.dp, Color.Black)) {
-            Row(modifier = Modifier.fillMaxWidth()) {
-
-                Image(painter = painterResource(id = if (name == "btc_mxn")
-                    R.drawable.cripto_bitcoin
-                else R.drawable.cripto_default), contentDescription = null)
-                Text(text = name, modifier = Modifier.padding(start = 8.dp))
-
-                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Text(text = "Precio maximo :$maximumValue ", modifier = Modifier.padding(start = 8.dp))
-                    Text(text = "Precio minimo :$minimumPrice ", modifier = Modifier.padding(start = 8.dp))
-                }
-            }
-        }
-        
-    }
-}
 
 @Composable
-fun generalitem2(lista: Payload) {
+fun Generalitem2(lista: Payload) {
+
     Box(modifier = Modifier
         .fillMaxWidth()
-        .padding(2.dp)
-        .background(Color.LightGray)) {
+        .padding(2.dp)) {
         Card(modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(4.dp)),
             border = BorderStroke(width = 2.dp, Color.Black)) {
-            Row(modifier = Modifier.fillMaxWidth()) {
+            Row(modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+              , horizontalArrangement = Arrangement.Start)
+            {
+                Box(modifier = Modifier
+                    .width(63.dp)
+                    .height(72.dp)
+                )
+                {
+                    Column(modifier = Modifier.padding(top=8.dp, start = 8.dp), verticalArrangement = Arrangement.Top
+                        , horizontalAlignment = Alignment.CenterHorizontally)
 
-                Image(painter = painterResource(id = if ( lista.book== "btc_mxn")
-                        R . drawable . cripto_bitcoin
-                        else R . drawable . cripto_default), contentDescription = null)
-                Text(text = lista.book, modifier = Modifier.padding(start = 8.dp))
-
-                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Text(text = "Precio maximo :${lista.maximum_price} ",
-                        modifier = Modifier.padding(start = 8.dp))
-                    Text(text = "Precio minimo :${lista.minimum_price} ",
-                        modifier = Modifier.padding(start = 8.dp))
+                    {
+                        Image(modifier = Modifier.padding(4.dp),painter = painterResource(id = iconos(lista.book)?:-1), contentDescription = null)
+                        Text(text = moneda(lista.book), modifier = Modifier.padding(start = 8.dp))
+                    }
+                }
+                Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.Start, modifier = Modifier.padding(start = 40.dp)) {
+                    Text(text = "Maximo Historico \$${lista.maximum_price} ",
+                                               modifier = Modifier.padding(start = 16.dp))
+                    Text(text = "Minimo  Historico \$${lista.minimum_price} ",
+                        modifier = Modifier.padding(start = 16.dp, top = 2.dp))
                 }
             }
         }
-
     }
 }
 
+private fun iconos (icono:String): Int {
+    val icon: Int = when(icono){
+        "btc_mxn"-> R.drawable.cripto_bitcoin
+        "eth_mxn"-> R.drawable.cripto_ethereum
+        "xrp_mxn"-> R.drawable.cripto_xrp
+        "ltc_mxn"-> R.drawable.cripto_ltc
+        "bch_mxn"-> R.drawable.cripto_bhc
+        "tusd_mxn"-> R.drawable.cripto_tusd
+        "mana_mxn"-> R.drawable.cripto_mana
+        "dai_mxn"-> R.drawable.cripto_dai
+        "usd_mxn"-> R.drawable.cripto_usd
+        "bat_mxn"-> R.drawable.cripto_bat
+        else -> R.drawable.cripto_default
+    }
+    return icon
+}
 
+private fun moneda (icono:String): String{
+    val icon = when(icono){
+        "btc_mxn"-> "BTC"
+        "eth_mxn"-> "ETH"
+        "xrp_mxn"-> "XRP"
+        "ltc_mxn"-> "LTC"
+        "bch_mxn"-> "BCH"
+        "tusd_mxn"-> "TUSD"
+        "mana_mxn"-> "MANA"
+        "dai_mxn"-> "DAI"
+        "usd_mxn"-> "USD"
+        "bat_mxn"-> "BAT"
+        else -> icono
+    }
+    return icon.toString()
+}

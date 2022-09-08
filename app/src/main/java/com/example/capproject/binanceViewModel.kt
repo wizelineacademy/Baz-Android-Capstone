@@ -15,8 +15,7 @@ import com.example.capproject.models.Tickers.tickets
 import kotlinx.coroutines.*
 
 
-class binanceViewModel() :ViewModel()
-{
+class binanceViewModel :ViewModel() {
 
     private var criptodivisa: List<tickets> by mutableStateOf(listOf())
     private var orderinfo: List<Broakerbook> by mutableStateOf(listOf())
@@ -24,67 +23,51 @@ class binanceViewModel() :ViewModel()
     var openedPayloads: List<Payload> by mutableStateOf(listOf())
 
 
-    private var _OpenedBooks= MutableLiveData<List<Books>>(listOf())
-     var OpenedBooks:LiveData<List<Books>> = _OpenedBooks
+    private var _OpenedBooks = MutableLiveData<List<Books>>(listOf())
+    var OpenedBooks: LiveData<List<Books>> = _OpenedBooks
+
+    private var _OpenedPayloads = MutableLiveData<List<Payload>>(listOf())
+    var OpenedPayloads: LiveData<List<Payload>> = _OpenedPayloads
+
+
 
 
     var errorMessage: String by mutableStateOf("")
 
 
-    init {
+    init{
         viewModelScope.launch {
-           while (true) {
-
-                //  newsRepository.fetchOpenedBooks()
-                // Intermediate catch operator. If an exception is thrown,
-                // catch and update the UI
-//                .catch { exception -> notifyError(exception) }
-//                .collect { favoriteNews ->
-
-              delay(5000)
+            while (true) {
+                delay(2500)
+                println("llamando")
                 getbooks1()
-//                getOrdersInfo("btc_mxn")
-  //              getCoinInfo("btc_mxn")
-
-//                Log.d("mensaje nuevo", CriptoInformation.get().payload.toString())
-
-    //            Log.d(" cripto divisa Recibi ahora :", criptodivisa.toString())
-      //          Log.d(" cripto ordenes divisa  :", orderinfo.toString())
-
-                _OpenedBooks.value=openedBooks
-//                Log.d(" cripto  space  :", "------------------")
-
-                //               val json = json.parseToJsonElement(criptodivisa)
-                //                val map = json.jsonObject.toMap()
-
-//                Log.d("mensaje nuevo filtrado", CriptoInformation2.filter {
-  //                  it.
-    //            })
-//            val     (criptodivisa) = nuevovalor
-//                   openedBooks[0].payload[0].fees.structure[0].volume
+                delay(2500)
+                println("llamado")
             }
-          }
+        }
     }
-
     //en pruebas
 
-    fun inicio(){}
 
     fun getOrdersInfo(coin: String) {
         val apiService = ApiBinance.getInstance()
         viewModelScope.async {
             val criptodivisa = apiService.specificBook(coin)
-                orderinfo= listOf(criptodivisa)
+            orderinfo = listOf(criptodivisa)
         }
     }
 
     fun getCoinInfo(coin: String) {
-        val apiService = ApiBinance.getInstance()
-
-        viewModelScope.launch {
-
-             criptodivisa = listOf(apiService.specificTicker(coin))
+        viewModelScope.async {
+            casescripto.coinInfo.coinInfo(object : coinNews {
+                override fun cripoInformation(ticket: com.example.capproject.models.Tickers.Payload) {
+                    println("ticket: $ticket")
+            //        _OpenedPayloads.value = listOf(ticket)
+                }
+            }, coin)
+            delay(2000)
         }
+
     }
 
 
@@ -92,10 +75,13 @@ class binanceViewModel() :ViewModel()
     fun getbooks() {
         val apiService = ApiBinance.getInstance()
         try {
-            viewModelScope.launch  {
+            viewModelScope.launch {
                 val criptodivisa = apiService.getBooks()
+                delay(5000)
                 openedBooks = listOf(criptodivisa)
-                println("aqui : $openedBooks")
+                openedPayloads = criptodivisa.payload
+                _OpenedBooks.value = openedBooks
+                //     println("aqui : $openedBooks")
             }
         } catch (e: Exception) {
             errorMessage = e.toString()
@@ -105,53 +91,54 @@ class binanceViewModel() :ViewModel()
 
 ///esquema completo
 
-    fun setbooks(lista: List<Books>){
-        openedBooks= lista
+    fun setbooks(lista: List<Books>, filter: List<Payload>) {
+        openedBooks = lista
+        _OpenedBooks.value = openedBooks
+        _OpenedPayloads.value=filter
     }
 
-    fun getbooks1() {
-        try {
-            viewModelScope.launch {
-//                param.printmessage(this.toString())
-                    casescripto.Books1.openedbooks(object:criptoNews{
-                        override fun openedbooks(lista: List<Books>, listafilter: List<Payload>) {
-                            setbooks(lista)
-                            openedPayloads=listafilter
-
-                        //                            super.openedbooks(lista)
-                        }
-                       override fun printmessage(message: String) {
-                            super.printmessage(message)
-                        }
-
-                    })
-               }
-
-        } catch (e: Exception) {
-            errorMessage = e.toString()
+     fun getbooks1() {
+        viewModelScope.launch {
+            try {
+                casescripto.Books1.openedbooks(object : criptoNews {
+                    override fun openedbooks(lista: List<Books>, filter: List<Payload>) {
+                        setbooks(lista,filter)
+                    }
+                })
+            } catch (e: Exception) {
+                errorMessage = e.toString()
+            }
         }
-    }
-//
 
-    fun flowgetbooks()  {
     }
 }
-
 
 sealed class casescripto {
     object Books1:casescripto()
     {
-    suspend fun openedbooks(callback:criptoNews){
-        val apiService = ApiBinance.getInstance()
-        val lista=apiService.getBooks()
-        val listafilter=apiService.getBooks().payload
-        callback.openedbooks(listOf(lista),listafilter)
+        suspend fun openedbooks(callback:criptoNews){
+            val apiService = ApiBinance.getInstance()
+            val lista=apiService.getBooks()
+            val filter =lista.payload
+                 callback.openedbooks(listOf(lista),filter)
+        }
     }
+    object coinInfo:casescripto()
+    {
+        suspend fun coinInfo(callback: coinNews,coin: String)
+        {
+            val apiService = ApiBinance.getInstance()
+            val criptodivisa = apiService.specificTicker(coin).payload
+            callback.cripoInformation(criptodivisa)
+        }
         //listOf(books)
     }
 }
 
 interface criptoNews{
-    fun openedbooks(lista: List<Books>, listafilter: List<Payload>)
-    fun printmessage(message:String)= println(message)
+    fun openedbooks(lista: List<Books>, filter: List<Payload>)
+
+}
+interface coinNews{
+    fun cripoInformation(ticket:com.example.capproject.models.Tickers.Payload)
 }

@@ -1,61 +1,86 @@
 package com.example.capproject
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.capproject.items.generalitem2
+import androidx.lifecycle.Observer
+import com.example.capproject.items.Generalitem2
+import com.example.capproject.models.book.Payload
 import com.example.capproject.ui.theme.CapProjectTheme
 
 class MainActivity : ComponentActivity() {
+    private var listanueva= mutableListOf<Payload>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            CapProjectTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background) {
-                    Greeting()
+        val vm=binanceViewModel()
+
+        //
+
+            setContent {
+
+                var salida:Boolean by remember{
+                    mutableStateOf(false)
+                }
+
+                val Payloads = Observer<List<Payload>> { newName ->
+                    if (newName.isNotEmpty())
+                    {
+
+                        listanueva= newName.filter {
+                            it.book.contains("mxn",)
+                        } as MutableList<Payload>
+
+                        salida=true
+                    }
+                    else salida=false
+                }
+
+                //
+                vm.OpenedPayloads.observe(this, Payloads)
+                //
+
+                vm.getbooks1()
+
+                CapProjectTheme {
+                    // A surface container using the 'background' color from the theme
+                    Surface(modifier = Modifier.fillMaxSize(),
+                        color = MaterialTheme.colors.background) {
+                        if (salida)
+                        Greeting(listanueva)
+                    }
                 }
             }
-        }
     }
 }
 
 @Composable
-fun Greeting() {
+fun Greeting(newlist2: MutableList<Payload>) {
 
-    val vm=binanceViewModel()
-    val newlist1= vm.openedPayloads
+    Log.d("noticias 3",newlist2.toString())
 
-    val filteredlist=newlist1.forEach {_->
-        newlist1.filter {
-            it.book.contentEquals("mxn")
+    Column() {
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth().fillMaxHeight(0.93F),
+            contentPadding = PaddingValues(16.dp)
+        ) {
+            itemsIndexed(newlist2) {_,list->
+                Generalitem2(list)
+            }
         }
-    }
-    println("listafiltrada  por pares : $filteredlist")
-
-
-    LazyColumn(
-        modifier = Modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(16.dp)
-    ) {
-        itemsIndexed(newlist1) {_,list->
-            generalitem2(list)
-        }
-
-//        generalitem(name = this.book,this.maximum_price,this.minimum_price)
+       Text(text = " * Precios expresados en Moneda Nacional", color = Color.LightGray)
+        Text(text = "   solo de carácter informativo", color = Color.LightGray)
     }
 }
 
@@ -65,6 +90,6 @@ fun Greeting() {
 @Composable
 fun DefaultPreview() {
     CapProjectTheme {
-        Greeting()
+//        Greeting(newlist1)
     }
 }
