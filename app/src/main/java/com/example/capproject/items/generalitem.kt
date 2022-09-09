@@ -2,6 +2,7 @@ package com.example.capproject.items
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -13,17 +14,28 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.example.capproject.BitsoViewModel
 import com.example.capproject.R
 import com.example.capproject.models.Book.Payload
 
 
 //item informativo divisas
 @Composable
-fun Generalitem2(lista: Payload) {
+fun Generalitem2(
+    viewModel: BitsoViewModel,
+    lista: Payload,
+    navController: NavHostController
+) {
 
     Box(modifier = Modifier
         .fillMaxWidth()
-        .padding(2.dp)) {
+        .padding(2.dp)
+        .clickable  {
+                      viewModel.setCoinInfo(lista.book)
+                      navController.navigate("details")
+                    },
+        ) {
         Card(modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(4.dp)),
@@ -41,7 +53,7 @@ fun Generalitem2(lista: Payload) {
                         , horizontalAlignment = Alignment.CenterHorizontally)
 
                     {
-                        Image(modifier = Modifier.padding(4.dp),painter = painterResource(id = iconos(lista.book)?:-1), contentDescription = null)
+                        Image(modifier = Modifier.padding(4.dp),painter = painterResource(id = iconos(lista.book)), contentDescription = null)
                         Text(text = moneda(lista.book), modifier = Modifier.padding(start = 8.dp))
                     }
                 }
@@ -56,7 +68,7 @@ fun Generalitem2(lista: Payload) {
     }
 }
 
-private fun iconos (icono:String): Int {
+ fun iconos (icono:String): Int {
     val icon: Int = when(icono){
         "btc_mxn"-> R.drawable.cripto_bitcoin
         "eth_mxn"-> R.drawable.cripto_ethereum
@@ -73,7 +85,7 @@ private fun iconos (icono:String): Int {
     return icon
 }
 
-private fun moneda (icono:String): String{
+ fun moneda (icono:String): String{
     val icon = when(icono){
         "btc_mxn"-> "BTC"
         "eth_mxn"-> "ETH"

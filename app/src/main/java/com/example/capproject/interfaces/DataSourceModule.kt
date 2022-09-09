@@ -39,9 +39,10 @@ class DataSourceModule {
 
 
 
+
     @Singleton
     @Provides
-    fun restBinanceDataSource(retrofit: Retrofit) :BinanceDataSource =
-        retrofit.create(BinanceDataSource::class.java)
+    fun restBinanceDataSource(retrofit: Retrofit):BitsoDataSource =
+        retrofit.create(BitsoDataSource::class.java)
 }
 
