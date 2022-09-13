@@ -20,7 +20,7 @@ import com.example.capproject.viewmodels.BitsoViewModel
 import com.example.capproject.items.ItemTrading
 import com.example.capproject.items.Iteminfo
 import com.example.capproject.models.trading.PayloadTrades
-import com.example.capproject.support.monedas
+import com.example.capproject.support.tokens
 
 @Composable
 fun Detailview(viewModel: BitsoViewModel, navController: NavHostController) {
@@ -38,7 +38,7 @@ fun Detailview(viewModel: BitsoViewModel, navController: NavHostController) {
                         }
                     },
                     title = {
-                        Text(monedas(getCoin().toString())
+                        Text(tokens(getCoin().toString())
                         )
                     }
                 )

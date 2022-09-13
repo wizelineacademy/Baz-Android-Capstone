@@ -7,8 +7,7 @@ import androidx.compose.ui.platform.LocalContext
 import com.example.capproject.R
 import com.example.capproject.support.coinsdefinition.*
 
-
-fun monedas (name:String): String{
+fun tokens (name:String): String{
     val icon = when(name){
         "btc_mxn"-> Btc().getCoin()
         "eth_mxn"-> Eth().getCoin()
@@ -34,8 +33,8 @@ fun operation(name:String):String{
     }
     return names
 }
-fun iconos (icono:String): Int {
-    val icon: Int = when(icono){
+fun icon (icons:String): Int {
+    val icon: Int = when(icons){
         "btc_mxn"-> Btc().getIcon()
         "eth_mxn"-> Eth().getIcon()
         "xrp_mxn"-> Xrp().getIcon()
@@ -51,8 +50,8 @@ fun iconos (icono:String): Int {
     return icon
 }
 
-fun moneda (name:String): String{
-    val icon = when(name){
+fun shortToken (name:String): String{
+    val shortname = when(name){
         "btc_mxn"-> Btc().getCoinShorter()
         "eth_mxn"-> Eth().getCoinShorter()
         "xrp_mxn"-> Xrp().getCoinShorter()
@@ -65,7 +64,7 @@ fun moneda (name:String): String{
         "bat_mxn"-> Bat().getCoinShorter()
         else -> name
     }
-    return icon
+    return shortname
 }
 
 fun loggerD(default:String="peticion ",message:String){

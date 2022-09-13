@@ -13,8 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.capproject.models.Tickers.Payload
-import com.example.capproject.support.iconos
-import com.example.capproject.support.moneda
+import com.example.capproject.support.icon
+import com.example.capproject.support.shortToken
 
 
 @Composable
@@ -40,8 +40,8 @@ fun Iteminfo ( list: Payload){
                         , horizontalAlignment = Alignment.CenterHorizontally)
 
                     {
-                        Image(modifier = Modifier.padding(4.dp),painter = painterResource(id = iconos(list.book)), contentDescription = null)
-                        Text(text = moneda(list.book), modifier = Modifier.padding(start = 8.dp))
+                        Image(modifier = Modifier.padding(4.dp),painter = painterResource(id = icon(list.book)), contentDescription = null)
+                        Text(text = shortToken(list.book), modifier = Modifier.padding(start = 8.dp))
                     }
                 }
                 Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.Start, modifier = Modifier.padding(start = 40.dp)) {
