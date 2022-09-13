@@ -68,11 +68,6 @@ class BitsoViewModel
         }
     }
 
-    //get details
-
-
-
-
     //set coin clickes
     fun setCoinInfo(coin: String) {
         try {

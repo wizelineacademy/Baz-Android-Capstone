@@ -5,19 +5,21 @@ import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import com.example.capproject.R
+import com.example.capproject.support.coinsdefinition.*
+
 
 fun monedas (name:String): String{
     val icon = when(name){
-        "btc_mxn"-> "Bitcoin"
-        "eth_mxn"-> "Etherum"
-        "xrp_mxn"-> "XRP/Ripple"
-        "ltc_mxn"-> "LittleCoin"
-        "bch_mxn"-> "Bitcoin Cash"
-        "tusd_mxn"-> "True USD"
-        "mana_mxn"-> "MANA/Decentraland"
-        "dai_mxn"-> "DAI"
-        "usd_mxn"-> "USD"
-        "bat_mxn"-> "Basic Attention Token"
+        "btc_mxn"-> Btc().getCoin()
+        "eth_mxn"-> Eth().getCoin()
+        "xrp_mxn"-> Xrp().getCoin()
+        "ltc_mxn"-> Ltc().getCoin()
+        "bch_mxn"-> Bch().getCoin()
+        "tusd_mxn"-> Tusd().getCoin()
+        "mana_mxn"-> Mana().getCoin()
+        "dai_mxn"-> Dai().getCoin()
+        "usd_mxn"-> Usd().getCoin()
+        "bat_mxn"-> Bat().getCoin()
         else -> name
     }
     return icon
@@ -34,34 +36,34 @@ fun operation(name:String):String{
 }
 fun iconos (icono:String): Int {
     val icon: Int = when(icono){
-        "btc_mxn"-> R.drawable.cripto_bitcoin
-        "eth_mxn"-> R.drawable.cripto_ethereum
-        "xrp_mxn"-> R.drawable.cripto_xrp
-        "ltc_mxn"-> R.drawable.cripto_ltc
-        "bch_mxn"-> R.drawable.cripto_bhc
-        "tusd_mxn"-> R.drawable.cripto_tusd
-        "mana_mxn"-> R.drawable.cripto_mana
-        "dai_mxn"-> R.drawable.cripto_dai
-        "usd_mxn"-> R.drawable.cripto_usd
-        "bat_mxn"-> R.drawable.cripto_bat
-        else -> R.drawable.cripto_default
+        "btc_mxn"-> Btc().getIcon()
+        "eth_mxn"-> Eth().getIcon()
+        "xrp_mxn"-> Xrp().getIcon()
+        "ltc_mxn"-> Ltc().getIcon()
+        "bch_mxn"-> Bch().getIcon()
+        "tusd_mxn"-> Tusd().getIcon()
+        "mana_mxn"-> Mana().getIcon()
+        "dai_mxn"-> Dai().getIcon()
+        "usd_mxn"-> Usd().getIcon()
+        "bat_mxn"-> Bat().getIcon()
+        else -> {return -1}
     }
     return icon
 }
 
-fun moneda (icono:String): String{
-    val icon = when(icono){
-        "btc_mxn"-> "BTC"
-        "eth_mxn"-> "ETH"
-        "xrp_mxn"-> "XRP"
-        "ltc_mxn"-> "LTC"
-        "bch_mxn"-> "BCH"
-        "tusd_mxn"-> "TUSD"
-        "mana_mxn"-> "MANA"
-        "dai_mxn"-> "DAI"
-        "usd_mxn"-> "USD"
-        "bat_mxn"-> "BAT"
-        else -> icono
+fun moneda (name:String): String{
+    val icon = when(name){
+        "btc_mxn"-> Btc().getCoinShorter()
+        "eth_mxn"-> Eth().getCoinShorter()
+        "xrp_mxn"-> Xrp().getCoinShorter()
+        "ltc_mxn"-> Ltc().getCoinShorter()
+        "bch_mxn"-> Bch().getCoinShorter()
+        "tusd_mxn"-> Tusd().getCoinShorter()
+        "mana_mxn"-> Mana().getCoinShorter()
+        "dai_mxn"-> Dai().getCoinShorter()
+        "usd_mxn"-> Usd().getCoinShorter()
+        "bat_mxn"-> Bat().getCoinShorter()
+        else -> name
     }
     return icon
 }
