@@ -11,4 +11,7 @@ data class Payload(
     val minimum_price: String,
  //   val minimum_value: String,
  //   val tick_size: String
+
+
+
 )

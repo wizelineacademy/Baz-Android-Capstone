@@ -1,91 +1,111 @@
-package com.example.capproject
+package com.example.capproject.viewmodels
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.capproject.datastore.DataStoreRepository
 import com.example.capproject.models.Book.Payload
 import com.example.capproject.models.trading.PayloadTrades
 import com.example.capproject.repository.BitsoRepository
+import com.example.capproject.support.loggerD
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @HiltViewModel
-class BitsoViewModel @Inject constructor(private val bitsoRepositoryImp: BitsoRepository) :ViewModel() {
+class BitsoViewModel
+@Inject constructor(private val bitsoRepositoryImp: BitsoRepository,
+                    private val StatesRepository: DataStoreRepository
+) :ViewModel() {
+    //datastore
+    private var coin = "name"
+    private var state = "state"
+    //keys
 
+    //Empty
     var isloading: Boolean by mutableStateOf(false)
+    //List
+
+    //observables
     var openedPayloads: List<Payload> by mutableStateOf(listOf())
-    var openedPayloadsCoin: List<com.example.capproject.models.Tickers.Payload> by mutableStateOf(
-        listOf())
+    var openedPayloadsCoin: List<com.example.capproject.models.Tickers.Payload> by mutableStateOf(listOf())
     var trades: List<PayloadTrades> by mutableStateOf(listOf())
-    private var read: Boolean by mutableStateOf(true)
     var update: Boolean by mutableStateOf(true)
+    //states
+
+    //Flow control
 
     private var errorMessage: String by mutableStateOf("")
-    var fixedposition: String by mutableStateOf("")
+    private var errorCode: String by mutableStateOf("")
+    private var fixedposition: String by mutableStateOf("")
 
+    //viewmodel
 
     init {
-        viewModelScope.launch {
+
+        saveState("true")
+        viewModelScope.launch{
             while (true) {
-                if (read) {
-                    update=false
+                if (getState()=="true")
+                {
+//                    isloading=true
+                    update = false
                     getbooks()
-                    delay(2000)
-                    update=true
-                } else {
-                   async {getCoinDetails(fixedposition)  }.run {
-                       if(this.isCompleted) {
-                          async { getCoinTransaction(fixedposition)
-                          }.run {
-                              delay(1000)
-                          }
-                       }
-                   }
+                    delay(5000)
+                    update = true
+                }
+                else
+                {
+                    getCoin()?.let {
+                        getCoinDetails(it)
+                        getCoinTransaction(it)
+                        delay(1000)
+                    }
                 }
             }
         }
     }
 
     //get details
-    fun setFlagCoin(a: Boolean) {
-        read = a
-    }
+
+
 
 
     //set coin clickes
     fun setCoinInfo(coin: String) {
         try {
-            fixedposition = coin
+            setCoin(coin)
+            fixedposition = getCoin().toString()
         } catch (e: Exception)
         {
             errorMessage = e.toString()
         }
     }
-    //
-
 
     ///get books
     private fun getbooks() {
-        try {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            val a=bitsoRepositoryImp.getresponse()
+            try {
                 openedPayloads = bitsoRepositoryImp.getbooks()
-                isloading = openedPayloads.isNotEmpty()
+            }catch (e:Exception){
+                loggerD(message = e.message.toString())
+                if (e.message?.contains("HTTP") == true)
+                {
+                    loggerD(message = "Error de red ")
+                    errorMessage=a.error.message
+                    errorCode=a.error.code.toString()
+                }
             }
-        } catch (e: Exception) {
-            errorMessage = e.toString()
+            isloading=openedPayloads.isNotEmpty()
         }
     }
 
 
     //get details
-    suspend fun getCoinTransaction(coin: String) {
+    private suspend fun getCoinTransaction(coin: String) {
         viewModelScope.launch {
             try {
                 trades=bitsoRepositoryImp.tradesinfo(coin)
@@ -96,15 +116,37 @@ class BitsoViewModel @Inject constructor(private val bitsoRepositoryImp: BitsoRe
         }
     }
 
-    suspend fun getCoinDetails(coin: String) {
+    private suspend fun getCoinDetails(coin: String) {
         viewModelScope.launch {
             try {
-                    openedPayloadsCoin = bitsoRepositoryImp.getinfocoin(coin)
+                openedPayloadsCoin = bitsoRepositoryImp.getinfocoin(coin)
             } catch (e: Exception) {
                 errorMessage = e.toString()
             }
         }
     }
-//////
+
+    private fun setCoin(value: String) {
+        viewModelScope.launch {
+            StatesRepository.selectCoin(coin ,value)
+        }
+    }
+
+    fun getCoin(): String? = runBlocking {
+        StatesRepository.getCoin(coin)
+    }
+
+
+    fun saveState(value: String) {
+        viewModelScope.launch {
+            StatesRepository.putFlag(state, value)
+        }
+    }
+
+    private fun getState(): String? = runBlocking {
+        StatesRepository.getFlag(state)
+    }
 }
+
+
 

@@ -15,16 +15,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.capproject.BitsoViewModel
-import com.example.capproject.R
+import com.example.capproject.viewmodels.BitsoViewModel
 import com.example.capproject.models.Book.Payload
+import com.example.capproject.support.iconos
+import com.example.capproject.support.moneda
 
 
 //item informativo divisas
 @Composable
 fun Generalitem2(
     viewModel: BitsoViewModel,
-    lista: Payload,
+    list: Payload,
     navController: NavHostController
 ) {
 
@@ -32,7 +33,7 @@ fun Generalitem2(
         .fillMaxWidth()
         .padding(2.dp)
         .clickable  {
-                      viewModel.setCoinInfo(lista.book)
+                      viewModel.setCoinInfo(list.book)
                       navController.navigate("details")
                     },
         ) {
@@ -53,14 +54,14 @@ fun Generalitem2(
                         , horizontalAlignment = Alignment.CenterHorizontally)
 
                     {
-                        Image(modifier = Modifier.padding(4.dp),painter = painterResource(id = iconos(lista.book)), contentDescription = null)
-                        Text(text = moneda(lista.book), modifier = Modifier.padding(start = 8.dp))
+                        Image(modifier = Modifier.padding(4.dp),painter = painterResource(id = iconos(list.book)), contentDescription = null)
+                        Text(text = moneda(list.book), modifier = Modifier.padding(start = 8.dp))
                     }
                 }
                 Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.Start, modifier = Modifier.padding(start = 40.dp)) {
-                    Text(text = "Maximo Historico \$${lista.maximum_price} ",
+                    Text(text = "Maximo Historico \$${list.maximum_price} ",
                                                modifier = Modifier.padding(start = 16.dp))
-                    Text(text = "Minimo  Historico \$${lista.minimum_price} ",
+                    Text(text = "Minimo  Historico \$${list.minimum_price} ",
                         modifier = Modifier.padding(start = 16.dp, top = 2.dp))
                 }
             }
@@ -68,36 +69,3 @@ fun Generalitem2(
     }
 }
 
- fun iconos (icono:String): Int {
-    val icon: Int = when(icono){
-        "btc_mxn"-> R.drawable.cripto_bitcoin
-        "eth_mxn"-> R.drawable.cripto_ethereum
-        "xrp_mxn"-> R.drawable.cripto_xrp
-        "ltc_mxn"-> R.drawable.cripto_ltc
-        "bch_mxn"-> R.drawable.cripto_bhc
-        "tusd_mxn"-> R.drawable.cripto_tusd
-        "mana_mxn"-> R.drawable.cripto_mana
-        "dai_mxn"-> R.drawable.cripto_dai
-        "usd_mxn"-> R.drawable.cripto_usd
-        "bat_mxn"-> R.drawable.cripto_bat
-        else -> R.drawable.cripto_default
-    }
-    return icon
-}
-
- fun moneda (icono:String): String{
-    val icon = when(icono){
-        "btc_mxn"-> "BTC"
-        "eth_mxn"-> "ETH"
-        "xrp_mxn"-> "XRP"
-        "ltc_mxn"-> "LTC"
-        "bch_mxn"-> "BCH"
-        "tusd_mxn"-> "TUSD"
-        "mana_mxn"-> "MANA"
-        "dai_mxn"-> "DAI"
-        "usd_mxn"-> "USD"
-        "bat_mxn"-> "BAT"
-        else -> icono
-    }
-    return icon
-}

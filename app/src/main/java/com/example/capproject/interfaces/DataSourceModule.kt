@@ -1,8 +1,14 @@
 package com.example.capproject.interfaces
 
+import android.content.Context
+import androidx.room.Room
+import com.example.capproject.datastore.DataStoreRepository
+import com.example.capproject.datastore.DataStoreRepositoryImpl
+import com.example.capproject.support.loggerD
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -26,10 +32,9 @@ class DataSourceModule {
     {
         val interceptor = HttpLoggingInterceptor()
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+
         val client: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(interceptor).build()
-
-
         return Retrofit.Builder()
             .baseUrl(baseurl)
             .client(client)
@@ -37,12 +42,20 @@ class DataSourceModule {
             .build()
     }
 
-
-
-
     @Singleton
     @Provides
     fun restBinanceDataSource(retrofit: Retrofit):BitsoDataSource =
         retrofit.create(BitsoDataSource::class.java)
+
+
+    @Singleton
+    @Provides
+    fun provideDataStoreRepository(
+        @ApplicationContext app: Context
+    ): DataStoreRepository = DataStoreRepositoryImpl(app)
+
+
+
 }
+
 

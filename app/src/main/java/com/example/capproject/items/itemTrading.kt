@@ -15,7 +15,7 @@ import com.example.capproject.models.trading.PayloadTrades
 import com.example.capproject.support.operation
 
 @Composable
-fun ItemTrading (lista: PayloadTrades) {
+fun ItemTrading (list: PayloadTrades) {
     Box(modifier = Modifier
         .fillMaxWidth()
         .padding(2.dp)) {
@@ -29,16 +29,16 @@ fun ItemTrading (lista: PayloadTrades) {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween)
                 {
-                    Text(text =  lista.amount.take(10),
+                    Text(text =  list.amount.take(10),
                         modifier = Modifier.padding(start = 8.dp))
-                    Text(text = " ${operation(lista.maker_side)} ",
+                    Text(text = " ${operation(list.maker_side)} ",
                         modifier = Modifier.padding(start = 8.dp),
-                        color = if (lista.maker_side == "sell")
+                        color = if (list.maker_side == "sell")
                             Color.Red
                         else
                             Color.Green
                     )
-                    Text(text = " \$${lista.price} ",
+                    Text(text = " \$${list.price} ",
                         modifier = Modifier.padding(start = 8.dp))
                 }
             }

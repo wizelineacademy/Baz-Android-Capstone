@@ -13,10 +13,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.capproject.models.Tickers.Payload
+import com.example.capproject.support.iconos
+import com.example.capproject.support.moneda
 
 
 @Composable
-fun Iteminfo ( lista: Payload){
+fun Iteminfo ( list: Payload){
     Box(modifier = Modifier
         .fillMaxWidth()
         .padding(2.dp)) {
@@ -38,14 +40,14 @@ fun Iteminfo ( lista: Payload){
                         , horizontalAlignment = Alignment.CenterHorizontally)
 
                     {
-                        Image(modifier = Modifier.padding(4.dp),painter = painterResource(id = iconos(lista.book)), contentDescription = null)
-                        Text(text = moneda(lista.book), modifier = Modifier.padding(start = 8.dp))
+                        Image(modifier = Modifier.padding(4.dp),painter = painterResource(id = iconos(list.book)), contentDescription = null)
+                        Text(text = moneda(list.book), modifier = Modifier.padding(start = 8.dp))
                     }
                 }
                 Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.Start, modifier = Modifier.padding(start = 40.dp)) {
-                    Text(text = "Ask \$${lista.ask} ",
+                    Text(text = "Ask \$${list.ask} ",
                         modifier = Modifier.padding(start = 16.dp))
-                    Text(text = "Bid \$${lista.bid} ",
+                    Text(text = "Bid \$${list.bid} ",
                         modifier = Modifier.padding(start = 16.dp, top = 2.dp))
                 }
             }
