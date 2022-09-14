@@ -54,7 +54,7 @@ Con base en el material de autoestudio y las mentorías hasta este entregable, s
     - Crear una pantalla de detalle que mostrará el último precio, el más alto y el más bajo. Además, mostrar una lista de `bids` y `asks` haciendo uso del servicio `order-book`
 - Hacer uso de buenas prácticas
 
-### **Fecha de Entrega 21 de Octubre**
+### **Fecha de Entrega 21 de Septiembre**
 
 > Nota: la lista anterior de este entregable es sólo una guía para ayudarte a distribuir la carga de trabajo; puedes entregar más o menos elementos si es necesario. De igual manera, si entregas menos elementos en este punto, tendrás que cubrir los elementos restantes en el siguiente entregable.
 
@@ -69,7 +69,7 @@ Con base en el material de autoestudio y las mentorías hasta este entregable, s
 - Hacer _refactor_ de la vista, actualiza tus layouts haciendo uso de `ConstraintLayout`
 - Hacer uso de buenas prácticas
 
-### **Fecha de Entrega 28 de Octubre**
+### **Fecha de Entrega 28 de Septiembre**
 
 > Nota: la lista anterior de este entregable es sólo una guía para ayudarte a distribuir la carga de trabajo; puedes entregar más o menos elementos si es necesario. De igual manera, si entregas menos elementos en este punto, tendrás que cubrir los elementos restantes en el siguiente entregable.
 
