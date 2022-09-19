@@ -1,11 +1,9 @@
 package com.ari.coins.framework.data.network.dataSources
 
-import com.ari.coins.data.models.AvailableBooks
-import com.ari.coins.data.models.OrderBook
-import com.ari.coins.data.models.Result
-import com.ari.coins.data.models.Ticker
+import com.ari.coins.data.models.*
 import com.ari.coins.data.network.dataSource.CoinsRemoteDataSource
 import com.ari.coins.framework.data.network.apis.CoinsApi
+import retrofit2.Response
 import javax.inject.Inject
 
 class CoinsRemoteDataSourceImpl @Inject constructor(
@@ -13,7 +11,7 @@ class CoinsRemoteDataSourceImpl @Inject constructor(
 ): CoinsRemoteDataSource {
 
     override suspend fun getAvailableBooks(): Result<List<AvailableBooks>> = try {
-        val response = coinsApi.getAvailableBooks()
+        val response: Response<CryptoResponse<List<AvailableBooks>>> = coinsApi.getAvailableBooks()
 
         if (response.isSuccessful) {
             val body = response.body()!!
@@ -30,7 +28,7 @@ class CoinsRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getTicker(book: String): Result<Ticker> = try {
-        val response = coinsApi.getTicker()
+        val response: Response<CryptoResponse<Ticker>> = coinsApi.getTicker(book)
 
         if (response.isSuccessful) {
             val body = response.body()!!
@@ -47,7 +45,7 @@ class CoinsRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getOrderBook(book: String): Result<OrderBook> = try {
-        val response = coinsApi.getOrderBook()
+        val response: Response<CryptoResponse<OrderBook>> = coinsApi.getOrderBook(book)
 
         if (response.isSuccessful) {
             val body = response.body()!!

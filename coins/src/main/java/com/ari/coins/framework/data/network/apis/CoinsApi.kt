@@ -7,6 +7,7 @@ import com.ari.coins.data.models.Ticker
 import com.ari.coins.framework.data.network.constants.Endpoints
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface CoinsApi {
 
@@ -14,9 +15,9 @@ interface CoinsApi {
     suspend fun getAvailableBooks(): Response<CryptoResponse<List<AvailableBooks>>>
 
     @GET(Endpoints.TICKER)
-    suspend fun getTicker(): Response<CryptoResponse<Ticker>>
+    suspend fun getTicker(@Query("book") book: String): Response<CryptoResponse<Ticker>>
 
     @GET(Endpoints.ORDER_BOOK)
-    suspend fun getOrderBook(): Response<CryptoResponse<OrderBook>>
+    suspend fun getOrderBook(@Query("book") book: String): Response<CryptoResponse<OrderBook>>
 
 }
