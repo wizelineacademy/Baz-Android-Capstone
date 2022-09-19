@@ -1,4 +1,4 @@
-package com.example.criptobitsoproyectwz.View.ui.theme
+package com.example.criptobitsoproyectwz.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

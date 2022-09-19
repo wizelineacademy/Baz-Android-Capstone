@@ -1,4 +1,4 @@
-package com.example.criptobitsoproyectwz.data.model
+package com.example.criptobitsoproyectwz.data.model.Criptos
 
 import com.google.gson.annotations.SerializedName
 
