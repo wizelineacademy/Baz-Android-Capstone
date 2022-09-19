@@ -11,7 +11,11 @@ data class Payload(
     val minimum_price: String,
  //   val minimum_value: String,
  //   val tick_size: String
+)
 
-
-
+data class detailedPayload(
+    var payload: Payload,
+    var shortname:String,
+    var name:String="",
+    var icon:Int
 )

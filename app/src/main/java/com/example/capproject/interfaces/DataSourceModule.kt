@@ -1,9 +1,13 @@
 package com.example.capproject.interfaces
 
 import android.content.Context
+import androidx.compose.ui.platform.LocalContext
 import androidx.room.Room
 import com.example.capproject.datastore.DataStoreRepository
 import com.example.capproject.datastore.DataStoreRepositoryImpl
+import com.example.capproject.room.AppDatabase
+import com.example.capproject.room.CriptocurrenciesDao
+import com.example.capproject.room.TradesDao
 import com.example.capproject.support.loggerD
 import dagger.Module
 import dagger.Provides
@@ -54,8 +58,28 @@ class DataSourceModule {
         @ApplicationContext app: Context
     ): DataStoreRepository = DataStoreRepositoryImpl(app)
 
+    @Provides
+    @Singleton
+    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
+        return Room.databaseBuilder(
+            appContext,
+            AppDatabase::class.java,
+            "user_database")
+            .fallbackToDestructiveMigration()
+            .build()
+    }
 
+    @Provides
+    @Singleton
+    fun userdao(db:AppDatabase): CriptocurrenciesDao=db.tokensDao()
+
+    @Provides
+    @Singleton
+    fun transactionsdao(db:AppDatabase): TradesDao =db.tokensDao1()
 
 }
+
+
+
 
 

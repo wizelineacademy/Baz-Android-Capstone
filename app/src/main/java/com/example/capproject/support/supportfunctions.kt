@@ -5,6 +5,8 @@ import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import com.example.capproject.R
+import com.example.capproject.models.Book.Payload
+import com.example.capproject.models.Book.detailedPayload
 import com.example.capproject.support.coinsdefinition.*
 
 fun tokens (name:String): String{
@@ -71,3 +73,13 @@ fun loggerD(default:String="peticion ",message:String){
     Log.d(default,message)
 }
 
+fun GetnewList(openedPayloads: List<Payload>): List<detailedPayload> {
+    val listamutable = mutableListOf<detailedPayload>()
+    openedPayloads.forEach {
+        listamutable.add(detailedPayload(payload = it,
+            shortname = shortToken(it.book),
+            icon = icon(it.book)
+        ))
+    }
+    return listamutable
+}

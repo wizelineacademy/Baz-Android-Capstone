@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.capproject.viewmodels.BitsoViewModel
 import com.example.capproject.models.Book.Payload
+import com.example.capproject.models.Book.detailedPayload
 import com.example.capproject.support.icon
 import com.example.capproject.support.shortToken
 
@@ -25,7 +26,7 @@ import com.example.capproject.support.shortToken
 @Composable
 fun Generalitem2(
     viewModel: BitsoViewModel,
-    list: Payload,
+    list: detailedPayload,
     navController: NavHostController
 ) {
 
@@ -33,17 +34,16 @@ fun Generalitem2(
         .fillMaxWidth()
         .padding(2.dp)
         .clickable  {
-                      viewModel.setCoinInfo(list.book)
-                      navController.navigate("details")
-                    },
-        ) {
+            viewModel.setCoinInfo(list.payload.book)
+            navController.navigate("details") })
+    {
         Card(modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(4.dp)),
             border = BorderStroke(width = 2.dp, Color.Black)) {
             Row(modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-              , horizontalArrangement = Arrangement.Start)
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start)
             {
                 Box(modifier = Modifier
                     .width(63.dp)
@@ -54,14 +54,14 @@ fun Generalitem2(
                         , horizontalAlignment = Alignment.CenterHorizontally)
 
                     {
-                        Image(modifier = Modifier.padding(4.dp),painter = painterResource(id = icon(list.book)), contentDescription = null)
-                        Text(text = shortToken(list.book), modifier = Modifier.padding(start = 8.dp))
+                        Image(modifier = Modifier.padding(4.dp),painter = painterResource(id = list.icon), contentDescription = null)
+                        Text(text = list.shortname, modifier = Modifier.padding(start = 8.dp))
                     }
                 }
                 Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.Start, modifier = Modifier.padding(start = 40.dp)) {
-                    Text(text = "Maximo Historico \$${list.maximum_price} ",
-                                               modifier = Modifier.padding(start = 16.dp))
-                    Text(text = "Minimo  Historico \$${list.minimum_price} ",
+                    Text(text = "Maximo Historico \$${list.payload.maximum_price} ",
+                        modifier = Modifier.padding(start = 16.dp))
+                    Text(text = "Minimo  Historico \$${list.payload.minimum_price} ",
                         modifier = Modifier.padding(start = 16.dp, top = 2.dp))
                 }
             }

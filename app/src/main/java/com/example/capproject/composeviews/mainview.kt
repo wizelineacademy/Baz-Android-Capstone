@@ -22,25 +22,16 @@ import com.example.capproject.support.loggerD
 
 @Composable
 fun Mainview(viewModel: BitsoViewModel, navHostController: NavHostController) {
+
     with(viewModel) {
         saveState("true")
 
-        var listanueva = mutableListOf<Payload>()
-        val newlist2: List<Payload> = openedPayloads
-
-        //depuramos la lista a solo valores en peso mexicano
-        newlist2.let { it ->
-            listanueva = it.filter {
-                it.book.contains("mxn")
-            } as MutableList<Payload>
-        }
 
         if (!isloading) {
             Loading()
 
         } else {
             Column {
-                // val listState = rememberLazyListState()
                 TopAppBar(
                     title = {
                         Text(text = "Información de Criptomonedas",
@@ -57,7 +48,7 @@ fun Mainview(viewModel: BitsoViewModel, navHostController: NavHostController) {
                     contentPadding = PaddingValues(16.dp),
                     state = rememberLazyListState()
                 ) {
-                    itemsIndexed(listanueva) { _, list ->
+                    itemsIndexed(detailedPayload) { _, list ->
                         Generalitem2(this@with, list, navHostController)
                     }
                 }

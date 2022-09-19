@@ -20,20 +20,26 @@ import com.example.capproject.viewmodels.BitsoViewModel
 import com.example.capproject.items.ItemTrading
 import com.example.capproject.items.Iteminfo
 import com.example.capproject.models.trading.PayloadTrades
+import com.example.capproject.support.loggerD
 import com.example.capproject.support.tokens
 
 @Composable
 fun Detailview(viewModel: BitsoViewModel, navController: NavHostController) {
     with(viewModel) {
+//        loggerD(message = viewModel.getdata().toString())
         saveState("false")
-        val newlist = openedPayloadsCoin
-        if (!update)
+
+         if (!update)
             Loading()
         else
             Column {
                 TopAppBar(
                     navigationIcon = {
-                        IconButton(onClick = { navController.navigate("start") }) {
+                        IconButton(onClick = {
+
+                            navController.navigate("start")
+                        })
+                        {
                             Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "null")
                         }
                     },
@@ -42,10 +48,9 @@ fun Detailview(viewModel: BitsoViewModel, navController: NavHostController) {
                         )
                     }
                 )
-                val listtrades = trades
-                if (listtrades.isEmpty()) {
+                if (trades.isEmpty()) {
                     Loading()
-                } else
+                } else{
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -53,12 +58,11 @@ fun Detailview(viewModel: BitsoViewModel, navController: NavHostController) {
                         rememberLazyListState(),
                         contentPadding = PaddingValues(16.dp)
                     ) {
-
-                        itemsIndexed(newlist) { _, list ->
+                        itemsIndexed(openedPayloadsCoin) { _, list ->
                             Iteminfo(list)
                         }
                     }
-
+            }
                 Row(modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
@@ -67,26 +71,20 @@ fun Detailview(viewModel: BitsoViewModel, navController: NavHostController) {
                 {
                     Text(text = "Monto ", modifier = Modifier.padding(start = 8.dp))
                     Text(text = "Tipo de Operación", modifier = Modifier.padding(start = 8.dp))
-                    Text(text = "Total Operación")
+                    Text(text = "Precio C/V")
                 }
 
                 LazyColumn(modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(0.87F)
-                    .padding(16.dp)) {
-
-
-                    if (listtrades.isNotEmpty()) {
-                        val newlistnueva = mutableListOf<PayloadTrades>()
-                        listtrades.forEach {
-                            newlistnueva.add(it)
-                        }
-
-                        itemsIndexed(newlistnueva.take(25)) { _, data ->
+                    .padding(16.dp))
+                {
+                    if (trades.isNotEmpty())
+                        itemsIndexed(trades) { _, data ->
                             ItemTrading(list = data)
                         }
-                    }
                 }
+
 
                 Text(text = " * Precios expresados en Moneda Nacional", color = Color.LightGray)
                 Text(text = "   solo son de carácter informativo", color = Color.LightGray)

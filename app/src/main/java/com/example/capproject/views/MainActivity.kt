@@ -25,7 +25,7 @@ class MainActivity  : ComponentActivity() {
                 Surface(modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background)
                 {
-                   MenuNav(navController)
+                    MenuNav(navController)
                 }
             }
         }

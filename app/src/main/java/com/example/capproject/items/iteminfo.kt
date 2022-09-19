@@ -44,7 +44,9 @@ fun Iteminfo ( list: Payload){
                         Text(text = shortToken(list.book), modifier = Modifier.padding(start = 8.dp))
                     }
                 }
-                Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.Start, modifier = Modifier.padding(start = 40.dp)) {
+                Column(verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.Start,
+                    modifier = Modifier.padding(start = 40.dp)) {
                     Text(text = "Ask \$${list.ask} ",
                         modifier = Modifier.padding(start = 16.dp))
                     Text(text = "Bid \$${list.bid} ",

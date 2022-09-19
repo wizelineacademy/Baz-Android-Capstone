@@ -29,11 +29,11 @@ fun ItemTrading (list: PayloadTrades) {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween)
                 {
-                    Text(text =  list.amount.take(10),
+                    Text(text =  list.amount,
                         modifier = Modifier.padding(start = 8.dp))
-                    Text(text = " ${operation(list.maker_side)} ",
+                    Text(text = list.maker_side,
                         modifier = Modifier.padding(start = 8.dp),
-                        color = if (list.maker_side == "sell")
+                        color = if (list.maker_side == "Venta")
                             Color.Red
                         else
                             Color.Green
