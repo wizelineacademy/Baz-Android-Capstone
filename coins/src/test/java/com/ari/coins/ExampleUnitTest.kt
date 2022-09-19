@@ -1,4 +1,4 @@
-package com.ari.cripto
+package com.ari.coins
 
 import org.junit.Test
 

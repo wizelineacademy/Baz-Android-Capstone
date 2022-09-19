@@ -1,11 +1,12 @@
-package com.ari.cripto
+package com.ari.coins.ui.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.ari.coins.R
 
-class MainActivity : AppCompatActivity() {
+class CoinsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_coins)
     }
 }
