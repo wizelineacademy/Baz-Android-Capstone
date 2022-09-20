@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_end_category_title">16dp</dimen>
+    <dimen name="margin_start_category_title">16dp</dimen>
+    <dimen name="margin_top_category_title">16dp</dimen>
+
+    <dimen name="margin_end_category_description">16dp</dimen>
+    <dimen name="margin_start_category_description">16dp</dimen>
+
+    <dimen name="padding_start_recyclerview">16dp</dimen>
+    <dimen name="padding_end_recyclerview">16dp</dimen>
+
+    <dimen name="card_view_movie_item_width">128dp</dimen>
+    <dimen name="card_view_movie_item_height">172dp</dimen>
+    <dimen name="card_view_movie_item_margin_end">16dp</dimen>
+    <dimen name="card_view_movie_item_margin_start">16dp</dimen>
+    <dimen name="card_view_movie_item_corner_radius">4dp</dimen>
+
+    <dimen name="category_text_size">18sp</dimen>
+    <dimen name="movie_release_text_size">12sp</dimen>
+    <dimen name="movie_rating_margin_top">8dp</dimen>
+    <dimen name="title_trailers_margin_top">25dp</dimen>
+    <dimen name="rv_videos_margin_start">16dp</dimen>
+    <dimen name="rv_videos_margin_end">16dp</dimen>
+    <dimen name="rv_videos_margin_top">16dp</dimen>
+    <dimen name="item_video_width">152dp</dimen>
+    <dimen name="item_video_height">108dp</dimen>
+    <dimen name="item_video_margin">16dp</dimen>
+    <dimen name="title_movie_text_size">20sp</dimen>
+</resources>

@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Capstone Project</string>
+    <string name="app_name"> Capstone Project</string>
+    <string name="tv_maximum_price_lbl">Maximum Price</string>
 </resources>
+
