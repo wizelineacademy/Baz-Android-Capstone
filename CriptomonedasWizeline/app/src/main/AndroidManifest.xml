@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.brendarojas.criptomonedaswizeline">
 
+par    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
     <application
+        android:name=".config.InitialApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
