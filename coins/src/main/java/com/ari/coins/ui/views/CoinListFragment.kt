@@ -5,7 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment.findNavController
@@ -13,11 +13,13 @@ import com.ari.coins.R
 import com.ari.coins.data.models.AvailableBook
 import com.ari.coins.data.models.Result
 import com.ari.coins.databinding.FragmentCoinListBinding
+import com.ari.coins.ui.models.ResultUi
 import com.ari.coins.ui.viewModels.CoinsViewModel
+import com.ari.coins.ui.views.adapters.CoinsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CoinListFragment: Fragment() {
+class CoinListFragment : Fragment() {
 
     private var _binding: FragmentCoinListBinding? = null
     private val binding: FragmentCoinListBinding get() = _binding!!
@@ -26,8 +28,8 @@ class CoinListFragment: Fragment() {
     private lateinit var coinsAdapter: CoinsAdapter
 
     private val onClickCoin: (AvailableBook) -> Unit = { coin ->
-        Toast.makeText(requireContext(), coin.book, Toast.LENGTH_SHORT).show()
-        findNavController(this).navigate(R.id.action_coinListFragment_to_coinDetailFragment)
+        val bundle = bundleOf(CoinDetailFragment.BOOK_EXTRA to coin.book)
+        findNavController(this).navigate(R.id.action_coinListFragment_to_coinDetailFragment, bundle)
     }
 
     override fun onCreateView(
@@ -41,20 +43,20 @@ class CoinListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        coinsAdapter = CoinsAdapter(onClickCoin)
+        coinsAdapter = CoinsAdapter({ coinsViewModel.getCoinUrlImage(it) }, onClickCoin)
         binding.rvCoins.adapter = coinsAdapter
 
         addObservers()
-        coinsViewModel.getAvailableBooks()
+//        coinsViewModel.getAvailableBooks()
     }
 
     private fun addObservers() {
         coinsViewModel.availableBooks.observe(viewLifecycleOwner) { result ->
-            when(result) {
-                is Result.Error -> {
+            when (result) {
+                is ResultUi.Error -> {
                     Log.e("AVD", "${result.code} - ${result.message}")
                 }
-                is Result.Success -> {
+                is ResultUi.Success -> {
                     coinsAdapter.setList(result.data)
                 }
             }

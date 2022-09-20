@@ -70,6 +70,9 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
+    // Coil for load images
+    implementation("io.coil-kt:coil:2.0.0-rc03")
+
 //    // Mock (for testing)
 //    testImplementation "io.mockk:mockk:1.12.2"
 //

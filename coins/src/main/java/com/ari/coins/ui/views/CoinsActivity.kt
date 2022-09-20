@@ -23,6 +23,7 @@ class CoinsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityCoinsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        coinsViewModel.getAvailableBooks()
     }
 
     override fun onDestroy() {
