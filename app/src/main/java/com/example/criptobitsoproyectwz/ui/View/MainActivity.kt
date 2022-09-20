@@ -1,20 +1,21 @@
-package com.example.criptobitsoproyectwz
+package com.example.criptobitsoproyectwz.ui.View
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringResource
+import com.example.criptobitsoproyectwz.NavigationCompose.NavigationGraph
+import com.example.criptobitsoproyectwz.R
 import com.example.criptobitsoproyectwz.ui.theme.CriptoBitsoProyectWzTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             CriptoBitsoProyectWzTheme {
                 // A surface container using the 'background' color from the theme
@@ -22,22 +23,19 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    Scaffold(
+                        topBar = {
+                            TopAppBar(
+                                backgroundColor = MaterialTheme.colors.primary,
+                                title = { Text(stringResource(R.string.title)) }
+                            )
+                        }
+                    ){
+                        NavigationGraph()
+                    }
+
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    CriptoBitsoProyectWzTheme {
-        Greeting("Android")
     }
 }
