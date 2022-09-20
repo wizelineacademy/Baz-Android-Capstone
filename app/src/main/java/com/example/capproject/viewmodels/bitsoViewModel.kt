@@ -1,8 +1,12 @@
 package com.example.capproject.viewmodels
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.capproject.datastore.DataStoreRepository
@@ -14,6 +18,8 @@ import com.example.capproject.repository.BitsoRepository
 import com.example.capproject.support.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.produce
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -25,7 +31,12 @@ class BitsoViewModel
     //datastore
     private var coin = "name"
     private var state = "state"
+    private var net = "Network"
     //keys
+
+    //
+
+    //
 
     //Empty
     var isloading: Boolean by mutableStateOf(false)
@@ -34,9 +45,11 @@ class BitsoViewModel
     //observables
     private var openedPayloads: List<Payload> by mutableStateOf(listOf())
     var detailedPayload: List<detailedPayload> by mutableStateOf(listOf())
-    var openedPayloadsCoin: List<com.example.capproject.models.Tickers.Payload> by mutableStateOf(listOf())
+    var openedPayloadsCoin: List<com.example.capproject.models.Tickers.Payload> by mutableStateOf(
+        listOf())
     var trades: List<PayloadTrades> by mutableStateOf(listOf())
     var update: Boolean by mutableStateOf(true)
+    var networkstatus:Boolean by mutableStateOf(true)
 
 
     //states
@@ -53,22 +66,37 @@ class BitsoViewModel
 
         viewModelScope.launch(Dispatchers.IO) {
             while (true) {
+
                 if (getState() == "true") {
+
+
+//                    if (getNetworkStatus() == "ok")
+  //                      loggerD(message = "REcibi ok" )
+    //                else
+      //              {}
+
                     update = false
+
                     getbooksflow()
+
                     delay(5000)
 
+
                     if (openedPayloads.isNotEmpty())
-                    savedata()
+                        savedata()
+
+
 
                     update = true
                 } else {
                     getCoin()?.let {
                         getCoinDetails(it)
-                        getCoinTransactionFlow(it)
+//                        getCoinTransactionFlow(it)
 
-                        if(trades.isNotEmpty())
-                        savetrades()
+                        ChannelTransaction1(it)
+
+                        if (trades.isNotEmpty())
+                            savetrades()
 
                         delay(1000)
                     }
@@ -97,57 +125,54 @@ class BitsoViewModel
                 .catch {
                     loggerD(message = this.toString())
                 }
-                .collect{ it ->
-                    openedPayloads=it.payload.filter {
+                .collect { it ->
+                    openedPayloads = it.payload.filter {
                         it.book.contains("mxn")
                     }
+
                 }
-            detailedPayload=GetnewList(openedPayloads)
+            detailedPayload = GetnewList(openedPayloads)
             isloading = openedPayloads.isNotEmpty()
         }
     }
 
-    private fun books():Flow<Books> =
+    private fun books(): Flow<Books> =
         flow {
-            val a=bitsoRepositoryImp.getbooks1()
+            val a = bitsoRepositoryImp.getbooks1()
             emit(a)
-            if (!a.success)
-            {
-                if (a.error.code==404)
+            if (!a.success) {
+                if (a.error.code == 404)
                     throw Exception("No encontrado/Red no disponible")
-                if (a.error.code==400) throw Exception("Acceso no Permitido")
+                if (a.error.code == 400) throw Exception("Acceso no Permitido")
             }
         }
 
 
-
-
-
-    private suspend fun getCoinTransactionFlow(coin: String) {
+    private suspend fun ChannelTransaction1(coin: String) {
         val listamutable = mutableListOf<PayloadTrades>()
-        viewModelScope.launch(Dispatchers.IO) {
-            transactions(coin)
-                .take(15)
-                .collect{
-                    listamutable.add(
-                        PayloadTrades(amount= it.amount
-                            ,price=it.price.take(10)
-                            ,maker_side= operation(it.maker_side)
-                                , book = it.book
-                        )
+        val chanel = chaneltransaction(coin)
+        chanel.consumeAsFlow()
+            .take(15)
+            .collect {
+                listamutable.add(
+                    PayloadTrades(amount = it.amount,
+                        price = it.price.take(10),
+                        maker_side = operation(it.maker_side),
+                        book = it.book
                     )
-                }
-            trades=listamutable
-        }
+                )
+            }
+        chanel.cancel()
+        trades = listamutable
+
     }
 
-    private suspend fun transactions(coin: String): Flow<PayloadTrades> =
-        flow {
-            bitsoRepositoryImp.tradesinfo2(coin).payload.forEach {
-                emit(it)
+    fun chaneltransaction(coin: String): ReceiveChannel<PayloadTrades> =
+        viewModelScope.produce {
+            bitsoRepositoryImp.tradesinfo2(coin).payload.forEachIndexed {index,it->
+                send(it)
             }
         }
-
 
     private suspend fun getCoinDetails(coin: String) {
         viewModelScope.launch {
@@ -183,7 +208,7 @@ class BitsoViewModel
     fun savedata()
     {
         viewModelScope.launch(Dispatchers.IO) {
-            bitsoRepositoryImp.insert(openedPayloads)
+            bitsoRepositoryImp.insert(openedPayloads.toSet())
         }
     }
 
@@ -193,6 +218,10 @@ class BitsoViewModel
             bitsoRepositoryImp.inserttrades(trades)
         }
     }
+
+    private suspend fun getNetworkStatus():String? =
+        StatesRepository.getNetworkStatus(net)
+
 
 
 }

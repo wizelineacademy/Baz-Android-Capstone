@@ -10,16 +10,12 @@ import com.example.capproject.room.Currencies
 import com.example.capproject.room.Operationstrades
 import com.example.capproject.room.TradesDao
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.forEach
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 interface BitsoRepository {
     suspend fun getinfocoin(coin: String):List<com.example.capproject.models.Tickers.Payload>
     suspend fun tradesinfo(coin: String):List<PayloadTrades>
-    suspend fun insert(list: List<Payload>)
+    suspend fun insert(list: Set<Payload>)
     suspend fun tradesinfo2(coin: String): Trades
     suspend fun getbooks1(): Books
     suspend fun inserttrades(list: List<PayloadTrades>)
@@ -52,7 +48,7 @@ class BitsoRepositoryImp
         }
     }
 
-    override suspend fun insert(list: List<Payload>) {
+    override suspend fun insert(list: Set<Payload>) {
 
         list.forEachIndexed { index, it ->
             listamutable.add(Currencies(

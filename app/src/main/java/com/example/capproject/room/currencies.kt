@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Currencies(
-    @PrimaryKey (autoGenerate = true)  val uid: Int,
+    @PrimaryKey (autoGenerate = false)  val uid: Int,
     @ColumnInfo(name = "name") val Name: String?,
     @ColumnInfo(name = "min") val minvalue: String?,
     @ColumnInfo(name = "max") val maxvalue: String?
@@ -14,7 +14,7 @@ data class Currencies(
 
 @Entity
 data class Operationstrades(
-    @PrimaryKey (autoGenerate = true)  val uid: Int,
+    @PrimaryKey (autoGenerate = false)  val uid: Int,
     @ColumnInfo(name = "Pair") val pair: String?,
     @ColumnInfo(name = "amount") val Amount: String?,
     @ColumnInfo(name = "Type") val Type: String?,

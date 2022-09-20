@@ -52,4 +52,22 @@ class DataStoreRepositoryImpl @Inject constructor(
             null
         }
     }
+
+    override suspend fun setNetworkStatus(key: String, value: String) {
+        val preferencesKey = stringPreferencesKey(key)
+        context.dataStore.edit { preferences ->
+            preferences[preferencesKey] = value
+        }
+    }
+
+    override suspend fun getNetworkStatus(key: String): String? {
+        return try {
+            val preferencesKey = stringPreferencesKey(key)
+            val preferences = context.dataStore.data.first()
+            preferences[preferencesKey]
+        }catch (e: Exception){
+            e.printStackTrace()
+            null
+        }
+    }
 }
