@@ -5,6 +5,7 @@ import com.example.capproject.models.Tickers.tickets
 import com.example.capproject.models.Book.Books
 import com.example.capproject.models.trading.PayloadTrades
 import com.example.capproject.models.trading.Trades
+import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -12,7 +13,7 @@ import retrofit2.http.Query
 interface BitsoDataSource {
     //--------
     @GET("ticker") //get all
-    suspend fun getTicker() : Ticker
+     fun getTicker() : Observable<Ticker>
 
     @GET("ticker/") // get especific
     suspend fun specificTicker(@Query("book") book:String ) : tickets
@@ -25,8 +26,4 @@ interface BitsoDataSource {
     @GET("trades/")
     suspend fun specificTrade(@Query("book") book:String ) :Trades
 
-//    https://api.bitso.com/v3/trades/?book=btc_mxn
-    //@GET("order_book/")
-   // suspend fun specificBook(@Query("book") book:String ) : Broakerbook
-//--------
 }

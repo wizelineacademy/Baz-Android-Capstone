@@ -3,6 +3,7 @@ package com.example.capproject.repository
 import com.example.capproject.interfaces.BitsoDataSource
 import com.example.capproject.models.Book.Books
 import com.example.capproject.models.Book.Payload
+import com.example.capproject.models.Tickers.Ticker
 import com.example.capproject.models.trading.PayloadTrades
 import com.example.capproject.models.trading.Trades
 import com.example.capproject.room.CriptocurrenciesDao
@@ -10,6 +11,7 @@ import com.example.capproject.room.Currencies
 import com.example.capproject.room.Operationstrades
 import com.example.capproject.room.TradesDao
 import com.example.capproject.support.loggerD
+import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -24,6 +26,8 @@ interface BitsoRepository {
     suspend fun inserttrades(list: List<PayloadTrades>)
     suspend fun getTrades1():List<Operationstrades>
     suspend fun getCurrencies():List<Currencies>
+     fun test():Observable<Ticker>
+
 }
 
 class BitsoRepositoryImp
@@ -54,6 +58,7 @@ class BitsoRepositoryImp
 
     override suspend fun getTrades1(): List<Operationstrades> = bd1.getAll()
     override suspend fun getCurrencies(): List<Currencies> = db.getAll()
+    override  fun test() = data.getTicker()
 
 
     override suspend fun insert(list: Set<Payload>) {

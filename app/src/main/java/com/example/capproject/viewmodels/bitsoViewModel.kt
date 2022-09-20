@@ -16,10 +16,13 @@ import com.example.capproject.models.Book.Payload
 import com.example.capproject.models.Book.detailedPayload
 import com.example.capproject.models.trading.PayloadTrades
 import com.example.capproject.repository.BitsoRepository
+import com.example.capproject.repository.BitsoRepositoryImp
 import com.example.capproject.room.Currencies
 import com.example.capproject.room.Operationstrades
 import com.example.capproject.support.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.produce
@@ -69,6 +72,7 @@ class BitsoViewModel
         saveState("true")
 
         viewModelScope.launch(Dispatchers.IO) {
+            getserviceresponse()
 
             while (true) {
 
@@ -83,8 +87,6 @@ class BitsoViewModel
                     }
                     else ->{}
                 }
-
-
 
                 if (getState() == "true") {
 
@@ -128,6 +130,18 @@ class BitsoViewModel
         }
     }
 
+    private  fun getserviceresponse() {
+        bitsoRepositoryImp.test()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                if (it.success)
+                    networkstatus = true
+                else
+                {errorMessage=it.Error.message}
+            }
+    }
+
 
     //set coin clickes
     fun setCoinInfo(coin: String) {
@@ -168,7 +182,6 @@ class BitsoViewModel
             }
         }
 
-
     private suspend fun ChannelTransaction1(coin: String) {
         val listamutable = mutableListOf<PayloadTrades>()
         val chanel = chaneltransaction(coin)
@@ -185,7 +198,6 @@ class BitsoViewModel
             }
         chanel.cancel()
         trades = listamutable
-
     }
 
     private fun chaneltransaction(coin: String): ReceiveChannel<PayloadTrades> =
