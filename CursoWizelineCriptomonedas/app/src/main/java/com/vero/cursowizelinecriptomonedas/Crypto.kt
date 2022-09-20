@@ -1,7 +1,6 @@
 package com.vero.cursowizelinecriptomonedas
 //Cryptocurrency
 class Crypto (
-    val id:             Long,
     val book:           String,
     val minimum_price:  Double,
     val maximum_price:  Double,

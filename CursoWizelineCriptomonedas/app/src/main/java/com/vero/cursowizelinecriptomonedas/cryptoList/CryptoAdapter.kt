@@ -16,7 +16,7 @@ class CryptoAdapter : ListAdapter<Crypto, CryptoAdapter.CryptoViewHolder>(DiffCa
         }
 
         override fun areContentsTheSame(oldItem: Crypto, newItem: Crypto): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.book == newItem.book
         }
     }
 
