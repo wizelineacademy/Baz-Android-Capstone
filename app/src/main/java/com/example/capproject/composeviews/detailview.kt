@@ -19,17 +19,14 @@ import androidx.navigation.NavHostController
 import com.example.capproject.viewmodels.BitsoViewModel
 import com.example.capproject.items.ItemTrading
 import com.example.capproject.items.Iteminfo
-import com.example.capproject.models.trading.PayloadTrades
-import com.example.capproject.support.loggerD
 import com.example.capproject.support.tokens
 
 @Composable
 fun Detailview(viewModel: BitsoViewModel, navController: NavHostController) {
     with(viewModel) {
-//        loggerD(message = viewModel.getdata().toString())
         saveState("false")
 
-         if (!update)
+        if (!update)
             Loading()
         else
             Column {
@@ -44,8 +41,8 @@ fun Detailview(viewModel: BitsoViewModel, navController: NavHostController) {
                         }
                     },
                     title = {
-                        Text(tokens(getCoin().toString())
-                        )
+                        val message=viewModel.lastmessage + tokens(viewModel.lastCoin)
+                        Text(message)
                     }
                 )
                 if (trades.isEmpty()) {

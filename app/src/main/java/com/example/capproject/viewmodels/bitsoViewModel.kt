@@ -3,6 +3,7 @@ package com.example.capproject.viewmodels
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -15,6 +16,8 @@ import com.example.capproject.models.Book.Payload
 import com.example.capproject.models.Book.detailedPayload
 import com.example.capproject.models.trading.PayloadTrades
 import com.example.capproject.repository.BitsoRepository
+import com.example.capproject.room.Currencies
+import com.example.capproject.room.Operationstrades
 import com.example.capproject.support.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -34,19 +37,19 @@ class BitsoViewModel
     private var net = "Network"
     //keys
 
-    //
-
-    //
-
     //Empty
     var isloading: Boolean by mutableStateOf(false)
     //List
 
+    //Last
+    var lastmessage:String by mutableStateOf("")
+    var lastCoin:String by mutableStateOf("")
+    //Consume
+
     //observables
     private var openedPayloads: List<Payload> by mutableStateOf(listOf())
     var detailedPayload: List<detailedPayload> by mutableStateOf(listOf())
-    var openedPayloadsCoin: List<com.example.capproject.models.Tickers.Payload> by mutableStateOf(
-        listOf())
+    var openedPayloadsCoin: List<com.example.capproject.models.Tickers.Payload> by mutableStateOf(listOf())
     var trades: List<PayloadTrades> by mutableStateOf(listOf())
     var update: Boolean by mutableStateOf(true)
     var networkstatus:Boolean by mutableStateOf(true)
@@ -62,43 +65,63 @@ class BitsoViewModel
     //viewmodel
 
     init {
+        setNetworkState(net,"ok")
         saveState("true")
 
         viewModelScope.launch(Dispatchers.IO) {
+
             while (true) {
+
+                when(getNetworkStatus()) {
+                    "ok" -> {
+                        lastmessage= ""
+                        networkstatus=true
+                    }
+                    "fail" ->{
+                        lastmessage="Ultima consulta : "
+                        networkstatus=false
+                    }
+                    else ->{}
+                }
+
+
 
                 if (getState() == "true") {
 
-
-//                    if (getNetworkStatus() == "ok")
-  //                      loggerD(message = "REcibi ok" )
-    //                else
-      //              {}
-
                     update = false
-
                     getbooksflow()
-
-                    delay(5000)
 
 
                     if (openedPayloads.isNotEmpty())
+                    {
                         savedata()
-
-
-
+                    }
+                    if (!networkstatus && openedPayloads.isEmpty() )
+                    {
+                        getChannelCoins()
+                        loggerD(message = "Estoy con datos de la base")
+                    }
+                    delay(5000)
                     update = true
+
                 } else {
                     getCoin()?.let {
-                        getCoinDetails(it)
-//                        getCoinTransactionFlow(it)
+                        if (networkstatus) {
+                            getCoinDetails(it)
+                            ChannelTransaction1(it)
+                            if (trades.isNotEmpty()) {
+                                lastCoin=getCoin().toString()
+                                savetrades()
+                            }
+                        }
+                        delay(3000)
 
-                        ChannelTransaction1(it)
+                        if (!networkstatus)
+                        {
+                            loggerD(message = "Estoy con datos de la base")
+                            getChannelTradesInfo()
+                        }
 
-                        if (trades.isNotEmpty())
-                            savetrades()
-
-                        delay(1000)
                     }
                 }
             }
@@ -122,14 +145,12 @@ class BitsoViewModel
         viewModelScope.launch(Dispatchers.IO)
         {
             books()
-                .catch {
-                    loggerD(message = this.toString())
-                }
+                .catch {}
+                //  loggerD(message = this.toString())}
                 .collect { it ->
                     openedPayloads = it.payload.filter {
                         it.book.contains("mxn")
                     }
-
                 }
             detailedPayload = GetnewList(openedPayloads)
             isloading = openedPayloads.isNotEmpty()
@@ -155,7 +176,7 @@ class BitsoViewModel
             .take(15)
             .collect {
                 listamutable.add(
-                    PayloadTrades(amount = it.amount,
+                    PayloadTrades(amount = it.amount.take(10),
                         price = it.price.take(10),
                         maker_side = operation(it.maker_side),
                         book = it.book
@@ -167,7 +188,7 @@ class BitsoViewModel
 
     }
 
-    fun chaneltransaction(coin: String): ReceiveChannel<PayloadTrades> =
+    private fun chaneltransaction(coin: String): ReceiveChannel<PayloadTrades> =
         viewModelScope.produce {
             bitsoRepositoryImp.tradesinfo2(coin).payload.forEachIndexed {index,it->
                 send(it)
@@ -205,15 +226,13 @@ class BitsoViewModel
         StatesRepository.getFlag(state)
     }
 
-    fun savedata()
-    {
+    fun savedata() {
         viewModelScope.launch(Dispatchers.IO) {
             bitsoRepositoryImp.insert(openedPayloads.toSet())
         }
     }
 
-    fun savetrades()
-    {
+    fun savetrades() {
         viewModelScope.launch(Dispatchers.IO) {
             bitsoRepositoryImp.inserttrades(trades)
         }
@@ -222,10 +241,65 @@ class BitsoViewModel
     private suspend fun getNetworkStatus():String? =
         StatesRepository.getNetworkStatus(net)
 
+    private fun setNetworkState(key1:String, key2:String){
+        viewModelScope.launch{
+            StatesRepository.setNetworkStatus(key1,key2)
+        }
+    }
 
+    private suspend fun getCoinsInfo():ReceiveChannel<Currencies> =
+        viewModelScope.produce (Dispatchers.IO){
+            bitsoRepositoryImp.getCurrencies().forEach {
+                send(it)
+            }
+        }
 
+    private suspend fun getChannelCoins()
+    {
+        val channel=getCoinsInfo()
+        val listamutable = mutableListOf<Payload>()
+
+        channel.consumeAsFlow()
+            .collect{
+                listamutable.add(
+                    Payload(
+                        book = it.Name.toString(),
+                        maximum_price = it.maxvalue.toString(),
+                        minimum_price = it.minvalue.toString()
+                    )
+                )
+            }
+        openedPayloads=listamutable
+        channel.cancel()
+    }
+
+    private fun getTradesInfo1():ReceiveChannel<Operationstrades> =
+        viewModelScope.produce<Operationstrades> (Dispatchers.IO) {
+            bitsoRepositoryImp.getTrades1().forEach {
+                send(it)
+            }
+        }
+
+    private suspend fun getChannelTradesInfo(): MutableList<PayloadTrades> {
+        val listamutable = mutableListOf<PayloadTrades>()
+        val channel=getTradesInfo1()
+        channel.consumeAsFlow()
+            .take(15)
+            .collect{
+                listamutable.add(PayloadTrades(
+                    amount = it.Amount.toString(),
+                    book = it.pair.toString(),
+                    maker_side = it.Type.toString(),
+                    price = it.Price.toString()
+                ))
+            }
+        channel.cancel()
+        trades=listamutable
+
+        return listamutable
+    }
+    //closing viewmodel
 }
-
 
 
 

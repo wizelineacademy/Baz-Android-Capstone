@@ -41,7 +41,6 @@ class MainActivity : ComponentActivity() {
     private fun callNetworkConnection(){
         val statesRepository =DataStoreRepositoryImpl(this)
         NetworkViewModel(statesRepository).run {
-            this.setNetworkState("Network","ok")//default case
             CheckNetworkConnection(application).
             observe(this@MainActivity) { isConnected ->
                 if (isConnected) {
@@ -49,7 +48,7 @@ class MainActivity : ComponentActivity() {
                     this.setNetworkState("Network","ok")
                 } else {
                     loggerD(message = "Desconectado")
-                    this.setNetworkState("Network","failed conection")
+                    this.setNetworkState("Network","fail")
                 }
             }
         }

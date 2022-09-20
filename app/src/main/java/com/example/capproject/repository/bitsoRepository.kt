@@ -9,7 +9,10 @@ import com.example.capproject.room.CriptocurrenciesDao
 import com.example.capproject.room.Currencies
 import com.example.capproject.room.Operationstrades
 import com.example.capproject.room.TradesDao
+import com.example.capproject.support.loggerD
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 interface BitsoRepository {
@@ -19,6 +22,8 @@ interface BitsoRepository {
     suspend fun tradesinfo2(coin: String): Trades
     suspend fun getbooks1(): Books
     suspend fun inserttrades(list: List<PayloadTrades>)
+    suspend fun getTrades1():List<Operationstrades>
+    suspend fun getCurrencies():List<Currencies>
 }
 
 class BitsoRepositoryImp
@@ -29,24 +34,27 @@ class BitsoRepositoryImp
     private val listamutable = mutableListOf<Currencies>()
 
     override suspend fun getbooks1(): Books = data.getBooks()
-    override suspend fun inserttrades(list: List<PayloadTrades>)
-    {
+    override suspend fun inserttrades(list: List<PayloadTrades>) {
         val listamutable = mutableListOf<Operationstrades>()
 
-        list.forEachIndexed {index,item ->
+        list.forEachIndexed { index, item ->
             listamutable.add(
                 Operationstrades(uid = index,
-                    Amount = item.amount
-                    ,Type=item.maker_side,
+                    Amount = item.amount, Type = item.maker_side,
                     Price = item.price,
                     pair = item.book
                 ))
         }
 
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             bd1.insertAll(listamutable)
         }
     }
+
+
+    override suspend fun getTrades1(): List<Operationstrades> = bd1.getAll()
+    override suspend fun getCurrencies(): List<Currencies> = db.getAll()
+
 
     override suspend fun insert(list: Set<Payload>) {
 
@@ -55,8 +63,7 @@ class BitsoRepositoryImp
                 uid = index,
                 Name = it.book,
                 minvalue = it.minimum_price,
-                maxvalue = it.maximum_price,
-            )
+                maxvalue = it.maximum_price)
             )
         }
         withContext(Dispatchers.IO) {

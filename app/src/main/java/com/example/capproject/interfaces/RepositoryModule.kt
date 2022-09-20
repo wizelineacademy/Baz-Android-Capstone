@@ -16,7 +16,5 @@ abstract class RepositoryModule {
     @Binds
     abstract fun bitsoRepo (repo: BitsoRepositoryImp): BitsoRepository
 
-
-
 }
 

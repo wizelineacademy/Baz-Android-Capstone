@@ -1,9 +1,7 @@
 package com.example.capproject.composeviews
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -17,8 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.capproject.viewmodels.BitsoViewModel
 import com.example.capproject.items.Generalitem2
-import com.example.capproject.models.Book.Payload
-import com.example.capproject.support.loggerD
 
 @Composable
 fun Mainview(viewModel: BitsoViewModel, navHostController: NavHostController) {
@@ -26,6 +22,11 @@ fun Mainview(viewModel: BitsoViewModel, navHostController: NavHostController) {
     with(viewModel) {
         saveState("true")
 
+
+       if(!networkstatus)
+           Box(modifier = Modifier.background(color = Color.Black)) {
+               Displaysnack(message = "Estas viendo los ultimos datos")
+           }
 
         if (!isloading) {
             Loading()
@@ -44,7 +45,7 @@ fun Mainview(viewModel: BitsoViewModel, navHostController: NavHostController) {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight(0.93F),
+                        .fillMaxHeight(0.90F),
                     contentPadding = PaddingValues(16.dp),
                     state = rememberLazyListState()
                 ) {
@@ -53,9 +54,13 @@ fun Mainview(viewModel: BitsoViewModel, navHostController: NavHostController) {
                     }
                 }
                 //Disclaimer
-                Text(text = " * Precios expresados en Moneda Nacional", color = Color.LightGray)
-                Text(text = "   solo son de carácter informativo", color = Color.LightGray)
-                //
+                if(networkstatus)
+                {
+                  Text(text = " * Precios expresados en Moneda Nacional", color = Color.LightGray)
+                  Text(text = "   solo son de carácter informativo", color = Color.LightGray)
+                }
+
+                //}
             }
         }
     }
