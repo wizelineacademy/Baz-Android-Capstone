@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.vero.cursowizelinecriptomonedas.Crypto
 import kotlinx.coroutines.launch
 
-class CryptoListViewModel: ViewModel() {
+class CryptoListViewModel : ViewModel() {
     //LIVEDATA
     private val _cryptoList = MutableLiveData<List<Crypto>>()
     val cryptoList: LiveData<List<Crypto>>
@@ -20,8 +20,8 @@ class CryptoListViewModel: ViewModel() {
     }
 
     private fun downloadCrypto() {
-        //Ejecuta corrutina
-        viewModelScope.launch{
+        //Coroutine
+        viewModelScope.launch {
             _cryptoList.value = cryptoRepository.downloadCrypto()
         }
     }

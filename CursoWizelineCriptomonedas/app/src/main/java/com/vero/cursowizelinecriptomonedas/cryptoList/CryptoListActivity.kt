@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.vero.cursowizelinecriptomonedas.databinding.ActivityCryptoListBinding
 
 class CryptoListActivity : AppCompatActivity() {
-    //Instancia del ViewModel
-    private val dogListViewModel: CryptoListViewModel by viewModels()
+    //Instance del ViewModel
+    private val cryptoListViewModel: CryptoListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,9 +21,8 @@ class CryptoListActivity : AppCompatActivity() {
         val adapter = CryptoAdapter()
         recycler.adapter = adapter
 
-        //crear observer
-        dogListViewModel.cryptoList .observe(this){
-                cryptoList->
+        //Observer
+        cryptoListViewModel.cryptoList.observe(this) { cryptoList ->
             adapter.submitList(cryptoList)
         }
     }
