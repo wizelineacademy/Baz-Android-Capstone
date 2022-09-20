@@ -38,18 +38,16 @@ fun CriptoScreen(navController: NavHostController) {
     ) {
         if (listaCriptos.isEmpty()) {
             item {
-                Spacer(modifier = Modifier.height(350.dp))
                 CircularProgressIndicator(
                     modifier = Modifier
                         .size(50.dp, 50.dp)
-                        .wrapContentSize(align = Alignment.BottomCenter)
+                        .padding(start = 80.dp, top = 150.dp)
                 )
             }
             //navController.popBackStack()
         }
 
         items(listaCriptos) { cripto ->
-
             CriptoCard(cripto, navController)
         }
     }
