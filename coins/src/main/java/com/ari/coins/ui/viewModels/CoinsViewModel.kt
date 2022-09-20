@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ari.coins.data.models.AvailableBooks
+import com.ari.coins.data.models.AvailableBook
 import com.ari.coins.data.models.OrderBook
 import com.ari.coins.data.models.Result
 import com.ari.coins.data.models.Ticker
@@ -22,8 +22,8 @@ class CoinsViewModel @Inject constructor(
     private val getOrderBookUseCase: GetOrderBookUseCase
 ): ViewModel() {
 
-    private val _availableBooks = MutableLiveData<Result<List<AvailableBooks>>>()
-    val availableBooks: LiveData<Result<List<AvailableBooks>>> get() = _availableBooks
+    private val _availableBooks = MutableLiveData<Result<List<AvailableBook>>>()
+    val availableBooks: LiveData<Result<List<AvailableBook>>> get() = _availableBooks
 
     private val _ticker = MutableLiveData<Result<Ticker>>()
     val ticker: LiveData<Result<Ticker>> get() = _ticker
@@ -32,7 +32,7 @@ class CoinsViewModel @Inject constructor(
     val orderBook: LiveData<Result<OrderBook>> get() = _orderBook
 
     fun getAvailableBooks() = viewModelScope.launch{
-        val result: Result<List<AvailableBooks>> = getAvailableBooksUseCase(null)
+        val result: Result<List<AvailableBook>> = getAvailableBooksUseCase(null)
         _availableBooks.postValue(result)
     }
 

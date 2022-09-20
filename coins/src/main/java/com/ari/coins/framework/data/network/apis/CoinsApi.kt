@@ -1,6 +1,6 @@
 package com.ari.coins.framework.data.network.apis
 
-import com.ari.coins.data.models.AvailableBooks
+import com.ari.coins.data.models.AvailableBook
 import com.ari.coins.data.models.CryptoResponse
 import com.ari.coins.data.models.OrderBook
 import com.ari.coins.data.models.Ticker
@@ -12,7 +12,7 @@ import retrofit2.http.Query
 interface CoinsApi {
 
     @GET(Endpoints.AVAILABLE_BOOKS)
-    suspend fun getAvailableBooks(): Response<CryptoResponse<List<AvailableBooks>>>
+    suspend fun getAvailableBooks(): Response<CryptoResponse<List<AvailableBook>>>
 
     @GET(Endpoints.TICKER)
     suspend fun getTicker(@Query("book") book: String): Response<CryptoResponse<Ticker>>

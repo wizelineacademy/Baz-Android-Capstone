@@ -1,6 +1,6 @@
 package com.ari.coins.data.models
 
-data class AvailableBooks(
+data class AvailableBook(
     val book: String,
     val default_chart: String,
     val fees: Fees,

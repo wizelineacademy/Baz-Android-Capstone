@@ -6,57 +6,27 @@ import android.util.Log
 import androidx.activity.viewModels
 import com.ari.coins.R
 import com.ari.coins.data.models.Result
+import com.ari.coins.databinding.ActivityCoinsBinding
 import com.ari.coins.ui.viewModels.CoinsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CoinsActivity : AppCompatActivity() {
 
+    private var _binding: ActivityCoinsBinding? = null
+    private val binding: ActivityCoinsBinding get() = _binding!!
+
+    // Init ViewModel here for get the same instance on fragments
     private val coinsViewModel: CoinsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_coins)
-
-        addObservers()
-        coinsViewModel.getAvailableBooks()
-
+        _binding = ActivityCoinsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
-    private fun addObservers() {
-        coinsViewModel.availableBooks.observe(this) { result ->
-            when(result) {
-                is Result.Error -> {
-                    Log.e("AVD", "${result.code} - ${result.message}")
-                }
-                is Result.Success -> {
-                    Log.e("AVD", result.data.toString())
-                    coinsViewModel.getTicker(result.data[0].book)
-                    coinsViewModel.getOrderBook(result.data[0].book)
-                }
-            }
-        }
-
-        coinsViewModel.ticker.observe(this) { result ->
-            when(result) {
-                is Result.Error -> {
-                    Log.e("TICKER", "${result.code} - ${result.message}")
-                }
-                is Result.Success -> {
-                    Log.e("TICKER", result.data.toString())
-                }
-            }
-        }
-
-        coinsViewModel.orderBook.observe(this) { result ->
-            when(result) {
-                is Result.Error -> {
-                    Log.e("ORDERBOOK", "${result.code} - ${result.message}")
-                }
-                is Result.Success -> {
-                    Log.e("ORDERBOOK", result.data.toString())
-                }
-            }
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

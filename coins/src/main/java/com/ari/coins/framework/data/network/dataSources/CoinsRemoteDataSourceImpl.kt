@@ -10,8 +10,8 @@ class CoinsRemoteDataSourceImpl @Inject constructor(
     private val coinsApi: CoinsApi
 ): CoinsRemoteDataSource {
 
-    override suspend fun getAvailableBooks(): Result<List<AvailableBooks>> = try {
-        val response: Response<CryptoResponse<List<AvailableBooks>>> = coinsApi.getAvailableBooks()
+    override suspend fun getAvailableBooks(): Result<List<AvailableBook>> = try {
+        val response: Response<CryptoResponse<List<AvailableBook>>> = coinsApi.getAvailableBooks()
 
         if (response.isSuccessful) {
             val body = response.body()!!
