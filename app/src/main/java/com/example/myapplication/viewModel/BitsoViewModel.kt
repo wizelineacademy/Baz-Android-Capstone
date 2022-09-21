@@ -86,7 +86,6 @@ class BitsoViewModel : ViewModel() {
                 .subscribe{ onSuccess: AskAndBidResponse?, onError: Throwable? ->
                     onSuccess?.let {
                         //selectMoneyCripto.postValue()
-                        Log.e("ok", "")
                     }
 
                     onError?.let {
