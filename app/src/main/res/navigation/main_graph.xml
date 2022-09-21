@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/criptoFragment">
+
+    <fragment
+        android:id="@+id/criptoFragment"
+        android:name="com.example.criptobenjaespi.ui.CriptoFragment"
+        android:label="fragment_cripto"
+        tools:layout="@layout/fragment_cripto" >
+        <action
+            android:id="@+id/action_criptoFragment_to_detailCriptoFragment"
+            app:destination="@id/detailCriptoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailCriptoFragment"
+        android:name="com.example.criptobenjaespi.ui.DetailCriptoFragment"
+        android:label="fragment_detail_cripto"
+        tools:layout="@layout/fragment_detail_cripto" />
+</navigation>
