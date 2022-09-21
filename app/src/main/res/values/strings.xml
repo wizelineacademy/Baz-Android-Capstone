@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name"> Capstone Project</string>
-    <string name="tv_maximum_price_lbl">Maximum Price</string>
+    <string name="tv_maximum_price_lbl_rv_item">Maximum Price</string>
+    <string name="tv_last_price">Last Price: $%1$s</string>
+    <string name="tv_highest_price">Highest Price: $%1$s</string>
+    <string name="tv_lowest_price">Lowest Price: $%1$s</string>
+
+
+    <string name="tv_order_price">Price: $%1$s</string>
+    <string name="tv_order_amount">Amount: %1$s</string>
 </resources>
 

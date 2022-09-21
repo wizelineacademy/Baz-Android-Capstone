@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.capstoneproject.R
-import com.example.capstoneproject.data.model.AvailableBookModel
+import com.example.capstoneproject.data.model.availableBooks.AvailableBookModel
 
-class AvailableBooksAdapter : ListAdapter<AvailableBookModel, BookViewHolder>(DiffUtilCallback) {
+class AvailableBooksAdapter(private val onClickItem: (AvailableBookModel) -> Unit) : ListAdapter<AvailableBookModel, BookViewHolder>(DiffUtilCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context).inflate(R.layout.item_book, parent, false)
@@ -16,7 +16,8 @@ class AvailableBooksAdapter : ListAdapter<AvailableBookModel, BookViewHolder>(Di
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        holder.render(getItem(position))
+        holder.render(book = getItem(position), onClickItem = onClickItem)
+
     }
 
     private object DiffUtilCallback : DiffUtil.ItemCallback<AvailableBookModel>() {

@@ -1,20 +1,21 @@
 package com.example.capstoneproject.data.network
 
-import com.example.capstoneproject.core.RetrofitHelper
-import com.example.capstoneproject.data.model.AvailableBookModel
-import com.example.capstoneproject.data.model.BitsoProvider
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.example.capstoneproject.data.model.availableBooks.AvailableBooksResponse
+import com.example.capstoneproject.data.model.orderBook.OrderBookResponse
+import com.example.capstoneproject.data.model.ticker.TickerResponse
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Query
 
-class BitsoService {
+interface BitsoService {
 
-    private val retrofit = RetrofitHelper.getRetrofit()
+    @GET("available_books/")
+    suspend fun getAllAvailableBooks(): Response<AvailableBooksResponse>
 
-    suspend fun getAvailableBooks():List<AvailableBookModel>{
-        return withContext(Dispatchers.IO){
-            val response = retrofit.create(BitsoApiClient::class.java).getAllAvailableBooks()
-            BitsoProvider.availableBooks = response.body()?.payload ?: emptyList()
-            response.body()?.payload ?: emptyList()
-        }
-    }
+    @GET("ticker/")
+    suspend fun getTicker(@Query("book") book:String): Response<TickerResponse>
+
+    @GET("order_book/")
+    suspend fun getOrderBook(@Query("book") book:String): Response<OrderBookResponse>
+
 }
