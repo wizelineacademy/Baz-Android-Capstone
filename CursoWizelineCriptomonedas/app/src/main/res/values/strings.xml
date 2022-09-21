@@ -8,4 +8,7 @@
     <string name="maximum_value">Maximum value</string>
 
     <string name="error_showing_crypto_not_found">Error showing crypto, crypto not found</string>
+
+    <string name="error_unknown_host_exception">There is no connection</string>
+    <string name="error_unknown">There was an error</string>
 </resources>

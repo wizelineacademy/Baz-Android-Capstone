@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.vero.cursowizelinecriptomonedas.Crypto
 import com.vero.cursowizelinecriptomonedas.api.ApiResponseStatus
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class CryptoListViewModel : ViewModel() {
     //LIVEDATA
@@ -30,13 +29,15 @@ class CryptoListViewModel : ViewModel() {
     private fun downloadCrypto() {
         //Coroutine
         viewModelScope.launch {
-            _status.value = ApiResponseStatus.LOADING
-            try {
-                _cryptoList.value = cryptoRepository.downloadCrypto()
-                _status.value = ApiResponseStatus.SUCCESS
-            } catch (e: Exception) {
-                _status.value = ApiResponseStatus.ERROR
-            }
+            _status.value = ApiResponseStatus.Loading
+            handleResponseStatus(cryptoRepository.downloadCrypto())
         }
+    }
+
+    private fun handleResponseStatus(apiResponseStatus: ApiResponseStatus) {
+        if (apiResponseStatus is ApiResponseStatus.Success) {
+            _cryptoList.value = apiResponseStatus.cryptoList
+        }
+        _status.value = apiResponseStatus
     }
 }
