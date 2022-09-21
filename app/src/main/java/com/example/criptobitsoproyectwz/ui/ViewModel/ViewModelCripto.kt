@@ -6,6 +6,7 @@ import com.example.criptobitsoproyectwz.data.Repository.useCaseCripto
 import com.example.criptobitsoproyectwz.data.model.Criptos.Payload
 import com.example.criptobitsoproyectwz.data.model.OrderBook.Asks
 import com.example.criptobitsoproyectwz.data.model.OrderBook.Bids
+import com.example.criptobitsoproyectwz.data.model.OrderBook.PayloadBookOrder
 import com.example.criptobitsoproyectwz.data.model.Ticket.PayloadCripto
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -28,6 +29,9 @@ class ViewModelCripto: ViewModel() {
 
     private val _dataBids = MutableStateFlow(emptyList<Bids>())
     val dataBids = _dataBids
+
+    private val _dataBidsAsks = MutableStateFlow(emptyList<PayloadBookOrder>())
+    val dataBidsAsks = _dataBidsAsks
 
 
     init {
@@ -60,6 +64,14 @@ class ViewModelCripto: ViewModel() {
             if (result?.exitoso == true){
                 dataAsks.value = result.payload.asks
                 dataBids.value = result.payload.bids
+            }
+        }
+    }
+    fun getAllAskBids(cripto: String){
+        viewModelScope.launch {
+            val result = useCaseCripto().useCaseAskBids(crip = cripto)
+            if (result?.exitoso == true){
+                dataBidsAsks.value = listOf(result.payload)
             }
         }
     }
