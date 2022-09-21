@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CursoWizelineCriptomonedas</string>
+    <string name="image">Description Image</string>
+    <string name="minimum_price">Minimum price</string>
+    <string name="maximum_price">Maximun price</string>
+    <string name="tick_size">Ticket size</string>
+    <string name="minimum_value">Minimum value</string>
+    <string name="maximum_value">Maximum value</string>
 </resources>
