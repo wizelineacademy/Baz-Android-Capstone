@@ -5,11 +5,11 @@ import com.brendarojas.criptomonedaswizeline.webservice.CryptoApi
 
 class InitialApplication : Application() {
     companion object{
-        lateinit var webServiceAvailableBooks: CryptoApi
+        lateinit var webServiceGlobal: CryptoApi
     }
 
     override fun onCreate() {
         super.onCreate()
-        webServiceAvailableBooks = ConfigRetrofit.getConfigurationRetrofit()
+        webServiceGlobal = ConfigRetrofit.getConfigurationRetrofit()
     }
 }

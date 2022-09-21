@@ -6,13 +6,13 @@ import com.brendarojas.criptomonedaswizeline.webservice.CryptoDao
 
 class MainActivity : AppCompatActivity() {
 
-    var availableBooksDao = CryptoDao()
+    var dao = CryptoDao()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        availableBooksDao.consumirServicioGet()
+        dao.getServiceOrderBook()
     }
 
 
