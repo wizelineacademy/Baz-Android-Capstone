@@ -10,13 +10,14 @@ import androidx.navigation.navArgument
 import com.example.criptobitsoproyectwz.ui.View.CriptoScreen
 import com.example.criptobitsoproyectwz.ui.View.DetallesScreen
 import com.example.criptobitsoproyectwz.ui.ViewModel.ViewModelCripto
+import com.example.criptobitsoproyectwz.ui.ViewModel.ViewModelCriptoLD
 
 @Preview
 @Composable
 fun NavigationGraph(){
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Rutas.Home.ruta ){
-        composable(route = Rutas.Home.ruta){ CriptoScreen(navController) }
+        composable(route = Rutas.Home.ruta){ CriptoScreen(navController, ViewModelCriptoLD()) }
         composable(
             route = Rutas.Detalle.ruta+"/{cripto}",
             arguments = listOf(navArgument("cripto"){type = NavType.StringType})){ back->
