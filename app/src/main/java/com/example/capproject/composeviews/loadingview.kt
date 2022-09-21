@@ -15,7 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 
 
 @Composable
-fun Loading() {
+fun Loading( mensaje:String ="") {
     Surface {
         TopAppBar(
             title = {
@@ -31,6 +31,8 @@ fun Loading() {
             modifier = Modifier.fillMaxSize()) {
             // val listState = rememberLazyListState()
             CircularProgressIndicator()
+            if (mensaje != "")
+                Displaysnack(message = mensaje)
         }
     }
 

@@ -1,32 +1,31 @@
 package com.example.capproject.viewmodels
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.capproject.datastore.DataStoreRepository
 import com.example.capproject.models.Book.Books
 import com.example.capproject.models.Book.Payload
 import com.example.capproject.models.Book.detailedPayload
+import com.example.capproject.models.Tickers.Ticker
 import com.example.capproject.models.trading.PayloadTrades
 import com.example.capproject.repository.BitsoRepository
-import com.example.capproject.repository.BitsoRepositoryImp
 import com.example.capproject.room.Currencies
 import com.example.capproject.room.Operationstrades
 import com.example.capproject.support.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.produce
 import kotlinx.coroutines.flow.*
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
+import java.util.logging.Logger
 import javax.inject.Inject
 
 @HiltViewModel
@@ -72,6 +71,7 @@ class BitsoViewModel
         saveState("true")
 
         viewModelScope.launch(Dispatchers.IO) {
+
             getserviceresponse()
 
             while (true) {
@@ -134,12 +134,9 @@ class BitsoViewModel
         bitsoRepositoryImp.test()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                if (it.success)
-                    networkstatus = true
-                else
-                {errorMessage=it.Error.message}
-            }
+            .subscribe (
+                { message -> displayMessage(message) },
+                { error -> displayError(error) })
     }
 
 
@@ -181,6 +178,7 @@ class BitsoViewModel
                 if (a.error.code == 400) throw Exception("Acceso no Permitido")
             }
         }
+
 
     private suspend fun ChannelTransaction1(coin: String) {
         val listamutable = mutableListOf<PayloadTrades>()
@@ -250,6 +248,7 @@ class BitsoViewModel
         }
     }
 
+
     private suspend fun getNetworkStatus():String? =
         StatesRepository.getNetworkStatus(net)
 
@@ -310,8 +309,31 @@ class BitsoViewModel
 
         return listamutable
     }
-    //closing viewmodel
+
+    private fun displayMessage(message: Ticker) {
+
+        loggerD(message=message.toString())
+    }
+
+    private fun displayError(error: Throwable) {
+        when (error) {
+            is NoNetworkException -> errorMessage= "displayNoNetworkError()"
+            is ServerUnreachableException ->errorMessage=" displayServerUnreachableError()"
+            is HttpCallFailureException -> errorMessage="displayCallFailedError()"
+            else -> errorMessage="displayGenericError(error)"
+        }
+    }
+
+
 }
+
+open class NetworkException(error: Throwable): RuntimeException(error)
+
+class NoNetworkException(error: Throwable): NetworkException(error)
+
+class ServerUnreachableException(error: Throwable): NetworkException(error)
+
+class HttpCallFailureException(error: Throwable): NetworkException(error)
 
 
 
