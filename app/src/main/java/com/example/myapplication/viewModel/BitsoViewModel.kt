@@ -1,5 +1,6 @@
 package com.example.myapplication.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.api.ApiRetro
@@ -85,6 +86,7 @@ class BitsoViewModel : ViewModel() {
                 .subscribe{ onSuccess: AskAndBidResponse?, onError: Throwable? ->
                     onSuccess?.let {
                         //selectMoneyCripto.postValue()
+                        Log.e("ok", "")
                     }
 
                     onError?.let {
