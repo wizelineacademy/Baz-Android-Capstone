@@ -6,4 +6,6 @@
     <string name="tick_size">Ticket size</string>
     <string name="minimum_value">Minimum value</string>
     <string name="maximum_value">Maximum value</string>
+
+    <string name="error_showing_crypto_not_found">Error showing crypto, crypto not found</string>
 </resources>

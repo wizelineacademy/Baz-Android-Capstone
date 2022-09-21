@@ -1,8 +1,12 @@
 package com.vero.cursowizelinecriptomonedas
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 //Cryptocurrency
-class Crypto (
-    val book:           String,
+@Parcelize
+class Crypto(
+    val book: String,
     val minimum_price:  String,
     val maximum_price:  String,
     val minimum_amount: String,
@@ -10,4 +14,4 @@ class Crypto (
     val minimum_value:  String,
     val maximum_value:  String,
     val tick_size:      String,
-)
+) : Parcelable

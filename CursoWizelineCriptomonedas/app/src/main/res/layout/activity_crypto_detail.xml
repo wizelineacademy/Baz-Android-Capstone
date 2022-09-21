@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="crypto"
             type="com.vero.cursowizelinecriptomonedas.Crypto" />
@@ -67,6 +67,7 @@
                         android:textColor="@color/text_black"
                         android:textSize="32sp"
                         tools:text="MXN" />
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -95,7 +96,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="@string/minimum_price"/>
+                                android:text="@string/minimum_price" />
 
                             <TextView
                                 android:id="@+id/minimum_price"
@@ -114,7 +115,7 @@
                                 android:text="@string/maximum_price" />
 
                             <TextView
-                                android:id="@+id/male_weight"
+                                android:id="@+id/maximum_price"
                                 style="@style/DetailSectionInfo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -143,6 +144,7 @@
                                 android:text="@string/tick_size" />
 
                             <TextView
+                                android:id="@+id/ticket_size"
                                 style="@style/DetailSectionInfo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -173,7 +175,7 @@
                                 android:textColor="@color/text_black" />
 
                             <TextView
-                                android:id="@+id/female_height"
+                                android:id="@+id/minimum_value"
                                 style="@style/DetailSectionInfo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -188,7 +190,7 @@
                                 android:text="@string/maximum_value" />
 
                             <TextView
-                                android:id="@+id/male_height"
+                                android:id="@+id/maximum_value"
                                 style="@style/DetailSectionInfo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

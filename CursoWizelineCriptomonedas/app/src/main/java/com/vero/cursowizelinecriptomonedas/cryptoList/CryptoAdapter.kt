@@ -20,6 +20,14 @@ class CryptoAdapter : ListAdapter<Crypto, CryptoAdapter.CryptoViewHolder>(DiffCa
         }
     }
 
+    //Lambda - click
+    private var onItemClickListener: ((Crypto) -> Unit)? = null
+
+    //Recibe lambda
+    fun setOnItemClickListener(onItemClickListener: (Crypto) -> Unit) {
+        this.onItemClickListener = onItemClickListener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptoViewHolder {
         val binding = CryptoListItemBinding
             .inflate(LayoutInflater.from(parent.context))
@@ -35,6 +43,11 @@ class CryptoAdapter : ListAdapter<Crypto, CryptoAdapter.CryptoViewHolder>(DiffCa
         RecyclerView.ViewHolder(binding.root) {
         fun bind(crypto: Crypto) {
             binding.cryptoBook.text = crypto.book
+            //Click book
+            binding.cryptoBook.setOnClickListener {
+                //Si no es null invoke
+                onItemClickListener?.invoke(crypto)
+            }
         }
     }
 }

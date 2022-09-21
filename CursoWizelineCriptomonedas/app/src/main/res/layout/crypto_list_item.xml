@@ -4,6 +4,8 @@
     <TextView
         android:id="@+id/crypto_book"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:padding="16dp" />
 
 </layout>
