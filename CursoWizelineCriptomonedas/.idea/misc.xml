@@ -6,11 +6,12 @@
         <entry key="app/src/main/res/drawable-v24/detail_info_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_check_black.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_cripto_list.xml" value="0.21614583333333334" />
-        <entry key="app/src/main/res/layout/activity_crypto_detail.xml" value="0.203125" />
+        <entry key="app/src/main/res/layout/activity_crypto_detail.xml" value="0.1908428647102566" />
         <entry key="app/src/main/res/layout/activity_crypto_list.xml" value="0.203125" />
         <entry key="app/src/main/res/layout/activity_list_crypto.xml" value="0.203125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.4078125" />
         <entry key="app/src/main/res/layout/crypto_list_item.xml" value="0.203125" />
+        <entry key="app/src/main/res/layout/crypto_order_list_item.xml" value="0.375" />
       </map>
     </option>
   </component>
