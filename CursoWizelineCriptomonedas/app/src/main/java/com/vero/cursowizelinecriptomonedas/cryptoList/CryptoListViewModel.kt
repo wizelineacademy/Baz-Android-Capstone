@@ -16,8 +16,8 @@ class CryptoListViewModel : ViewModel() {
         get() = _cryptoList
 
     //Status serviceResponse
-    private val _status = MutableLiveData<ApiResponseStatus>()
-    val status: LiveData<ApiResponseStatus>
+    private val _status = MutableLiveData<ApiResponseStatus<List<Crypto>>>()
+    val status: LiveData<ApiResponseStatus<List<Crypto>>>
         get() = _status
 
     private val cryptoRepository = CryptoRepository()
@@ -29,14 +29,14 @@ class CryptoListViewModel : ViewModel() {
     private fun downloadCrypto() {
         //Coroutine
         viewModelScope.launch {
-            _status.value = ApiResponseStatus.Loading
+            _status.value = ApiResponseStatus.Loading()
             handleResponseStatus(cryptoRepository.downloadCrypto())
         }
     }
 
-    private fun handleResponseStatus(apiResponseStatus: ApiResponseStatus) {
+    private fun handleResponseStatus(apiResponseStatus: ApiResponseStatus<List<Crypto>>) {
         if (apiResponseStatus is ApiResponseStatus.Success) {
-            _cryptoList.value = apiResponseStatus.cryptoList
+            _cryptoList.value = apiResponseStatus.payload
         }
         _status.value = apiResponseStatus
     }

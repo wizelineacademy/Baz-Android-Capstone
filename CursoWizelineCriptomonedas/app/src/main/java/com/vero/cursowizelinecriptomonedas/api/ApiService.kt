@@ -1,6 +1,6 @@
 package com.vero.cursowizelinecriptomonedas.api
 
-import com.vero.cursowizelinecriptomonedas.response.CryptoListApiResponse
+import com.vero.cursowizelinecriptomonedas.api.response.CryptoListApiResponse
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET

@@ -1,7 +1,7 @@
-package com.vero.cursowizelinecriptomonedas.response
+package com.vero.cursowizelinecriptomonedas.api.response
 
 import com.squareup.moshi.Json
-import com.vero.cursowizelinecriptomonedas.dto.CryptoDTO
+import com.vero.cursowizelinecriptomonedas.api.dto.CryptoDTO
 
 class CryptoListApiResponse(
     @field: Json(name = "success")

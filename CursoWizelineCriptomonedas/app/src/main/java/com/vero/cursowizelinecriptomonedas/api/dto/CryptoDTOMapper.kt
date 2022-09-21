@@ -1,4 +1,4 @@
-package com.vero.cursowizelinecriptomonedas.dto
+package com.vero.cursowizelinecriptomonedas.api.dto
 
 import com.vero.cursowizelinecriptomonedas.Crypto
 
