@@ -20,7 +20,7 @@ class ApiRetro {
             loggin.level = HttpLoggingInterceptor.Level.BODY
 
             val client = OkHttpClient.Builder()
-                client.addInterceptor(loggin)
+            client.addInterceptor(loggin)
 
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)

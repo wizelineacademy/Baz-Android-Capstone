@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.model.Payload
-import com.example.myapplication.model.PayloadX
 import com.example.myapplication.view.adapter.CritpAdapter
 import com.example.myapplication.view.interfaces.OnclickListenerItem
 import com.example.myapplication.viewModel.BitsoViewModel
@@ -43,6 +42,14 @@ class MainActivity : AppCompatActivity(), OnclickListenerItem{
             }
         }
 
+        viewModel.getSelectCriptoCurrency().observe(this) {
+            ///it?.payload[]
+
+            if (it != null) {
+                Log.e("ok", "ws::2"+it.payload.low)
+            }
+        }
+
         initWS()
     }
 
@@ -52,13 +59,10 @@ class MainActivity : AppCompatActivity(), OnclickListenerItem{
 
     fun updateAdapter() {
         criptoAdapter.submitList(list)
-
-
     }
 
     override fun onCellClickListener(data: Payload) {
-        Log.e("ok", "{${data.book}}")
-        Log.e("ok", "{${data.maximum_amount}}")
+        viewModel.selectCriptoCurrency(data.book)
         Toast.makeText(this,"Cell clicked", Toast.LENGTH_SHORT).show()
     }
 

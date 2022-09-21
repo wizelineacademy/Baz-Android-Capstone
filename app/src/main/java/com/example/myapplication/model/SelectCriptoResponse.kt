@@ -1,6 +1,6 @@
 package com.example.myapplication.model
 
-data class UniqueCriptoResponse(
-    val payload: PayloadX,
+data class SelectCriptoResponse(
+    val payload: PayloadTicker,
     val success: Boolean
 )

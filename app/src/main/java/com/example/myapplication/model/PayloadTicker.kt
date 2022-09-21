@@ -1,6 +1,6 @@
 package com.example.myapplication.model
 
-data class PayloadX(
+data class PayloadTicker(
     val ask: String,
     val bid: String,
     val book: String,
@@ -9,5 +9,6 @@ data class PayloadX(
     val last: String,
     val low: String,
     val volume: String,
-    val vwap: String
+    val vwap: String,
+    val change_24: String
 )
