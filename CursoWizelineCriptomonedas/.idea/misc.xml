@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/detail_info_background.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_back.xml" value="0.225" />
         <entry key="app/src/main/res/drawable/ic_check_black.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.225" />
         <entry key="app/src/main/res/layout/activity_cripto_list.xml" value="0.21614583333333334" />
         <entry key="app/src/main/res/layout/activity_crypto_detail.xml" value="0.1908428647102566" />
         <entry key="app/src/main/res/layout/activity_crypto_list.xml" value="0.203125" />

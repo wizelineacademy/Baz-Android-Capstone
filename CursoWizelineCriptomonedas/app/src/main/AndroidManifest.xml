@@ -16,7 +16,7 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".cryptoDetail.CryptoDetailActivity"
+            android:name=".cryptoDetail.CryptoOrderDetailActivity"
             android:exported="false" />
         <activity
             android:name=".cryptoList.CryptoListActivity"

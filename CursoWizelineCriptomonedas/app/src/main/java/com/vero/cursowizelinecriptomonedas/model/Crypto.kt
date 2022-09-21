@@ -1,4 +1,4 @@
-package com.vero.cursowizelinecriptomonedas
+package com.vero.cursowizelinecriptomonedas.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

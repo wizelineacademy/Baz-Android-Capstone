@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="crypto"
-            type="com.vero.cursowizelinecriptomonedas.Crypto" />
+            type="com.vero.cursowizelinecriptomonedas.model.Crypto" />
     </data>
 
     <FrameLayout
@@ -209,12 +209,19 @@
                         android:layout_marginBottom="16dp"
                         android:background="@color/divider" />
 
+                    <TextView
+                        style="@style/DetailSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/asks" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/crypto_order_recycler"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="8dp"
-                        tools:context=".cryptoDetail.CryptoDetailActivity" />
+                        tools:context=".cryptoDetail.CryptoOrderDetailActivity" />
                 </LinearLayout>
             </FrameLayout>
         </ScrollView>
@@ -223,12 +230,11 @@
             android:id="@+id/close_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            app:fabCustomSize="40dp"
             android:layout_margin="5dp"
-            android:contentDescription="@string/image"
             android:backgroundTint="@color/colorPrimaryDark"
+            android:contentDescription="@string/image"
             android:src="@drawable/ic_back"
-            />
+            app:fabCustomSize="40dp" />
 
         <ProgressBar
             android:id="@+id/loading_wheel"

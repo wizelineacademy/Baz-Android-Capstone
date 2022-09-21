@@ -13,20 +13,28 @@ class CryptoOrderListViewModel : ViewModel() {
     val cryptoOrderList: LiveData<List<CryptoOrder>>
         get() = _cryptoOrderList
 
-    //status
-    //Status serviceResponse
+    //status -- Status serviceResponse
     private val _status = MutableLiveData<ApiResponseStatus<List<CryptoOrder>>>()
     val status: LiveData<ApiResponseStatus<List<CryptoOrder>>>
         get() = _status
 
-    private val cryptoOrderRepository= CryptoOrderRepository()
+    private val cryptoOrderRepository = CryptoOrderRepository()
 
     init {
         downloadCryptoOrder()
     }
-    private fun downloadCryptoOrder(){
+
+    private fun downloadCryptoOrder() {
         viewModelScope.launch {
-            _cryptoOrderList.value = cryptoOrderRepository.downloadCryptoOrder()
+            _status.value = ApiResponseStatus.Loading()
+            handleResponseStatus(cryptoOrderRepository.downloadCryptoOrder())
         }
+    }
+
+    private fun handleResponseStatus(apiResponseStatus: ApiResponseStatus<List<CryptoOrder>>) {
+        if (apiResponseStatus is ApiResponseStatus.Success) {
+            _cryptoOrderList.value = apiResponseStatus.payload
+        }
+        _status.value = apiResponseStatus
     }
 }

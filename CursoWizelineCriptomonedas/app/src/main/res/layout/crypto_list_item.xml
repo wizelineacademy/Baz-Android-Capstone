@@ -4,11 +4,11 @@
 
     <TextView
         android:id="@+id/crypto_book"
+        style="@style/ItemTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/ItemTitle"
         android:background="?attr/selectableItemBackground"
         android:padding="16dp"
-        tools:text="Item Book"/>
+        tools:text="Item Book" />
 
 </layout>

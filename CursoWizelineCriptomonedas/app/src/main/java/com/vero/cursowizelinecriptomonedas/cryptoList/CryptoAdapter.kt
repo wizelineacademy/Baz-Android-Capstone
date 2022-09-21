@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.vero.cursowizelinecriptomonedas.Crypto
+import com.vero.cursowizelinecriptomonedas.model.Crypto
 import com.vero.cursowizelinecriptomonedas.databinding.CryptoListItemBinding
 
 class CryptoAdapter : ListAdapter<Crypto, CryptoAdapter.CryptoViewHolder>(DiffCallback) {

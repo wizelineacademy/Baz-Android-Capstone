@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.vero.cursowizelinecriptomonedas.model.CryptoOrder
 import com.vero.cursowizelinecriptomonedas.databinding.CryptoOrderListItemBinding
 
-class CryptoOrderAdapter: ListAdapter<CryptoOrder, CryptoOrderAdapter.CryptoOrderViewHolder>(DiffCallback) {
+class CryptoOrderAdapter :
+    ListAdapter<CryptoOrder, CryptoOrderAdapter.CryptoOrderViewHolder>(DiffCallback) {
     companion object DiffCallback : DiffUtil.ItemCallback<CryptoOrder>() {
         override fun areItemsTheSame(oldItem: CryptoOrder, newItem: CryptoOrder): Boolean {
             return oldItem == newItem
@@ -30,12 +31,12 @@ class CryptoOrderAdapter: ListAdapter<CryptoOrder, CryptoOrderAdapter.CryptoOrde
         holder.bind(cryptoOrder)
     }
 
-    inner class CryptoOrderViewHolder(private val binding: CryptoOrderListItemBinding):
-        RecyclerView.ViewHolder(binding.root){
-            fun bind(cryptoOrder: CryptoOrder){
-                binding.cryptoOrderBook.text = cryptoOrder.book
-                binding.cryptoOrderPrice.text = cryptoOrder.price
-                binding.cryptoOrderAmount.text = cryptoOrder.amount
-            }
+    inner class CryptoOrderViewHolder(private val binding: CryptoOrderListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(cryptoOrder: CryptoOrder) {
+            binding.cryptoOrderBook.text = cryptoOrder.book
+            binding.cryptoOrderPrice.text = cryptoOrder.price
+            binding.cryptoOrderAmount.text = cryptoOrder.amount
+        }
     }
 }

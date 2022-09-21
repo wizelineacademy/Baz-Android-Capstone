@@ -6,16 +6,17 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.vero.cursowizelinecriptomonedas.Crypto
+import com.vero.cursowizelinecriptomonedas.model.Crypto
 import com.vero.cursowizelinecriptomonedas.R
 import com.vero.cursowizelinecriptomonedas.api.ApiResponseStatus
 import com.vero.cursowizelinecriptomonedas.databinding.ActivityCryptoDetailBinding
 
-class CryptoDetailActivity : AppCompatActivity() {
+class CryptoOrderDetailActivity : AppCompatActivity() {
     companion object {
         //Key
         const val CRYPTO_KEY = "crypto"
     }
+
     private val cryptoOrderListViewModel: CryptoOrderListViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +38,7 @@ class CryptoDetailActivity : AppCompatActivity() {
         binding.minimumValue.text = crypto.minimum_value
         binding.maximumValue.text = crypto.maximum_value
         binding.crypto = crypto
-        binding.closeButton.setOnClickListener{
+        binding.closeButton.setOnClickListener {
             finish()
         }
 
@@ -52,9 +53,8 @@ class CryptoDetailActivity : AppCompatActivity() {
         cryptoOrderListViewModel.cryptoOrderList.observe(this) { cryptoOrderList ->
             adapter.submitList(cryptoOrderList)
         }
-        cryptoOrderListViewModel.status.observe(this){
-            status->
-            when (status){
+        cryptoOrderListViewModel.status.observe(this) { status ->
+            when (status) {
                 is ApiResponseStatus.Error -> {
                     loadingWheel.visibility = View.GONE
                     Toast.makeText(this, status.messageId, Toast.LENGTH_SHORT).show()

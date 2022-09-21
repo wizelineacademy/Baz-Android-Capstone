@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vero.cursowizelinecriptomonedas.Crypto
+import com.vero.cursowizelinecriptomonedas.model.Crypto
 import com.vero.cursowizelinecriptomonedas.api.ApiResponseStatus
 import kotlinx.coroutines.launch
 
