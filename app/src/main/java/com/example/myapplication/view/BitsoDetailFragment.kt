@@ -2,17 +2,23 @@ package com.example.myapplication.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.databinding.BitsoDetailFragmentBinding
+import com.example.myapplication.model.Ask
+import com.example.myapplication.model.Bid
+import com.example.myapplication.model.Payload
+import com.example.myapplication.model.PayloadAskAndBids
 import com.example.myapplication.util.formatAsCurrency
 import com.example.myapplication.view.adapter.AskBidAdapter
-import com.example.myapplication.view.adapter.CritpAdapter
+import com.example.myapplication.view.adapter.AskBidAdapter2
 import com.example.myapplication.viewModel.BitsoViewModel
 
 /**
@@ -24,7 +30,8 @@ class BitsoDetailFragment : Fragment() {
     private lateinit var binding: BitsoDetailFragmentBinding
     private var idBitso = ""
     private lateinit var viewModel: BitsoViewModel
-    private val adapter = AskBidAdapter()
+    private val adapter = AskBidAdapter2()
+    private var list: ArrayList<PayloadAskAndBids>? = ArrayList()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,9 +41,9 @@ class BitsoDetailFragment : Fragment() {
             binding = BitsoDetailFragmentBinding.inflate(inflater, container, false)
             idBitso = arguments?.getString("idBitso").toString()
             viewModel = ViewModelProvider(this)[BitsoViewModel::class.java]
-           /* binding.recyclerView.layoutManager =
+            binding.recyclerView.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            binding.recyclerView.adapter = criptoAdapter*/
+            binding.recyclerView.adapter = adapter
         }
         return binding.root
     }
@@ -53,11 +60,23 @@ class BitsoDetailFragment : Fragment() {
         viewModel.selectCriptoCurrency(id = idBitso)
         viewModel.getAskAndBidsCurrency(id = idBitso)
 
+        viewModel.getAskBidCriptoCurrency().observe(viewLifecycleOwner) {
+
+            list?.let { it1 -> adapter.addData(it?.payload?.asks as ArrayList<Ask>) }
+            adapter.addDataBids(it?.payload?.bids as ArrayList<Bid>)
+        }
+
+        binding.botonFinalizar.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         viewModel.getSelectCriptoCurrency().observe(viewLifecycleOwner) {
             binding.progressCircular.visibility = View.INVISIBLE
-            binding.txtHighPrice.text = PRICE_HIGH + it?.payload?.high?.toDouble()?.formatAsCurrency()
+            binding.txtHighPrice.text =
+                PRICE_HIGH + it?.payload?.high?.toDouble()?.formatAsCurrency()
             binding.txtLowPrice.text = PRICE_LOW + it?.payload?.low?.toDouble()?.formatAsCurrency()
-            binding.txtLastPrice.text = PRICE_LAST + it?.payload?.last?.toDouble()?.formatAsCurrency()
+            binding.txtLastPrice.text =
+                PRICE_LAST + it?.payload?.last?.toDouble()?.formatAsCurrency()
 
             when (it?.payload?.book) {
                 "btc_mxn" -> {

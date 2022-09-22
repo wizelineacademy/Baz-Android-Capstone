@@ -68,7 +68,6 @@ class LaunchFragment : Fragment(), OnclickListenerItem {
     }
 
     override fun onCellClickListener(data: Payload) {
-        Toast.makeText(requireContext(), "Cell clicked", Toast.LENGTH_SHORT).show()
         val bundle = bundleOf("idBitso" to data.book)
         findNavController().navigate(R.id.action_launchFragment_to_bitsoDetailFragment, bundle)
     }
