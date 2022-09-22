@@ -11,4 +11,6 @@
     <string name="bat_mxn">Basic Attention Token</string>
     <string name="dai_mxn">Digital Currency.</string>
     <string name="usd_mxn">Dólar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

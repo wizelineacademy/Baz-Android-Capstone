@@ -1,6 +1,5 @@
 package com.example.myapplication.viewModel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.api.ApiRetro
@@ -24,6 +23,7 @@ import retrofit2.Response
 class BitsoViewModel : ViewModel() {
     var moneyCripto: MutableLiveData<CriptoResponse?> = MutableLiveData()
     var selectMoneyCripto: MutableLiveData<SelectCriptoResponse?> = MutableLiveData()
+    var askBidMoneyCripto: MutableLiveData<AskAndBidResponse?> = MutableLiveData()
 
     fun getCriptoCurrency(): MutableLiveData<CriptoResponse?> {
         return moneyCripto
@@ -31,6 +31,10 @@ class BitsoViewModel : ViewModel() {
 
     fun getSelectCriptoCurrency(): MutableLiveData<SelectCriptoResponse?> {
         return selectMoneyCripto
+    }
+
+    fun getAskBidCriptoCurrency() : MutableLiveData<AskAndBidResponse?>{
+        return askBidMoneyCripto
     }
 
 
@@ -85,7 +89,7 @@ class BitsoViewModel : ViewModel() {
                 .subscribeOn(Schedulers.io())
                 .subscribe{ onSuccess: AskAndBidResponse?, onError: Throwable? ->
                     onSuccess?.let {
-                        //selectMoneyCripto.postValue()
+                        askBidMoneyCripto.postValue(it)
                     }
 
                     onError?.let {

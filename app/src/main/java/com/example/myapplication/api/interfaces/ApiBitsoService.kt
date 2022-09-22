@@ -23,6 +23,6 @@ interface ApiBitsoService {
     fun getSelectCripto(@Query("book") id:String): Single<SelectCriptoResponse>
 
     @GET("order_book/?")
-    fun getAskAndBids(@Query("boook") id:String): Single<AskAndBidResponse>
+    fun getAskAndBids(@Query("book") id:String): Single<AskAndBidResponse>
 
 }
