@@ -7,4 +7,6 @@ import retrofit2.Response
 
 class CriptosClientRx(private val criptoServiceRx: BitsoService) {
     fun getCriptosRx(): Single<BaseResult> = criptoServiceRx.getCriptosServiceRX()
+    fun getCriptosRx1(): Single<BaseResult> = criptoServiceRx.getCriptosServiceRX()
+    fun getCriptosRx2(): Single<BaseResult> = criptoServiceRx.getCriptosServiceRX()
 }
