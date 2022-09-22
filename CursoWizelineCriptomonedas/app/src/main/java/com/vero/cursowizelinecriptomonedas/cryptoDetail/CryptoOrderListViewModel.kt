@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 
 class CryptoOrderListViewModel : ViewModel() {
     private val _cryptoOrderList = MutableLiveData<List<CryptoOrder>>()
+
     val cryptoOrderList: LiveData<List<CryptoOrder>>
         get() = _cryptoOrderList
 
@@ -20,14 +21,10 @@ class CryptoOrderListViewModel : ViewModel() {
 
     private val cryptoOrderRepository = CryptoOrderRepository()
 
-    init {
-        downloadCryptoOrder()
-    }
-
-    private fun downloadCryptoOrder() {
+    fun downloadCryptoOrder(crypto: String) {
         viewModelScope.launch {
             _status.value = ApiResponseStatus.Loading()
-            handleResponseStatus(cryptoOrderRepository.downloadCryptoOrder())
+            handleResponseStatus(cryptoOrderRepository.downloadCryptoOrder(crypto))
         }
     }
 

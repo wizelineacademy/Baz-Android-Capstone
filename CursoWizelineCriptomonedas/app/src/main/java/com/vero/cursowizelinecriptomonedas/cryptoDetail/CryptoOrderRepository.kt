@@ -8,9 +8,9 @@ import com.vero.cursowizelinecriptomonedas.model.CryptoOrder
 
 class CryptoOrderRepository {
     //TODO : ApiResponseStatus
-    suspend fun downloadCryptoOrder(): ApiResponseStatus<List<CryptoOrder>> {
+    suspend fun downloadCryptoOrder(crypto: String): ApiResponseStatus<List<CryptoOrder>> {
         return makeNetworkCall {
-            val cryptoOrderListApiResponde = retrofitService.getOrderCrypto("btc_mxn")
+            val cryptoOrderListApiResponde = retrofitService.getOrderCrypto(crypto)
             val cryptoOrderDTOList = cryptoOrderListApiResponde.payload.asks
             val cryptoOrderDTOMapper = CryptoOrderDTOMapper()
             cryptoOrderDTOMapper.fromCryptoOrderDTOListToCryptoOrderDomainList(cryptoOrderDTOList)

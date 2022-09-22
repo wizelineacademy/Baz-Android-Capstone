@@ -209,13 +209,6 @@
                         android:layout_marginBottom="16dp"
                         android:background="@color/divider" />
 
-                    <TextView
-                        style="@style/DetailSection"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/asks" />
-
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/crypto_order_recycler"
                         android:layout_width="match_parent"

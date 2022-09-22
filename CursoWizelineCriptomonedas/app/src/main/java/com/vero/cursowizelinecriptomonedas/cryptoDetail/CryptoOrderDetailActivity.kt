@@ -10,6 +10,7 @@ import com.vero.cursowizelinecriptomonedas.model.Crypto
 import com.vero.cursowizelinecriptomonedas.R
 import com.vero.cursowizelinecriptomonedas.api.ApiResponseStatus
 import com.vero.cursowizelinecriptomonedas.databinding.ActivityCryptoDetailBinding
+import com.vero.cursowizelinecriptomonedas.model.CryptoOrder
 
 class CryptoOrderDetailActivity : AppCompatActivity() {
     companion object {
@@ -18,6 +19,7 @@ class CryptoOrderDetailActivity : AppCompatActivity() {
     }
 
     private val cryptoOrderListViewModel: CryptoOrderListViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityCryptoDetailBinding.inflate(layoutInflater)
@@ -42,6 +44,8 @@ class CryptoOrderDetailActivity : AppCompatActivity() {
             finish()
         }
 
+        cryptoOrderList(crypto.book)
+
         /***Recycler***/
         val loadingWheel = binding.loadingWheel
         val recycler = binding.cryptoOrderRecycler
@@ -50,7 +54,7 @@ class CryptoOrderDetailActivity : AppCompatActivity() {
 
         recycler.adapter = adapter
         //Observer
-        cryptoOrderListViewModel.cryptoOrderList.observe(this) { cryptoOrderList ->
+        cryptoOrderListViewModel.cryptoOrderList.observe(this) { cryptoOrderList: List<CryptoOrder> ->
             adapter.submitList(cryptoOrderList)
         }
         cryptoOrderListViewModel.status.observe(this) { status ->
@@ -63,5 +67,9 @@ class CryptoOrderDetailActivity : AppCompatActivity() {
                 is ApiResponseStatus.Success -> loadingWheel.visibility = View.GONE
             }
         }
+    }
+
+    fun cryptoOrderList(crypto: String) {
+        cryptoOrderListViewModel.downloadCryptoOrder(crypto)
     }
 }
