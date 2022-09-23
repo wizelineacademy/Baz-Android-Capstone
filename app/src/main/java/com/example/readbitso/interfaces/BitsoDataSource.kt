@@ -2,6 +2,7 @@ package com.example.readbitso.interfaces
 import com.example.capproject.models.Tickers.Tickets
 import com.example.readbitso.models.bitsoBooks.Books
 import com.example.readbitso.models.trading.Trades
+import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -17,7 +18,7 @@ interface BitsoDataSource {
 
     //------
     @GET("available_books")
-    suspend fun getBooks() : Books
+    fun getBooks() : Observable<Books>
 
     @GET("trades/")
     suspend fun specificTrade(@Query("book") book:String ) : Trades
