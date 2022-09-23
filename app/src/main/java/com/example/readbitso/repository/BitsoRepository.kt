@@ -1,9 +1,8 @@
 package com.example.readbitso.repository
 
-import com.example.readbitso.models.bitsotickers.Tickers
-import kotlinx.coroutines.flow.Flow
+import com.example.readbitso.models.bitsoBooks.Books
 
 interface BitsoRepository {
-    fun getBitsoBooks():Tickers
+   suspend fun getBitsoBooks(): Books
 }
 
