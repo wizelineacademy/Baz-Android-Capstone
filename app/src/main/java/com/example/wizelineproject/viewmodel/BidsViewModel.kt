@@ -2,6 +2,7 @@ package com.example.wizelineproject.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.wizelineproject.domain.model.Transaction
 import com.example.wizelineproject.domain.repository.CriptosRepository
 import kotlinx.coroutines.CoroutineScope
@@ -9,13 +10,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class BidsViewModel @Inject constructor() {
+class BidsViewModel @Inject constructor(): ViewModel() {
 
     @Inject
     lateinit var repository: CriptosRepository
 
     private val _bids = MutableLiveData<List<Transaction>?>()
-    val asks = _bids
+    val bids = _bids
 
     fun getBids(book:String){
         CoroutineScope(Dispatchers.IO).launch {

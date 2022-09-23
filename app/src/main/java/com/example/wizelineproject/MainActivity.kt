@@ -3,52 +3,48 @@ package com.example.wizelineproject
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import com.example.wizelineproject.domain.model.Book
 import com.example.wizelineproject.domain.model.Ticker
 import com.example.wizelineproject.domain.repository.CriptosRepository
+import com.example.wizelineproject.domain.repository.GenericRepository
+import com.example.wizelineproject.domain.service.CriptomonedasServices
+import com.example.wizelineproject.viewmodel.AsksViewModel
+import com.example.wizelineproject.viewmodel.BidsViewModel
+import com.example.wizelineproject.viewmodel.CoinsListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    private val vModel: CoinsListViewModel by viewModels()
+    private val vModelA: AsksViewModel by viewModels()
+    private val vModelB: BidsViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val repo = CriptosRepository()
-        CoroutineScope(Dispatchers.IO).launch {
-            repo.getOrderBooks{ success, data ->
-                if(success) {
-                    Log.e("log", "EXITO desde main" + success + " ")
-                    Log.e("log", data.toString())
-                }
-                else
-                    Log.e("log", "FALLO desde main ")
+        vModelA.asks.observe(this){
+            it?.forEach {
+                Log.e("log", "transaction: "+it.toString())
             }
-            /*repo.getTickers { success, data ->
-                if(success) {
-                    Log.e("log", "desde el main te digo que hubo EXITO2" + success + " ")
-                    data.forEach {
-                        Log.e("log", it.toString())
-                    }
-                }
-                else
-                    Log.e("log", "FALLO")
-            }*/
-            /*repo.getBooks { success:Boolean, data: List<Book> -> Double
-                if(success) {
-                    Log.e("log", "desde el main te digo que hubo EXITO2" + success+" ")
-                    data.forEach {
-                        println(it.book)
-                    }
-                }
-                else
-                    Log.e("log", "desde el main te digo que hubo 4FRACASO"+success)
-
-                0.0
-            }
-        }*/
-
         }
+        vModel.monedas.observe(this){
+            it.forEach {
+                Log.e("log", "book: "+it.book)
+            }
+        }
+        vModel.ticker.observe(this){
+            Log.e("log", "ticker: "+it.toString())
+        }
+        vModelA.getAsks("btc_mxn")
+        vModel.getBooks()
+        vModel.getTicker("btc_mxn")
+
     }
 }

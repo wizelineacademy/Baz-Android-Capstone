@@ -6,9 +6,8 @@ data class OrderBook(@SerializedName("bids")
                      val bids:List<Transaction>?,
                      @SerializedName("asks")
                      val asks:List<Transaction>?,
-                     @SerializedName("upgradeAt")
-                     val upgradeAt:String,
+                     @SerializedName("updated_at")
+                     val updateAt:String,
                      @SerializedName("sequence")
                      val sequence:String
-
 )

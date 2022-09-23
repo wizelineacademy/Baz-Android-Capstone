@@ -2,12 +2,16 @@ package com.example.wizelineproject.domain.repository
 
 import com.example.wizelineproject.domain.response.GenericArrayResponse
 import com.example.wizelineproject.domain.response.GenericObjectResponse
+import retrofit2.Retrofit
 import java.lang.Exception
+import javax.inject.Inject
 
-abstract class GenericRepository<T : Any>() : ApiServiceBuilder<T>() {
+abstract class GenericRepository<T : Any>() {
 
-    protected open lateinit var api: T
-    override fun build(): T = api
+    @Inject
+    lateinit var client: Retrofit
+    @Inject
+    open lateinit var api: T
 
     suspend fun <K> getResponseWithArray(
         callService: suspend () -> GenericArrayResponse<K>?,
