@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.vero.cursowizelinecriptomonedas.model.Crypto
 import com.vero.cursowizelinecriptomonedas.R
 import com.vero.cursowizelinecriptomonedas.api.ApiResponseStatus
@@ -39,6 +41,10 @@ class CryptoOrderDetailActivity : AppCompatActivity() {
         binding.ticketSize.text = crypto.tick_size
         binding.minimumValue.text = crypto.minimum_value
         binding.maximumValue.text = crypto.maximum_value
+        binding.cryptoImage.load("https://firebasestorage.googleapis.com/v0/b/crypto-d6420.appspot.com/o/cryptocurrency_icon%2Fic_crypto_eth.png?alt=media"){
+            crossfade(true)
+            transformations(CircleCropTransformation())
+        }
         binding.crypto = crypto
         binding.closeButton.setOnClickListener {
             finish()
