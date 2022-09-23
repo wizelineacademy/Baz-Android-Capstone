@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="crypto"
+            type="com.proyect.cursowizline.model.Crypto" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/secondary_background">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:scrollbars="none">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="8dp"
+                    android:elevation="4dp"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp">
+
+
+                    <TextView
+                        android:id="@+id/crypto_book"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="@{crypto.book}"
+                        android:textColor="@color/text_black"
+                        android:textSize="32sp"
+                        tools:text="DESCRIPTION BOOK" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@color/teal_200" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/DetailSection"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/tick_size" />
+
+                            <TextView
+                                android:id="@+id/ticket_size"
+                                style="@style/DetailSectionInfo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@{crypto.tick_size}"
+                                tools:text="20" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/DetailSection"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/minimum_price" />
+
+                            <TextView
+                                android:id="@+id/minimum_price"
+                                style="@style/DetailSectionInfo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="@{crypto.minimum_price}"
+                                tools:text="10.00000000" />
+
+                            <TextView
+                                style="@style/DetailSection"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="@string/maximum_price" />
+
+                            <TextView
+                                android:id="@+id/maximum_price"
+                                style="@style/DetailSectionInfo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="@{crypto.maximum_price}"
+                                tools:text="20.00000000" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/minimum_value"
+                                android:textColor="@color/text_black" />
+
+                            <TextView
+                                android:id="@+id/minimum_value"
+                                style="@style/DetailSectionInfo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="@{crypto.minimum_value}"
+                                tools:text="11.00000000" />
+
+                            <TextView
+                                style="@style/DetailSection"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/maximum_value" />
+
+                            <TextView
+                                android:id="@+id/maximum_value"
+                                style="@style/DetailSectionInfo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="@{crypto.maximum_value}"
+                                tools:text="12.000000000" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@color/teal_200" />
+
+                    <TextView
+                        style="@style/DetailSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/asks" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/crypto_order_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="8dp"
+                        tools:context=".view.cryptoDetail.CryptoOrderDetailActivity" />
+                </LinearLayout>
+            </FrameLayout>
+        </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/close_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:contentDescription="@string/image"
+            android:src="@drawable/ic_back"
+            app:fabCustomSize="40dp" />
+
+        <ProgressBar
+            android:id="@+id/loading_wheel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorPrimaryDark"
+            android:indeterminateTintMode="src_atop"
+            android:visibility="gone" />
+    </FrameLayout>
+
+</layout>
