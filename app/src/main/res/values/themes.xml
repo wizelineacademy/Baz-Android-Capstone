@@ -13,4 +13,19 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!--Styles titles -->
+    <style name="TitleLarge" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/title_large</item>
+    </style>
+
+    <style name="TitleMedium" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/title_medium</item>
+    </style>
+
+    <style name="TitleSmall" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/title_small</item>
+    </style>
+
+
 </resources>

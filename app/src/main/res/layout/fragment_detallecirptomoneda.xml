@@ -1,87 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="#7186D3">
 
     <ImageView
-        android:id="@+id/criptomoneda_imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:id="@+id/imageView_criptomoneda"
+        android:layout_width="@dimen/item_image_large_width"
+        android:layout_height="@dimen/item_image_large_height"
+        android:layout_marginStart="@dimen/margin_space_32dp"
+        android:layout_marginTop="@dimen/margin_space_32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/ultimoPrecio_textView"
+        android:id="@+id/text_criptomoneda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        style="@style/TitleMedium"
+        app:layout_constraintBottom_toTopOf="@+id/text_ultimoPrecio"
+        app:layout_constraintStart_toEndOf="@+id/imageView_criptomoneda"
+        app:layout_constraintTop_toTopOf="@+id/imageView_criptomoneda"
+        tools:text="Moneda" />
+
+    <TextView
+        android:id="@+id/text_ultimoPrecio"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/criptomoneda_imageView"
+        android:layout_marginTop="32dp"
+        android:text="Último Precio"
+        style="@style/TitleMedium"
+        app:layout_constraintBottom_toBottomOf="@id/imageView_criptomoneda"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@id/criptomoneda_imageView"
-        app:layout_constraintTop_toTopOf="@id/criptomoneda_imageView"
-        android:text="Último Precio"
-        />
+        app:layout_constraintStart_toEndOf="@id/imageView_criptomoneda"
+        app:layout_constraintTop_toTopOf="@id/imageView_criptomoneda" />
 
     <TextView
-        android:id="@+id/montoUltimoPrecio_textView"
+        android:id="@+id/text_montoUltimoPrecio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_ultimoPrecio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_ultimoPrecio"
+        app:layout_constraintTop_toBottomOf="@+id/text_criptomoneda"
+        tools:text="$120.00" />
+
+    <ImageView
+        android:id="@+id/image_precioBajo"
+        android:layout_width="@dimen/item_image_small_width"
+        android:layout_height="@dimen/item_image_small_height"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_criptomoneda"
+        app:layout_constraintStart_toStartOf="@+id/imageView_criptomoneda"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_criptomoneda"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/text_masAlto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:textSize="30sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ultimoPrecio_textView"
-        tools:text="$120.00" />
-
-    <TextView
-        android:id="@+id/masAlto_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="Precio más alto"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/criptomoneda_imageView"
-        app:layout_constraintTop_toBottomOf="@id/criptomoneda_imageView" />
+        app:layout_constraintStart_toEndOf="@+id/image_precioBajo"
+        app:layout_constraintTop_toTopOf="@+id/image_precioBajo" />
 
     <TextView
-        android:id="@+id/montoMasAlto_textView"
+        android:id="@+id/text_montoMasAlto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/text_masAlto"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@id/masAlto_textView"
-        app:layout_constraintTop_toBottomOf="@id/masAlto_textView"
+        app:layout_constraintStart_toStartOf="@id/text_masAlto"
+        app:layout_constraintTop_toBottomOf="@id/text_masAlto"
         tools:text="$120.00" />
 
-    <TextView
-        android:id="@+id/masBajo_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="Precio más bajo"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@id/masAlto_textView"
-        app:layout_constraintTop_toBottomOf="@id/criptomoneda_imageView" />
+    <ImageView
+        android:id="@+id/image_precioAlto"
+        android:layout_width="@dimen/item_image_small_width"
+        android:layout_height="@dimen/item_image_small_height"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="@+id/image_precioBajo"
+        app:layout_constraintStart_toStartOf="@+id/image_precioBajo"
+        app:layout_constraintTop_toBottomOf="@+id/image_precioBajo"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/montoMasBajo_textView"
+        android:id="@+id/text_masBajo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Precio más bajo"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/masBajo_textView"
-        app:layout_constraintTop_toBottomOf="@id/masBajo_textView"
+        app:layout_constraintBottom_toBottomOf="@+id/image_precioAlto"
+        app:layout_constraintStart_toEndOf="@+id/image_precioAlto"
+        app:layout_constraintTop_toTopOf="@+id/image_precioAlto" />
+
+    <TextView
+        android:id="@+id/text_montoMasBajo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/text_masBajo"
+        app:layout_constraintStart_toStartOf="@id/text_masBajo"
+        app:layout_constraintTop_toBottomOf="@id/text_masBajo"
         tools:text="$100.00" />
 
     <TextView
@@ -110,3 +146,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
