@@ -1,4 +1,4 @@
-package com.example.capproject.models.Tickers
+package com.example.readbitso.models.bitsotickers
 
 data class PayloadTickers(
     val ask: String,

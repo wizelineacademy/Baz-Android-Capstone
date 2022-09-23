@@ -1,4 +1,4 @@
-package com.example.capproject.composeviews
+package com.example.readbitso.composeViews
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape

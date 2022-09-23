@@ -12,7 +12,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.capproject.models.Tickers.PayloadTickers
+import com.example.readbitso.models.bitsotickers.PayloadTickers
 import com.example.capproject.support.icon
 import com.example.capproject.support.shortToken
 
