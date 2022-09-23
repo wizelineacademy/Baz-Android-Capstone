@@ -10,12 +10,16 @@ import com.example.capproject.support.shortToken
 import com.example.readbitso.models.bitsoBooks.BooksPayload
 import com.example.readbitso.models.bitsoBooks.DetailedPayload
 import com.example.readbitso.repository.BitsoRepository
+import com.example.readbitso.repository.BitsoRepositoryImp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -39,6 +43,7 @@ class BitsoViewmodel
                 readResponse()
                 delay(5000)
                 getBooks(openedPayloads)
+                getBidsAsk("btc_mxn")
             }
         }
     }
@@ -88,8 +93,22 @@ class BitsoViewmodel
                 icon = icon(it.book)
             ))
         }
-         detailedPayload=returnlist
+        detailedPayload=returnlist
         isloading=returnlist.isNotEmpty()
         return returnlist
     }
+
+    private suspend fun getBidsAsk(name:String)
+    {
+        viewModelScope.launch {
+            bitsoRepositoryImp.getBitsoTrades(name)
+                .catch {  }
+                .collect{
+                    println(it)
+                }
+            //println(bitsoRepositoryImp.getBitsoBids(name))
+        }
+    }
+
+
 }

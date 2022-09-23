@@ -9,11 +9,13 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.capproject.support.loggerD
 import com.example.readbitso.BitsoViewmodel
+import com.example.readbitso.R
 import com.example.readbitso.composeItems.MoneyCard
 
 @Composable
@@ -21,16 +23,16 @@ fun Mainview(viewModel: BitsoViewmodel, navHostController: NavHostController)
 {
     with(viewModel) {
 
-
         if (!isloading || detailedPayload.isEmpty())
             Loading(detailedPayload.toString())
 
-         else {
-             loggerD(message=detailedPayload.toString())
+        else {
+
+
             Column {
                 TopAppBar(
                     title = {
-                        Text(text =" stringResource(R.string.criptoinfo)",
+                        Text(text = stringResource(R.string.criptoinfo),
                             textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .fillMaxWidth()
