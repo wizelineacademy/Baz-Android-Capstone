@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ReadBitso</string>
+    <string name="noconexion">Estas sin conexión</string>
+    <string name="criptoinfo">Información de Criptomonedas</string>
+    <string name="disclaimer1">\" * Precios expresados en Moneda Nacional\"</string>
+    <string name="disclamer2">\"   solo son de carácter informativo\"</string>
 </resources>
