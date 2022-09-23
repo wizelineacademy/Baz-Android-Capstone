@@ -5,24 +5,31 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.capproject.support.icon
+import com.example.capproject.support.shortToken
 import com.example.readbitso.models.bitsoBooks.BooksPayload
+import com.example.readbitso.models.bitsoBooks.DetailedPayload
 import com.example.readbitso.repository.BitsoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import java.net.HttpURLConnection
 import java.net.UnknownHostException
 import javax.inject.Inject
 
 @HiltViewModel
-class BitsoViewmodel@Inject constructor(private val bitsoRepositoryImp: BitsoRepository): ViewModel() {
+class BitsoViewmodel
+@Inject constructor(private val bitsoRepositoryImp: BitsoRepository): ViewModel() {
 
+    var status=MutableStateFlow<Boolean>(false)
     //    private var books:List
     private var openedPayloads: List<BooksPayload> by mutableStateOf(listOf())
+    var detailedPayload: List<DetailedPayload> by mutableStateOf(listOf())
+
     var errormessage:String  by mutableStateOf("")
+    var isloading: Boolean by mutableStateOf(false)
 
     init {
         viewModelScope.launch {
@@ -30,8 +37,8 @@ class BitsoViewmodel@Inject constructor(private val bitsoRepositoryImp: BitsoRep
             while(true)
             {
                 readResponse()
-                getBooks()
                 delay(5000)
+                getBooks(openedPayloads)
             }
         }
     }
@@ -46,8 +53,15 @@ class BitsoViewmodel@Inject constructor(private val bitsoRepositoryImp: BitsoRep
                 { error -> displayError(error) }
             )
     }
- //
+    private fun displayError(error: Throwable) {
+        when (error){
+            is UnknownHostException ->errormessage="Pagina no disponible"
+            is RuntimeException -> errormessage="Runtime Exception"
+            else -> println(error)
+        }
+    }
 
+    //
     private fun processBooks(book: List<BooksPayload>)
     {
         val returnlist = mutableListOf<BooksPayload>()
@@ -62,16 +76,20 @@ class BitsoViewmodel@Inject constructor(private val bitsoRepositoryImp: BitsoRep
     }
 
 
-    fun getBooks():List<BooksPayload> = openedPayloads
+    fun getBooks(openedPayloads: List<BooksPayload>) = GetnewList(openedPayloads)
 
 
-    private fun displayError(error: Throwable) {
-        when (error){
-            is UnknownHostException ->errormessage="Pagina no disponible"
-            is RuntimeException -> errormessage="Runtime Exception"
-            else -> println(error)
+
+    private fun GetnewList(openedPayloads: List<BooksPayload>): List<DetailedPayload> {
+        val returnlist = mutableListOf<DetailedPayload>()
+        openedPayloads.forEach {
+            returnlist.add(DetailedPayload(payload = it,
+                shortname = shortToken(it.book),
+                icon = icon(it.book)
+            ))
         }
+         detailedPayload=returnlist
+        isloading=returnlist.isNotEmpty()
+        return returnlist
     }
-
-
 }
