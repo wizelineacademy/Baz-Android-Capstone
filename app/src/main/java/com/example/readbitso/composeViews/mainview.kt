@@ -1,6 +1,5 @@
 package com.example.capproject.composeviews
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -13,7 +12,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.capproject.support.loggerD
 import com.example.readbitso.BitsoViewmodel
 import com.example.readbitso.R
 import com.example.readbitso.composeItems.MoneyCard
@@ -22,13 +20,13 @@ import com.example.readbitso.composeItems.MoneyCard
 fun Mainview(viewModel: BitsoViewmodel, navHostController: NavHostController)
 {
     with(viewModel) {
+        viewModel.selectPage("first")
+
 
         if (!isloading || detailedPayload.isEmpty())
-            Loading(detailedPayload.toString())
+            Loading()
 
         else {
-
-
             Column {
                 TopAppBar(
                     title = {

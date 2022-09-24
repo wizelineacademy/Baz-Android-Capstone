@@ -1,4 +1,4 @@
-package com.example.readbitso.interfaces
+package com.example.readbitso.repository
 
 import com.example.readbitso.repository.BitsoRepository
 import com.example.readbitso.repository.BitsoRepositoryImp

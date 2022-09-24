@@ -1,9 +1,12 @@
-package com.example.capproject.interfaces
+package com.example.readbitso.ds
 
-import com.example.readbitso.interfaces.BitsoDataSource
+import android.content.Context
+import com.example.readbitso.repository.datastore.DataStoreRepository
+import com.example.readbitso.repository.datastore.DataStoreRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -44,6 +47,11 @@ class DataSourceModule {
     fun restBinanceDataSource(retrofit: Retrofit): BitsoDataSource =
         retrofit.create(BitsoDataSource::class.java)
 
+    @Singleton
+    @Provides
+    fun provideDataStoreRepository(
+        @ApplicationContext app: Context
+    ): DataStoreRepository = DataStoreRepositoryImpl(app)
 }
 
 

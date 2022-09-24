@@ -1,8 +1,10 @@
-package com.example.capproject.support
+package com.example.readbitso.support
 
 import android.util.Log
 import com.example.readbitso.models.bitsoBooks.BooksPayload
 import com.example.readbitso.models.bitsoBooks.DetailedPayload
+import com.example.readbitso.models.trading.PayloadTrades
+import com.example.readbitso.models.trading.Trades
 import com.example.readbitso.support.coinsdefinition.*
 
 fun tokens (name:String): String{
@@ -70,13 +72,3 @@ fun loggerD(message:String){
     Log.d(default,message)
 }
 
-fun GetnewList(openedPayloads: List<BooksPayload>): List<DetailedPayload> {
-    val listamutable = mutableListOf<DetailedPayload>()
-    openedPayloads.forEach {
-        listamutable.add(DetailedPayload(payload = it,
-            shortname = shortToken(it.book),
-            icon = icon(it.book)
-        ))
-    }
-    return listamutable
-}

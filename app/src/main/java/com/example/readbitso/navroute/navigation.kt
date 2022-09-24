@@ -1,4 +1,4 @@
-package com.example.capproject.navroute
+package com.example.readbitso.navroute
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -8,14 +8,14 @@ import androidx.navigation.compose.composable
 import com.example.capproject.composeviews.Loading
 import com.example.capproject.composeviews.Mainview
 import com.example.readbitso.BitsoViewmodel
+import com.example.readbitso.composeViews.Detailview
 
 @Composable
 fun MenuNav(navController: NavHostController, viewModel: BitsoViewmodel = hiltViewModel()) {
     NavHost(navController = navController, startDestination = "start") {
         composable("loading"){ Loading() }
         composable("start") { Mainview(viewModel,navHostController = navController) }
-//        composable("details"){ Detailview(viewModel,navController) }
-//        composable("item1"){}
+        composable("details"){ Detailview(viewModel,navController) }
     }
 }
 
