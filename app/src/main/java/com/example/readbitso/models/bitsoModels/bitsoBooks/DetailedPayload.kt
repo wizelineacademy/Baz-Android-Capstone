@@ -1,4 +1,4 @@
-package com.example.readbitso.models.bitsoBooks
+package com.example.readbitso.models.bitsoModels.bitsoBooks
 
 data class DetailedPayload(
     var payload: BooksPayload,

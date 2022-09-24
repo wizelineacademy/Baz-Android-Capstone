@@ -1,10 +1,9 @@
 package com.example.readbitso.repository
 
 
-import com.example.readbitso.models.bitsoBooks.Books
-import com.example.readbitso.models.bitsotickers.PayloadTickers
-import com.example.readbitso.models.bitsotickers.Tickers
-import com.example.readbitso.models.trading.PayloadTrades
+import com.example.readbitso.models.bitsoModels.bitsoBooks.Books
+import com.example.readbitso.models.bitsoModels.bitsoBooks.bitsotickers.PayloadTickers
+import com.example.readbitso.models.bitsoModels.bitsoBooks.trading.PayloadTrades
 import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.flow.Flow
 

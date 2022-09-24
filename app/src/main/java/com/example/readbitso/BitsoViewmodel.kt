@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.readbitso.support.icon
 import com.example.readbitso.support.shortToken
-import com.example.readbitso.models.bitsoBooks.BooksPayload
-import com.example.readbitso.models.bitsoBooks.DetailedPayload
-import com.example.readbitso.models.bitsotickers.PayloadTickers
-import com.example.readbitso.models.trading.PayloadTrades
+import com.example.readbitso.models.bitsoModels.bitsoBooks.BooksPayload
+import com.example.readbitso.models.bitsoModels.bitsoBooks.DetailedPayload
+import com.example.readbitso.models.bitsoModels.bitsoBooks.bitsotickers.PayloadTickers
+import com.example.readbitso.models.bitsoModels.bitsoBooks.trading.PayloadTrades
 import com.example.readbitso.repository.BitsoRepository
 import com.example.readbitso.repository.datastore.DataStoreRepository
 import com.example.readbitso.support.operation
@@ -45,7 +45,9 @@ class BitsoViewmodel
         viewModelScope.launch {
             while (true) {
 
-                state=getPage()
+                getPage()?.let{
+                    state=it
+                }
 
                 when (state) {
                     "first" -> {
@@ -54,15 +56,12 @@ class BitsoViewmodel
                         delay(5000)
                     }
                     "second" -> {
-//                        isloading=false
                         getCoin()?.let{
                             withContext(Dispatchers.IO){
-
                                 getBidsAsk(it)
                                 delay(1000)
                                 getTrades(it)
                                 delay(2000)
-
                             }
                         }
                     }
@@ -168,20 +167,15 @@ class BitsoViewmodel
             dsRepository.selectCoin("name", coin)
         }
     }
-
-    fun getCoin(): String? = viewModelScope.launch {
+    fun getCoin(): String? = runBlocking {
         dsRepository.getCoin("name")
-    }.toString()
-
-    fun selectPage(Page: String) {
-        viewModelScope.launch {
+    }
+    fun selectPage(Page: String) = viewModelScope.launch {
             dsRepository.setPage("page", Page)
         }
-    }
-
-    fun getPage(): String = viewModelScope.launch {
+    fun getPage(): String? = runBlocking {
         dsRepository.getPage("page")
-    }.toString()
+    }
     ///
 //----------
 

@@ -1,4 +1,4 @@
-package com.example.readbitso.models
+package com.example.readbitso.models.bitsoModels.bitsoBooks
 
 data class ErrorX(
     val code: Int=0,

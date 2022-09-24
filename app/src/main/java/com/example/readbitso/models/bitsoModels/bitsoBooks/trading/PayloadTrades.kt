@@ -1,4 +1,4 @@
-package com.example.readbitso.models.trading
+package com.example.readbitso.models.bitsoModels.bitsoBooks.trading
 
 data class PayloadTrades(
     val amount: String,
