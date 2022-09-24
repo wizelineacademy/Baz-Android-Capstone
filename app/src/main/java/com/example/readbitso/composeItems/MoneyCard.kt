@@ -25,11 +25,15 @@ fun MoneyCard(
     list: DetailedPayload,
     navController: NavHostController
 ) {
-
     Box(modifier = Modifier
         .fillMaxWidth()
-        .padding(2.dp))
-        {
+        .padding(2.dp)
+        .clickable {
+//            loggerD(list.payload.book)
+            viewModel.setCoin(list.payload.book)
+            navController.navigate("details")
+        })
+    {
         Card(modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(4.dp)),
@@ -46,7 +50,6 @@ fun MoneyCard(
                     Column(modifier = Modifier.padding(top = 8.dp, start = 8.dp),
                         verticalArrangement = Arrangement.Top,
                         horizontalAlignment = Alignment.CenterHorizontally)
-
                     {
                         Image(modifier = Modifier.padding(4.dp),
                             painter = painterResource(id = list.icon),

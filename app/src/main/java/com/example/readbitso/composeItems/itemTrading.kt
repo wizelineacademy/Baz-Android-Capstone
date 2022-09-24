@@ -28,7 +28,7 @@ fun ItemTrading (list: PayloadTrades) {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween)
                 {
-                    Text(text =  list.amount,
+                    Text(text =  list.amount.take(10),
                         modifier = Modifier.padding(start = 8.dp))
                     Text(text = list.maker_side,
                         modifier = Modifier.padding(start = 8.dp),
@@ -37,7 +37,7 @@ fun ItemTrading (list: PayloadTrades) {
                         else
                             Color.Green
                     )
-                    Text(text = " \$${list.price} ",
+                    Text(text = " \$${list.price.take(10)} ",
                         modifier = Modifier.padding(start = 8.dp))
                 }
             }

@@ -1,4 +1,4 @@
-package com.example.readbitso.interfaces
+package com.example.readbitso.ds
 import com.example.readbitso.models.bitsoBooks.Books
 import com.example.readbitso.models.bitsotickers.Tickers
 import com.example.readbitso.models.trading.Trades
