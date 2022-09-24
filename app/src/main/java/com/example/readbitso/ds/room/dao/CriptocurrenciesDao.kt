@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.Flow
 interface CriptocurrenciesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(usuario: List<Currencies>)
+    suspend fun insertAll(activetokens: List<Currencies>)
 
 
     @Query("SELECT * FROM Currencies")
-    suspend fun getAll(): Flow<List<Currencies>>
+    suspend fun getAll(): List<Currencies>
 
 }

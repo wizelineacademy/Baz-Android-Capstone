@@ -6,8 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Currencies(
-    @PrimaryKey (autoGenerate = false)  val uid: Int,
-    @ColumnInfo(name = "name") val Name: String?,
-    @ColumnInfo(name = "min") val minvalue: String?,
-    @ColumnInfo(name = "max") val maxvalue: String?
+    @PrimaryKey (autoGenerate = false)
+    val id: Int,
+    @ColumnInfo(name = "name") val book: String,
+    @ColumnInfo(name = "min")  val maximum_price: String,
+    @ColumnInfo(name = "max")  val minimum_price: String
 )

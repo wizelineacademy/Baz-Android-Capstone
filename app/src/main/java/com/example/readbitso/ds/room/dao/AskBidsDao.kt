@@ -15,7 +15,7 @@ interface AskBidsDao {
 
 
     @Query("SELECT * FROM AskBids")
-    suspend fun getAll(): Flow<List<Operationstrades>>
+    fun getAll(): Flow<List<Operationstrades>>
 
 
 }
