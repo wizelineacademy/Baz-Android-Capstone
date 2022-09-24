@@ -1,10 +1,6 @@
 package com.example.readbitso.support
 
 import android.util.Log
-import com.example.readbitso.models.bitsoBooks.BooksPayload
-import com.example.readbitso.models.bitsoBooks.DetailedPayload
-import com.example.readbitso.models.trading.PayloadTrades
-import com.example.readbitso.models.trading.Trades
 import com.example.readbitso.support.coinsdefinition.*
 
 fun tokens (name:String): String{

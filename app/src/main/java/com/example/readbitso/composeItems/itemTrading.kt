@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.readbitso.models.trading.PayloadTrades
+import com.example.readbitso.models.bitsoModels.bitsoBooks.trading.PayloadTrades
 
 @Composable
 fun ItemTrading (list: PayloadTrades) {

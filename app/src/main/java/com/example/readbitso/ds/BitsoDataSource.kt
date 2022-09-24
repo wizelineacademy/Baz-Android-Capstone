@@ -1,7 +1,7 @@
 package com.example.readbitso.ds
-import com.example.readbitso.models.bitsoBooks.Books
-import com.example.readbitso.models.bitsotickers.Tickers
-import com.example.readbitso.models.trading.Trades
+import com.example.readbitso.models.bitsoModels.bitsoBooks.Books
+import com.example.readbitso.models.bitsoModels.bitsoBooks.bitsotickers.Tickers
+import com.example.readbitso.models.bitsoModels.bitsoBooks.trading.Trades
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -1,5 +1,4 @@
-package com.example.readbitso.models.bitsoBooks
-import com.example.readbitso.models.ErrorX
+package com.example.readbitso.models.bitsoModels.bitsoBooks
 
 data class Books(
     val payload: List<BooksPayload>,
