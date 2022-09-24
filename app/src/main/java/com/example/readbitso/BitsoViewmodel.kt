@@ -13,6 +13,7 @@ import com.example.readbitso.models.bitsoModels.bitsoBooks.bitsotickers.PayloadT
 import com.example.readbitso.models.bitsoModels.bitsoBooks.trading.PayloadTrades
 import com.example.readbitso.repository.BitsoRepository
 import com.example.readbitso.repository.datastore.DataStoreRepository
+import com.example.readbitso.support.loggerD
 import com.example.readbitso.support.operation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -54,6 +55,7 @@ class BitsoViewmodel
                         readResponse()
                         getBooks(openedPayloads)
                         delay(5000)
+                        //println(getbdTokens("mxn"))
                     }
                     "second" -> {
                         getCoin()?.let{
@@ -106,20 +108,22 @@ class BitsoViewmodel
     }
 
 
-    private fun getBooks(openedPayloads: List<BooksPayload>) = GetnewList(openedPayloads)
+    private suspend fun getBooks(openedPayloads: List<BooksPayload>) = GetnewList(openedPayloads)
 
 
-    private fun GetnewList(openedPayloads: List<BooksPayload>): List<DetailedPayload> {
+    private suspend fun GetnewList(openedPayloads: List<BooksPayload>): List<DetailedPayload> {
         val returnlist = mutableListOf<DetailedPayload>()
         openedPayloads.forEach {
             returnlist.add(DetailedPayload(payload = it,
                 shortname = shortToken(it.book),
                 icon = icon(it.book)
             ))
+
         }
         detailedPayload = returnlist.filter {
             it.payload.book.contains("mxn")
         }
+        insertTokens()
         isloading = returnlist.isNotEmpty()
         return returnlist
     }
@@ -171,12 +175,36 @@ class BitsoViewmodel
         dsRepository.getCoin("name")
     }
     fun selectPage(Page: String) = viewModelScope.launch {
-            dsRepository.setPage("page", Page)
-        }
+        dsRepository.setPage("page", Page)
+    }
     fun getPage(): String? = runBlocking {
         dsRepository.getPage("page")
     }
     ///
 //----------
 
+
+    //room
+    private suspend fun insertTokens()
+    {
+        bitsoRepositoryImp.insertBooks(openedPayloads)
+    }
+
+    private suspend fun getbdTokens(filter: String) {
+
+        var returnlist = mutableListOf<BooksPayload>()
+        bitsoRepositoryImp.getflowBooks()
+            .collect { it ->
+                it.forEach { moneda->
+                    returnlist.add(BooksPayload(
+                        book = moneda.book,
+                        id = moneda.id,
+                        maximum_price = moneda.maximum_price,
+                        minimum_price=moneda.minimum_price)) }
+            }
+
+        openedPayloads = returnlist.filter {
+            it.book.contains(filter)
+        }
+    }
 }

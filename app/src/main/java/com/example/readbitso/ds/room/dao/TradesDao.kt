@@ -15,7 +15,7 @@ interface TradesDao {
 
 
     @Query("SELECT * FROM Operationstrades")
-    suspend fun getAll(): Flow<List<Operationstrades>>
+    fun getAll(): Flow<List<Operationstrades>>
 
 
 }
