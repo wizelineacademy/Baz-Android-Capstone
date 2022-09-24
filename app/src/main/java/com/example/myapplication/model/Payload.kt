@@ -9,3 +9,7 @@ data class Payload(
     val minimum_price: String,
     val minimum_value: String
 )
+
+fun Payload.asExternalModel() = CriptoCurrency(
+    name = book, price = maximum_price
+)

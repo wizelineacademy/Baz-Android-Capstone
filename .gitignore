@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+app/.idea/vcs.xml
+.idea/deploymentTargetDropDown.xml

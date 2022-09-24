@@ -2,30 +2,34 @@ package com.example.myapplication.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.myapplication.api.ApiRetro
 import com.example.myapplication.api.RetroFitRxClient
 import com.example.myapplication.api.interfaces.ApiBitsoService
-import com.example.myapplication.model.AskAndBidResponse
-import com.example.myapplication.model.CriptoResponse
-import com.example.myapplication.model.SelectCriptoResponse
+import com.example.myapplication.model.*
+import com.example.myapplication.useCases.BitsoUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
 
 /**
  * Created by: Juan Antonio Amado
  * date: 16,septiembre,2022
  */
-class BitsoViewModel : ViewModel() {
-    var moneyCripto: MutableLiveData<CriptoResponse?> = MutableLiveData()
+@HiltViewModel
+class BitsoViewModel @Inject constructor(private val bitsoUseCase: BitsoUseCase) : ViewModel() {
+    var moneyCripto: MutableLiveData<List<CriptoCurrency>> = MutableLiveData()
     var selectMoneyCripto: MutableLiveData<SelectCriptoResponse?> = MutableLiveData()
     var askBidMoneyCripto: MutableLiveData<AskAndBidResponse?> = MutableLiveData()
 
-    fun getCriptoCurrency(): MutableLiveData<CriptoResponse?> {
+    fun getCriptoCurrency(): MutableLiveData<List<CriptoCurrency>> {
         return moneyCripto
     }
 
@@ -39,26 +43,10 @@ class BitsoViewModel : ViewModel() {
 
 
     fun consultCriptoCurrency() {
-        val webService = ApiRetro.getRetorInstance().create(ApiBitsoService::class.java)
-        val call = webService.getCripto()
-        call.enqueue(object : Callback<CriptoResponse?> {
-            override fun onResponse(
-                call: Call<CriptoResponse?>,
-                response: Response<CriptoResponse?>
-            ) {
-                if (response.isSuccessful) {
-                    moneyCripto.postValue(response.body())
-                } else {
-                    moneyCripto.postValue(null)
-                }
-
-            }
-
-            override fun onFailure(call: Call<CriptoResponse?>, t: Throwable) {
-                moneyCripto.postValue(null)
-            }
-
-        })
+        viewModelScope.launch {
+            val result = bitsoUseCase()
+            moneyCripto.postValue(result)
+        }
     }
 
     fun selectCriptoCurrency(id: String) {

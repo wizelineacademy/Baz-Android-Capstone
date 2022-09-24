@@ -17,7 +17,7 @@ import retrofit2.http.Query
 interface ApiBitsoService {
 
     @GET("available_books/")
-    fun getCripto(): Call<CriptoResponse>
+    suspend fun getCripto(): CriptoResponse
 
     @GET("ticker/?")
     fun getSelectCripto(@Query("book") id:String): Single<SelectCriptoResponse>

@@ -4,25 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentLaunchBinding
-import com.example.myapplication.model.Payload
+import com.example.myapplication.model.CriptoCurrency
 import com.example.myapplication.view.adapter.CritpAdapter
 import com.example.myapplication.view.interfaces.OnclickListenerItem
 import com.example.myapplication.viewModel.BitsoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LaunchFragment : Fragment(), OnclickListenerItem {
 
-    private lateinit var viewModel: BitsoViewModel
+    private val viewModel: BitsoViewModel by viewModels()
     lateinit var binding: FragmentLaunchBinding
     private val criptoAdapter = CritpAdapter(this)
-    private var list: ArrayList<Payload>? = ArrayList()
+    private var list: List<CriptoCurrency>? = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +32,6 @@ class LaunchFragment : Fragment(), OnclickListenerItem {
     ): View {
         if (!::binding.isInitialized) {
             binding = FragmentLaunchBinding.inflate(inflater, container, false)
-            viewModel = ViewModelProvider(this)[BitsoViewModel::class.java]
 
             binding.recyclerView.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -40,11 +40,7 @@ class LaunchFragment : Fragment(), OnclickListenerItem {
             viewModel.getCriptoCurrency().observe(viewLifecycleOwner) {
                 binding.progressCircular.visibility = View.INVISIBLE
                 if (it != null) {
-                    it.payload.forEach {
-                        if (it.book.contains("mxn")) {
-                            list?.addAll(listOf(it))
-                        }
-                    }
+                    list = it
                     updateAdapter()
                 }
             }
@@ -63,12 +59,12 @@ class LaunchFragment : Fragment(), OnclickListenerItem {
         viewModel.consultCriptoCurrency()
     }
 
-    fun updateAdapter() {
+    private fun updateAdapter() {
         criptoAdapter.submitList(list)
     }
 
-    override fun onCellClickListener(data: Payload) {
-        val bundle = bundleOf("idBitso" to data.book)
+    override fun onCellClickListener(data: CriptoCurrency) {
+        val bundle = bundleOf("idBitso" to data.name)
         findNavController().navigate(R.id.action_launchFragment_to_bitsoDetailFragment, bundle)
     }
 

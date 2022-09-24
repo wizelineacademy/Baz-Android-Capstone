@@ -1,6 +1,6 @@
 package com.example.myapplication.view.interfaces
 
-import com.example.myapplication.model.Payload
+import com.example.myapplication.model.CriptoCurrency
 
 /**
  * Created by: Juan Antonio Amado
@@ -8,5 +8,5 @@ import com.example.myapplication.model.Payload
  */
 interface OnclickListenerItem {
 
-    fun onCellClickListener(data:Payload)
+    fun onCellClickListener(data: CriptoCurrency)
 }
