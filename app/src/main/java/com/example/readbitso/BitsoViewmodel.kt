@@ -5,16 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.readbitso.support.icon
-import com.example.readbitso.support.shortToken
 import com.example.readbitso.models.bitsoModels.bitsoBooks.BooksPayload
 import com.example.readbitso.models.bitsoModels.bitsoBooks.DetailedPayload
 import com.example.readbitso.models.bitsoModels.bitsoBooks.bitsotickers.PayloadTickers
 import com.example.readbitso.models.bitsoModels.bitsoBooks.trading.PayloadTrades
 import com.example.readbitso.repository.BitsoRepository
-import com.example.readbitso.repository.datastore.DataStoreRepository
-import com.example.readbitso.support.loggerD
-import com.example.readbitso.support.operation
+import com.example.readbitso.support.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -27,17 +23,21 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BitsoViewmodel
-@Inject constructor(private val bitsoRepositoryImp: BitsoRepository, private val dsRepository: DataStoreRepository
+@Inject constructor(private val bitsoRepositoryImp: BitsoRepository
 ): ViewModel() {
 
 
     private var openedPayloads: List<BooksPayload> by mutableStateOf(listOf())
     var detailedPayload: List<DetailedPayload> by mutableStateOf(listOf())
     var trades: List<PayloadTrades> by mutableStateOf(listOf())
-    var state: String by mutableStateOf("")
+    var state: String? by mutableStateOf("")
     var errormessage: String by mutableStateOf("")
     var isloading: Boolean by mutableStateOf(false)
     var openedPayloadsCoin: List<PayloadTickers> by mutableStateOf(listOf())
+    var lastname:String by mutableStateOf("")
+    private var SelectedCoin:String? by mutableStateOf("")
+
+
 
     init {
         state="first"
@@ -45,7 +45,6 @@ class BitsoViewmodel
 
         viewModelScope.launch {
             while (true) {
-
                 getPage()?.let{
                     state=it
                 }
@@ -53,17 +52,28 @@ class BitsoViewmodel
                 when (state) {
                     "first" -> {
                         readResponse()
+
                         getBooks(openedPayloads)
+
+                        //getbdTokens("mxn")
+
                         delay(5000)
-                        //println(getbdTokens("mxn"))
+
+                      //  loggerD("${getbdTokens("mxn")}")
                     }
                     "second" -> {
                         getCoin()?.let{
                             withContext(Dispatchers.IO){
                                 getBidsAsk(it)
-                                delay(1000)
                                 getTrades(it)
+                                //-----
+
+                                //-----
                                 delay(2000)
+                            //      getAskBids()
+                            //    getDbTrades()
+                            //  delay(5000)
+
                             }
                         }
                     }
@@ -108,22 +118,21 @@ class BitsoViewmodel
     }
 
 
-    private suspend fun getBooks(openedPayloads: List<BooksPayload>) = GetnewList(openedPayloads)
+    private suspend fun getBooks(openedPayloads: List<BooksPayload>) = getnewList(openedPayloads)
 
 
-    private suspend fun GetnewList(openedPayloads: List<BooksPayload>): List<DetailedPayload> {
+    private suspend fun getnewList(openedPayloads: List<BooksPayload>): List<DetailedPayload> {
         val returnlist = mutableListOf<DetailedPayload>()
         openedPayloads.forEach {
             returnlist.add(DetailedPayload(payload = it,
                 shortname = shortToken(it.book),
                 icon = icon(it.book)
             ))
-
         }
         detailedPayload = returnlist.filter {
             it.payload.book.contains("mxn")
         }
-        insertTokens()
+        insertdbTokens()
         isloading = returnlist.isNotEmpty()
         return returnlist
     }
@@ -136,6 +145,7 @@ class BitsoViewmodel
                     openedPayloadsCoin=it
                 }
         }
+        insertdbAskBids()
     }
 
 
@@ -147,6 +157,7 @@ class BitsoViewmodel
                 .collect {
                     trades= GetnewListTrades(it)
                 }
+            insertdbTrades()
         }
     }
 
@@ -168,31 +179,41 @@ class BitsoViewmodel
     //DataStore
     fun setCoin(coin: String) {
         viewModelScope.launch {
-            dsRepository.selectCoin("name", coin)
+            bitsoRepositoryImp.selectCoin("name",coin)
         }
     }
-    fun getCoin(): String? = runBlocking {
-        dsRepository.getCoin("name")
+
+    private suspend fun getCoin(): String? {
+        viewModelScope.launch {
+            SelectedCoin=bitsoRepositoryImp.getCoin("name")
+        }
+        lastname=tokens(SelectedCoin.toString())
+        return SelectedCoin
     }
+
+
     fun selectPage(Page: String) = viewModelScope.launch {
-        dsRepository.setPage("page", Page)
+        bitsoRepositoryImp.setPage("page", Page)
     }
-    fun getPage(): String? = runBlocking {
-        dsRepository.getPage("page")
+
+    private suspend fun getPage(): String? {
+        viewModelScope.launch{
+            state= bitsoRepositoryImp.getPage("page")
+        }
+        return state
     }
-    ///
-//----------
 
 
     //room
-    private suspend fun insertTokens()
+    //----------------------
+    private suspend fun insertdbTokens()
     {
         bitsoRepositoryImp.insertBooks(openedPayloads)
     }
 
-    private suspend fun getbdTokens(filter: String) {
-
-        var returnlist = mutableListOf<BooksPayload>()
+    //Actives list
+    private suspend fun getbdTokens(filter: String ="mxn"): List<BooksPayload> {
+        val returnlist = mutableListOf<BooksPayload>()
         bitsoRepositoryImp.getflowBooks()
             .collect { it ->
                 it.forEach { moneda->
@@ -206,5 +227,36 @@ class BitsoViewmodel
         openedPayloads = returnlist.filter {
             it.book.contains(filter)
         }
+        return openedPayloads
     }
+
+
+    private suspend fun insertdbTrades()
+    {
+        bitsoRepositoryImp.insertTrades(trades)
+    }
+
+    private suspend fun getdbTrades()
+    {
+        bitsoRepositoryImp.getflowTrades()
+            .catch {  }
+            .collect {
+                println(it)
+            }
+    }
+
+    private suspend fun insertdbAskBids()
+    {
+        bitsoRepositoryImp.insertAsk(openedPayloadsCoin)
+    }
+
+    private suspend fun getdbAskBids()
+    {
+        bitsoRepositoryImp.getflowAskBids()
+            .catch {  }
+            .collect {
+                println(it)
+            }
+    }
+    //-----
 }

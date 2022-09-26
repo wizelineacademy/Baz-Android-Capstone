@@ -40,7 +40,7 @@ fun Detailview(viewModel: BitsoViewmodel, navController: NavHostController) {
                             Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "null")
                         }
                     },
-                    title = { Text(tokens(getCoin().toString()))
+                    title = { Text(viewModel.lastname)
                     }
                 )
                 if (trades.isEmpty()) {
