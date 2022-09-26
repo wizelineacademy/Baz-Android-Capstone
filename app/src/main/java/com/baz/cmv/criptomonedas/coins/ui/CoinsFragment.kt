@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.baz.cmv.criptomonedas.coins.CoinGenerator
 import com.baz.cmv.criptomonedas.coins.Coins
 import com.baz.cmv.criptomonedas.coins.remote.RetrofitService
@@ -37,6 +38,9 @@ class CoinsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val retrofit = RetrofitService.getRetrofitInstance()
         val coinsService = retrofit.create(CoinsService::class.java)
+        val adapter = CriptoListAdapter()
+        val recycler = binding.criptomonedasRecyclerview
+        recycler.layoutManager = LinearLayoutManager(requireContext())
         lifecycleScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.IO){
                 val resultado = coinsService.obtenerMonedas()
@@ -47,7 +51,8 @@ class CoinsFragment : Fragment() {
                             precio = networkMoneda.maximumPrice.toDouble()
                         )
                     }
-                    binding.criptomonedasRecyclerview.adapter = CoinsAdapter(listCoin)
+                    binding.criptomonedasRecyclerview.adapter = adapter
+                    adapter.submitList(listCoin)
                 }
 
             }
