@@ -1,6 +1,7 @@
 package com.proyect.cursowizline.model
 
 import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class Crypto(

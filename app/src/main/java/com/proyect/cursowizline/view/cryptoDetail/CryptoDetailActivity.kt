@@ -7,9 +7,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.proyect.cursowizline.R
+import com.proyect.cursowizline.databinding.DetailCryptoBinding
 import com.proyect.cursowizline.model.Crypto
 import com.proyect.cursowizline.model.ResponseStatus
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CryptoDetailActivity: AppCompatActivity() {
     companion object {
         const val CRYPTO_KEY = "crypto"
@@ -18,7 +21,7 @@ class CryptoDetailActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = CryptoDetailActivity.inflate(layoutInflater)
+        val binding =  DetailCryptoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val crypto = intent?.extras?.getParcelable<Crypto>(CRYPTO_KEY)

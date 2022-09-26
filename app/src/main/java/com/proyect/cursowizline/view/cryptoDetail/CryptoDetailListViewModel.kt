@@ -6,9 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.proyect.cursowizline.model.CryptoOrder
 import com.proyect.cursowizline.model.ResponseStatus
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CryptoDetailListViewModel : ViewModel() {
+@HiltViewModel
+class CryptoDetailListViewModel @Inject constructor(private val cryptoOrderRepository : CryptoDetailRepository) : ViewModel() {
     private val _cryptoOrderList = MutableLiveData<List<CryptoOrder>>()
     val cryptoOrderList: LiveData<List<CryptoOrder>>
         get() = _cryptoOrderList
@@ -16,8 +19,6 @@ class CryptoDetailListViewModel : ViewModel() {
     private val _status = MutableLiveData<ResponseStatus<List<CryptoOrder>>>()
     val status: LiveData<ResponseStatus<List<CryptoOrder>>>
         get() = _status
-
-    private val cryptoOrderRepository = CryptoDetailRepository()
 
     init {
         downloadCryptoOrder()

@@ -7,17 +7,20 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.proyect.cursowizline.databinding.ListCryptoBinding
 import com.proyect.cursowizline.model.ResponseStatus
 import com.proyect.cursowizline.view.cryptoDetail.CryptoDetailActivity
 import com.proyect.cursowizline.view.cryptoDetail.CryptoDetailActivity.Companion.CRYPTO_KEY
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CryptoListActivity : AppCompatActivity() {
 
     private val cryptoListViewModel: CryptoListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = CryptoListActivity.inflate(layoutInflater)
+        val binding = ListCryptoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val loadingWheel = binding.loadingWheel
