@@ -8,13 +8,11 @@ import javax.inject.Inject
 
 /**
  * Created by: Juan Antonio Amado
- * date: 23,septiembre,2022
+ * date: 26,septiembre,2022
  */
-class BitsoUseCase @Inject constructor(private val repository: BitsoRepository) {
+class LoadAllCriptoCurrencyUseCase @Inject constructor(private val repository: BitsoRepository) {
 
     suspend operator fun invoke(): List<CriptoCurrency> =
-        repository.loadCripto().payload.map(Payload::asExternalModel).filter {
-            it.name.contains("mxn")
-        }
+        repository.loadCripto().payload.map(Payload::asExternalModel)
 
 }

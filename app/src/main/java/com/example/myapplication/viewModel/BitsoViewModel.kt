@@ -3,19 +3,15 @@ package com.example.myapplication.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.api.ApiRetro
 import com.example.myapplication.api.RetroFitRxClient
-import com.example.myapplication.api.interfaces.ApiBitsoService
 import com.example.myapplication.model.*
-import com.example.myapplication.useCases.BitsoUseCase
+import com.example.myapplication.useCases.LoadAllCriptoCurrencyUseCase
+import com.example.myapplication.useCases.LoadCriptoWithFilterCurrencyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
 
 
@@ -24,7 +20,9 @@ import javax.inject.Inject
  * date: 16,septiembre,2022
  */
 @HiltViewModel
-class BitsoViewModel @Inject constructor(private val bitsoUseCase: BitsoUseCase) : ViewModel() {
+class BitsoViewModel @Inject constructor(private val loadCriptoWithFilterCurrencyUseCase: LoadCriptoWithFilterCurrencyUseCase,
+private val loadAllCriptoCurrencyUseCase: LoadAllCriptoCurrencyUseCase) :
+    ViewModel() {
     var moneyCripto: MutableLiveData<List<CriptoCurrency>> = MutableLiveData()
     var selectMoneyCripto: MutableLiveData<SelectCriptoResponse?> = MutableLiveData()
     var askBidMoneyCripto: MutableLiveData<AskAndBidResponse?> = MutableLiveData()
@@ -37,14 +35,21 @@ class BitsoViewModel @Inject constructor(private val bitsoUseCase: BitsoUseCase)
         return selectMoneyCripto
     }
 
-    fun getAskBidCriptoCurrency() : MutableLiveData<AskAndBidResponse?>{
+    fun getAskBidCriptoCurrency(): MutableLiveData<AskAndBidResponse?> {
         return askBidMoneyCripto
     }
 
 
-    fun consultCriptoCurrency() {
+    fun consultFilterCriptoCurrency() {
         viewModelScope.launch {
-            val result = bitsoUseCase()
+            val result = loadCriptoWithFilterCurrencyUseCase()
+            moneyCripto.postValue(result)
+        }
+    }
+
+    fun consultAllcriptoCurrency() {
+        viewModelScope.launch {
+            val result = loadAllCriptoCurrencyUseCase()
             moneyCripto.postValue(result)
         }
     }
@@ -75,7 +80,7 @@ class BitsoViewModel @Inject constructor(private val bitsoUseCase: BitsoUseCase)
                 .getAskAndBids(id = id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe{ onSuccess: AskAndBidResponse?, onError: Throwable? ->
+                .subscribe { onSuccess: AskAndBidResponse?, onError: Throwable? ->
                     onSuccess?.let {
                         askBidMoneyCripto.postValue(it)
                     }

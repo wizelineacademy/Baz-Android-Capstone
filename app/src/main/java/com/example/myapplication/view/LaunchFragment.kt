@@ -56,7 +56,12 @@ class LaunchFragment : Fragment(), OnclickListenerItem {
     }
 
     private fun initWS() {
-        viewModel.consultCriptoCurrency()
+
+        viewModel.consultAllcriptoCurrency()
+        binding.btnFilter.setOnClickListener {
+            viewModel.consultFilterCriptoCurrency()
+        }
+
     }
 
     private fun updateAdapter() {
