@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.readbitso.ds.room.dao.entity.AskBids
 import com.example.readbitso.ds.room.dao.entity.Operationstrades
 import kotlinx.coroutines.flow.Flow
 
@@ -11,11 +12,11 @@ import kotlinx.coroutines.flow.Flow
 interface AskBidsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(usuario: List<Operationstrades>)
+    suspend fun insertAll(usuario: List<AskBids>)
 
 
     @Query("SELECT * FROM AskBids")
-    fun getAll(): Flow<List<Operationstrades>>
+    fun getAll(): List<AskBids>
 
 
 }

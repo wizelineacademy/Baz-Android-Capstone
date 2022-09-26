@@ -7,8 +7,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class AskBids(
     @PrimaryKey(autoGenerate = false)  val id: Int,
-    @ColumnInfo(name = "Pair") val pair: String?,
-    @ColumnInfo(name = "amount") val Amount: String?,
-    @ColumnInfo(name = "Type") val Type: String?,
-    @ColumnInfo(name = "Price") val Price: String?
+    @ColumnInfo(name = "Ask") val Ask: String?,
+    @ColumnInfo(name = "Bid") val Bid: String?,
+    @ColumnInfo(name = "Book") val Book: String?
 )
