@@ -269,8 +269,6 @@ class BitsoViewmodel
                 }
             }
         trades=GetnewListTrades(returnlist)
-        loggerD("Trades : $trades")
-        isloading=returnlist.isNotEmpty()
     }
 
     private suspend fun insertdbAskBids()

@@ -15,18 +15,18 @@ interface BitsoRepository {
     fun getBitsoBooks(): Observable<Books>//rxjava
     suspend fun getBitsoBids(ticker:String):Flow<List<PayloadTickers>>
     suspend fun getBitsoTrades(ticker: String): Flow<List<PayloadTrades>>
+
     suspend fun insertBooks(book:List<BooksPayload>)
-    suspend fun getflowBooks():Flow<List<Currencies>>
     suspend fun insertTrades(trades: List<PayloadTrades>)
-    suspend fun getflowTrades():Flow<List<Operationstrades>>
     suspend fun insertAsk(openedPayloadsCoin: List<PayloadTickers>)
+
+    suspend fun getflowBooks():Flow<List<Currencies>>
+    suspend fun getflowTrades():Flow<List<Operationstrades>>
     suspend fun getflowAskBids():Flow<List<AskBids>>
+
     suspend fun selectCoin(key1:String, key2:String)
     suspend fun getCoin(key:String):String?
     suspend fun setPage(key: String, value: String)
     suspend fun getPage(key: String):String?
-
-
-
 }
 
