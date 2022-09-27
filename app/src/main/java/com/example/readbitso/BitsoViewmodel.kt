@@ -88,7 +88,6 @@ class BitsoViewmodel
                                         delay(3000)
                                         getdbAskBids()
                                         getdbTrades()
-
                                     }
                                 }
                             }
@@ -203,8 +202,9 @@ class BitsoViewmodel
         viewModelScope.launch {
             selectedCoin=bitsoRepositoryImp.getCoin("name")
         }
-        if(errormessage!="")
+        if(errormessage=="")
             lastconsume=tokens(selectedCoin.toString())
+
 
         return selectedCoin
     }
