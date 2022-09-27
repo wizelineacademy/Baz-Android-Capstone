@@ -20,12 +20,12 @@ fun tokens (name:String): String{
     return icon
 }
 
-fun operation(name:String):String{
+fun operationKind(name:String):String{
     val names=when(name)
     {
         "sell"-> "Venta"
         "buy"-> "Compra"
-        else -> {""}
+        else -> {name}
     }
     return names
 }
@@ -64,7 +64,7 @@ fun shortToken (name:String): String{
 }
 
 fun loggerD(message:String){
-   val  default:String="peticion "
+   val  default ="peticion "
     Log.d(default,message)
 }
 

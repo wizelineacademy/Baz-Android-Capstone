@@ -13,13 +13,15 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.readbitso.BitsoViewmodel
 import com.example.readbitso.Loading
+import com.example.readbitso.R
 import com.example.readbitso.composeItems.ItemTrading
 import com.example.readbitso.composeItems.MoneyDetails
-import com.example.readbitso.support.tokens
 
 @Composable
 fun Detailview(viewModel: BitsoViewmodel, navController: NavHostController) {
@@ -27,8 +29,14 @@ fun Detailview(viewModel: BitsoViewmodel, navController: NavHostController) {
         viewModel.selectPage("second")
 
 
-        if (!isloading)
-            Loading()
+
+        if (!isloading || !update)
+            when(errormessage)
+            {
+                ""->Loading(stringResource(R.string.consulting))
+                else->Loading(stringResource(R.string.lastconsume))
+            }
+
         else
             Column {
                 TopAppBar(
@@ -40,7 +48,7 @@ fun Detailview(viewModel: BitsoViewmodel, navController: NavHostController) {
                             Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "null")
                         }
                     },
-                    title = { Text(viewModel.lastname)
+                    title = { Text(viewModel.lastconsume)
                     }
                 )
                 if (trades.isEmpty()) {
@@ -57,7 +65,7 @@ fun Detailview(viewModel: BitsoViewmodel, navController: NavHostController) {
                             MoneyDetails(list)
                         }
                     }
-            }
+                }
                 Row(modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
@@ -79,13 +87,13 @@ fun Detailview(viewModel: BitsoViewmodel, navController: NavHostController) {
                             ItemTrading(list = data)
                         }
                 }
-                if(!errormessage.contains("Unknow" ) )
+                if(errormessage == "" )
                 {
-                   // Text(text = stringResource(R.string.disclaimer1), color = Color.LightGray)
-                   // Text(text = stringResource(R.string.disclamer2), color = Color.LightGray)
+                    Text(text = stringResource(R.string.dis1), color = Color.LightGray)
+                    Text(text = stringResource(R.string.dis2), color = Color.LightGray)
                 }
                 else {
-                    //Displaysnack(message = stringResource(R.string.noconexion))
+                    Displaysnack(message = "Ultima consulta realizada: ${viewModel.lastconsume}")
                 }
             }
     }

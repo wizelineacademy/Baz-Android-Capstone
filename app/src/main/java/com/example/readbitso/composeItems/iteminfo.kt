@@ -40,8 +40,8 @@ fun MoneyDetails ( list: PayloadTickers){
                         , horizontalAlignment = Alignment.CenterHorizontally)
 
                     {
-                        Image(modifier = Modifier.padding(4.dp),painter = painterResource(id = icon(list.book)), contentDescription = null)
-                        Text(text = shortToken(list.book), modifier = Modifier.padding(start = 8.dp))
+                        Image(modifier = Modifier.padding(4.dp),painter = painterResource(id = icon(list.book.toString())), contentDescription = null)
+                        Text(text = shortToken(list.book.toString()), modifier = Modifier.padding(start = 8.dp))
                     }
                 }
                 Column(verticalArrangement = Arrangement.Center,

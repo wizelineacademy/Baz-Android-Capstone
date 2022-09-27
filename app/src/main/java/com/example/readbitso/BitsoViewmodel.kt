@@ -30,54 +30,70 @@ class BitsoViewmodel
     private var openedPayloads: List<BooksPayload> by mutableStateOf(listOf())
     var detailedPayload: List<DetailedPayload> by mutableStateOf(listOf())
     var trades: List<PayloadTrades> by mutableStateOf(listOf())
-    var state: String? by mutableStateOf("")
+    private var page: String? by mutableStateOf("")
     var errormessage: String by mutableStateOf("")
     var isloading: Boolean by mutableStateOf(false)
     var openedPayloadsCoin: List<PayloadTickers> by mutableStateOf(listOf())
-    var lastname:String by mutableStateOf("")
-    private var SelectedCoin:String? by mutableStateOf("")
+    private var lastname:String by mutableStateOf("")
+    private var selectedCoin:String? by mutableStateOf("")
+    var update: Boolean by mutableStateOf(false)
+    var lastconsume: String by mutableStateOf("")
 
 
 
     init {
-        state="first"
+        page="first"
         selectPage("first")
 
         viewModelScope.launch {
             while (true) {
                 getPage()?.let{
-                    state=it
+                    page=it
                 }
+                loggerD(message=errormessage)
 
-                when (state) {
+                when (page) {
                     "first" -> {
                         readResponse()
-
-                        getBooks(openedPayloads)
-
-                        //getbdTokens("mxn")
-
-                        delay(5000)
-
-                      //  loggerD("${getbdTokens("mxn")}")
+                        update=false
+                        when (errormessage)
+                        {
+                            ""->{
+                                getBooks(openedPayloads)
+                                if(detailedPayload.isNotEmpty())
+                                    insertdbTokens()
+                            }
+                            "Pagina no disponible"->{
+                                errormessage="Datos no disponibles"
+                                getbdTokens("mxn")
+                            }
+                            else->{println(errormessage)}
+                        }
+                        update=true
+                        delay(3000)
                     }
                     "second" -> {
                         getCoin()?.let{
                             withContext(Dispatchers.IO){
-                                getBidsAsk(it)
-                                getTrades(it)
-                                //-----
-
-                                //-----
-                                delay(2000)
-                            //      getAskBids()
-                            //    getDbTrades()
-                            //  delay(5000)
-
+                                when(errormessage)
+                                {
+                                    "" ->{
+                                        getBidsAsk(it)
+                                        getTrades(it)
+                                        delay(2000)
+                                        insertdbAskBids()
+                                        insertdbTrades()
+                                    }
+                                    "Pagina no disponible"->{
+                                        getdbAskBids()
+                                        getdbTrades()
+                                        errormessage="Datos no disponibles"
+                                        delay(5000)
+                                    }
+                                }
                             }
                         }
                     }
-                    else -> {}
                 }
             }
         }
@@ -106,6 +122,7 @@ class BitsoViewmodel
     //----------------------
 
     private fun processBooks(book: List<BooksPayload>) {
+        errormessage=""
         val returnlist = mutableListOf<BooksPayload>()
         book.forEachIndexed { index, it ->
             returnlist.add(BooksPayload(
@@ -118,10 +135,10 @@ class BitsoViewmodel
     }
 
 
-    private suspend fun getBooks(openedPayloads: List<BooksPayload>) = getnewList(openedPayloads)
+    private fun getBooks(openedPayloads: List<BooksPayload>) = getnewList(openedPayloads)
 
 
-    private suspend fun getnewList(openedPayloads: List<BooksPayload>): List<DetailedPayload> {
+    private fun getnewList(openedPayloads: List<BooksPayload>): List<DetailedPayload> {
         val returnlist = mutableListOf<DetailedPayload>()
         openedPayloads.forEach {
             returnlist.add(DetailedPayload(payload = it,
@@ -132,7 +149,6 @@ class BitsoViewmodel
         detailedPayload = returnlist.filter {
             it.payload.book.contains("mxn")
         }
-        insertdbTokens()
         isloading = returnlist.isNotEmpty()
         return returnlist
     }
@@ -145,7 +161,7 @@ class BitsoViewmodel
                     openedPayloadsCoin=it
                 }
         }
-        insertdbAskBids()
+
     }
 
 
@@ -157,7 +173,7 @@ class BitsoViewmodel
                 .collect {
                     trades= GetnewListTrades(it)
                 }
-            insertdbTrades()
+
         }
     }
 
@@ -167,7 +183,7 @@ class BitsoViewmodel
             returnlist.add(PayloadTrades(
                 amount=it.amount.take(10),
                 book=it.book,
-                maker_side = operation(it.maker_side),
+                maker_side = operationKind(it.maker_side),
                 price=it.price.take(10)
             ))
         }
@@ -185,10 +201,10 @@ class BitsoViewmodel
 
     private suspend fun getCoin(): String? {
         viewModelScope.launch {
-            SelectedCoin=bitsoRepositoryImp.getCoin("name")
+            selectedCoin=bitsoRepositoryImp.getCoin("name")
         }
-        lastname=tokens(SelectedCoin.toString())
-        return SelectedCoin
+        lastname=tokens(selectedCoin.toString())
+        return selectedCoin
     }
 
 
@@ -198,9 +214,9 @@ class BitsoViewmodel
 
     private suspend fun getPage(): String? {
         viewModelScope.launch{
-            state= bitsoRepositoryImp.getPage("page")
+            page= bitsoRepositoryImp.getPage("page")
         }
-        return state
+        return page
     }
 
 
@@ -211,23 +227,23 @@ class BitsoViewmodel
         bitsoRepositoryImp.insertBooks(openedPayloads)
     }
 
-    //Actives list
-    private suspend fun getbdTokens(filter: String ="mxn"): List<BooksPayload> {
+
+    private suspend fun getbdTokens(filter: String ="mxn") {
         val returnlist = mutableListOf<BooksPayload>()
         bitsoRepositoryImp.getflowBooks()
-            .collect { it ->
+            .collect {
                 it.forEach { moneda->
                     returnlist.add(BooksPayload(
                         book = moneda.book,
                         id = moneda.id,
                         maximum_price = moneda.maximum_price,
-                        minimum_price=moneda.minimum_price)) }
+                        minimum_price=moneda.minimum_price))
+                }
             }
-
-        openedPayloads = returnlist.filter {
-            it.book.contains(filter)
-        }
-        return openedPayloads
+        getnewList(
+            returnlist.filter {
+                it.book.contains(filter)
+            })
     }
 
 
@@ -238,11 +254,23 @@ class BitsoViewmodel
 
     private suspend fun getdbTrades()
     {
+        val returnlist = mutableListOf<PayloadTrades>()
+
         bitsoRepositoryImp.getflowTrades()
             .catch {  }
-            .collect {
-                println(it)
+            .collect { it ->
+                it.forEach {
+                    returnlist.add(PayloadTrades(
+                        amount=it.Amount.toString(),
+                        book = it.pair.toString(),
+                        maker_side = operationKind(it.Type.toString()),
+                        price = it.Price.toString(),
+                    ))
+                }
             }
+        trades=GetnewListTrades(returnlist)
+        loggerD("Trades : $trades")
+        isloading=returnlist.isNotEmpty()
     }
 
     private suspend fun insertdbAskBids()
@@ -252,11 +280,20 @@ class BitsoViewmodel
 
     private suspend fun getdbAskBids()
     {
+        val returnlist = mutableListOf<PayloadTickers>()
         bitsoRepositoryImp.getflowAskBids()
             .catch {  }
-            .collect {
-                println(it)
+            .collect { it ->
+                it.forEach {
+                    returnlist.add(PayloadTickers(
+                        ask = it.Ask,
+                        bid=it.Bid,
+                        book=it.Book
+                    ))
+                }
             }
+        openedPayloadsCoin=returnlist
+        lastconsume= tokens(returnlist[0].book.toString())
+        isloading=returnlist.isNotEmpty()
     }
-    //-----
 }

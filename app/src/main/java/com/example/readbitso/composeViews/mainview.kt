@@ -1,4 +1,4 @@
-package com.example.capproject.composeviews
+package com.example.readbitso.composeViews
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -23,9 +24,12 @@ fun Mainview(viewModel: BitsoViewmodel, navHostController: NavHostController)
         viewModel.selectPage("first")
 
 
-        if (!isloading || detailedPayload.isEmpty())
-            Loading()
-
+        if (!isloading )
+            when(errormessage)
+            {
+                ""-> Loading(stringResource(R.string.conecting))
+                else-> Loading(stringResource(R.string.lastconsume))
+            }
         else {
             Column {
                 TopAppBar(
@@ -48,9 +52,14 @@ fun Mainview(viewModel: BitsoViewmodel, navHostController: NavHostController)
                         MoneyCard(this@with, list, navHostController)
                     }
                 }
-                //Disclaimer
-//                    Text(text = stringResource(R.string.disclaimer1), color = Color.LightGray)
-  //                  Text(text = stringResource(R.string.disclamer2), color = Color.LightGray)
+                if(errormessage == "") {//Disclaimer
+                    Text(text = stringResource(R.string.dis1),
+                        color = Color.LightGray)
+                    Text(text = stringResource(R.string.dis2),
+                        color = Color.LightGray)
+                }
+                if(errormessage !="")
+                    Displaysnack(message = stringResource(R.string.checkconection))
             }
         }
     }
