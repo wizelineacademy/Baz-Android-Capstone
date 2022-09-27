@@ -5,8 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.readbitso.ds.room.dao.entity.AskBids
-import com.example.readbitso.ds.room.dao.entity.Operationstrades
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AskBidsDao {

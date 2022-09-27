@@ -1,9 +1,6 @@
-package com.example.capproject.composeviews
+package com.example.readbitso.composeViews
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -13,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import com.example.readbitso.R
 
 
@@ -34,6 +32,7 @@ fun Loading( mensaje:String="" )
             modifier = Modifier.fillMaxSize()) {
             // val listState = rememberLazyListState()
             CircularProgressIndicator()
+            Text(mensaje, modifier = Modifier.padding(4.dp))
         }
     }
 }

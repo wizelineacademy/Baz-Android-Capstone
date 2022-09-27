@@ -5,8 +5,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.capproject.composeviews.Loading
-import com.example.capproject.composeviews.Mainview
+import com.example.readbitso.composeViews.Loading
+import com.example.readbitso.composeViews.Mainview
 import com.example.readbitso.BitsoViewmodel
 import com.example.readbitso.composeViews.Detailview
 

@@ -1,7 +1,5 @@
 package com.example.readbitso.repository
 
-import com.example.readbitso.repository.BitsoRepository
-import com.example.readbitso.repository.BitsoRepositoryImp
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

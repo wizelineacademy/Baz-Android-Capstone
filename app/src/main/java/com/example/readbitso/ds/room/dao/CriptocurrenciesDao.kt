@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.readbitso.ds.room.dao.entity.Currencies
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CriptocurrenciesDao {

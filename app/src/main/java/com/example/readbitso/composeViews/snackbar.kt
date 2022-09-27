@@ -14,7 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 
 @Preview
 @Composable
-fun test(){
+fun Test(){
     Displaysnack(message = "Hola soy una prueba")
 }
 
@@ -23,7 +23,7 @@ fun Displaysnack(message:String) {
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val coroutinescope: CoroutineScope = rememberCoroutineScope()
 
-    Scaffold(scaffoldState = scaffoldState,)
+    Scaffold(scaffoldState = scaffoldState)
     {
         Card(modifier = Modifier
             .fillMaxWidth()
