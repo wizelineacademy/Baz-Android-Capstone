@@ -27,8 +27,8 @@ fun Mainview(viewModel: BitsoViewmodel, navHostController: NavHostController)
         if (!isloading )
             when(errormessage)
             {
-                ""-> Loading(stringResource(R.string.conecting))
-                else-> Loading(stringResource(R.string.lastconsume))
+                ""-> LoadingV(stringResource(R.string.conecting))
+                else-> LoadingV(stringResource(R.string.lastconsume))
             }
         else {
             Column {

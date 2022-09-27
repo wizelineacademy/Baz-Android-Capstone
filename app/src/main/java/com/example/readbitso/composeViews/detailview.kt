@@ -18,7 +18,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.readbitso.BitsoViewmodel
-import com.example.readbitso.Loading
 import com.example.readbitso.R
 import com.example.readbitso.composeItems.ItemTrading
 import com.example.readbitso.composeItems.MoneyDetails
@@ -30,14 +29,13 @@ fun Detailview(viewModel: BitsoViewmodel, navController: NavHostController) {
 
 
 
-        if (!isloading || !update)
-            when(errormessage)
-            {
-                ""->Loading(stringResource(R.string.consulting))
-                else->Loading(stringResource(R.string.lastconsume))
-            }
-
-        else
+        if (!update) {
+            if (!isloading)
+                when (errormessage) {
+                    "" -> LoadingV(stringResource(R.string.consulting))
+                    else -> LoadingV(stringResource(R.string.lastconsume))
+                }
+        } else
             Column {
                 TopAppBar(
                     navigationIcon = {
@@ -48,12 +46,16 @@ fun Detailview(viewModel: BitsoViewmodel, navController: NavHostController) {
                             Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "null")
                         }
                     },
-                    title = { Text(viewModel.lastconsume)
+                    title = {
+                        Text(viewModel.lastconsume)
                     }
                 )
                 if (trades.isEmpty()) {
-                    Loading()
-                } else{
+                    when (errormessage) {
+                        " " -> LoadingV(stringResource(R.string.consulting))
+                        else -> LoadingV(stringResource(R.string.lastconsume))
+                    }
+                } else {
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -87,12 +89,10 @@ fun Detailview(viewModel: BitsoViewmodel, navController: NavHostController) {
                             ItemTrading(list = data)
                         }
                 }
-                if(errormessage == "" )
-                {
+                if (errormessage == "") {
                     Text(text = stringResource(R.string.dis1), color = Color.LightGray)
                     Text(text = stringResource(R.string.dis2), color = Color.LightGray)
-                }
-                else {
+                } else {
                     Displaysnack(message = "Ultima consulta realizada: ${viewModel.lastconsume}")
                 }
             }
