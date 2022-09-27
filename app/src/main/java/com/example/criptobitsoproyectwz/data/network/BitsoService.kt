@@ -14,10 +14,10 @@ import retrofit2.http.Url
 
 interface BitsoService {
 
-    @GET
-    suspend fun getCriptos(@Url url: String): Response<BaseResult>
+    @GET("available_books")
+    suspend fun getCriptos(): Response<BaseResult>
 
-    @GET
+/*    @GET
     suspend fun getTicketInformation(@Url url: String): Response<TicketResult>
 
     @GET
@@ -27,6 +27,6 @@ interface BitsoService {
     fun getCriptosService(): Call<BaseResult>
 
     @GET("/available_books")
-    fun getCriptosServiceRX(): Single<BaseResult>
+    fun getCriptosServiceRX(): Single<BaseResult>*/
 
 }

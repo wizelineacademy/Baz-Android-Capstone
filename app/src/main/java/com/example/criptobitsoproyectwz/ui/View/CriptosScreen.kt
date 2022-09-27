@@ -1,5 +1,7 @@
 package com.example.criptobitsoproyectwz.ui.View
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -8,62 +10,53 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.criptobitsoproyectwz.NavigationCompose.Rutas
 import com.example.criptobitsoproyectwz.R
 import com.example.criptobitsoproyectwz.Util.convertir
+import com.example.criptobitsoproyectwz.core.CriptoResult
 import com.example.criptobitsoproyectwz.data.model.CriptoImage
+import com.example.criptobitsoproyectwz.data.model.Criptos.BaseResult
 import com.example.criptobitsoproyectwz.data.model.Criptos.Payload
-import com.example.criptobitsoproyectwz.ui.ViewModel.ViewModelCripto
-import com.example.criptobitsoproyectwz.ui.ViewModel.ViewModelCriptoLD
 import java.text.NumberFormat
 import java.util.*
 
+@Composable
+fun CriptoScreen(navController: NavHostController, listaCriptos: List<Payload>) {
+
+            showLista(listaCriptos, navController)
+
+}
+
+
+
 
 @Composable
-fun CriptoScreen(navController: NavHostController, vmCriptoLD: ViewModelCriptoLD) {
-
-    val criptoViewModel = viewModel(modelClass = ViewModelCripto::class.java)
-    val listaCriptos by criptoViewModel.dataCripto.collectAsState()
-
-    //LiveData
-    //vmCriptoLD.getCriptosLD()
-    //val listaCriptos : List<Payload> by vmCriptoLD.listCripto.observeAsState(initial = emptyList())
+fun showLista(payload: List<Payload>, navController: NavHostController) {
     val imagelogo = painterResource(R.drawable.bitso)
-
     Column {
         Card(
             elevation = 4.dp,
-            modifier = Modifier.fillMaxWidth().height(150.dp).fillMaxHeight()
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(150.dp)
+                .fillMaxHeight()
                 .padding(10.dp),
             shape = RoundedCornerShape(30.dp)
         ) {
             Image(painter = imagelogo, contentDescription = null)
         }
         LazyColumn(
-            modifier = Modifier.fillMaxSize().align(Alignment.CenterHorizontally),
+            modifier = Modifier
+                .fillMaxSize()
+                .align(Alignment.CenterHorizontally),
         ) {
-
-            if (listaCriptos.isEmpty()) {
-                item() {
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .size(50.dp, 50.dp)
-                    )
-                }
-                //navController.popBackStack()
-            }
-
-            items(listaCriptos) { cripto ->
+            items(payload) { cripto ->
                 CriptoCard(cripto, navController)
             }
         }
@@ -76,7 +69,6 @@ fun CriptoCard(cripto: Payload, navController: NavHostController) {
     val imagePainter = imageCrip.match(cripto = cripto.book)
     val image = painterResource(id = imagePainter)
     val currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US)
-
 
     Card(
         modifier = Modifier
@@ -94,7 +86,7 @@ fun CriptoCard(cripto: Payload, navController: NavHostController) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Image(
-                painter =  image,
+                painter = image,
                 contentDescription = null,
                 modifier = Modifier
                     .size(80.dp)

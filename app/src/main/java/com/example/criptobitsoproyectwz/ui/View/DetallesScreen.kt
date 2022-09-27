@@ -27,7 +27,7 @@ import java.util.*
 
 @Composable
 fun DetallesScreen(navController: NavHostController, cripto: String) {
-    val infoCriptoVM = viewModel(modelClass = ViewModelCripto::class.java)
+   /* val infoCriptoVM = viewModel(modelClass = ViewModelCripto::class.java)
     infoCriptoVM.getCriptosInfo(cripto)
     val info by infoCriptoVM.dataCriptoInfo.collectAsState()
 
@@ -230,6 +230,6 @@ fun CardDetalle(cripto: String, info: List<PayloadCripto>) {
             fontWeight = FontWeight.Bold,
             modifier = Modifier.align(Alignment.CenterVertically)
         )
-    }
+    }*/
 
 }

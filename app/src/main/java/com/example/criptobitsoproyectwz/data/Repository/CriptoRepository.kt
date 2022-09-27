@@ -1,21 +1,23 @@
 package com.example.criptobitsoproyectwz.data.Repository
 
 
+import com.example.criptobitsoproyectwz.data.DataSource.criptoDataSource
 import com.example.criptobitsoproyectwz.data.model.Criptos.BaseResult
-import com.example.criptobitsoproyectwz.data.model.OrderBook.BaseBookOrder
-import com.example.criptobitsoproyectwz.data.model.Ticket.TicketResult
-import com.example.criptobitsoproyectwz.data.network.BitsoService
-import com.example.criptobitsoproyectwz.data.network.Retrofit
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import retrofit2.Response
+import javax.inject.Inject
 
-class RepositoryCripto {
+interface CriptoRepository  {
 
     /*** Repository
      * clase se encargaría de ir a base de datos(Room) o a internet.
      * mandar info al viewmodel
      */
-    suspend fun getAllCriptos(): BaseResult? {
+
+    suspend fun getAllCriptos(): Response<BaseResult>
+
+
+
+ /*   suspend fun getAllCriptos(): BaseResult? {
         return withContext(Dispatchers.IO) {
             val response = Retrofit.getRetrofit().create(BitsoService::class.java)
                 .getCriptos("available_books")
@@ -37,6 +39,6 @@ class RepositoryCripto {
                 .getBookOrder("order_book/?book=$cripto")
             response.body()
         }
-    }
+    }*/
 
 }

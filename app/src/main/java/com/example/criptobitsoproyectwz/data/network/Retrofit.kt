@@ -7,6 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 //singlenton
+//Eliminar Duda RXJAVA
 object Retrofit {
     fun getRetrofit(): Retrofit{
         return Retrofit.Builder()
