@@ -15,7 +15,7 @@ import com.example.readbitso.R
 
 
 @Composable
-fun Loading( mensaje:String="" )
+fun Loading(message:String="" )
 {
     Surface {
         TopAppBar(
@@ -30,9 +30,8 @@ fun Loading( mensaje:String="" )
         Column(verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize()) {
-            // val listState = rememberLazyListState()
             CircularProgressIndicator()
-            Text(mensaje, modifier = Modifier.padding(4.dp))
+            Text(message, modifier = Modifier.padding(4.dp))
         }
     }
 }

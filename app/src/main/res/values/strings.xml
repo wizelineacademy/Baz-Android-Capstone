@@ -6,5 +6,5 @@
     <string name="lastconsume">Estoy leyendo tus ultimos datos</string>
     <string name="conecting">Conectando ..</string>
     <string name="checkconection">Revisa tu conexión </string>
-    <string name="consulting">Estamos cargando tus datos </string>
+    <string name="consulting">"Estamos cargando tus datos" </string>
 </resources>
