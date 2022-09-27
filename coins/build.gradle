@@ -84,6 +84,9 @@ dependencies {
 //
 //    // Coroutines for testing
 //    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0"
+
+    // Modules
+    implementation project(path: ':core')
 }
 
 hilt {

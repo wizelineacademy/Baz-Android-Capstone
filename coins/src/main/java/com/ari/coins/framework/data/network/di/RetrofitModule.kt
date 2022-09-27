@@ -1,13 +1,11 @@
 package com.ari.coins.framework.data.network.di
 
-import com.ari.coins.framework.data.network.constants.Endpoints
+import com.ari.core.client.CryptoRetrofit
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module
@@ -16,9 +14,6 @@ object RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(): Retrofit = Retrofit.Builder()
-        .baseUrl(Endpoints.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+    fun provideRetrofit(): Retrofit = CryptoRetrofit.retrofit
 
 }
