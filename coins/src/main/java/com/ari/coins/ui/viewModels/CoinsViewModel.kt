@@ -4,16 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ari.coins.data.models.AvailableBook
-import com.ari.coins.data.models.OrderBook
-import com.ari.coins.data.models.Ticker
+import com.ari.coins.data.models.AvailableBookData
+import com.ari.coins.data.models.OrderBookData
+import com.ari.coins.data.models.TickerData
 import com.ari.coins.domain.GetAvailableBooksUseCase
 import com.ari.coins.domain.GetCoinUrlImageUseCase
 import com.ari.coins.domain.GetOrderBookUseCase
 import com.ari.coins.domain.GetTickerUseCase
-import com.ari.coins.ui.models.ResultUi
-import com.ari.coins.ui.models.toUi
+import com.ari.coins.ui.uiModels.Result
+import com.ari.coins.ui.uiModels.toUi
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,32 +26,32 @@ class CoinsViewModel @Inject constructor(
     private val getCoinUrlImageUseCase: GetCoinUrlImageUseCase
 ): ViewModel() {
 
-    private val _availableBooks = MutableLiveData<ResultUi<List<AvailableBook>>>()
-    val availableBooks: LiveData<ResultUi<List<AvailableBook>>> get() = _availableBooks
+    private val _availableBooks = MutableLiveData<Result<List<AvailableBookData>>>()
+    val availableBooks: LiveData<Result<List<AvailableBookData>>> get() = _availableBooks
 
-    private val _ticker = MutableLiveData<ResultUi<Ticker>>()
-    val ticker: LiveData<ResultUi<Ticker>> get() = _ticker
+    private val _ticker = MutableLiveData<Result<TickerData>>()
+    val ticker: LiveData<Result<TickerData>> get() = _ticker
 
-    private val _orderBook = MutableLiveData<ResultUi<OrderBook>>()
-    val orderBook: LiveData<ResultUi<OrderBook>> get() = _orderBook
+    private val _orderBook = MutableLiveData<Result<OrderBookData>>()
+    val orderBook: LiveData<Result<OrderBookData>> get() = _orderBook
 
     fun clearCoinDetailView() {
-        _ticker.value = ResultUi.Empty()
-        _orderBook.value = ResultUi.Empty()
+        _ticker.value = Result.Empty()
+        _orderBook.value = Result.Empty()
     }
 
-    fun getAvailableBooks() = viewModelScope.launch{
-        val result: ResultUi<List<AvailableBook>> = getAvailableBooksUseCase(null).toUi()
+    fun getAvailableBooks() = viewModelScope.launch(Dispatchers.IO){
+        val result: Result<List<AvailableBookData>> = getAvailableBooksUseCase(null).toUi()
         _availableBooks.postValue(result)
     }
 
-    fun getTicker(book: String) = viewModelScope.launch{
-        val result: ResultUi<Ticker> = getTickerUseCase(book).toUi()
+    fun getTicker(book: String) = viewModelScope.launch(Dispatchers.IO){
+        val result: Result<TickerData> = getTickerUseCase(book).toUi()
         _ticker.postValue(result)
     }
 
-    fun getOrderBook(book: String) = viewModelScope.launch{
-        val result: ResultUi<OrderBook> = getOrderBookUseCase(book).toUi()
+    fun getOrderBook(book: String) = viewModelScope.launch(Dispatchers.IO){
+        val result: Result<OrderBookData> = getOrderBookUseCase(book).toUi()
         _orderBook.postValue(result)
     }
 

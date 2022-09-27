@@ -1,12 +1,12 @@
 package com.ari.coins.data.network.dataSource
 
-import com.ari.coins.data.models.OrderBook
-import com.ari.coins.data.models.AvailableBook
-import com.ari.coins.data.models.Result
-import com.ari.coins.data.models.Ticker
+import com.ari.coins.data.models.OrderBookData
+import com.ari.coins.data.models.AvailableBookData
+import com.ari.coins.data.models.ResultData
+import com.ari.coins.data.models.TickerData
 
 interface CoinsRemoteDataSource {
-    suspend fun getAvailableBooks(): Result<List<AvailableBook>>
-    suspend fun getTicker(book: String): Result<Ticker>
-    suspend fun getOrderBook(book: String): Result<OrderBook>
+    suspend fun getAvailableBooks(): ResultData<List<AvailableBookData>>
+    suspend fun getTicker(book: String): ResultData<TickerData>
+    suspend fun getOrderBook(book: String): ResultData<OrderBookData>
 }

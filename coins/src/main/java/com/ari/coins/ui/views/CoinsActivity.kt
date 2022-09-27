@@ -2,10 +2,7 @@ package com.ari.coins.ui.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
-import com.ari.coins.R
-import com.ari.coins.data.models.Result
 import com.ari.coins.databinding.ActivityCoinsBinding
 import com.ari.coins.ui.viewModels.CoinsViewModel
 import dagger.hilt.android.AndroidEntryPoint

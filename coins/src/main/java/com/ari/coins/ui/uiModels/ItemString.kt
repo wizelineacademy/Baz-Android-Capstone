@@ -1,4 +1,4 @@
-package com.ari.coins.ui.models
+package com.ari.coins.ui.uiModels
 
 data class ItemString (
     val itemType:  ItemType,

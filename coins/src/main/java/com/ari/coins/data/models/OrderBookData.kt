@@ -1,8 +1,8 @@
 package com.ari.coins.data.models
 
-data class OrderBook(
-    val asks: List<Ask>,
-    val bids: List<Bid>,
+data class OrderBookData(
+    val asks: List<AskData>,
+    val bids: List<BidData>,
     val sequence: String,
     val updated_at: String
 )

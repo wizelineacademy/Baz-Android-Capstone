@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ari.coins.databinding.ItemSectionBinding
 import com.ari.coins.databinding.ItemStringBinding
 import com.ari.coins.databinding.ItemTitleBinding
-import com.ari.coins.ui.models.ItemString
-import com.ari.coins.ui.models.ItemType
+import com.ari.coins.ui.uiModels.ItemString
+import com.ari.coins.ui.uiModels.ItemType
 
 class InfoAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

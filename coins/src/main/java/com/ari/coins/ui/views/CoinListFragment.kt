@@ -10,10 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.ari.coins.R
-import com.ari.coins.data.models.AvailableBook
-import com.ari.coins.data.models.Result
+import com.ari.coins.data.models.AvailableBookData
 import com.ari.coins.databinding.FragmentCoinListBinding
-import com.ari.coins.ui.models.ResultUi
+import com.ari.coins.ui.uiModels.Result
 import com.ari.coins.ui.viewModels.CoinsViewModel
 import com.ari.coins.ui.views.adapters.CoinsAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +26,7 @@ class CoinListFragment : Fragment() {
     private val coinsViewModel: CoinsViewModel by activityViewModels()
     private lateinit var coinsAdapter: CoinsAdapter
 
-    private val onClickCoin: (AvailableBook) -> Unit = { coin ->
+    private val onClickCoin: (AvailableBookData) -> Unit = { coin ->
         val bundle = bundleOf(CoinDetailFragment.BOOK_EXTRA to coin.book)
         findNavController(this).navigate(R.id.action_coinListFragment_to_coinDetailFragment, bundle)
     }
@@ -53,10 +52,10 @@ class CoinListFragment : Fragment() {
     private fun addObservers() {
         coinsViewModel.availableBooks.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is ResultUi.Error -> {
+                is Result.Error -> {
                     Log.e("AVD", "${result.code} - ${result.message}")
                 }
-                is ResultUi.Success -> {
+                is Result.Success -> {
                     coinsAdapter.setList(result.data)
                 }
             }

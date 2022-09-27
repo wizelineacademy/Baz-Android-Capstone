@@ -11,15 +11,15 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.ari.coins.R
 import com.ari.coins.databinding.FragmentCoinDetailBinding
-import com.ari.coins.ui.models.ItemString
-import com.ari.coins.ui.models.ItemType
-import com.ari.coins.ui.models.ResultUi
+import com.ari.coins.ui.uiModels.ItemString
+import com.ari.coins.ui.uiModels.ItemType
+import com.ari.coins.ui.uiModels.Result
 import com.ari.coins.ui.viewModels.CoinsViewModel
 import com.ari.coins.ui.views.adapters.InfoAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CoinDetailFragment: Fragment() {
+class CoinDetailFragment : Fragment() {
 
     companion object {
         const val BOOK_EXTRA = "BOOK_EXTRA"
@@ -66,11 +66,11 @@ class CoinDetailFragment: Fragment() {
 
     private fun addObservers() {
         coinsViewModel.ticker.observe(viewLifecycleOwner) { result ->
-            when(result){
-                is ResultUi.Error -> TODO()
-                is ResultUi.Success -> {
+            when (result) {
+                is Result.Error -> TODO()
+                is Result.Success -> {
                     binding.ticker = result.data
-                    binding.ivCoin.load(coinsViewModel.getCoinUrlImage(result.data.book)){
+                    binding.ivCoin.load(coinsViewModel.getCoinUrlImage(result.data.book)) {
                         crossfade(true)
                         transformations(CircleCropTransformation())
                         placeholder(R.drawable.ic_baseline_image_24)
@@ -87,16 +87,28 @@ class CoinDetailFragment: Fragment() {
         }
 
         coinsViewModel.orderBook.observe(viewLifecycleOwner) { result ->
-            when(result){
-                is ResultUi.Error -> TODO()
-                is ResultUi.Success -> {
+            when (result) {
+                is Result.Error -> TODO()
+                is Result.Success -> {
                     val list = arrayListOf<ItemString>()
                     list.add(ItemString(ItemType.SECTION, "Asks", ""))
                     list.add(ItemString(ItemType.TITLE, "Price", "Amount"))
-                    list.addAll(result.data.asks.map { ItemString(ItemType.INFO, it.price, it.amount) })
+                    list.addAll(result.data.asks.map {
+                        ItemString(
+                            ItemType.INFO,
+                            it.price,
+                            it.amount
+                        )
+                    })
                     list.add(ItemString(ItemType.SECTION, "Bids", ""))
                     list.add(ItemString(ItemType.TITLE, "Price", "Amount"))
-                    list.addAll(result.data.bids.map { ItemString(ItemType.INFO, it.price, it.amount) })
+                    list.addAll(result.data.bids.map {
+                        ItemString(
+                            ItemType.INFO,
+                            it.price,
+                            it.amount
+                        )
+                    })
                     asksAndBidsAdapter.setList(list)
                 }
             }

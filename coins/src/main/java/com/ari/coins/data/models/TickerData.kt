@@ -1,6 +1,6 @@
 package com.ari.coins.data.models
 
-data class Ticker(
+data class TickerData(
     val ask: String,
     val bid: String,
     val book: String,
@@ -9,7 +9,7 @@ data class Ticker(
     val high: String,
     val last: String,
     val low: String,
-    val rolling_average_change: RollingAverageChange,
+    val rolling_average_change: RollingAverageChangeData,
     val volume: String,
     val vwap: String
 )

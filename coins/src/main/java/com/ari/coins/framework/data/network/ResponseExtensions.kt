@@ -1,18 +1,18 @@
 package com.ari.coins.framework.data.network
 
-import com.ari.coins.data.models.CryptoResponse
-import com.ari.coins.data.models.Result
+import com.ari.coins.data.models.CryptoResponseData
+import com.ari.coins.data.models.ResultData
 import retrofit2.Response
 
-fun <T: CryptoResponse<*>, R> Response<T>.toResult(): Result<R> = try {
+fun <T: CryptoResponseData<*>, R> Response<T>.toResult(): ResultData<R> = try {
     if (isSuccessful) {
         val body = body()!!
-        if (body.success) Result.Success(body.payload as R)
-        else Result.Error(body.error!!.message, body.error.code)
+        if (body.success) ResultData.Success(body.payload as R)
+        else ResultData.Error(body.error!!.message, body.error.code)
     } else {
-        Result.Error(message(), -1)
+        ResultData.Error(message(), -1)
     }
 } catch (e: Exception) {
-    val result: Result<R> = Result.Error(e.toString(), -2)
+    val result: ResultData<R> = ResultData.Error(e.toString(), -2)
     result
 }

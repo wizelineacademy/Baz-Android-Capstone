@@ -6,7 +6,7 @@
     <data>
         <variable
             name="coin"
-            type="com.ari.coins.data.models.AvailableBook" />
+            type="com.ari.coins.data.models.AvailableBookData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

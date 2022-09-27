@@ -5,7 +5,7 @@
     <data>
         <variable
             name="item"
-            type="com.ari.coins.ui.models.ItemString" />
+            type="com.ari.coins.ui.uiModels.ItemString" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat

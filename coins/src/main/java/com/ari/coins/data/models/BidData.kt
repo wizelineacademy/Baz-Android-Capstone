@@ -1,6 +1,6 @@
 package com.ari.coins.data.models
 
-data class Ask(
+data class BidData(
     val amount: String,
     val book: String,
     val price: String
