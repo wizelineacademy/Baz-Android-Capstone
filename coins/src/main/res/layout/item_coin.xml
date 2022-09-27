@@ -6,7 +6,7 @@
     <data>
         <variable
             name="coin"
-            type="com.ari.coins.data.models.AvailableBookData" />
+            type="com.ari.coins.ui.uiModels.AvailableBook" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,7 +62,7 @@
             android:textSize="12sp"
             tools:text="1000"
             android:maxLines="1"
-            android:text="@{coin.maximum_price}"/>
+            android:text="@{coin.maximumPrice}"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_minimum_price"
@@ -78,7 +78,7 @@
             android:layout_marginEnd="16dp"
             tools:text="900"
             android:maxLines="1"
-            android:text="@{coin.minimum_price}"/>
+            android:text="@{coin.minimumPrice}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

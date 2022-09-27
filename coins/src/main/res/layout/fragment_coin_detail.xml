@@ -6,7 +6,7 @@
     <data>
         <variable
             name="ticker"
-            type="com.ari.coins.data.models.TickerData" />
+            type="com.ari.coins.ui.uiModels.Ticker" />
     </data>
 
     <androidx.core.widget.NestedScrollView

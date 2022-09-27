@@ -6,17 +6,17 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.ari.coins.R
-import com.ari.coins.data.models.AvailableBookData
 import com.ari.coins.databinding.ItemCoinBinding
+import com.ari.coins.ui.uiModels.AvailableBook
 
 class CoinsAdapter(
     val getCoinUrlImage: (book: String) -> String,
-    val onClickCoin: (AvailableBookData) -> Unit
+    val onClickCoin: (AvailableBook) -> Unit
 ) : RecyclerView.Adapter<CoinsAdapter.ViewHolder>() {
 
-    private val coins = arrayListOf<AvailableBookData>()
+    private val coins = arrayListOf<AvailableBook>()
 
-    fun setList(newCoins: List<AvailableBookData>) {
+    fun setList(newCoins: List<AvailableBook>) {
         coins.apply {
             clear()
             addAll(newCoins)
@@ -34,7 +34,7 @@ class CoinsAdapter(
 
     inner class ViewHolder(private val binding: ItemCoinBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(coin: AvailableBookData) {
+        fun bind(coin: AvailableBook) {
             binding.coin = coin
             binding.ivCoin.load(getCoinUrlImage(coin.book)) {
                 crossfade(true)
