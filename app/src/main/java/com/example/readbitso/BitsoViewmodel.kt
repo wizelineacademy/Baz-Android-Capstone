@@ -34,7 +34,6 @@ class BitsoViewmodel
     var errormessage: String by mutableStateOf("")
     var isloading: Boolean by mutableStateOf(false)
     var openedPayloadsCoin: List<PayloadTickers> by mutableStateOf(listOf())
-    private var lastname:String by mutableStateOf("")
     private var selectedCoin:String? by mutableStateOf("")
     var update: Boolean by mutableStateOf(false)
     var lastconsume: String by mutableStateOf("")
@@ -85,10 +84,11 @@ class BitsoViewmodel
                                         insertdbTrades()
                                     }
                                     "Pagina no disponible"->{
+                                        errormessage="Datos no disponibles"
+                                        delay(3000)
                                         getdbAskBids()
                                         getdbTrades()
-                                        errormessage="Datos no disponibles"
-                                        delay(5000)
+
                                     }
                                 }
                             }
@@ -203,7 +203,9 @@ class BitsoViewmodel
         viewModelScope.launch {
             selectedCoin=bitsoRepositoryImp.getCoin("name")
         }
-        lastname=tokens(selectedCoin.toString())
+        if(errormessage!="")
+            lastconsume=tokens(selectedCoin.toString())
+
         return selectedCoin
     }
 
