@@ -5,7 +5,7 @@ import com.example.myapplication.model.CriptoResponse
 import javax.inject.Inject
 
 class NetwokDataSourceImpl @Inject constructor(private val apiBitsoService: ApiBitsoService) :
-    NetwokDataSource {
+    NetwokDataSource, BaseDataSource() {
 
-    override suspend fun loadCriptoCurrency(): CriptoResponse = apiBitsoService.getCripto()
+    override suspend fun loadCriptoCurrency(): CriptoResponse = getResult { apiBitsoService.getCripto()}
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -37,13 +38,6 @@ class LaunchFragment : Fragment(), OnclickListenerItem {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             binding.recyclerView.adapter = criptoAdapter
             binding.progressCircular.visibility = View.VISIBLE
-            viewModel.getCriptoCurrency().observe(viewLifecycleOwner) {
-                binding.progressCircular.visibility = View.INVISIBLE
-                if (it != null) {
-                    list = it
-                    updateAdapter()
-                }
-            }
         }
 
         return binding.root
@@ -55,11 +49,30 @@ class LaunchFragment : Fragment(), OnclickListenerItem {
         initWS()
     }
 
+    override fun onResume() {
+        super.onResume()
+        initData()
+    }
+
+    private fun initData() {
+        viewModel.consultAllcriptoCurrency()
+    }
+
     private fun initWS() {
 
-        viewModel.consultAllcriptoCurrency()
+       // viewModel.consultAllcriptoCurrency()
         binding.btnFilter.setOnClickListener {
             viewModel.consultFilterCriptoCurrency()
+        }
+
+        viewModel.getCriptoCurrency().observe(viewLifecycleOwner) { response->
+            binding.progressCircular.visibility = View.INVISIBLE
+            response?.let {
+                list = response
+                updateAdapter()
+
+            } ?: Toast.makeText(requireContext(),"No tienes internet", Toast.LENGTH_SHORT).show()
+
         }
 
     }

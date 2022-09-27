@@ -1,5 +1,6 @@
 package com.example.myapplication.repository
 
+import com.example.myapplication.model.CriptoCurrency
 import com.example.myapplication.model.CriptoResponse
 
 /**
@@ -9,5 +10,6 @@ import com.example.myapplication.model.CriptoResponse
 interface BitsoRepository {
 
    suspend fun loadCripto(): CriptoResponse
-
+   suspend fun loadCriptoList(): List<CriptoCurrency>
+   suspend fun saveDataList(data: List<CriptoCurrency>)
 }

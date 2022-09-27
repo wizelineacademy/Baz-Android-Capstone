@@ -1,16 +1,21 @@
 package com.example.myapplication.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.api.RetroFitRxClient
-import com.example.myapplication.model.*
+import com.example.myapplication.model.AskAndBidResponse
+import com.example.myapplication.model.CriptoCurrency
+import com.example.myapplication.model.SelectCriptoResponse
+import com.example.myapplication.repository.BitsoRepository
 import com.example.myapplication.useCases.LoadAllCriptoCurrencyUseCase
 import com.example.myapplication.useCases.LoadCriptoWithFilterCurrencyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,14 +25,17 @@ import javax.inject.Inject
  * date: 16,septiembre,2022
  */
 @HiltViewModel
-class BitsoViewModel @Inject constructor(private val loadCriptoWithFilterCurrencyUseCase: LoadCriptoWithFilterCurrencyUseCase,
-private val loadAllCriptoCurrencyUseCase: LoadAllCriptoCurrencyUseCase) :
+class BitsoViewModel @Inject constructor(
+    private val loadCriptoWithFilterCurrencyUseCase: LoadCriptoWithFilterCurrencyUseCase,
+    private val loadAllCriptoCurrencyUseCase: LoadAllCriptoCurrencyUseCase,
+    private val bitsoRepository: BitsoRepository
+) :
     ViewModel() {
-    var moneyCripto: MutableLiveData<List<CriptoCurrency>> = MutableLiveData()
+    var moneyCripto: MutableLiveData<List<CriptoCurrency>?> = MutableLiveData()
     var selectMoneyCripto: MutableLiveData<SelectCriptoResponse?> = MutableLiveData()
     var askBidMoneyCripto: MutableLiveData<AskAndBidResponse?> = MutableLiveData()
 
-    fun getCriptoCurrency(): MutableLiveData<List<CriptoCurrency>> {
+    fun getCriptoCurrency(): MutableLiveData<List<CriptoCurrency>?> {
         return moneyCripto
     }
 
@@ -48,9 +56,20 @@ private val loadAllCriptoCurrencyUseCase: LoadAllCriptoCurrencyUseCase) :
     }
 
     fun consultAllcriptoCurrency() {
-        viewModelScope.launch {
-            val result = loadAllCriptoCurrencyUseCase()
-            moneyCripto.postValue(result)
+        viewModelScope.launch(Dispatchers.IO) {
+            if (bitsoRepository.loadCriptoList().isEmpty()){
+                val result = loadAllCriptoCurrencyUseCase()
+                if (result.isNotEmpty()){
+                    bitsoRepository.saveDataList(result)
+                    moneyCripto.postValue(result)
+                }else {
+                    moneyCripto.postValue(null)
+                }
+
+            } else {
+                moneyCripto.postValue(bitsoRepository.loadCriptoList())
+            }
+
         }
     }
 
