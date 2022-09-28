@@ -1,7 +1,9 @@
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
+    id 'org.jetbrains.kotlin.kapt'
 }
 
 android {
@@ -74,5 +76,20 @@ dependencies {
     //Navigation //
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'
     implementation("androidx.navigation:navigation-ui-ktx:2.5.2")
+
+    // MOSHI
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.13.0'
+    implementation 'com.squareup.moshi:moshi:1.13.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+
+    //Corrutinas
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2")
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
+
+    //RXJAVA
+    implementation "io.reactivex.rxjava3:rxjava:3.1.5"
+    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+
 
 }

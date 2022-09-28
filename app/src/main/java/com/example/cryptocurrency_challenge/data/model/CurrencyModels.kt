@@ -1,6 +1,8 @@
-package com.example.cryptocurrency_challenge.model
+package com.example.cryptocurrency_challenge.data.model
 
 import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 
 data class Available_books_response(
@@ -24,15 +26,9 @@ data class InfoTickerResponse(
 )
 
 data class Payload_Ticker(
-    val ask: String,
-    val bid: String,
-    val book: String,
-    val created_at: String,
-    val high: String,
-    val last: String,
-    val low: String,
-    val volume: String,
-    val vwap: String
+    @SerializedName("high")     val high: String,
+    @SerializedName("last")     val last: String,
+    @SerializedName("low")      val low: String,
 )
 
 data class PayLoadModel(
@@ -44,3 +40,19 @@ data class PayLoadModel(
     val minimum_price: String,
     val minimum_value: String
 )
+
+
+/************** MOSHI MODELS ************************/
+
+@JsonClass(generateAdapter = true)
+data class Available_books_response_moshi(
+    @field:Json(name= "payload") val payload: List<PayloadMoshi>,
+    @field:Json(name= "success") val success: Boolean
+)
+
+@JsonClass(generateAdapter = true)
+data class PayloadMoshi(
+    @field:Json(name= "book") val book: String,
+)
+
+/************** MOSHI MODELS ************************/
