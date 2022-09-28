@@ -1,6 +1,5 @@
 package com.example.myapplication.api
 
-import com.example.myapplication.api.RetroFitRxClient.cliente
 import com.example.myapplication.api.interfaces.ApiBitsoService
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
@@ -14,12 +13,13 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 object RetroFitRxClient {
 
-    private val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+    private val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         this.level = HttpLoggingInterceptor.Level.BODY
     }
 
     val cliente = OkHttpClient.Builder()
-    .addInterceptor(interceptor)
+        .addInterceptor(WSretrofit())
+        .addInterceptor(interceptor)
 
 
     private val retrofitCatalog = Retrofit.Builder()
