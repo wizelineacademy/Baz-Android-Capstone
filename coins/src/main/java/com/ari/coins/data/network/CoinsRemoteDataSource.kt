@@ -1,4 +1,4 @@
-package com.ari.coins.data.network.dataSource
+package com.ari.coins.data.network
 
 import com.ari.coins.data.models.OrderBookData
 import com.ari.coins.data.models.AvailableBookData

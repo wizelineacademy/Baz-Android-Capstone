@@ -1,6 +1,7 @@
 package com.ari.coins.ui.views
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -67,7 +68,7 @@ class CoinDetailFragment : Fragment() {
     private fun addObservers() {
         coinsViewModel.ticker.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Result.Error -> TODO()
+                is Result.Error -> Log.e("AVD", "${result.code} - ${result.message}")
                 is Result.Success -> {
                     binding.ticker = result.data
                     binding.ivCoin.load(coinsViewModel.getCoinUrlImage(result.data.book)) {
@@ -88,7 +89,7 @@ class CoinDetailFragment : Fragment() {
 
         coinsViewModel.orderBook.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Result.Error -> TODO()
+                is Result.Error -> Log.e("AVD", "${result.code} - ${result.message}")
                 is Result.Success -> {
                     val list = arrayListOf<ItemString>()
                     list.add(ItemString("-1", ItemType.SECTION, "Asks", ""))

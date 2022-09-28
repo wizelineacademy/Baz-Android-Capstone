@@ -1,4 +1,4 @@
-package com.ari.coins.framework.data.network.di
+package com.ari.coins.di
 
 import com.ari.core.client.CryptoRetrofit
 import dagger.Module

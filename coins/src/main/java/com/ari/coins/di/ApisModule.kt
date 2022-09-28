@@ -1,4 +1,4 @@
-package com.ari.coins.framework.data.network.di
+package com.ari.coins.di
 
 import com.ari.coins.framework.data.network.apis.CoinsApi
 import dagger.Module
