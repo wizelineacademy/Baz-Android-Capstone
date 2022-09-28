@@ -46,7 +46,6 @@ class CoinListFragment : Fragment() {
         binding.rvCoins.adapter = coinsAdapter
 
         addObservers()
-//        coinsViewModel.getAvailableBooks()
     }
 
     private fun addObservers() {
@@ -56,7 +55,7 @@ class CoinListFragment : Fragment() {
                     Log.e("AVD", "${result.code} - ${result.message}")
                 }
                 is Result.Success -> {
-                    coinsAdapter.setList(result.data)
+                    coinsAdapter.submitList(result.data)
                 }
             }
         }

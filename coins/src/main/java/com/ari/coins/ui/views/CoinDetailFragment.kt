@@ -77,11 +77,11 @@ class CoinDetailFragment : Fragment() {
                         error(R.drawable.ic_baseline_broken_image_24)
                     }
                     val list = listOf(
-                        ItemString(ItemType.INFO, "Last price", result.data.last),
-                        ItemString(ItemType.INFO, "High price", result.data.high),
-                        ItemString(ItemType.INFO, "Low price", result.data.low)
+                        ItemString("last", ItemType.INFO, "Last price", result.data.last),
+                        ItemString("high", ItemType.INFO, "High price", result.data.high),
+                        ItemString("low", ItemType.INFO, "Low price", result.data.low)
                     )
-                    infoAdapter.setList(list)
+                    infoAdapter.submitList(list)
                 }
             }
         }
@@ -91,25 +91,27 @@ class CoinDetailFragment : Fragment() {
                 is Result.Error -> TODO()
                 is Result.Success -> {
                     val list = arrayListOf<ItemString>()
-                    list.add(ItemString(ItemType.SECTION, "Asks", ""))
-                    list.add(ItemString(ItemType.TITLE, "Price", "Amount"))
-                    list.addAll(result.data.asks.map {
+                    list.add(ItemString("-1", ItemType.SECTION, "Asks", ""))
+                    list.add(ItemString("-2", ItemType.TITLE, "Price", "Amount"))
+                    list.addAll(result.data.asks.mapIndexed { index, ask ->
                         ItemString(
+                            "asks$index",
                             ItemType.INFO,
-                            it.price,
-                            it.amount
+                            ask.price,
+                            ask.amount
                         )
                     })
-                    list.add(ItemString(ItemType.SECTION, "Bids", ""))
-                    list.add(ItemString(ItemType.TITLE, "Price", "Amount"))
-                    list.addAll(result.data.bids.map {
+                    list.add(ItemString("-3", ItemType.SECTION, "Bids", ""))
+                    list.add(ItemString("-4", ItemType.TITLE, "Price", "Amount"))
+                    list.addAll(result.data.bids.mapIndexed { index, bid ->
                         ItemString(
+                            "bids$index",
                             ItemType.INFO,
-                            it.price,
-                            it.amount
+                            bid.price,
+                            bid.amount
                         )
                     })
-                    asksAndBidsAdapter.setList(list)
+                    asksAndBidsAdapter.submitList(list)
                 }
             }
         }

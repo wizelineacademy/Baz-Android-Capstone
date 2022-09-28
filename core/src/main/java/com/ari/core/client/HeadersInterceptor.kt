@@ -10,7 +10,7 @@ class HeadersInterceptor: Interceptor {
 
     companion object {
         private val USER_AGENT: String =
-            "Manufacturer: ${Build.MANUFACTURER} Model: ${Build.MODEL} Hardware: ${Build.HARDWARE} Android_OS: ${Build.VERSION.RELEASE}}"
+            "Manufacturer: ${Build.MANUFACTURER} Model: ${Build.MODEL} Hardware: ${Build.HARDWARE} Android_OS: ${Build.VERSION.RELEASE}"
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {
