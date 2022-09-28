@@ -23,7 +23,6 @@ class LaunchFragment : Fragment(), OnclickListenerItem {
     private val viewModel: BitsoViewModel by viewModels()
     lateinit var binding: FragmentLaunchBinding
     private val criptoAdapter = CritpAdapter(this)
-    private var list: List<CriptoCurrency>? = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,18 +31,10 @@ class LaunchFragment : Fragment(), OnclickListenerItem {
     ): View {
         if (!::binding.isInitialized) {
             binding = FragmentLaunchBinding.inflate(inflater, container, false)
-
             binding.recyclerView.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             binding.recyclerView.adapter = criptoAdapter
             binding.progressCircular.visibility = View.VISIBLE
-            viewModel.getCriptoCurrency().observe(viewLifecycleOwner) {
-                binding.progressCircular.visibility = View.INVISIBLE
-                if (it != null) {
-                    list = it
-                    updateAdapter()
-                }
-            }
         }
 
         return binding.root
@@ -56,21 +47,31 @@ class LaunchFragment : Fragment(), OnclickListenerItem {
     }
 
     private fun initWS() {
-
         viewModel.consultAllcriptoCurrency()
         binding.btnFilter.setOnClickListener {
             viewModel.consultFilterCriptoCurrency()
         }
 
+        viewModel.getCriptoCurrency().observe(viewLifecycleOwner) {
+            binding.progressCircular.visibility = View.INVISIBLE
+            it?.let {
+                updateAdapter(it)
+            }
+        }
+
     }
 
-    private fun updateAdapter() {
+    private fun updateAdapter(list: List<CriptoCurrency>) {
         criptoAdapter.submitList(list)
     }
 
     override fun onCellClickListener(data: CriptoCurrency) {
-        val bundle = bundleOf("idBitso" to data.name)
+        val bundle = bundleOf(ID_BITSO to data.name)
         findNavController().navigate(R.id.action_launchFragment_to_bitsoDetailFragment, bundle)
+    }
+
+    companion object {
+        const val ID_BITSO = "idBitso"
     }
 
 }

@@ -13,7 +13,7 @@ import com.example.myapplication.R
 import com.example.myapplication.databinding.BitsoDetailFragmentBinding
 import com.example.myapplication.model.Ask
 import com.example.myapplication.model.Bid
-import com.example.myapplication.model.PayloadAskAndBids
+import com.example.myapplication.model.BitsoCustom
 import com.example.myapplication.util.formatAsCurrency
 import com.example.myapplication.view.adapter.AskBidAdapter2
 import com.example.myapplication.viewModel.BitsoViewModel
@@ -30,7 +30,6 @@ class BitsoDetailFragment : Fragment() {
     private var idBitso = ""
     private val viewModel: BitsoViewModel by viewModels()
     private val adapter = AskBidAdapter2()
-    private var list: ArrayList<PayloadAskAndBids>? = ArrayList()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,7 +37,7 @@ class BitsoDetailFragment : Fragment() {
     ): View {
         if (!::binding.isInitialized) {
             binding = BitsoDetailFragmentBinding.inflate(inflater, container, false)
-            idBitso = arguments?.getString("idBitso").toString()
+            idBitso = arguments?.getString(LaunchFragment.ID_BITSO).toString()
             binding.recyclerView.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             binding.recyclerView.adapter = adapter
@@ -48,7 +47,6 @@ class BitsoDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initWS()
     }
 
@@ -59,64 +57,45 @@ class BitsoDetailFragment : Fragment() {
         viewModel.getAskAndBidsCurrency(id = idBitso)
 
         viewModel.getAskBidCriptoCurrency().observe(viewLifecycleOwner) {
-
-            list?.let { it1 -> adapter.addData(it?.payload?.asks as ArrayList<Ask>) }
-            adapter.addDataBids(it?.payload?.bids as ArrayList<Bid>)
+            it?.let {
+                adapter.addData(it.payload.asks as ArrayList<Ask>)
+                adapter.addDataBids(it.payload.bids as ArrayList<Bid>)
+            }
         }
 
         binding.botonFinalizar.setOnClickListener {
             findNavController().popBackStack()
         }
+        val list: ArrayList<BitsoCustom> = ArrayList()
+        list.add(BitsoCustom(idBook = "btc_mxn", icon = R.drawable.ic_bitcoin, name = R.string.btc_mxn))
+        list.add(BitsoCustom(idBook = "eth_mxn", icon = R.drawable.ic_eth, name = R.string.eth_mxn))
+        list.add(BitsoCustom(idBook = "xrp_mxn", icon = R.drawable.ic_xrp, name = R.string.xrp_mxn))
+        list.add(BitsoCustom(idBook = "ltc_mxn", icon = R.drawable.ic_ltc, name = R.string.ltc_mxn))
+        list.add(BitsoCustom(idBook = "bch_mxn", icon = R.drawable.ic_bch, name = R.string.bch_mxn))
+        list.add(BitsoCustom(idBook = "tusd_mxn", icon = R.drawable.ic_tusd, name = R.string.tusd_mxn))
+        list.add(BitsoCustom(idBook = "mana_mxn", icon = R.drawable.ic_mana, name = R.string.mana_mxn))
+        list.add(BitsoCustom(idBook = "bat_mxn", icon = R.drawable.ic_bat, name = R.string.bat_mxn))
+        list.add(BitsoCustom(idBook = "dai_mxn", icon = R.drawable.ic_bitcoin, name = R.string.dai_mxn))
+        list.add(BitsoCustom(idBook = "usd_mxn", icon = R.drawable.ic_usd, name = R.string.usd_mxn))
 
         viewModel.getSelectCriptoCurrency().observe(viewLifecycleOwner) {
-            binding.progressCircular.visibility = View.INVISIBLE
-            binding.txtHighPrice.text =
-                PRICE_HIGH + it?.payload?.high?.toDouble()?.formatAsCurrency()
-            binding.txtLowPrice.text = PRICE_LOW + it?.payload?.low?.toDouble()?.formatAsCurrency()
-            binding.txtLastPrice.text =
-                PRICE_LAST + it?.payload?.last?.toDouble()?.formatAsCurrency()
+            it?.let {
+                binding.apply {
+                    progressCircular.visibility = View.INVISIBLE
+                    txtHighPrice.text = PRICE_HIGH + it.payload.high.toDouble().formatAsCurrency()
+                    txtLowPrice.text = PRICE_LOW + it.payload.low.toDouble().formatAsCurrency()
+                    txtLastPrice.text = PRICE_LAST + it.payload.last.toDouble().formatAsCurrency()
 
-            when (it?.payload?.book) {
-                "btc_mxn" -> {
-                    binding.imagen.setBackgroundResource(R.drawable.ic_bitcoin)
-                    binding.textoName.setText(R.string.btc_mxn)
-                }
-                "eth_mxn" -> {
-                    binding.imagen.setBackgroundResource(R.drawable.ic_eth)
-                    binding.textoName.setText(R.string.eth_mxn)
-                }
+                    list.forEach { bitsoCustom ->
+                        if (bitsoCustom.idBook == it.payload.book) {
+                            imagen.setBackgroundResource(bitsoCustom.icon)
+                            textoName.setText(bitsoCustom.name)
 
-                "xrp_mxn" -> {
-                    binding.imagen.setBackgroundResource(R.drawable.ic_xrp)
-                    binding.textoName.setText(R.string.xrp_mxn)
-                }
-                "ltc_mxn" -> {
-                    binding.imagen.setBackgroundResource(R.drawable.ic_ltc)
-                    binding.textoName.setText(R.string.ltc_mxn)
-                }
-                "bch_mxn" -> {
-                    binding.imagen.setBackgroundResource(R.drawable.ic_bch)
-                    binding.textoName.setText(R.string.bch_mxn)
-                }
-                "tusd_mxn" -> {
-                    binding.imagen.setBackgroundResource(R.drawable.ic_tusd)
-                    binding.textoName.setText(R.string.tusd_mxn)
-                }
-                "mana_mxn" -> {
-                    binding.imagen.setBackgroundResource(R.drawable.ic_mana)
-                    binding.textoName.setText(R.string.mana_mxn)
-                }
-                "bat_mxn" -> {
-                    binding.imagen.setBackgroundResource(R.drawable.ic_bat)
-                    binding.textoName.setText(R.string.bat_mxn)
-                }
-                "dai_mxn" -> {
-                    binding.imagen.setBackgroundResource(R.drawable.ic_dai)
-                    binding.textoName.setText(R.string.dai_mxn)
-                }
-                "usd_mxn" -> {
-                    binding.imagen.setBackgroundResource(R.drawable.ic_usd)
-                    binding.textoName.setText(R.string.usd_mxn)
+                        } else {
+                            textoName.text = it.payload.book
+                            imagen.setBackgroundResource(R.drawable.ic_default_coin)
+                        }
+                    }
                 }
             }
         }
