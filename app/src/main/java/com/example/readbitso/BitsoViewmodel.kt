@@ -23,8 +23,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BitsoViewmodel
-@Inject constructor(private val bitsoRepositoryImp: BitsoRepository) : ViewModel()
-{
+@Inject constructor(private val bitsoRepositoryImp: BitsoRepository) : ViewModel() {
     private var openedPayloads: List<BooksPayload> by mutableStateOf(listOf())
     private var _detailedPayload: List<DetailedPayload> by mutableStateOf(listOf())
     var detailedPayload: List<DetailedPayload> by mutableStateOf(_detailedPayload)
