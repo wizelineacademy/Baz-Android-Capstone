@@ -7,18 +7,13 @@ import android.text.TextUtils
 import com.example.myapplication.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
+import okhttp3.internal.userAgent
 import java.io.IOException
 
-class WSretrofit : Interceptor {
+class WSretrofit(private val context: Context) : Interceptor {
 
     companion object {
         private const val USER_AGENT = "User-Agent"
-        @SuppressLint("StaticFieldLeak")
-        private lateinit var context: Context
-
-        fun setContext(con: Context) {
-            context=con
-        }
     }
 
     private val userAgentClient: String = "${getApplicationName(context)}/" +
@@ -69,7 +64,7 @@ class WSretrofit : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val requestWithUserAgent = request.newBuilder()
-            .header(USER_AGENT, userAgentClient)
+            .addHeader(USER_AGENT, userAgentClient)
             .build()
 
         return chain.proceed(requestWithUserAgent)

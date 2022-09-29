@@ -1,6 +1,5 @@
 package com.example.myapplication.viewModel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -57,12 +56,12 @@ class BitsoViewModel @Inject constructor(
 
     fun consultAllcriptoCurrency() {
         viewModelScope.launch(Dispatchers.IO) {
-            if (bitsoRepository.loadCriptoList().isEmpty()){
+            if (bitsoRepository.loadCriptoList().isEmpty()) {
                 val result = loadAllCriptoCurrencyUseCase()
-                if (result.isNotEmpty()){
+                if (result.isNotEmpty()) {
                     bitsoRepository.saveDataList(result)
                     moneyCripto.postValue(result)
-                }else {
+                } else {
                     moneyCripto.postValue(null)
                 }
 
@@ -76,8 +75,7 @@ class BitsoViewModel @Inject constructor(
     fun selectCriptoCurrency(id: String) {
         val compositeDisposable = CompositeDisposable()
         compositeDisposable.add(
-            RetroFitRxClient.buildService2()
-                .getSelectCripto(id = id)
+            bitsoRepository.loadSelectCriptoCurrency(idBook = id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe { onSuccess: SelectCriptoResponse?, onError: Throwable? ->

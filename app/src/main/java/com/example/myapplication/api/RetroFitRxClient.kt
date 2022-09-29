@@ -18,7 +18,6 @@ object RetroFitRxClient {
     }
 
     val cliente = OkHttpClient.Builder()
-        .addInterceptor(WSretrofit())
         .addInterceptor(interceptor)
 
 

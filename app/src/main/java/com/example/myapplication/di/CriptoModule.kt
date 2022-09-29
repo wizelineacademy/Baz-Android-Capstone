@@ -1,6 +1,7 @@
 package com.example.myapplication.di
 
 import android.content.Context
+import com.example.myapplication.api.WSretrofit
 import com.example.myapplication.api.interfaces.ApiBitsoService
 import com.example.myapplication.data.db.DataBase
 import com.example.myapplication.data.db.dao.CriptoCurrencyDAO
@@ -16,6 +17,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -43,9 +45,10 @@ abstract class CriptoModule {
     companion object{
 
         @Provides
-        fun providesOkHttpClient(): OkHttpClient =
+        fun providesOkHttpClient(@ApplicationContext context: Context): OkHttpClient =
             OkHttpClient.Builder()
-                .addInterceptor(HttpLoggingInterceptor().also { it.setLevel(HttpLoggingInterceptor.Level.BODY) })
+                .addInterceptor(WSretrofit(context))
+                .addInterceptor(HttpLoggingInterceptor().also { it.setLevel(HttpLoggingInterceptor.Level.HEADERS) })
                 .build()
 
         @Provides
@@ -54,6 +57,7 @@ abstract class CriptoModule {
                 .client(client)
                 .baseUrl("https://api.bitso.com/v3/")
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build()
         }
 

@@ -46,17 +46,19 @@ class LaunchFragment : Fragment(), OnclickListenerItem {
 
         initWS()
     }
+
     override fun onResume() {
         super.onResume()
         initData()
     }
+
     private fun initData() {
         viewModel.consultAllcriptoCurrency()
     }
 
     private fun initWS() {
 
-        viewModel.consultAllcriptoCurrency()
+       // viewModel.consultAllcriptoCurrency()
         binding.btnFilter.setOnClickListener {
             viewModel.consultFilterCriptoCurrency()
         }
@@ -65,16 +67,10 @@ class LaunchFragment : Fragment(), OnclickListenerItem {
             binding.progressCircular.visibility = View.INVISIBLE
             it?.let {
                 updateAdapter(it)
-            }
-            viewModel.getCriptoCurrency().observe(viewLifecycleOwner) {
-                binding.progressCircular.visibility = View.INVISIBLE
-                it?.let {
-                    updateAdapter(it)
-                }?: Toast.makeText(requireContext(),"No tienes internet", Toast.LENGTH_SHORT).show()
+            } ?: Toast.makeText(requireContext(), "No tienes internet", Toast.LENGTH_SHORT)
+                .show()
+        }
 
-            }
-
-    }
 
     }
 
