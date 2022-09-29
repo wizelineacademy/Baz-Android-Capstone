@@ -24,7 +24,6 @@ class LaunchFragment : Fragment(), OnclickListenerItem {
     private val viewModel: BitsoViewModel by viewModels()
     lateinit var binding: FragmentLaunchBinding
     private val criptoAdapter = CritpAdapter(this)
-    private var list: List<CriptoCurrency>? = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +32,6 @@ class LaunchFragment : Fragment(), OnclickListenerItem {
     ): View {
         if (!::binding.isInitialized) {
             binding = FragmentLaunchBinding.inflate(inflater, container, false)
-
             binding.recyclerView.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             binding.recyclerView.adapter = criptoAdapter
@@ -48,42 +46,49 @@ class LaunchFragment : Fragment(), OnclickListenerItem {
 
         initWS()
     }
-
     override fun onResume() {
         super.onResume()
         initData()
     }
-
     private fun initData() {
         viewModel.consultAllcriptoCurrency()
     }
 
     private fun initWS() {
 
-       // viewModel.consultAllcriptoCurrency()
+        viewModel.consultAllcriptoCurrency()
         binding.btnFilter.setOnClickListener {
             viewModel.consultFilterCriptoCurrency()
         }
 
-        viewModel.getCriptoCurrency().observe(viewLifecycleOwner) { response->
+        viewModel.getCriptoCurrency().observe(viewLifecycleOwner) {
             binding.progressCircular.visibility = View.INVISIBLE
-            response?.let {
-                list = response
-                updateAdapter()
+            it?.let {
+                updateAdapter(it)
+            }
+            viewModel.getCriptoCurrency().observe(viewLifecycleOwner) {
+                binding.progressCircular.visibility = View.INVISIBLE
+                it?.let {
+                    updateAdapter(it)
+                }?: Toast.makeText(requireContext(),"No tienes internet", Toast.LENGTH_SHORT).show()
 
-            } ?: Toast.makeText(requireContext(),"No tienes internet", Toast.LENGTH_SHORT).show()
-
-        }
+            }
 
     }
 
-    private fun updateAdapter() {
+    }
+
+    private fun updateAdapter(list: List<CriptoCurrency>) {
         criptoAdapter.submitList(list)
     }
 
     override fun onCellClickListener(data: CriptoCurrency) {
-        val bundle = bundleOf("idBitso" to data.name)
+        val bundle = bundleOf(ID_BITSO to data.name)
         findNavController().navigate(R.id.action_launchFragment_to_bitsoDetailFragment, bundle)
+    }
+
+    companion object {
+        const val ID_BITSO = "idBitso"
     }
 
 }

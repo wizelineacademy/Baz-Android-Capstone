@@ -18,11 +18,6 @@ class AskBidAdapter2 : RecyclerView.Adapter<AskBidAdapter2.CriptoViewHolder>() {
     var resultbid: ArrayList<Bid>  = ArrayList()
     lateinit var context: Context
 
-    fun catalogAdapter(productosCatalog : ArrayList<Ask>, context: Context){
-        this.result = productosCatalog
-        this.context = context
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AskBidAdapter2.CriptoViewHolder {
         val binding: AskbidItemBinding = AskbidItemBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -47,7 +42,7 @@ class AskBidAdapter2 : RecyclerView.Adapter<AskBidAdapter2.CriptoViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Ask) {
             binding.askName.text = item.price
-            binding.bidName.text = resultbid[position].price
+            binding.bidName.text = resultbid[adapterPosition].price
         }
     }
 

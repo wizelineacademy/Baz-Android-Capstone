@@ -2,7 +2,6 @@ package com.example.myapplication.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 /**
@@ -16,3 +15,5 @@ data class CriptoCurrency(
     @PrimaryKey(autoGenerate = false)
     var id: Int = 0
 )
+
+data class BitsoCustom(val name: Int, val icon: Int, val idBook: String)
