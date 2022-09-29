@@ -15,16 +15,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.take
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 import javax.inject.Inject
 
 @HiltViewModel
 class BitsoViewmodel
 @Inject constructor(private val bitsoRepositoryImp: BitsoRepository) : ViewModel() {
-    private var openedPayloads: List<BooksPayload> by mutableStateOf(listOf())
+    var openedPayloads: List<BooksPayload> by mutableStateOf(listOf())
     private var _detailedPayload: List<DetailedPayload> by mutableStateOf(listOf())
     var detailedPayload: List<DetailedPayload> by mutableStateOf(_detailedPayload)
 
@@ -62,38 +61,30 @@ class BitsoViewmodel
 
                 when (page) {
                     "first" -> {
+                     //   _errorMessage=""
                         readResponse()
-                        when (_errorMessage) {
-                            "" -> {
-                                extensionLambda { getNewBooksList(openedPayloads, "mxn") }
-                                if (_detailedPayload.isNotEmpty())
-                                    extensionLambda { insertDbTokens() }
-                            }
-                            "Pagina no disponible" -> {
-                                _errorMessage = "Datos no disponibles"
-                                extensionLambda { getNewBooksList(getDdTokens()) }
-                            }
-                            else -> { println(_errorMessage) }
-                        }
                         delay(3000)
                     }
                     "second" -> {
                         getCoin()?.let { str ->
-                            withContext(Dispatchers.IO) {
+                            withContext(IO) {
                                 when (_errorMessage) {
                                     "" -> {
-                                        delay(2000)
-                                        getBidsAsk(str)
-                                        delay(1000)
+                                        getBidsAsk(str,message="ok")
+                                        getnewListTrades(getTrades(name = str))
+                                        delay(3000)
                                         extensionLambda{insertDbAskBids()}
                                         delay(500)
                                         extensionLambda{insertDbTrades()}
                                     }
-                                    "Pagina no disponible" -> {
-                                        _errorMessage = "Datos no disponibles"
+
+                                    "Datos no disponibles" -> {
+                                        setError("--")
+
+                                        getDbAskBids()
+                                        trades=getnewListTrades((getDbTrades()))
                                         delay(3000)
-                                        extensionLambda { getDbAskBids() }
-                                    }
+                                         }
                                 }
                             }
                         }
@@ -108,22 +99,19 @@ class BitsoViewmodel
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { message -> processBooks(message.payload) },
-                { error -> displayError(error) }
-            )
+                { message -> processBooks(message.payload,errorx="ok") },
+                { error -> viewModelScope.launch{ processBooks(bitsoRepositoryImp.error(error))
+                } } )
     }
 
-    private fun displayError(error: Throwable) {
-        when (error) {
-            is UnknownHostException -> _errorMessage = "Pagina no disponible"
-            is RuntimeException -> _errorMessage = "Runtime Exception"
-            is SocketTimeoutException -> _errorMessage = "SocketTimeout"
-            else -> println(error)
-        }
-    }
 
-    private fun processBooks(book: List<BooksPayload>) {
-        _errorMessage = ""
+
+
+    private  fun processBooks(book: List<BooksPayload>, errorx: String="")
+    {
+
+        setError(errorx)
+
         val returnList = mutableListOf<BooksPayload>()
         book.forEachIndexed { index, it ->
             returnList.add(
@@ -136,9 +124,31 @@ class BitsoViewmodel
             )
         }
         openedPayloads = returnList
+
+        viewModelScope.launch(IO){
+            extensionLambda { insertDbTokens() } }
+            getNewBooksList(openedPayloads)
     }
 
+    private fun setError(errorx: String) {
+        when(errorx)
+        {
+            "ok"->{
+                errorMessage = ""
+                _errorMessage = ""
+            }
+            else ->{
+                viewModelScope.launch{
+                    _errorMessage = bitsoRepositoryImp.getInternetFlag("wifi").toString()
+                    errorMessage=_errorMessage }
+            }
+        }
+
+    }
+
+
     private inline fun extensionLambda(block: () -> Unit) = block()
+
 
     private fun getNewBooksList(openedPayloads: List<BooksPayload>, pair: String = "mxn"): List<DetailedPayload>
     {
@@ -166,16 +176,16 @@ class BitsoViewmodel
         return returnList
     }
 
-    private suspend fun getBidsAsk(name: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+    private suspend fun getBidsAsk(name: String, message: String) {
+        viewModelScope.launch(IO) {
             bitsoRepositoryImp.getRfBitsoBids(name)
                 .catch { }
                 .collect {
                     _openedPayloadsCoin = it
                 }
-            extensionLambda { getnewListTrades(getTrades(name = name)) }
             openedPayloadsCoin = _openedPayloadsCoin
         }
+        setError(message)
     }
 
     private suspend fun getTrades(name: String): List<PayloadTrades> {
@@ -241,24 +251,7 @@ class BitsoViewmodel
     private suspend fun insertDbTokens() =
         bitsoRepositoryImp.insertDbBooks(openedPayloads)
 
-    private suspend fun getDdTokens(): MutableList<BooksPayload>
-    {
-        val returnList = mutableListOf<BooksPayload>()
-        bitsoRepositoryImp.getDbBooks()
-            .collect {
-                it.forEach { currencies ->
-                    returnList.add(
-                        BooksPayload(
-                            book = currencies.book,
-                            id = currencies.id,
-                            maximum_price = currencies.maximum_price,
-                            minimum_price = currencies.minimum_price
-                        )
-                    )
-                }
-            }
-        return returnList
-    }
+
 
     private suspend fun insertDbTrades() =
         bitsoRepositoryImp.insertDbTrades(_trades)
@@ -306,7 +299,8 @@ class BitsoViewmodel
         _openedPayloadsCoin = returnList
         lastconsume = tokens(returnList[0].book.toString())
         _isLoading = returnList.isNotEmpty()
-        extensionLambda { getnewListTrades(getDbTrades()) }
+        isLoading=_isLoading
+        openedPayloadsCoin=_openedPayloadsCoin
     }
 
 }

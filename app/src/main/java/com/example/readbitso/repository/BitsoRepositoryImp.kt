@@ -16,6 +16,7 @@ import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class BitsoRepositoryImp
@@ -112,5 +113,44 @@ constructor(
                 page = it
             }
         return page
+    }
+
+    override  suspend fun error(error: Throwable):List<BooksPayload> {
+
+        when (error)
+        {
+            is UnknownHostException ->  setInternetFlag ("wifi","Datos no disponibles")
+           }
+         return getErrorBooks()
+    }
+
+   private suspend fun getErrorBooks(): MutableList<BooksPayload> {
+        val list=mutableListOf<BooksPayload>()
+        getDbBooks()
+            .collect {
+                it.forEach {
+                    list.add(BooksPayload(
+                        id=it.id,
+                        book=it.book,
+                        maximum_price=it.maximum_price,
+                        minimum_price=it.minimum_price,
+                    ))
+                }
+            }
+        return list
+    }
+
+    override suspend fun setInternetFlag(key: String, value: String) {
+            dsRepository.setInternetFlag(key, value)
+    }
+
+    override suspend fun getInternetFlag(key: String): String? {
+        var internetFlag: String? = ""
+        dsRepository.getInternetFlag(key)
+            .catch { }
+            .collect {
+                internetFlag = it
+            }
+        return internetFlag
     }
 }
