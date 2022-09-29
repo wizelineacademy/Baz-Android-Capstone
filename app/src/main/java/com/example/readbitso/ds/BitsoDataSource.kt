@@ -9,12 +9,11 @@ import retrofit2.http.Query
 interface BitsoDataSource {
 
     @GET("ticker/") // get especific
-    suspend fun specificTicker(@Query("book") book:String ) : Tickers
+    suspend fun specificTicker(@Query("book") book: String): Tickers
 
     @GET("available_books")
-    fun getBooks() : Observable<Books>
+    fun getBooks(): Observable<Books>
 
     @GET("trades/")
-    suspend fun specificTrade(@Query("book") book:String ) : Trades
-
+    suspend fun specificTrade(@Query("book") book: String): Trades
 }

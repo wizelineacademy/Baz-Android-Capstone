@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.example.readbitso.ds.room.dao.AskBidsDao
 import com.example.readbitso.ds.room.dao.CriptocurrenciesDao
-import com.example.readbitso.ds.room.dao.TradesDao
 import com.example.readbitso.ds.room.dao.Db.AppDatabase
+import com.example.readbitso.ds.room.dao.TradesDao
 import com.example.readbitso.repository.datastore.DataStoreRepository
 import com.example.readbitso.repository.datastore.DataStoreRepositoryImpl
 import dagger.Module
@@ -28,12 +28,11 @@ class DataSourceModule {
     @Singleton
     @Provides
     @Named("Baseurl")
-    fun getUri()="https://api.bitso.com/v3/"
+    fun getUri() = "https://api.bitso.com/v3/"
 
     @Singleton
     @Provides
-    fun getRetrofit(@Named("Baseurl") baseurl:String):Retrofit
-    {
+    fun getRetrofit(@Named("Baseurl") baseurl: String): Retrofit {
         val interceptor = HttpLoggingInterceptor()
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
@@ -64,27 +63,21 @@ class DataSourceModule {
         return Room.databaseBuilder(
             appContext,
             AppDatabase::class.java,
-            "user_database")
+            "user_database"
+        )
             .fallbackToDestructiveMigration()
             .build()
     }
 
     @Provides
     @Singleton
-    fun userdao(db: AppDatabase): CriptocurrenciesDao =db.tokensDao()
+    fun userdao(db: AppDatabase): CriptocurrenciesDao = db.tokensDao()
 
     @Provides
     @Singleton
-    fun transactionsdao(db: AppDatabase): TradesDao =db.tokensDao1()
+    fun transactionsdao(db: AppDatabase): TradesDao = db.tokensDao1()
 
     @Provides
     @Singleton
-    fun askbidsdao(db: AppDatabase): AskBidsDao =db.tokensDao2()
-
-
+    fun askbidsdao(db: AppDatabase): AskBidsDao = db.tokensDao2()
 }
-
-
-
-
-

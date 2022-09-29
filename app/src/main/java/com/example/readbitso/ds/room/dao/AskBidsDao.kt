@@ -12,9 +12,6 @@ interface AskBidsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(usuario: List<AskBids>)
 
-
     @Query("SELECT * FROM AskBids")
     suspend fun getAll(): List<AskBids>
-
-
 }

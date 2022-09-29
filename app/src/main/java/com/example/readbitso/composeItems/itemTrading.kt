@@ -14,31 +14,41 @@ import androidx.compose.ui.unit.dp
 import com.example.readbitso.models.bitsoModels.bitsoBooks.trading.PayloadTrades
 
 @Composable
-fun ItemTrading (list: PayloadTrades) {
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .padding(2.dp)) {
-        Card(modifier = Modifier
+fun ItemTrading(list: PayloadTrades) {
+    Box(
+        modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(4.dp)),
-            border = BorderStroke(width = 2.dp, Color.Black)) {
+            .padding(2.dp)
+    ) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(4.dp)),
+            border = BorderStroke(width = 2.dp, Color.Black)
+        ) {
 
             Column {
-                Row(modifier = Modifier.fillMaxWidth(),
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween)
-                {
-                    Text(text =  list.amount.take(10),
-                        modifier = Modifier.padding(start = 8.dp))
-                    Text(text = list.maker_side,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = list.amount.take(10),
+                        modifier = Modifier.padding(start = 8.dp)
+                    )
+                    Text(
+                        text = list.maker_side,
                         modifier = Modifier.padding(start = 8.dp),
                         color = if (list.maker_side == "Venta")
                             Color.Red
                         else
                             Color.Green
                     )
-                    Text(text = " \$${list.price.take(10)} ",
-                        modifier = Modifier.padding(start = 8.dp))
+                    Text(
+                        text = " \$${list.price.take(10)} ",
+                        modifier = Modifier.padding(start = 8.dp)
+                    )
                 }
             }
         }

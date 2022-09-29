@@ -12,8 +12,6 @@ interface CriptocurrenciesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(activetokens: List<Currencies>)
 
-
     @Query("SELECT * FROM Currencies")
     suspend fun getAll(): List<Currencies>
-
 }

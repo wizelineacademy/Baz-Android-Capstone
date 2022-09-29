@@ -5,9 +5,8 @@ import com.example.readbitso.ds.room.dao.AskBidsDao
 import com.example.readbitso.ds.room.dao.CriptocurrenciesDao
 import com.example.readbitso.ds.room.dao.TradesDao
 import com.example.readbitso.ds.room.dao.entity.AskBids
-import com.example.readbitso.ds.room.dao.entity.Operationstrades
 import com.example.readbitso.ds.room.dao.entity.Currencies
-
+import com.example.readbitso.ds.room.dao.entity.Operationstrades
 
 @Database(entities = [Currencies::class, Operationstrades::class, AskBids::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {

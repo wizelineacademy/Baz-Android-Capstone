@@ -14,25 +14,26 @@ import kotlinx.coroutines.CoroutineScope
 
 @Preview
 @Composable
-fun Test(){
+fun Test() {
     Displaysnack(message = "Hola soy una prueba")
 }
 
 @Composable
-fun Displaysnack(message:String) {
+fun Displaysnack(message: String) {
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val coroutinescope: CoroutineScope = rememberCoroutineScope()
 
-    Scaffold(scaffoldState = scaffoldState)
-    {
-        Card(modifier = Modifier
-            .fillMaxWidth()
-            .padding(start=16.dp, end = 16.dp),
+    Scaffold(scaffoldState = scaffoldState) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp),
             shape = RoundedCornerShape(25)
         ) {
-            Column(verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally)
-            {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 LaunchedEffect(coroutinescope) {
                     val snackbarresult = scaffoldState
                         .snackbarHostState
