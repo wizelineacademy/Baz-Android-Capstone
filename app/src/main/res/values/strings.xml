@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Cryptocurrency Challenge</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="last_price">Last Price:</string>
+    <string name="highest_price">Highest price:</string>
+    <string name="lowest_price">Lowest price:</string>
+</resources>

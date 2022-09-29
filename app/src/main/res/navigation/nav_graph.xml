@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/availableBooksFragment">
+
+    <fragment
+        android:id="@+id/availableBooksFragment"
+        android:name="com.example.cryptocurrency_challenge.ui.AvailableBooksFragment"
+        android:label="fragment_available_books"
+        tools:layout="@layout/fragment_available_books" >
+        <action
+            android:id="@+id/action_availableBooksFragment_to_detailCurrencysFragment2"
+            app:destination="@id/detailCurrencysFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailCurrencysFragment"
+        android:name="com.example.cryptocurrency_challenge.ui.DetailCurrencysFragment"
+        android:label="fragment_detail_currencys"
+        tools:layout="@layout/fragment_detail_currencys" >
+        <action
+            android:id="@+id/action_detailCurrencysFragment_to_availableBooksFragment2"
+            app:destination="@id/availableBooksFragment" />
+        <argument
+            android:name="nameOfCurrency"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="Currency name" />
+    </fragment>
+</navigation>
