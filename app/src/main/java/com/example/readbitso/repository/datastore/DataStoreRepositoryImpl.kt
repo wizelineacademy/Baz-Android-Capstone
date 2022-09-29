@@ -68,4 +68,21 @@ class DataStoreRepositoryImpl @Inject constructor(
             if (preferences[preferencesKey] == null)
                 println(" valor Null")
         }
+
+    override suspend fun setInternetFlag(key: String, value: String) {
+        val preferencesKey = stringPreferencesKey(key)
+        context.dataStore.edit { preferences ->
+            preferences[preferencesKey] = value
+        }
+    }
+
+    override suspend fun getInternetFlag(key: String): Flow<String?> =
+        flow {
+            val preferencesKey = stringPreferencesKey(key)
+            val preferences = context.dataStore.data.first()
+            emit(preferences[preferencesKey])
+
+            if (preferences[preferencesKey] == null)
+                println(" valor Null")
+        }
 }

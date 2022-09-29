@@ -10,4 +10,6 @@ interface DataStoreRepository {
     suspend fun getFlag(key: String): String?
     suspend fun setPage(key: String, value: String)
     suspend fun getPage(key: String): Flow<String?>
+    suspend fun setInternetFlag(key: String, value: String)
+    suspend fun getInternetFlag(key: String): Flow<String?>
 }
