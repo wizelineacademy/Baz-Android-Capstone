@@ -14,6 +14,7 @@ import com.ari.coins.domain.domainModels.ResultDomain
 import com.ari.coins.domain.domainModels.TickerDomain
 import com.ari.coins.ui.uiModels.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,7 +24,8 @@ class CoinsViewModel @Inject constructor(
     private val getAvailableBooksUseCase: GetAvailableBooksUseCase,
     private val getTickerUseCase: GetTickerUseCase,
     private val getOrderBookUseCase: GetOrderBookUseCase,
-    private val getCoinUrlImageUseCase: GetCoinUrlImageUseCase
+    private val getCoinUrlImageUseCase: GetCoinUrlImageUseCase,
+    private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _availableBooks = MutableLiveData<Result<List<AvailableBook>>>()
@@ -40,7 +42,7 @@ class CoinsViewModel @Inject constructor(
         _orderBook.value = Result.Empty()
     }
 
-    fun getAvailableBooks() = viewModelScope.launch(Dispatchers.IO) {
+    fun getAvailableBooks() = viewModelScope.launch(dispatcher) {
         val result = when(val data = getAvailableBooksUseCase(null)) {
             is ResultDomain.Error -> Result.Error(data.message, data.code)
             is ResultDomain.Success -> Result.Success(data.data.map { it.toUi() })
@@ -48,7 +50,7 @@ class CoinsViewModel @Inject constructor(
         _availableBooks.postValue(result)
     }
 
-    fun getTicker(book: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun getTicker(book: String) = viewModelScope.launch(dispatcher) {
         val result = when(val data = getTickerUseCase(book)) {
             is ResultDomain.Error -> Result.Error(data.message, data.code)
             is ResultDomain.Success -> Result.Success(data.data.toUi())
@@ -56,7 +58,7 @@ class CoinsViewModel @Inject constructor(
         _ticker.postValue(result)
     }
 
-    fun getOrderBook(book: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun getOrderBook(book: String) = viewModelScope.launch(dispatcher) {
         val result = when(val data = getOrderBookUseCase(book)) {
             is ResultDomain.Error -> Result.Error(data.message, data.code)
             is ResultDomain.Success -> Result.Success(data.data.toUi())
