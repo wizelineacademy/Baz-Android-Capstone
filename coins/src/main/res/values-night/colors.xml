@@ -4,8 +4,8 @@
     <color name="crypto_primary_variant_color">#030F27</color>
     <color name="crypto_secondary_color">#003933</color>
     <color name="crypto_secondary_variant_color">#002E2E</color>
-    <color name="black">#000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="view_background">#FFFFFFFF</color>
-    <color name="text_main_color">#000000</color>
+
+
+    <color name="view_background">#021220</color>
+    <color name="text_main_color">#FFFFFF</color>
 </resources>

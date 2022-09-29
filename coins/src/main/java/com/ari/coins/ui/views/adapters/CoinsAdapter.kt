@@ -33,6 +33,8 @@ class CoinsAdapter(
                 error(R.drawable.ic_baseline_broken_image_24)
             }
             binding.root.setOnClickListener { onClickCoin(coin) }
+            binding.tvMaximumPrice.text = String.format("%.2f", coin.maximumPrice.toDouble())
+            binding.tvMinimumPrice.text = String.format("%.2f", coin.minimumPrice.toDouble())
         }
     }
 }

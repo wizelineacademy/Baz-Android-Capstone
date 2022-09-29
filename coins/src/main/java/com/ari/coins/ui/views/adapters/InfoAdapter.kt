@@ -50,6 +50,7 @@ class InfoAdapter: ListAdapter<ItemString, RecyclerView.ViewHolder>(ItemStringCa
     class ViewHolderInfo(val binding: ItemStringBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ItemString) {
             binding.item = item
+            binding.tvValue.text = String.format("%.2f", item.right.toDouble())
         }
     }
 
