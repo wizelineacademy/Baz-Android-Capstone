@@ -6,25 +6,24 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.proyect.cursowizline.databinding.ListItemBookCryptoBinding
+import com.proyect.cursowizline.domain.model.CryptoM
 import com.proyect.cursowizline.model.Crypto
 
-class CryptoListAdapter : ListAdapter<Crypto, CryptoListAdapter.CryptoViewHolder>(DiffCallback) {
+class CryptoListAdapter : ListAdapter<CryptoM, CryptoListAdapter.CryptoViewHolder>(DiffCallback) {
 
-    companion object DiffCallback : DiffUtil.ItemCallback<Crypto>() {
-        override fun areItemsTheSame(oldItem: Crypto, newItem: Crypto): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<CryptoM>() {
+        override fun areItemsTheSame(oldItem: CryptoM, newItem: CryptoM): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Crypto, newItem: Crypto): Boolean {
+        override fun areContentsTheSame(oldItem: CryptoM, newItem: CryptoM): Boolean {
             return oldItem.book == newItem.book
         }
     }
 
-    //Lambda
-    private var onItemClickListener: ((Crypto) -> Unit)? = null
+    private var onItemClickListener: ((CryptoM) -> Unit)? = null
 
-    //Aqui Recibo la lambda
-    fun setOnItemClickListener(onItemClickListener: (Crypto) -> Unit) {
+    fun setOnItemClickListener(onItemClickListener: (CryptoM) -> Unit) {
         this.onItemClickListener = onItemClickListener
     }
 
@@ -40,7 +39,7 @@ class CryptoListAdapter : ListAdapter<Crypto, CryptoListAdapter.CryptoViewHolder
 
     inner class CryptoViewHolder(private val binding: ListItemBookCryptoBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(crypto: Crypto) {
+        fun bind(crypto: CryptoM) {
             binding.cryptoBook.text = crypto.book
             binding.cryptoBook.setOnClickListener {
                 onItemClickListener?.invoke(crypto)

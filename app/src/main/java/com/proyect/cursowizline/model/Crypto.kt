@@ -10,7 +10,5 @@ class Crypto(
     val maximum_price:  String,
     val minimum_value:  String,
     val maximum_value:  String,
-    val tick_size:      String,
-    val minimum_amount: String,
-    val maximum_amount: String,
+    val tick_size:      String
 ) : Parcelable

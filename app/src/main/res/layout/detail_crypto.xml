@@ -5,7 +5,7 @@
     <data>
         <variable
             name="crypto"
-            type="com.proyect.cursowizline.model.Crypto" />
+            type="com.proyect.cursowizline.domain.model.CryptoM" />
     </data>
 
     <FrameLayout

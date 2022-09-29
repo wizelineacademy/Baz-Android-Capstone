@@ -9,10 +9,6 @@ class CryptoDTO (
     val minimum_price:  String,
     @field: Json(name = "maximum_price")
     val maximum_price:  String,
-    @field: Json(name = "minimum_amount")
-    val minimum_amount: String,
-    @field: Json(name = "maximum_amount")
-    val maximum_amount: String,
     @field: Json(name = "minimum_value")
     val minimum_value:  String,
     @field: Json(name = "maximum_value")

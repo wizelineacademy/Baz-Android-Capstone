@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.proyect.cursowizline.R
 import com.proyect.cursowizline.databinding.DetailCryptoBinding
+import com.proyect.cursowizline.domain.model.CryptoM
 import com.proyect.cursowizline.model.Crypto
 import com.proyect.cursowizline.model.ResponseStatus
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,6 +18,7 @@ class CryptoDetailActivity: AppCompatActivity() {
     companion object {
         const val CRYPTO_KEY = "crypto"
     }
+
     private val cryptoOrderListViewModel: CryptoDetailListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +26,7 @@ class CryptoDetailActivity: AppCompatActivity() {
         val binding =  DetailCryptoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val crypto = intent?.extras?.getParcelable<Crypto>(CRYPTO_KEY)
+        val crypto = intent?.extras?.getParcelable<CryptoM>(CRYPTO_KEY)
 
         if (crypto == null) {
             Toast.makeText(this, R.string.error_showing_crypto_not_found, Toast.LENGTH_SHORT).show()

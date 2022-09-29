@@ -22,15 +22,13 @@ class NetworkModule {
             .baseUrl(BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
-    }
+}
 
     @Singleton
     @Provides
     fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
 
-    }
-
-
+}
 
 }
