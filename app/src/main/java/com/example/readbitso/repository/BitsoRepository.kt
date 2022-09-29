@@ -1,6 +1,5 @@
 package com.example.readbitso.repository
 
-
 import com.example.readbitso.ds.room.dao.entity.AskBids
 import com.example.readbitso.ds.room.dao.entity.Currencies
 import com.example.readbitso.ds.room.dao.entity.Operationstrades
@@ -12,21 +11,20 @@ import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.flow.Flow
 
 interface BitsoRepository {
-    fun getBitsoBooks(): Observable<Books>//rxjava
-    suspend fun getBitsoBids(ticker:String):Flow<List<PayloadTickers>>
-    suspend fun getBitsoTrades(ticker: String): Flow<List<PayloadTrades>>
+    fun getRfBitsoBooks(): Observable<Books> // rxjava
+    suspend fun getRfBitsoBids(ticker: String): Flow<List<PayloadTickers>>
+    suspend fun getRfBitsoTrades(ticker: String): Flow<List<PayloadTrades>>
 
-    suspend fun insertBooks(book:List<BooksPayload>)
-    suspend fun insertTrades(trades: List<PayloadTrades>)
-    suspend fun insertAsk(openedPayloadsCoin: List<PayloadTickers>)
+    suspend fun insertDbBooks(book: List<BooksPayload>)
+    suspend fun insertDbTrades(trades: List<PayloadTrades>)
+    suspend fun insertDbAsk(openedPayloadsCoin: List<PayloadTickers>)
 
-    suspend fun getflowBooks():Flow<List<Currencies>>
-    suspend fun getflowTrades():Flow<List<Operationstrades>>
-    suspend fun getflowAskBids():Flow<List<AskBids>>
+    suspend fun getDbBooks(): Flow<List<Currencies>>
+    suspend fun getDbTrades(): Flow<List<Operationstrades>>
+    suspend fun getDbAskBids(): Flow<List<AskBids>>
 
-    suspend fun selectCoin(key1:String, key2:String)
-    suspend fun getCoin(key:String):String?
-    suspend fun setPage(key: String, value: String)
-    suspend fun getPage(key: String):String?
+    suspend fun selectActualToken(key1: String, key2: String)
+    suspend fun getActualToken(key: String): String?
+    suspend fun setActualView(key: String, value: String)
+    suspend fun getActualView(key: String): String?
 }
-

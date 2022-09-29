@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Operationstrades(
-    @PrimaryKey(autoGenerate = false)  val id: Int,
-    @ColumnInfo(name = "Pair")   val pair: String?,
+    @PrimaryKey(autoGenerate = false) val id: Int,
+    @ColumnInfo(name = "Pair") val pair: String?,
     @ColumnInfo(name = "Amount") val Amount: String?,
-    @ColumnInfo(name = "Type")   val Type: String?,
-    @ColumnInfo(name = "Price")  val Price: String?
+    @ColumnInfo(name = "Type") val Type: String?,
+    @ColumnInfo(name = "Price") val Price: String?
 )

@@ -25,7 +25,7 @@ class DataStoreRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getCoin(key: String): Flow<String?> =
-        flow{
+        flow {
             val preferencesKey = stringPreferencesKey(key)
             val preferences = context.dataStore.data.first()
             emit(preferences[preferencesKey])
@@ -34,7 +34,6 @@ class DataStoreRepositoryImpl @Inject constructor(
                 throw Exception("null")
         }
 
-
     override suspend fun putFlag(key: String, value: String) {
         val preferencesKey = stringPreferencesKey(key)
         context.dataStore.edit { preferences ->
@@ -42,18 +41,16 @@ class DataStoreRepositoryImpl @Inject constructor(
         }
     }
 
-
     override suspend fun getFlag(key: String): String? {
         return try {
             val preferencesKey = stringPreferencesKey(key)
             val preferences = context.dataStore.data.first()
             preferences[preferencesKey]
-        }catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
             null
         }
     }
-
 
     override suspend fun setPage(key: String, value: String) {
         val preferencesKey = stringPreferencesKey(key)
@@ -66,10 +63,9 @@ class DataStoreRepositoryImpl @Inject constructor(
         flow {
             val preferencesKey = stringPreferencesKey(key)
             val preferences = context.dataStore.data.first()
-            emit( preferences[preferencesKey])
+            emit(preferences[preferencesKey])
 
-            if(preferences[preferencesKey] == null)
+            if (preferences[preferencesKey] == null)
                 println(" valor Null")
         }
-
 }

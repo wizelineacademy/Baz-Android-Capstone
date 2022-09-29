@@ -18,27 +18,28 @@ import com.example.readbitso.R
 import com.example.readbitso.composeItems.MoneyCard
 
 @Composable
-fun Mainview(viewModel: BitsoViewmodel, navHostController: NavHostController)
+fun MainView(viewModel: BitsoViewmodel, navHostController: NavHostController)
 {
-    with(viewModel) {
-        viewModel.selectPage("first")
-
-
-        if (!isloading )
-            when(errormessage)
+    with(viewModel)
+    {
+        selectPage("first")
+        if (!isLoading)
+            when (errorMessage)
             {
-                ""-> LoadingV(stringResource(R.string.conecting))
-                else-> LoadingV(stringResource(R.string.lastconsume))
+                "" -> LoadingV(stringResource(R.string.conecting))
+                else -> LoadingV(stringResource(R.string.lastconsume))
             }
         else {
             Column {
                 TopAppBar(
                     title = {
-                        Text(text = stringResource(R.string.criptoinfo),
+                        Text(
+                            text = stringResource(R.string.criptoinfo),
                             textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .weight(1f))
+                                .weight(1f)
+                        )
                     }
                 )
                 LazyColumn(
@@ -52,13 +53,18 @@ fun Mainview(viewModel: BitsoViewmodel, navHostController: NavHostController)
                         MoneyCard(this@with, list, navHostController)
                     }
                 }
-                if(errormessage == "") {//Disclaimer
-                    Text(text = stringResource(R.string.dis1),
-                        color = Color.LightGray)
-                    Text(text = stringResource(R.string.dis2),
-                        color = Color.LightGray)
+                if (errorMessage == "")
+                {
+                    Text(
+                        text = stringResource(R.string.dis1),
+                        color = Color.LightGray
+                    )
+                    Text(
+                        text = stringResource(R.string.dis2),
+                        color = Color.LightGray
+                    )
                 }
-                if(errormessage !="")
+                if (errorMessage != "")
                     Displaysnack(message = stringResource(R.string.checkconection))
             }
         }

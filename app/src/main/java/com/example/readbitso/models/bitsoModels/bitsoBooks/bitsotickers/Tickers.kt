@@ -5,4 +5,4 @@ data class Tickers(
     val success: Boolean,
     val payload: PayloadTickers,
     val Error: ErrorX
-    )
+)

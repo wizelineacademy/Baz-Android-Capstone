@@ -12,9 +12,6 @@ interface TradesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(usuario: List<Operationstrades>)
 
-
     @Query("SELECT * FROM Operationstrades")
-    suspend fun getAll():List<Operationstrades>
-
-
+    suspend fun getAll(): List<Operationstrades>
 }

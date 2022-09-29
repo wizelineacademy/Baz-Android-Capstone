@@ -6,6 +6,3 @@ data class PayloadTrades(
     val maker_side: String,
     val price: String
 )
-
-
-
