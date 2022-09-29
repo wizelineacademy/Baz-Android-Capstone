@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">My Application</string>
+
+    <string name="btc_mxn">Bitcoin</string>
+    <string name="eth_mxn">Ethereum</string>
+    <string name="xrp_mxn">Ripple</string>
+    <string name="ltc_mxn">Litecoin</string>
+    <string name="bch_mxn">Bitcoin Cash</string>
+    <string name="tusd_mxn">TrueUSD</string>
+    <string name="mana_mxn">Decentraland</string>
+    <string name="bat_mxn">Basic Attention Token</string>
+    <string name="dai_mxn">Digital Currency.</string>
+    <string name="usd_mxn">Dólar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
