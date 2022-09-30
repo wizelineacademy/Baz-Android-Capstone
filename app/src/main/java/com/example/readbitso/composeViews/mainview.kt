@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -23,8 +24,8 @@ fun MainView(viewModel: BitsoViewmodel, navHostController: NavHostController)
     with(viewModel)
     {
         selectPage("first")
-        if (!isLoading)
-            when (errorMessage)
+        if (!isLoading.collectAsState().value)
+            when (errorMessage.collectAsState().value)
             {
                 "" -> LoadingV(stringResource(R.string.conecting))
                 else -> LoadingV(stringResource(R.string.lastconsume))
@@ -53,19 +54,17 @@ fun MainView(viewModel: BitsoViewmodel, navHostController: NavHostController)
                         MoneyCard(this@with, list, navHostController)
                     }
                 }
-                if (errorMessage == "")
-                {
-                    Text(
-                        text = stringResource(R.string.dis1),
-                        color = Color.LightGray
-                    )
-                    Text(
-                        text = stringResource(R.string.dis2),
-                        color = Color.LightGray
-                    )
+
+                when (errorMessage.collectAsState().value) {
+                    "" -> {
+                        Text(
+                            text = stringResource(R.string.dis1),
+                            color = Color.LightGray)
+                        Text(text = stringResource(R.string.dis2),
+                            color = Color.LightGray)
+                    }
+                    else -> Displaysnack(message = stringResource(R.string.checkconection))
                 }
-                if (errorMessage != "")
-                    Displaysnack(message = stringResource(R.string.checkconection))
             }
         }
     }

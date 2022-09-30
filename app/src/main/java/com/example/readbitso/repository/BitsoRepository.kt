@@ -28,7 +28,7 @@ interface BitsoRepository {
     suspend fun setActualView(key: String, value: String)
     suspend fun getActualView(key: String): String?
 
-    suspend fun error(error: Throwable):List<BooksPayload>
+    suspend fun internetError(error: Throwable):List<BooksPayload>
     suspend fun setInternetFlag(key: String, value: String)
     suspend fun getInternetFlag(key: String): String?
 
