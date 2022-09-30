@@ -26,9 +26,8 @@ constructor(
     private val db1: CriptocurrenciesDao,
     private val db2: TradesDao,
     private val db3: AskBidsDao,
-    private val dsRepository: DataStoreRepository
-) : BitsoRepository
-{
+    private val dsRepository: DataStoreRepository,
+) : BitsoRepository {
     override fun getRfBitsoBooks(): Observable<Books> = retro.getBooks()
 
     override suspend fun getRfBitsoBids(ticker: String): Flow<List<PayloadTickers>> =
@@ -39,13 +38,14 @@ constructor(
 
     override suspend fun insertDbBooks(book: List<BooksPayload>) {
         val ret = mutableListOf<Currencies>()
-        book.map{
+        book.map {
             Currencies(
                 id = it.id,
                 book = it.book,
                 maximum_price = it.maximum_price,
                 minimum_price = it.minimum_price
-            )}
+            )
+        }
             .forEach { ret.add(it) }
 
         db1.insertAll(ret)
@@ -57,13 +57,13 @@ constructor(
     override suspend fun insertDbTrades(trades: List<PayloadTrades>) {
         val ret = mutableListOf<Operationstrades>()
 
-        trades.forEachIndexed{ index,it->
+        trades.forEachIndexed { index, it ->
             ret.add(Operationstrades(
-                id=index,
+                id = index,
                 pair = it.book,
                 Amount = it.amount,
                 Type = it.maker_side,
-                Price=it.price))
+                Price = it.price))
         }
         db2.insertAll(ret)
     }
@@ -74,13 +74,14 @@ constructor(
     override suspend fun insertDbAsk(openedPayloadsCoin: List<PayloadTickers>) {
         val ret = mutableListOf<AskBids>()
         openedPayloadsCoin
-            .map{
+            .map {
                 AskBids(
-                id = 0,
-                Ask = it.ask,
-                Bid = it.bid,
-                Book = it.book
-            )}
+                    id = 0,
+                    Ask = it.ask,
+                    Bid = it.bid,
+                    Book = it.book
+                )
+            }
             .forEach { ret.add(it) }
 
         db3.insertAll(ret)
@@ -115,25 +116,24 @@ constructor(
         return page
     }
 
-    override  suspend fun error(error: Throwable):List<BooksPayload> {
+    override suspend fun internetError(error: Throwable): List<BooksPayload> {
 
-        when (error)
-        {
-            is UnknownHostException ->  setInternetFlag ("wifi","Datos no disponibles")
-           }
-         return getErrorBooks()
+        when (error) {
+            is UnknownHostException -> setInternetFlag("wifi", "Datos no disponibles")
+        }
+        return getErrorBooks()
     }
 
-   private suspend fun getErrorBooks(): MutableList<BooksPayload> {
-        val list=mutableListOf<BooksPayload>()
+    private suspend fun getErrorBooks(): MutableList<BooksPayload> {
+        val list = mutableListOf<BooksPayload>()
         getDbBooks()
             .collect {
                 it.forEach {
                     list.add(BooksPayload(
-                        id=it.id,
-                        book=it.book,
-                        maximum_price=it.maximum_price,
-                        minimum_price=it.minimum_price,
+                        id = it.id,
+                        book = it.book,
+                        maximum_price = it.maximum_price,
+                        minimum_price = it.minimum_price,
                     ))
                 }
             }
@@ -141,7 +141,7 @@ constructor(
     }
 
     override suspend fun setInternetFlag(key: String, value: String) {
-            dsRepository.setInternetFlag(key, value)
+        dsRepository.setInternetFlag(key, value)
     }
 
     override suspend fun getInternetFlag(key: String): String? {
