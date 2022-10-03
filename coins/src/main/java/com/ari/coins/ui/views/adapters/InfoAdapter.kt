@@ -11,6 +11,12 @@ import com.ari.coins.databinding.ItemTitleBinding
 import com.ari.coins.ui.uiModels.ItemString
 import com.ari.coins.ui.uiModels.ItemType
 
+/**
+ * @author        Ari Valencia
+ * @file          InfoAdapter
+ * @description   ListAdapter for represent ask and bids of coin
+ */
+
 class InfoAdapter: ListAdapter<ItemString, RecyclerView.ViewHolder>(ItemStringCallBack) {
 
     companion object {

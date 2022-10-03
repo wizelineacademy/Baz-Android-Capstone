@@ -9,6 +9,12 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+/**
+ * @author        Ari Valencia
+ * @file          CoinsApi
+ * @description   Contain endpoints for get data from Bitso_API using Retrofit
+ */
+
 interface CoinsApi {
 
     @GET(Endpoints.AVAILABLE_BOOKS)

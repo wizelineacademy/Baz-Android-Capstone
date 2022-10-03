@@ -7,6 +7,12 @@ import retrofit2.Response
 import java.net.ConnectException
 import java.net.UnknownHostException
 
+/**
+ * @author        Ari Valencia
+ * @file          ResponseHandler
+ * @description   Generic function used for extract response of crypto API with Success or Error
+ */
+
 suspend fun <R, T: CryptoResponseData<T>> execute(
     task: suspend () -> Response<T>
 ): ResultData<R> = try {

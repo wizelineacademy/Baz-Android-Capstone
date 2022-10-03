@@ -1,7 +1,6 @@
 package com.ari.coins.ui.views
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,12 @@ import com.ari.coins.ui.views.adapters.CoinsAdapter
 import com.ari.coins.ui.views.dialogs.GenericBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 import com.ari.coins.ui.uiModels.DialogData as DialogData1
+
+/**
+ * @author        Ari Valencia
+ * @file          CoinListFragment
+ * @description   Fragment to display list of coins
+ */
 
 @AndroidEntryPoint
 class CoinListFragment : Fragment() {

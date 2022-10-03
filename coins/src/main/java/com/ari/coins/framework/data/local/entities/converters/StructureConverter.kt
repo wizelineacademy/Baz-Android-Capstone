@@ -6,6 +6,12 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
+/**
+ * @author        Ari Valencia
+ * @file          StructureConverter
+ * @description   Converters for [List<StructureEntity>] using in Room DB
+ */
+
 class StructureConverter {
 
     @TypeConverter

@@ -6,6 +6,12 @@ import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 
+/**
+ * @author        Ari Valencia
+ * @file          HeadersInterceptor
+ * @description   Interceptor for add Usser-Agent to all request
+ */
+
 class HeadersInterceptor: Interceptor {
 
     companion object {

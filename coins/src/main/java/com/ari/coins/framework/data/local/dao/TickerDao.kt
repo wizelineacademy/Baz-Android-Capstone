@@ -6,6 +6,12 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.ari.coins.framework.data.local.entities.TickerEntity
 
+/**
+ * @author        Ari Valencia
+ * @file          TickerDao
+ * @description   Dao for ticker with CRUD operations
+ */
+
 @Dao
 interface TickerDao {
 

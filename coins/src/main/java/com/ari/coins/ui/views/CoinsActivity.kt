@@ -7,6 +7,12 @@ import com.ari.coins.databinding.ActivityCoinsBinding
 import com.ari.coins.ui.viewModels.CoinsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * @author        Ari Valencia
+ * @file          CoinsActivity
+ * @description   Activity container of coin list and detail using navigation component
+ */
+
 @AndroidEntryPoint
 class CoinsActivity : AppCompatActivity() {
 

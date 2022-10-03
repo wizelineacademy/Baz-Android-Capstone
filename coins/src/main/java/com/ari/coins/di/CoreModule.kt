@@ -8,6 +8,12 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
+/**
+ * @author        Ari Valencia
+ * @file          CoreModule
+ * @description   Provide anything unique
+ */
+
 @Module
 @InstallIn(SingletonComponent::class)
 object CoreModule {

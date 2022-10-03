@@ -9,6 +9,12 @@ import com.ari.coins.framework.data.network.apis.CoinsApi
 import com.ari.coins.framework.data.network.execute
 import javax.inject.Inject
 
+/**
+ * @author        Ari Valencia
+ * @file          CoinsRemoteDataSourceImpl
+ * @description   Implementation of CoinsRemoteDataSource, get info from Crypto API
+ */
+
 class CoinsRemoteDataSourceImpl @Inject constructor(
     private val coinsApi: CoinsApi
 ) : CoinsRemoteDataSource {

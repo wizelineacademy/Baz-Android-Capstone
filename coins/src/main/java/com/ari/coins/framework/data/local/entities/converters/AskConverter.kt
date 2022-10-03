@@ -6,6 +6,12 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
+/**
+ * @author        Ari Valencia
+ * @file          AskConverter
+ * @description   Converters for [List<AskEntity>] using in Room DB
+ */
+
 class AskConverter {
 
     @TypeConverter

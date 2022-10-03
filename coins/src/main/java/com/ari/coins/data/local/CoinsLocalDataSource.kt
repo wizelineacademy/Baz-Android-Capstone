@@ -4,6 +4,12 @@ import com.ari.coins.data.models.AvailableBookData
 import com.ari.coins.data.models.OrderBookData
 import com.ari.coins.data.models.TickerData
 
+/**
+ * @author        Ari Valencia
+ * @file          CoinsLocalDataSource
+ * @description   Contract for any CoinsLocalDataSourceImpl
+ */
+
 interface CoinsLocalDataSource {
 
     suspend fun getAvailableBooksFromDB(): List<AvailableBookData>

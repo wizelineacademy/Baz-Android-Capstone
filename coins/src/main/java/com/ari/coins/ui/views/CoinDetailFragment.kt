@@ -21,6 +21,12 @@ import com.ari.coins.ui.views.adapters.InfoAdapter
 import com.ari.coins.ui.views.dialogs.GenericBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * @author        Ari Valencia
+ * @file          CoinDetailFragment
+ * @description   Fragment to display coin detail
+ */
+
 @AndroidEntryPoint
 class CoinDetailFragment : Fragment() {
 

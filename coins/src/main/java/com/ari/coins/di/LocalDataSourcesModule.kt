@@ -7,6 +7,12 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
+/**
+ * @author        Ari Valencia
+ * @file          LocalDataSourcesModule
+ * @description   Provide only local data sources
+ */
+
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class LocalDataSourcesModule {

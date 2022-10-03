@@ -8,6 +8,17 @@ import com.ari.coins.domain.domainModels.ResultDomain
 import com.ari.coins.domain.domainModels.toDomain
 import javax.inject.Inject
 
+/**
+ * @author        Ari Valencia
+ * @file          GetOrderBookUseCase
+ * @description   This UseCase returns a sealed class with (OrderBookDomain) with
+ *                  Success:
+ *                   - When the server returns successful (and save in local)
+ *                   - When the server returns an error but we have the info locally
+ *                  Error:
+ *                   - When the server returns an error and we do not have local information
+ */
+
 class GetOrderBookUseCase @Inject constructor(
     private val coinsRepository: CoinsRepository
 ): SuspendUseCase<String, OrderBookDomain> {

@@ -6,6 +6,12 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.ari.coins.framework.data.local.entities.AvailableBookEntity
 
+/**
+ * @author        Ari Valencia
+ * @file          AvailableBookDao
+ * @description   Dao for available books with CRUD operations
+ */
+
 @Dao
 interface AvailableBookDao {
 

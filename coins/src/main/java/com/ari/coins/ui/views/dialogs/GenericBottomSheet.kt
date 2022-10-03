@@ -8,6 +8,12 @@ import com.ari.coins.databinding.DialogGenericBinding
 import com.ari.coins.ui.uiModels.DialogData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
+/**
+ * @author        Ari Valencia
+ * @file          GenericBottomSheet
+ * @description   Generic Dialog for display any view with DialogData object
+ */
+
 class GenericBottomSheet(
     private var dialogData: DialogData,
     private var onClickOk: (() -> Unit)?

@@ -8,6 +8,15 @@ import com.ari.coins.data.models.TickerData
 import com.ari.coins.data.network.CoinsRemoteDataSource
 import javax.inject.Inject
 
+/**
+ * @author        Ari Valencia
+ * @file          CoinsRepository
+ * @description   Repository with CRUD for
+ *                  - Available books
+ *                  - Order books
+ *                  - Tickers
+ */
+
 class CoinsRepository @Inject constructor(
     private val coinsRemoteDataSource: CoinsRemoteDataSource,
     private val coinsLocalDataSource: CoinsLocalDataSource

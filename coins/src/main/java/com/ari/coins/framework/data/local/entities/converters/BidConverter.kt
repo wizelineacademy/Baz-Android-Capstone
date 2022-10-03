@@ -6,6 +6,12 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
+/**
+ * @author        Ari Valencia
+ * @file          BidConverter
+ * @description   Converters for [List<BidEntity>] using in Room DB
+ */
+
 class BidConverter {
 
     @TypeConverter

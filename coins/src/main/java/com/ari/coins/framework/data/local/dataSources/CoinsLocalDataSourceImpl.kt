@@ -12,6 +12,13 @@ import com.ari.coins.framework.data.local.entities.toData
 import com.ari.coins.framework.data.local.entities.toEntity
 import javax.inject.Inject
 
+/**
+ * @author        Ari Valencia
+ * @file          CoinsLocalDataSourceImpl
+ * @description   Implementation for CoinsLocalDataSource for
+ *                save, update and read local data using Room
+ */
+
 class CoinsLocalDataSourceImpl @Inject constructor(
     private val availableBookDao: AvailableBookDao,
     private val orderBookDao: OrderBookDao,

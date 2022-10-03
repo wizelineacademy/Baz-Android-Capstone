@@ -4,6 +4,12 @@ import androidx.room.TypeConverter
 import com.ari.coins.framework.data.local.entities.FeesEntity
 import com.google.gson.Gson
 
+/**
+ * @author        Ari Valencia
+ * @file          FeesConverter
+ * @description   Converters for [FeesEntity] using in Room DB
+ */
+
 class FeesConverter {
 
     @TypeConverter

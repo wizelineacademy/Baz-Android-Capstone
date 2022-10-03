@@ -15,6 +15,12 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * @author        Ari Valencia
+ * @file          CoinsViewModel
+ * @description   ViewModel for connect view with data layer
+ */
+
 @HiltViewModel
 class CoinsViewModel @Inject constructor(
     private val getAvailableBooksUseCase: GetAvailableBooksUseCase,
