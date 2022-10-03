@@ -6,3 +6,9 @@ object ErrorCode {
     const val UNKNOWN = -3
     const val UNKNOWN_LOCAL = -4
 }
+
+object ErrorMessage {
+    const val UNKNOWN_HOST_EXCEPTION = "Sin conexión a internet"
+    const val CONNECTION_EXCEPTION = "Error de conexión"
+    const val UNKNOWN = "Error desconocido"
+}

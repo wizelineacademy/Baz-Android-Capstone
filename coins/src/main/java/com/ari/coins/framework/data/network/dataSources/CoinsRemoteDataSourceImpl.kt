@@ -6,8 +6,16 @@ import com.ari.coins.data.models.ResultData
 import com.ari.coins.data.models.TickerData
 import com.ari.coins.data.network.CoinsRemoteDataSource
 import com.ari.coins.framework.data.network.apis.CoinsApi
+import com.ari.coins.framework.data.network.constants.ErrorCode
+import com.ari.coins.framework.data.network.constants.ErrorMessage
 import com.ari.coins.framework.data.network.execute
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
+import java.net.ConnectException
+import java.net.UnknownHostException
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 /**
  * @author        Ari Valencia
@@ -19,8 +27,45 @@ class CoinsRemoteDataSourceImpl @Inject constructor(
     private val coinsApi: CoinsApi
 ) : CoinsRemoteDataSource {
 
-    override suspend fun getAvailableBooks(): ResultData<List<AvailableBookData>> =
-        execute { coinsApi.getAvailableBooks() }
+    /**
+     * Example of request using RxJava
+     */
+    override suspend fun getAvailableBooks(): ResultData<List<AvailableBookData>> {
+        return suspendCoroutine { continuation ->
+            coinsApi
+                .getAvailableBooks()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { response, throwable ->
+                    if (throwable != null) {
+                        val error: ResultData<List<AvailableBookData>> = when (throwable) {
+                            is UnknownHostException -> ResultData.Error(
+                                ErrorMessage.UNKNOWN_HOST_EXCEPTION,
+                                ErrorCode.UNKNOWN_HOST_EXCEPTION
+                            )
+                            is ConnectException -> ResultData.Error(
+                                ErrorMessage.CONNECTION_EXCEPTION,
+                                ErrorCode.CONNECTION_EXCEPTION
+                            )
+                            else -> ResultData.Error(ErrorMessage.UNKNOWN, ErrorCode.UNKNOWN)
+                        }
+                        continuation.resume(error)
+                        return@subscribe
+                    }
+
+                    if (response.success) {
+                        continuation.resume(ResultData.Success(response.payload!!))
+                    } else {
+                        continuation.resume(
+                            ResultData.Error(
+                                response.error?.message ?: ErrorMessage.UNKNOWN,
+                                ErrorCode.UNKNOWN_LOCAL
+                            )
+                        )
+                    }
+                }
+        }
+    }
 
     override suspend fun getTicker(book: String): ResultData<TickerData> =
         execute { coinsApi.getTicker(book) }
