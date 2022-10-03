@@ -16,8 +16,7 @@ data class TickerEntity(
     val high: String,
     val last: String,
     val low: String,
-    val volume: String,
-    val vwap: String
+    val volume: String
 )
 
 fun TickerData.toEntity() = TickerEntity(
@@ -29,8 +28,7 @@ fun TickerData.toEntity() = TickerEntity(
     high = high,
     last = last,
     low = low,
-    volume = volume,
-    vwap = vwap
+    volume = volume
 )
 
 fun TickerEntity.toData() = TickerData(
@@ -42,6 +40,5 @@ fun TickerEntity.toData() = TickerData(
     high = high,
     last = last,
     low = low,
-    volume = volume,
-    vwap = vwap
+    volume = volume
 )

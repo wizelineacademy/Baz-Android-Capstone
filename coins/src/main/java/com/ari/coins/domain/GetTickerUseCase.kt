@@ -22,6 +22,7 @@ import javax.inject.Inject
 class GetTickerUseCase @Inject constructor(
     private val coinsRepository: CoinsRepository
 ): SuspendUseCase<String, TickerDomain> {
+
     override suspend fun invoke(book: String): ResultDomain<TickerDomain> =
         when(val result = coinsRepository.getTicker(book)) {
             is ResultData.Error -> {

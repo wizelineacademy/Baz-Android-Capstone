@@ -10,5 +10,4 @@ data class TickerData(
     val last: String,
     val low: String,
     val volume: String,
-    val vwap: String
 )

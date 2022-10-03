@@ -22,6 +22,7 @@ import javax.inject.Inject
 class GetOrderBookUseCase @Inject constructor(
     private val coinsRepository: CoinsRepository
 ): SuspendUseCase<String, OrderBookDomain> {
+
     override suspend fun invoke(book: String): ResultDomain<OrderBookDomain> =
         when(val result = coinsRepository.getOrderBook(book)){
             is ResultData.Error -> {

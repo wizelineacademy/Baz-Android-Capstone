@@ -11,8 +11,7 @@ data class Ticker(
     val high: String,
     val last: String,
     val low: String,
-    val volume: String,
-    val vwap: String
+    val volume: String
 )
 
 fun TickerDomain.toUi() = Ticker(
@@ -25,5 +24,4 @@ fun TickerDomain.toUi() = Ticker(
     last = last,
     low = low,
     volume = volume,
-    vwap = vwap
 )
