@@ -110,7 +110,7 @@ class CoinsViewModelTest {
     @Test
     fun `when call to getTicker, update ticker observable with Success`() = runTest {
         // Given
-        val ticker = TickerDomain("", "", "", "", "", "", "", "", "", "")
+        val ticker = TickerDomain("", "", "", "", "", "", "", "", "")
         coEvery { getTickerUseCase(any()) } returns ResultDomain.Success(ticker)
 
         // When

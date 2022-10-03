@@ -15,7 +15,7 @@ class GetTickerUseCaseTest {
 
     private lateinit var getTickerUseCase: GetTickerUseCase
     private val book = "eth_mxn"
-    private val ticker = TickerData("", "", "", "", "", "", "", "", "", "")
+    private val ticker = TickerData("", "", "", "", "", "", "", "", "")
 
     @RelaxedMockK
     private lateinit var coinsRepository: CoinsRepository
