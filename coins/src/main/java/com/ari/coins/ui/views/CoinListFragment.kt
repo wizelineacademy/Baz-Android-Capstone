@@ -15,7 +15,9 @@ import com.ari.coins.ui.uiModels.AvailableBook
 import com.ari.coins.ui.uiModels.Result
 import com.ari.coins.ui.viewModels.CoinsViewModel
 import com.ari.coins.ui.views.adapters.CoinsAdapter
+import com.ari.coins.ui.views.dialogs.GenericBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
+import com.ari.coins.ui.uiModels.DialogData as DialogData1
 
 @AndroidEntryPoint
 class CoinListFragment : Fragment() {
@@ -51,14 +53,23 @@ class CoinListFragment : Fragment() {
     private fun addObservers() {
         coinsViewModel.availableBooks.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Result.Error -> {
-                    Log.e("AVD", "${result.code} - ${result.message}")
-                }
+                is Result.Error -> showErrorDialog(result.message)
                 is Result.Success -> {
                     coinsAdapter.submitList(result.data)
                 }
+                is Result.Empty -> {}
             }
         }
+    }
+
+    private fun showErrorDialog(message: String) {
+        val dialogData = DialogData1(
+            drawableRes = R.drawable.ic_baseline_error_24,
+            title = getString(R.string.oops),
+            description = message
+        )
+        val errorDialog = GenericBottomSheet(dialogData) { coinsViewModel.getAvailableBooks() }
+        errorDialog.show(childFragmentManager, errorDialog.tag + "CoinsListFragment")
     }
 
     override fun onDestroy() {

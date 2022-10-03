@@ -1,7 +1,7 @@
 package com.ari.coins.ui.views
 
+import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +12,13 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.ari.coins.R
 import com.ari.coins.databinding.FragmentCoinDetailBinding
+import com.ari.coins.ui.uiModels.DialogData
 import com.ari.coins.ui.uiModels.ItemString
 import com.ari.coins.ui.uiModels.ItemType
 import com.ari.coins.ui.uiModels.Result
 import com.ari.coins.ui.viewModels.CoinsViewModel
 import com.ari.coins.ui.views.adapters.InfoAdapter
+import com.ari.coins.ui.views.dialogs.GenericBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,6 +35,10 @@ class CoinDetailFragment : Fragment() {
     private lateinit var infoAdapter: InfoAdapter
     private lateinit var asksAndBidsAdapter: InfoAdapter
 
+    private var isDialogShowing = false
+
+    private val book: String? get() = arguments?.getString(BOOK_EXTRA)
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,8 +51,6 @@ class CoinDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val book = arguments?.getString(BOOK_EXTRA)
 
         book?.let {
             init(it)
@@ -68,7 +72,7 @@ class CoinDetailFragment : Fragment() {
     private fun addObservers() {
         coinsViewModel.ticker.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Result.Error -> Log.e("AVD", "${result.code} - ${result.message}")
+                is Result.Error -> showErrorDialog(result.message)
                 is Result.Success -> {
                     binding.ticker = result.data
                     binding.ivCoin.load(coinsViewModel.getCoinUrlImage(result.data.book)) {
@@ -84,12 +88,13 @@ class CoinDetailFragment : Fragment() {
                     )
                     infoAdapter.submitList(list)
                 }
+                is Result.Empty -> {}
             }
         }
 
         coinsViewModel.orderBook.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Result.Error -> Log.e("AVD", "${result.code} - ${result.message}")
+                is Result.Error -> showErrorDialog(result.message)
                 is Result.Success -> {
                     val list = arrayListOf<ItemString>()
                     list.add(ItemString("-1", ItemType.SECTION, "Asks", ""))
@@ -114,8 +119,35 @@ class CoinDetailFragment : Fragment() {
                     })
                     asksAndBidsAdapter.submitList(list)
                 }
+                is Result.Empty -> {}
             }
         }
+    }
+
+    private fun showErrorDialog(message: String) {
+        if (isDialogShowing) return
+
+        isDialogShowing = true
+
+        val dialogData = DialogData(
+            drawableRes = R.drawable.ic_baseline_error_24,
+            title = getString(R.string.oops),
+            description = message
+        )
+        val errorDialog = GenericBottomSheet(dialogData) {
+            book?.let {
+                coinsViewModel.getTicker(it)
+                coinsViewModel.getOrderBook(it)
+            }
+            isDialogShowing = false
+        }
+        errorDialog.show(childFragmentManager, errorDialog.tag)
+        errorDialog.onCancel(object : DialogInterface{
+            override fun cancel() {
+                isDialogShowing = false
+            }
+            override fun dismiss() { }
+        })
     }
 
     override fun onDestroy() {

@@ -19,9 +19,9 @@ suspend fun <R, T: CryptoResponseData<T>> execute(
         ResultData.Error(response.message(), ErrorCode.UNKNOWN_LOCAL)
     }
 } catch (e: UnknownHostException) {
-    ResultData.Error(e.toString(), ErrorCode.UNKNOWN_HOST_EXCEPTION)
+    ResultData.Error("Sin conexión a internet", ErrorCode.UNKNOWN_HOST_EXCEPTION)
 } catch (e: ConnectException) {
-    ResultData.Error(e.toString(), ErrorCode.CONNECTION_EXCEPTION)
+    ResultData.Error("Error de conexión", ErrorCode.CONNECTION_EXCEPTION)
 } catch (e: Exception) {
-    ResultData.Error(e.toString(), ErrorCode.UNKNOWN)
+    ResultData.Error("Error desconocido", ErrorCode.UNKNOWN)
 }

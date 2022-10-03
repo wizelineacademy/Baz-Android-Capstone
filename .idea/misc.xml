@@ -5,7 +5,10 @@
       <map>
         <entry key="app/src/main/res/layout/activity_launcher.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2171875" />
+        <entry key="coins/src/main/res/drawable/bg_primary_button.xml" value="0.2565" />
+        <entry key="coins/src/main/res/drawable/shape_rounded_dialog.xml" value="0.2565" />
         <entry key="coins/src/main/res/layout/activity_coins.xml" value="0.31666666666666665" />
+        <entry key="coins/src/main/res/layout/dialog_generic.xml" value="0.35989583333333336" />
         <entry key="coins/src/main/res/layout/fragment_coin_detail.xml" value="0.25" />
         <entry key="coins/src/main/res/layout/fragment_coin_list.xml" value="0.2421875" />
         <entry key="coins/src/main/res/layout/item_coin.xml" value="0.2421875" />

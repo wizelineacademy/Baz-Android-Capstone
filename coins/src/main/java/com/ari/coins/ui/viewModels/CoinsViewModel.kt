@@ -8,14 +8,10 @@ import com.ari.coins.domain.GetAvailableBooksUseCase
 import com.ari.coins.domain.GetCoinUrlImageUseCase
 import com.ari.coins.domain.GetOrderBookUseCase
 import com.ari.coins.domain.GetTickerUseCase
-import com.ari.coins.domain.domainModels.AvailableBookDomain
-import com.ari.coins.domain.domainModels.OrderBookDomain
 import com.ari.coins.domain.domainModels.ResultDomain
-import com.ari.coins.domain.domainModels.TickerDomain
 import com.ari.coins.ui.uiModels.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
