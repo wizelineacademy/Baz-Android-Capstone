@@ -27,9 +27,6 @@ interface AvailableBookDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAvailableBooks(list: List<AvailableBookEntity>)
 
-    @Query("DELETE FROM available_book_table WHERE book = :book")
-    suspend fun deleteAvailableBook(book: String)
-
     @Query("DELETE FROM available_book_table")
     suspend fun clearTable()
 }

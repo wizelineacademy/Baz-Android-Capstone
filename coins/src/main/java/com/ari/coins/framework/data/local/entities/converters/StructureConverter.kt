@@ -15,7 +15,7 @@ import java.lang.reflect.Type
 class StructureConverter {
 
     @TypeConverter
-    fun fromStructureEntityList(list: List<StructureEntity>): String? {
+    fun fromStructureEntityList(list: List<StructureEntity>?): String? {
         if (list == null) return null
         val type: Type = object : TypeToken<List<StructureEntity>>() {}.type
         return Gson().toJson(list, type)

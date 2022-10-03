@@ -15,7 +15,7 @@ internal class GetCoinUrlImageUseCaseTest {
     @Test
     fun `when we get url for coin then return the correct url`(){
         // Given
-        val book: String = "eth_mxn"
+        val book = "eth_mxn"
 
         // When
         val result = getCoinUrlImageUseCase(book)

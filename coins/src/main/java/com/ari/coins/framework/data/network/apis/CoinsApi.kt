@@ -13,7 +13,7 @@ import retrofit2.http.Query
 /**
  * @author        Ari Valencia
  * @file          CoinsApi
- * @description   Contain endpoints for get data from Bitso_API using Retrofit
+ * @description   Contain endpoints for get data from API using Retrofit
  */
 
 interface CoinsApi {

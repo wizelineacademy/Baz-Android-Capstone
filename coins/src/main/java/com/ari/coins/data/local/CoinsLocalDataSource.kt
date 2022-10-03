@@ -16,7 +16,6 @@ interface CoinsLocalDataSource {
     suspend fun getTickerFromDB(book: String): TickerData?
     suspend fun getOrderBookFromDB(book: String): OrderBookData?
 
-    suspend fun deleteAvailableBookFromDB(book: String)
     suspend fun deleteTickerFromDB(book: String)
     suspend fun deleteOrderBookFromDB(book: String)
 

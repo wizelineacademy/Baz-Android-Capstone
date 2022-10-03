@@ -34,9 +34,6 @@ class CoinsLocalDataSourceImpl @Inject constructor(
     override suspend fun getOrderBookFromDB(book: String): OrderBookData? =
         orderBookDao.getOrderBook(book)?.toData()
 
-    override suspend fun deleteAvailableBookFromDB(book: String) =
-        availableBookDao.deleteAvailableBook(book)
-
     override suspend fun deleteTickerFromDB(book: String) = tickerDao.deleteTicker(book)
 
     override suspend fun deleteOrderBookFromDB(book: String) = orderBookDao.deleteOrderBook(book)

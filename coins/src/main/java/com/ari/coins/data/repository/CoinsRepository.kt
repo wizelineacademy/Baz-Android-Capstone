@@ -40,9 +40,6 @@ class CoinsRepository @Inject constructor(
     suspend fun getOrderBookFromDB(book: String): OrderBookData? =
         coinsLocalDataSource.getOrderBookFromDB(book)
 
-    suspend fun deleteAvailableBookFromDB(book: String) =
-        coinsLocalDataSource.deleteAvailableBookFromDB(book)
-
     suspend fun deleteTickerFromDB(book: String) = coinsLocalDataSource.deleteTickerFromDB(book)
 
     suspend fun deleteOrderBookFromDB(book: String) =

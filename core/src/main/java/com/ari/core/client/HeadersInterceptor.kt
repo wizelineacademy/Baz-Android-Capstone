@@ -1,7 +1,6 @@
 package com.ari.core.client
 
 import android.os.Build
-import com.ari.core.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
