@@ -10,10 +10,7 @@ import com.example.readbitso.models.bitsoModels.bitsoBooks.DetailedPayload
 import com.example.readbitso.models.bitsoModels.bitsoBooks.bitsotickers.PayloadTickers
 import com.example.readbitso.models.bitsoModels.bitsoBooks.trading.PayloadTrades
 import com.example.readbitso.repository.BitsoRepository
-import com.example.readbitso.support.icon
-import com.example.readbitso.support.operationKind
-import com.example.readbitso.support.shortToken
-import com.example.readbitso.support.tokens
+import com.example.readbitso.support.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -22,12 +19,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 @HiltViewModel
 class BitsoViewmodel
-@Inject constructor(private val bitsoRepositoryImp: BitsoRepository) : ViewModel()
-{
+@Inject constructor(private val bitsoRepositoryImp: BitsoRepository) : ViewModel() {
     private var openedPayloads: List<BooksPayload> by mutableStateOf(listOf())
     private var _detailedPayload: List<DetailedPayload> by mutableStateOf(listOf())
     var detailedPayload: List<DetailedPayload> by mutableStateOf(_detailedPayload)
@@ -38,13 +35,23 @@ class BitsoViewmodel
     private var page: String? by mutableStateOf("")
 
     private val _errorMessage = MutableStateFlow("")
-    val errorMessage: StateFlow<String > =_errorMessage
+    val errorMessage: StateFlow<String> = _errorMessage
+
+    private val _uiError = MutableStateFlow(ErrorState.Error(Throwable()))
+    private val uiError: StateFlow<ErrorState> = _uiError
 
     private val _isLoading = MutableStateFlow(false)
     var isLoading: StateFlow<Boolean> = _isLoading
 
+    private val _uiAskBidState = MutableStateFlow(LatestAskBidsState.Success(emptyList()))
+    private val uiStateAskBidsState: StateFlow<LatestAskBidsState> = _uiAskBidState
+
+    private val _uiTradesState = MutableStateFlow(LatestTradesState.Success(emptyList()))
+    private val uiTradesState: StateFlow<LatestTradesState> = _uiTradesState
+
     private var _openedPayloadsCoin: List<PayloadTickers> by mutableStateOf(listOf())
     var openedPayloadsCoin: List<PayloadTickers> by mutableStateOf(_openedPayloadsCoin)
+
 
     private var selectedCoin: String? by mutableStateOf("")
 
@@ -59,8 +66,8 @@ class BitsoViewmodel
         selectPage("first")
 
         viewModelScope.launch {
-            while (true) {
 
+            while (true) {
                 getPage()?.let {
                     page = it
                 }
@@ -74,19 +81,40 @@ class BitsoViewmodel
                     "second" -> {
                         getCoin()?.let { str ->
                             withContext(IO) {
+
                                 when (_errorMessage.value) {
                                     "" -> {
-                                        if (trades.isNotEmpty() and openedPayloadsCoin.isNotEmpty())
-                                            _uiState.value = true
-                                        //
                                         delay(500)
-                                        getBidsAsk(str, message = "ok")
-                                        getnewListTrades(getTrades(name = str))
+                                        _trades = getTrades(str)
+                                        getBidsAsk(str, "ok")
                                         delay(2000)
-                                        //
-                                        extensionLambda { insertDbAskBids() }
+
+                                        when (uiTradesState.value) {
+                                            is LatestTradesState.Success -> {
+                                                trades = getnewListTrades(_trades)
+                                                extensionLambda { insertDbTrades() }
+                                                _uiState.value = true
+                                            }
+                                        }
+
+                                        when (uiStateAskBidsState.value) {
+                                            is LatestAskBidsState.Success -> {
+                                                openedPayloadsCoin = _openedPayloadsCoin
+                                                extensionLambda { insertDbAskBids() }
+                                            }
+                                        }
+
+                                        when (uiError.value) {
+                                            is ErrorState.Error -> {
+                                                when (_uiError.value.exception) {
+                                                    is UnknownHostException -> loggerD(_uiError.value.toString())
+                                                    else -> {
+                                                        loggerD(" Todo ok ")
+                                                    }
+                                                }
+                                            }
+                                        }
                                         delay(500)
-                                        extensionLambda { insertDbTrades() }
                                     }
 
                                     "Datos no disponibles" -> {
@@ -189,28 +217,44 @@ class BitsoViewmodel
         return returnList
     }
 
-    private suspend fun getBidsAsk(name: String, message: String) {
+    private suspend fun getBidsAsk(name: String, message: String): List<PayloadTickers> {
         viewModelScope.launch(IO) {
             bitsoRepositoryImp.getRfBitsoBids(name)
-                .catch { }
+                .catch {}
+                .map { it.body()?.payload }
                 .collect {
-                    _openedPayloadsCoin = it
+                    it?.let {
+                        _openedPayloadsCoin = listOf(it)
+                        _uiAskBidState.value = LatestAskBidsState.Success(listOf(it))
+                    }
                 }
-            openedPayloadsCoin = _openedPayloadsCoin
         }
         setError(message)
+        return _openedPayloadsCoin
     }
 
     private suspend fun getTrades(name: String): List<PayloadTrades> {
         viewModelScope.launch {
             bitsoRepositoryImp.getRfBitsoTrades(name)
-                .catch { }
+                .catch {
+                    when (it) {
+                        is UnknownHostException -> {
+                            it.let { _uiError.value = ErrorState.Error(it.cause!!) }
+                        }
+                        else -> {
+                            _uiError.value = ErrorState.Error(it.cause!!)
+                        }
+                    }
+                }
+                .map { it.body()?.payload }
                 .take(15)
                 .collect {
-                    _trades = it
+                    it?.let {
+                        _uiTradesState.value = LatestTradesState.Success(it)
+                        _trades = it
+                    }
                 }
         }
-        trades = getnewListTrades(_trades)
         return _trades
     }
 
@@ -271,7 +315,7 @@ class BitsoViewmodel
         val returnList = mutableListOf<PayloadTrades>()
         bitsoRepositoryImp.getDbTrades()
             .catch { }
-            .map {
+            .map { it ->
                 it.map {
                     PayloadTrades(
                         amount = it.Amount.toString(),
@@ -281,7 +325,7 @@ class BitsoViewmodel
                     )
                 }
             }
-            .collect {
+            .collect { it ->
                 it.forEach { returnList.add(it) }
             }
         _trades = returnList
@@ -298,14 +342,15 @@ class BitsoViewmodel
         bitsoRepositoryImp.getDbAskBids()
             .catch { }
             .map {
-                it.map{ AB->
+                it.map { AB ->
                     PayloadTickers(
-                    ask = AB.Ask,
-                    bid = AB.Bid,
-                    book = AB.Book)
-                 }
+                        ask = AB.Ask,
+                        bid = AB.Bid,
+                        book = AB.Book)
+                }
             }
-            .collect { it.forEach { returnList.add(it) }
+            .collect { it ->
+                it.forEach { returnList.add(it) }
             }
 
         _openedPayloadsCoin = returnList
@@ -314,5 +359,24 @@ class BitsoViewmodel
         openedPayloadsCoin = _openedPayloadsCoin
     }
 }
+
+
+sealed class LatestAskBidsState {
+    data class Success(val Askbid: List<PayloadTickers>) : LatestAskBidsState()
+}
+
+sealed class LatestTradesState {
+    data class Success(val trades: List<PayloadTrades>) : LatestTradesState()
+}
+
+sealed class ErrorState {
+    data class Error(val exception: Throwable) : ErrorState()
+}
+
+
+
+
+
+
 
 

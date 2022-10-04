@@ -10,12 +10,15 @@ import com.example.readbitso.ds.room.dao.entity.Operationstrades
 import com.example.readbitso.models.bitsoModels.bitsoBooks.Books
 import com.example.readbitso.models.bitsoModels.bitsoBooks.BooksPayload
 import com.example.readbitso.models.bitsoModels.bitsoBooks.bitsotickers.PayloadTickers
+import com.example.readbitso.models.bitsoModels.bitsoBooks.bitsotickers.Tickers
 import com.example.readbitso.models.bitsoModels.bitsoBooks.trading.PayloadTrades
+import com.example.readbitso.models.bitsoModels.bitsoBooks.trading.Trades
 import com.example.readbitso.repository.datastore.DataStoreRepository
 import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import retrofit2.Response
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -30,11 +33,17 @@ constructor(
 ) : BitsoRepository {
     override fun getRfBitsoBooks(): Observable<Books> = retro.getBooks()
 
-    override suspend fun getRfBitsoBids(ticker: String): Flow<List<PayloadTickers>> =
-        flow { emit(listOf(retro.specificTicker(ticker).payload)) }
+    override suspend fun getRfBitsoBids(ticker: String): Flow<Response<Tickers>> =
+        flow {
+            emit(retro.specificTicker(ticker))
+            throw Exception()
+        }
 
-    override suspend fun getRfBitsoTrades(ticker: String): Flow<List<PayloadTrades>> =
-        flow { emit(retro.specificTrade(ticker).payload) }
+    override suspend fun getRfBitsoTrades(ticker: String): Flow<Response<Trades>> =
+        flow {
+            emit(retro.specificTrade(ticker))
+            throw RuntimeException()
+        }
 
     override suspend fun insertDbBooks(book: List<BooksPayload>) {
         val ret = mutableListOf<Currencies>()
@@ -153,4 +162,11 @@ constructor(
             }
         return internetFlag
     }
+
+    override suspend fun getretrofitresponse() : Flow<Response<Books>> =
+        flow {
+                emit(retro.getBooks1())
+                throw Exception()
+               }
+
 }
