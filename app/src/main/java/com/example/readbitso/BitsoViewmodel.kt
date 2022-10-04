@@ -236,16 +236,7 @@ class BitsoViewmodel
     private suspend fun getTrades(name: String): List<PayloadTrades> {
         viewModelScope.launch {
             bitsoRepositoryImp.getRfBitsoTrades(name)
-                .catch {
-                    when (it) {
-                        is UnknownHostException -> {
-                            it.let { _uiError.value = ErrorState.Error(it.cause!!) }
-                        }
-                        else -> {
-                            _uiError.value = ErrorState.Error(it.cause!!)
-                        }
-                    }
-                }
+                .catch {}
                 .map { it.body()?.payload }
                 .take(15)
                 .collect {
