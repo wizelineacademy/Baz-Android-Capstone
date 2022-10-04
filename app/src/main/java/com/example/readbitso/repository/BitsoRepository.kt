@@ -6,14 +6,18 @@ import com.example.readbitso.ds.room.dao.entity.Operationstrades
 import com.example.readbitso.models.bitsoModels.bitsoBooks.Books
 import com.example.readbitso.models.bitsoModels.bitsoBooks.BooksPayload
 import com.example.readbitso.models.bitsoModels.bitsoBooks.bitsotickers.PayloadTickers
+import com.example.readbitso.models.bitsoModels.bitsoBooks.bitsotickers.Tickers
 import com.example.readbitso.models.bitsoModels.bitsoBooks.trading.PayloadTrades
+import com.example.readbitso.models.bitsoModels.bitsoBooks.trading.Trades
 import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.flow.Flow
 
+import retrofit2.Response
+
 interface BitsoRepository {
     fun getRfBitsoBooks(): Observable<Books> // rxjava
-    suspend fun getRfBitsoBids(ticker: String): Flow<List<PayloadTickers>>
-    suspend fun getRfBitsoTrades(ticker: String): Flow<List<PayloadTrades>>
+    suspend fun getRfBitsoBids(ticker: String): Flow<Response<Tickers>>
+    suspend fun getRfBitsoTrades(ticker: String): Flow<Response<Trades>>
 
     suspend fun insertDbBooks(book: List<BooksPayload>)
     suspend fun insertDbTrades(trades: List<PayloadTrades>)
@@ -32,4 +36,5 @@ interface BitsoRepository {
     suspend fun setInternetFlag(key: String, value: String)
     suspend fun getInternetFlag(key: String): String?
 
+    suspend fun getretrofitresponse(): Flow<Response<Books>>
 }
