@@ -11,9 +11,9 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 /**
- * @author        Ari Valencia
- * @file          CoinsApi
- * @description   Contain endpoints for get data from API using Retrofit
+ * @author Ari Valencia
+ * @file CoinsApi
+ * @description Contain endpoints for get data from API using Retrofit
  */
 
 interface CoinsApi {
@@ -27,5 +27,4 @@ interface CoinsApi {
 
     @GET(Endpoints.ORDER_BOOK)
     suspend fun getOrderBook(@Query("book") book: String): Response<CryptoResponseData<OrderBookData>>
-
 }

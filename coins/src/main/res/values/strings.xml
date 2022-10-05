@@ -1,4 +1,9 @@
 <resources>
     <string name="retry">Reintentar</string>
     <string name="oops">Oops!</string>
+    <string name="asks">Asks</string>
+    <string name="price">Price</string>
+    <string name="bids">Bids</string>
+    <string name="amount">Amount</string>
+    <string name="back">Regresar</string>
 </resources>

@@ -45,7 +45,7 @@ class GetAvailableBooksUseCaseTest {
         coEvery { coinsRepository.getAvailableBooks() } returns ResultData.Success(emptyList())
 
         // When
-        val result = getAvailableBooksUseCase(null)
+        getAvailableBooksUseCase(null)
 
         // Then
         coVerify(exactly = 1) { coinsRepository.clearAvailableBookTableFormDB() }
@@ -59,7 +59,7 @@ class GetAvailableBooksUseCaseTest {
         coEvery { coinsRepository.getAvailableBooksFromDB() } returns emptyList()
 
         // When
-        val result = getAvailableBooksUseCase(null)
+        getAvailableBooksUseCase(null)
 
         // Then
         coVerify(exactly = 1) { coinsRepository.getAvailableBooksFromDB() }
@@ -90,7 +90,8 @@ class GetAvailableBooksUseCaseTest {
                     "",
                     FeesData(FlatRateData("", ""), emptyList()),
                     "", "", "",
-                    "", "", "", "")
+                    "", "", "", ""
+                )
             )
 
             // When

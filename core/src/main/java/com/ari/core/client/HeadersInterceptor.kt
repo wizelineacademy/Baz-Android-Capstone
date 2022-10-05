@@ -6,12 +6,12 @@ import okhttp3.Request
 import okhttp3.Response
 
 /**
- * @author        Ari Valencia
- * @file          HeadersInterceptor
- * @description   Interceptor for add Usser-Agent to all request
+ * @author Ari Valencia
+ * @file HeadersInterceptor
+ * @description Interceptor for add Usser-Agent to all request
  */
 
-class HeadersInterceptor: Interceptor {
+class HeadersInterceptor : Interceptor {
 
     companion object {
         private val USER_AGENT: String =

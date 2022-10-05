@@ -5,9 +5,9 @@ import com.ari.coins.data.models.OrderBookData
 import com.ari.coins.data.models.TickerData
 
 /**
- * @author        Ari Valencia
- * @file          CoinsLocalDataSource
- * @description   Contract for any CoinsLocalDataSourceImpl
+ * @author Ari Valencia
+ * @file CoinsLocalDataSource
+ * @description Contract for any CoinsLocalDataSourceImpl
  */
 
 interface CoinsLocalDataSource {
@@ -24,5 +24,4 @@ interface CoinsLocalDataSource {
     suspend fun insertOrderBookToDB(book: String, orderBook: OrderBookData)
 
     suspend fun clearAvailableBookTableFormDB()
-
 }

@@ -9,9 +9,9 @@ import retrofit2.Retrofit
 import javax.inject.Inject
 
 /**
- * @author        Ari Valencia
- * @file          ApisModule
- * @description   Provide api services with custom retrofit
+ * @author Ari Valencia
+ * @file ApisModule
+ * @description Provide api services with custom retrofit
  */
 
 @Module
@@ -21,5 +21,4 @@ class ApisModule {
     @Inject
     @Provides
     fun provideCoinsApi(retrofit: Retrofit): CoinsApi = retrofit.create(CoinsApi::class.java)
-
 }

@@ -23,5 +23,5 @@ fun TickerDomain.toUi() = Ticker(
     high = high,
     last = last,
     low = low,
-    volume = volume,
+    volume = volume
 )

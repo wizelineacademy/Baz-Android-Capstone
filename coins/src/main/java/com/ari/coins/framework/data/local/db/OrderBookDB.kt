@@ -9,9 +9,9 @@ import com.ari.coins.framework.data.local.entities.converters.AskConverter
 import com.ari.coins.framework.data.local.entities.converters.BidConverter
 
 /**
- * @author        Ari Valencia
- * @file          OrderBookDB
- * @description   Order book DB using Room
+ * @author Ari Valencia
+ * @file OrderBookDB
+ * @description Order book DB using Room
  */
 
 @Database(
@@ -19,6 +19,6 @@ import com.ari.coins.framework.data.local.entities.converters.BidConverter
     version = 1
 )
 @TypeConverters(AskConverter::class, BidConverter::class)
-abstract class OrderBookDB: RoomDatabase() {
+abstract class OrderBookDB : RoomDatabase() {
     abstract fun getOrderBookDao(): OrderBookDao
 }

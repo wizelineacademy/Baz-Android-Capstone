@@ -8,9 +8,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
- * @author        Ari Valencia
- * @file          CryptoRetrofit
- * @description   Expose custom Retrofit instance for call requests
+ * @author Ari Valencia
+ * @file CryptoRetrofit
+ * @description Expose custom Retrofit instance for call requests
  */
 
 object CryptoRetrofit {
@@ -36,5 +36,4 @@ object CryptoRetrofit {
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create()) // For RxJava implementation
         .build()
-
 }

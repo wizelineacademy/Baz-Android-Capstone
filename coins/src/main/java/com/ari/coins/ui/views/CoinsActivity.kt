@@ -1,16 +1,16 @@
 package com.ari.coins.ui.views
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.ari.coins.databinding.ActivityCoinsBinding
 import com.ari.coins.ui.viewModels.CoinsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
- * @author        Ari Valencia
- * @file          CoinsActivity
- * @description   Activity container of coin list and detail using navigation component
+ * @author Ari Valencia
+ * @file CoinsActivity
+ * @description Activity container of coin list and detail using navigation component
  */
 
 @AndroidEntryPoint

@@ -47,7 +47,7 @@ class GetOrderBookUseCaseTest {
         coEvery { coinsRepository.getOrderBook(book) } returns ResultData.Success(orderBookData)
 
         // When
-        val result = getOrderBookUseCase(book)
+        getOrderBookUseCase(book)
 
         // Then
         coVerify(exactly = 1) { coinsRepository.deleteOrderBookFromDB(any()) }
@@ -63,7 +63,7 @@ class GetOrderBookUseCaseTest {
         coEvery { coinsRepository.getOrderBookFromDB(book) } returns orderBookData
 
         // When
-        val result = getOrderBookUseCase(book)
+        getOrderBookUseCase(book)
 
         // Then
         coVerify(exactly = 1) { coinsRepository.getOrderBookFromDB(any()) }

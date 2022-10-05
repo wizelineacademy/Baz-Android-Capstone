@@ -9,9 +9,9 @@ import com.ari.coins.data.network.CoinsRemoteDataSource
 import javax.inject.Inject
 
 /**
- * @author        Ari Valencia
- * @file          CoinsRepository
- * @description   Repository with CRUD for
+ * @author Ari Valencia
+ * @file CoinsRepository
+ * @description Repository with CRUD for
  *                  - Available books
  *                  - Order books
  *                  - Tickers
@@ -55,5 +55,4 @@ class CoinsRepository @Inject constructor(
 
     suspend fun clearAvailableBookTableFormDB() =
         coinsLocalDataSource.clearAvailableBookTableFormDB()
-
 }

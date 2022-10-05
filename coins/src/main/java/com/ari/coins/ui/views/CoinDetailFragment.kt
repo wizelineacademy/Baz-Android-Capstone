@@ -15,16 +15,15 @@ import com.ari.coins.databinding.FragmentCoinDetailBinding
 import com.ari.coins.ui.uiModels.DialogData
 import com.ari.coins.ui.uiModels.ItemString
 import com.ari.coins.ui.uiModels.ItemType
-import com.ari.coins.ui.uiModels.Result
 import com.ari.coins.ui.viewModels.CoinsViewModel
 import com.ari.coins.ui.views.adapters.InfoAdapter
 import com.ari.coins.ui.views.dialogs.GenericBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
- * @author        Ari Valencia
- * @file          CoinDetailFragment
- * @description   Fragment to display coin detail
+ * @author Ari Valencia
+ * @file CoinDetailFragment
+ * @description Fragment to display coin detail
  */
 
 @AndroidEntryPoint
@@ -76,57 +75,73 @@ class CoinDetailFragment : Fragment() {
     }
 
     private fun addObservers() {
-        coinsViewModel.ticker.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is Result.Error -> showErrorDialog(result.message)
-                is Result.Success -> {
-                    binding.ticker = result.data
-                    binding.ivCoin.load(coinsViewModel.getCoinUrlImage(result.data.book)) {
-                        crossfade(true)
-                        transformations(CircleCropTransformation())
-                        placeholder(R.drawable.ic_baseline_image_24)
-                        error(R.drawable.ic_baseline_broken_image_24)
-                    }
-                    val list = listOf(
-                        ItemString("last", ItemType.INFO, "Last price", result.data.last),
-                        ItemString("high", ItemType.INFO, "High price", result.data.high),
-                        ItemString("low", ItemType.INFO, "Low price", result.data.low)
-                    )
-                    infoAdapter.submitList(list)
-                }
-                is Result.Empty -> {}
+        coinsViewModel.successTicker.observe(viewLifecycleOwner) { ticker ->
+            if (ticker == null) return@observe
+            binding.ticker = ticker
+            binding.ivCoin.load(coinsViewModel.getCoinUrlImage(ticker.book)) {
+                crossfade(true)
+                transformations(CircleCropTransformation())
+                placeholder(R.drawable.ic_baseline_image_24)
+                error(R.drawable.ic_baseline_broken_image_24)
             }
+            val list = listOf(
+                ItemString("last", ItemType.INFO, "Last price", ticker.last),
+                ItemString("high", ItemType.INFO, "High price", ticker.high),
+                ItemString("low", ItemType.INFO, "Low price", ticker.low)
+            )
+            infoAdapter.submitList(list)
         }
 
-        coinsViewModel.orderBook.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is Result.Error -> showErrorDialog(result.message)
-                is Result.Success -> {
-                    val list = arrayListOf<ItemString>()
-                    list.add(ItemString("-1", ItemType.SECTION, "Asks", ""))
-                    list.add(ItemString("-2", ItemType.TITLE, "Price", "Amount"))
-                    list.addAll(result.data.asks.mapIndexed { index, ask ->
-                        ItemString(
-                            "asks$index",
-                            ItemType.INFO,
-                            ask.price,
-                            ask.amount
-                        )
-                    })
-                    list.add(ItemString("-3", ItemType.SECTION, "Bids", ""))
-                    list.add(ItemString("-4", ItemType.TITLE, "Price", "Amount"))
-                    list.addAll(result.data.bids.mapIndexed { index, bid ->
-                        ItemString(
-                            "bids$index",
-                            ItemType.INFO,
-                            bid.price,
-                            bid.amount
-                        )
-                    })
-                    asksAndBidsAdapter.submitList(list)
+        coinsViewModel.errorTicker.observe(viewLifecycleOwner) { errorTicker ->
+            errorTicker?.let { showErrorDialog(it.message) }
+        }
+
+        coinsViewModel.errorOrderBook.observe(viewLifecycleOwner) { errorOrderBook ->
+            errorOrderBook?.let { showErrorDialog(it.message) }
+        }
+
+        coinsViewModel.successOrderBook.observe(viewLifecycleOwner) { orderBook ->
+            if (orderBook == null) return@observe
+            val list = arrayListOf<ItemString>()
+            list.add(ItemString("-1", ItemType.SECTION, getString(R.string.asks), ""))
+            list.add(
+                ItemString(
+                    "-2",
+                    ItemType.TITLE,
+                    getString(R.string.price),
+                    getString(R.string.amount)
+                )
+            )
+            list.addAll(
+                orderBook.asks.mapIndexed { index, ask ->
+                    ItemString(
+                        "asks$index",
+                        ItemType.INFO,
+                        ask.price,
+                        ask.amount
+                    )
                 }
-                is Result.Empty -> {}
-            }
+            )
+            list.add(ItemString("-3", ItemType.SECTION, getString(R.string.bids), ""))
+            list.add(
+                ItemString(
+                    "-4",
+                    ItemType.TITLE,
+                    getString(R.string.price),
+                    getString(R.string.amount)
+                )
+            )
+            list.addAll(
+                orderBook.bids.mapIndexed { index, bid ->
+                    ItemString(
+                        "bids$index",
+                        ItemType.INFO,
+                        bid.price,
+                        bid.amount
+                    )
+                }
+            )
+            asksAndBidsAdapter.submitList(list)
         }
     }
 
@@ -140,7 +155,9 @@ class CoinDetailFragment : Fragment() {
             title = getString(R.string.oops),
             description = message
         )
-        val errorDialog = GenericBottomSheet(dialogData) {
+        val errorDialog = GenericBottomSheet(dialogData, { // On back button clicked
+            activity?.onBackPressed()
+        }) { // On retry button clicked
             book?.let {
                 coinsViewModel.getTicker(it)
                 coinsViewModel.getOrderBook(it)
@@ -148,11 +165,12 @@ class CoinDetailFragment : Fragment() {
             isDialogShowing = false
         }
         errorDialog.show(childFragmentManager, errorDialog.tag)
-        errorDialog.onCancel(object : DialogInterface{
+        errorDialog.onCancel(object : DialogInterface {
             override fun cancel() {
                 isDialogShowing = false
             }
-            override fun dismiss() { }
+
+            override fun dismiss() {}
         })
     }
 

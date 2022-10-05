@@ -9,9 +9,9 @@ import com.ari.coins.domain.domainModels.toDomain
 import javax.inject.Inject
 
 /**
- * @author        Ari Valencia
- * @file          GetTickerUseCase
- * @description   This UseCase returns a sealed class (TickerDomain) with
+ * @author Ari Valencia
+ * @file GetTickerUseCase
+ * @description This UseCase returns a sealed class (TickerDomain) with
  *                  Success:
  *                   - When the server returns successful (and save in local)
  *                   - When the server returns an error but we have the info locally
@@ -21,10 +21,10 @@ import javax.inject.Inject
 
 class GetTickerUseCase @Inject constructor(
     private val coinsRepository: CoinsRepository
-): SuspendUseCase<String, TickerDomain> {
+) : SuspendUseCase<String, TickerDomain> {
 
     override suspend fun invoke(book: String): ResultDomain<TickerDomain> =
-        when(val result = coinsRepository.getTicker(book)) {
+        when (val result = coinsRepository.getTicker(book)) {
             is ResultData.Error -> {
                 val localTicker = coinsRepository.getTickerFromDB(book)
 

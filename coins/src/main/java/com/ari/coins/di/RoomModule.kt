@@ -16,9 +16,9 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 /**
- * @author        Ari Valencia
- * @file          RoomModule
- * @description   Provide DAO and DB with Room
+ * @author Ari Valencia
+ * @file RoomModule
+ * @description Provide DAO and DB with Room
  */
 
 @Module
@@ -59,7 +59,4 @@ object RoomModule {
     @Singleton
     @Provides
     fun provideTickerDao(tickerDB: TickerDB): TickerDao = tickerDB.getTickerDao()
-
-
-
 }

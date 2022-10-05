@@ -10,9 +10,9 @@ import com.ari.coins.domain.domainModels.toDomain
 import javax.inject.Inject
 
 /**
- * @author        Ari Valencia
- * @file          GetAvailableBooksUseCase
- * @description   This UseCase returns a sealed class with (List<AvailableBookDomain>>) with
+ * @author Ari Valencia
+ * @file GetAvailableBooksUseCase
+ * @description This UseCase returns a sealed class with (List<AvailableBookDomain>>) with
  *                  Success:
  *                   - When the server returns successful (and save in local)
  *                   - When the server returns an error but we have the info locally
@@ -41,5 +41,4 @@ class GetAvailableBooksUseCase @Inject constructor(
                 ResultDomain.Success(result.data.map { it.toDomain() })
             }
         }
-
 }

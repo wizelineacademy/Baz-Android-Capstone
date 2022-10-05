@@ -9,9 +9,9 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 /**
- * @author        Ari Valencia
- * @file          CoreModule
- * @description   Provide anything unique
+ * @author Ari Valencia
+ * @file CoreModule
+ * @description Provide anything unique
  */
 
 @Module

@@ -7,9 +7,9 @@ import androidx.room.Query
 import com.ari.coins.framework.data.local.entities.TickerEntity
 
 /**
- * @author        Ari Valencia
- * @file          TickerDao
- * @description   Dao for ticker with CRUD operations
+ * @author Ari Valencia
+ * @file TickerDao
+ * @description Dao for ticker with CRUD operations
  */
 
 @Dao
@@ -23,5 +23,4 @@ interface TickerDao {
 
     @Query("DELETE FROM ticker_table WHERE book = :book")
     suspend fun deleteTicker(book: String)
-
 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="dialogData"
             type="com.ari.coins.ui.uiModels.DialogData" />
@@ -57,8 +58,20 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:paddingBottom="16dp"
             tools:text="Description"
             android:text="@{dialogData.description}"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_back"
+            style="@style/ButtonSecondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/back"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            android:visibility="@{dialogData.showBackButton ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@+id/tv_description"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_ok"
@@ -66,9 +79,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/retry"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_description"
+            app:layout_constraintTop_toBottomOf="@+id/btn_back"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

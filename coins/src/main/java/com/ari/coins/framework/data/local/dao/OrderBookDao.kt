@@ -7,9 +7,9 @@ import androidx.room.Query
 import com.ari.coins.framework.data.local.entities.OrderBookEntity
 
 /**
- * @author        Ari Valencia
- * @file          OrderBookDao
- * @description   Dao for order book with CRUD operations
+ * @author Ari Valencia
+ * @file OrderBookDao
+ * @description Dao for order book with CRUD operations
  */
 
 @Dao
@@ -23,5 +23,4 @@ interface OrderBookDao {
 
     @Query("DELETE FROM order_book_table WHERE book = :book")
     suspend fun deleteOrderBook(book: String)
-
 }

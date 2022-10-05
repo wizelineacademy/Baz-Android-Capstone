@@ -8,7 +8,10 @@ import com.ari.coins.domain.GetTickerUseCase
 import com.ari.coins.domain.domainModels.OrderBookDomain
 import com.ari.coins.domain.domainModels.ResultDomain
 import com.ari.coins.domain.domainModels.TickerDomain
-import com.ari.coins.ui.uiModels.Result
+import com.ari.coins.ui.uiModels.AvailableBook
+import com.ari.coins.ui.uiModels.Error
+import com.ari.coins.ui.uiModels.OrderBook
+import com.ari.coins.ui.uiModels.Ticker
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.RelaxedMockK
@@ -60,43 +63,50 @@ class CoinsViewModelTest {
     fun onAfter() = Dispatchers.resetMain()
 
     @Test
-    fun `when call to clearCoinDetailView, clean _ticker and _orderBook`() = runTest {
+    fun `when call to clearCoinDetailView, clean ticker and orderBook data (success and error)`() = runTest {
         // Given
 
         // When
         coinsViewModel.clearCoinDetailView()
 
         // Then
-        assert(coinsViewModel.ticker.value is Result.Empty)
-        assert(coinsViewModel.orderBook.value is Result.Empty)
+        assert(coinsViewModel.successTicker.value == null)
+        assert(coinsViewModel.errorTicker.value == null)
+        assert(coinsViewModel.successOrderBook.value == null)
+        assert(coinsViewModel.errorAvailableBooks.value == null)
+        assert(coinsViewModel.errorAvailableBooks.value == null)
     }
 
     @Test
-    fun `when call to getAvailableBooks, update availableBooks observable with Error`() = runTest {
-        // Given
-        coEvery { getAvailableBooksUseCase(null) } returns ResultDomain.Error("", -1)
+    fun `when call to getAvailableBooks and returned failure, update errorAvailableBooks observable with Error`() =
+        runTest {
+            // Given
+            coEvery { getAvailableBooksUseCase(null) } returns ResultDomain.Error("", -1)
 
-        // When
-        coinsViewModel.getAvailableBooks()
+            // When
+            coinsViewModel.getAvailableBooks()
 
-        // Then
-        assert(coinsViewModel.availableBooks.value is Result.Error)
-    }
-
-    @Test
-    fun `when call to getAvailableBooks, update availableBooks observable with Success`() = runTest {
-        // Given
-        coEvery { getAvailableBooksUseCase(null) } returns ResultDomain.Success(emptyList())
-
-        // When
-        coinsViewModel.getAvailableBooks()
-
-        // Then
-        assert(coinsViewModel.availableBooks.value is Result.Success)
-    }
+            // Then
+            assert(coinsViewModel.errorAvailableBooks.value != null)
+            assert(coinsViewModel.errorAvailableBooks.value is Error)
+        }
 
     @Test
-    fun `when call to getTicker, update ticker observable with Error`() = runTest {
+    fun `when call to getAvailableBooks, update successAvailableBooks observable with a list`() =
+        runTest {
+            // Given
+            coEvery { getAvailableBooksUseCase(null) } returns ResultDomain.Success(emptyList())
+
+            // When
+            coinsViewModel.getAvailableBooks()
+
+            // Then
+            assert(coinsViewModel.successAvailableBooks.value != null)
+            assert(coinsViewModel.successAvailableBooks.value is List<AvailableBook>)
+        }
+
+    @Test
+    fun `when call to getTicker, update ticker errorTicker with Error`() = runTest {
         // Given
         coEvery { getTickerUseCase(any()) } returns ResultDomain.Error("", -1)
 
@@ -104,11 +114,12 @@ class CoinsViewModelTest {
         coinsViewModel.getTicker("eth_mxn")
 
         // Then
-        assert(coinsViewModel.ticker.value is Result.Error)
+        assert(coinsViewModel.errorTicker.value != null)
+        assert(coinsViewModel.errorTicker.value is Error)
     }
 
     @Test
-    fun `when call to getTicker, update ticker observable with Success`() = runTest {
+    fun `when call to getTicker, update successTicker observable with Success`() = runTest {
         // Given
         val ticker = TickerDomain("", "", "", "", "", "", "", "", "")
         coEvery { getTickerUseCase(any()) } returns ResultDomain.Success(ticker)
@@ -117,11 +128,12 @@ class CoinsViewModelTest {
         coinsViewModel.getTicker("eth_mxn")
 
         // Then
-        assert(coinsViewModel.ticker.value is Result.Success)
+        assert(coinsViewModel.successTicker.value != null)
+        assert(coinsViewModel.successTicker.value is Ticker)
     }
 
     @Test
-    fun `when call to getOrderBook, update orderBook observable with Error`() = runTest {
+    fun `when call to getOrderBook and return an error, update errorOrderBook observable with Error`() = runTest {
         // Given
         coEvery { getOrderBookUseCase(any()) } returns ResultDomain.Error("", -1)
 
@@ -129,11 +141,12 @@ class CoinsViewModelTest {
         coinsViewModel.getOrderBook("eth_mxn")
 
         // Then
-        assert(coinsViewModel.orderBook.value is Result.Error)
+        assert(coinsViewModel.errorOrderBook.value != null)
+        assert(coinsViewModel.errorOrderBook.value is Error)
     }
 
     @Test
-    fun `when call to getOrderBook, update orderBook observable with Success`() = runTest {
+    fun `when call to getOrderBook and return success, update successOrderBook observable with Success`() = runTest {
         // Given
         val orderBook = OrderBookDomain(emptyList(), emptyList(), "", "")
         coEvery { getOrderBookUseCase(any()) } returns ResultDomain.Success(orderBook)
@@ -142,6 +155,7 @@ class CoinsViewModelTest {
         coinsViewModel.getOrderBook("eth_mxn")
 
         // Then
-        assert(coinsViewModel.orderBook.value is Result.Success)
+        assert(coinsViewModel.successOrderBook.value != null)
+        assert(coinsViewModel.successOrderBook.value is OrderBook)
     }
 }

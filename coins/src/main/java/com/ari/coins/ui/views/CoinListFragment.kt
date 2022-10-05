@@ -11,7 +11,6 @@ import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.ari.coins.R
 import com.ari.coins.databinding.FragmentCoinListBinding
 import com.ari.coins.ui.uiModels.AvailableBook
-import com.ari.coins.ui.uiModels.Result
 import com.ari.coins.ui.viewModels.CoinsViewModel
 import com.ari.coins.ui.views.adapters.CoinsAdapter
 import com.ari.coins.ui.views.dialogs.GenericBottomSheet
@@ -19,9 +18,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import com.ari.coins.ui.uiModels.DialogData as DialogData1
 
 /**
- * @author        Ari Valencia
- * @file          CoinListFragment
- * @description   Fragment to display list of coins
+ * @author Ari Valencia
+ * @file CoinListFragment
+ * @description Fragment to display list of coins
  */
 
 @AndroidEntryPoint
@@ -56,14 +55,12 @@ class CoinListFragment : Fragment() {
     }
 
     private fun addObservers() {
-        coinsViewModel.availableBooks.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is Result.Error -> showErrorDialog(result.message)
-                is Result.Success -> {
-                    coinsAdapter.submitList(result.data)
-                }
-                is Result.Empty -> {}
-            }
+        coinsViewModel.successAvailableBooks.observe(viewLifecycleOwner) { availableBooks ->
+            coinsAdapter.submitList(availableBooks)
+        }
+
+        coinsViewModel.errorAvailableBooks.observe(viewLifecycleOwner) { error ->
+            error?.let { showErrorDialog(it.message) }
         }
     }
 
@@ -73,7 +70,11 @@ class CoinListFragment : Fragment() {
             title = getString(R.string.oops),
             description = message
         )
-        val errorDialog = GenericBottomSheet(dialogData) { coinsViewModel.getAvailableBooks() }
+        val errorDialog = GenericBottomSheet(dialogData, { // On back button clicked
+            activity?.onBackPressed()
+        }) { // On retry button clicked
+            coinsViewModel.getAvailableBooks()
+        }
         errorDialog.show(childFragmentManager, errorDialog.tag + "CoinsListFragment")
     }
 
@@ -81,5 +82,4 @@ class CoinListFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
 }

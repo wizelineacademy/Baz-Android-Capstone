@@ -7,15 +7,15 @@ import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
 /**
- * @author        Ari Valencia
- * @file          BidConverter
- * @description   Converters for [List<BidEntity>] using in Room DB
+ * @author Ari Valencia
+ * @file BidConverter
+ * @description Converters for [List<BidEntity>] using in Room DB
  */
 
 class BidConverter {
 
     @TypeConverter
-    fun fromBidEntityList(list: List<BidEntity>): String? {
+    fun fromBidEntityList(list: List<BidEntity>?): String? {
         if (list == null) return null
         val type: Type = object : TypeToken<List<BidEntity>>() {}.type
         return Gson().toJson(list, type)
@@ -27,5 +27,4 @@ class BidConverter {
         val type: Type = object : TypeToken<List<BidEntity>>() {}.type
         return Gson().fromJson(str, type)
     }
-
 }

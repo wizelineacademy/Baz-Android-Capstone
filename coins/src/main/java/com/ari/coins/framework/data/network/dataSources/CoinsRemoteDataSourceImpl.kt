@@ -8,7 +8,7 @@ import com.ari.coins.data.network.CoinsRemoteDataSource
 import com.ari.coins.framework.data.network.apis.CoinsApi
 import com.ari.coins.framework.data.network.constants.ErrorCode
 import com.ari.coins.framework.data.network.constants.ErrorMessage
-import com.ari.coins.framework.data.network.execute
+import com.ari.coins.framework.data.network.executeRequest
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.net.ConnectException
@@ -18,9 +18,9 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 /**
- * @author        Ari Valencia
- * @file          CoinsRemoteDataSourceImpl
- * @description   Implementation of CoinsRemoteDataSource, get info from Crypto API
+ * @author Ari Valencia
+ * @file CoinsRemoteDataSourceImpl
+ * @description Implementation of CoinsRemoteDataSource, get info from Crypto API
  */
 
 class CoinsRemoteDataSourceImpl @Inject constructor(
@@ -54,7 +54,14 @@ class CoinsRemoteDataSourceImpl @Inject constructor(
                     }
 
                     if (response.success) {
-                        continuation.resume(ResultData.Success(response.payload!!))
+                        response.payload?.let { payload ->
+                            continuation.resume(ResultData.Success(payload))
+                        } ?: continuation.resume(
+                            ResultData.Error(
+                                ErrorMessage.UNKNOWN,
+                                ErrorCode.UNKNOWN
+                            )
+                        )
                     } else {
                         continuation.resume(
                             ResultData.Error(
@@ -68,9 +75,8 @@ class CoinsRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getTicker(book: String): ResultData<TickerData> =
-        execute { coinsApi.getTicker(book) }
+        executeRequest { coinsApi.getTicker(book) }
 
     override suspend fun getOrderBook(book: String): ResultData<OrderBookData> =
-        execute { coinsApi.getOrderBook(book) }
-
+        executeRequest { coinsApi.getOrderBook(book) }
 }

@@ -1,15 +1,14 @@
 package com.ari.crypto
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.ari.coins.ui.views.CoinsActivity
 
-
 /**
- * @author        Ari Valencia
- * @file          LauncherActivity
- * @description   Entry point activity for this app
+ * @author Ari Valencia
+ * @file LauncherActivity
+ * @description Entry point activity for this app
  */
 
 class LauncherActivity : AppCompatActivity() {
