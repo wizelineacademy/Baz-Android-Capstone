@@ -2,7 +2,6 @@ package com.proyect.cursowizline.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.proyect.cursowizline.database.CryptoDatabase
 import dagger.Module
 import dagger.Provides
@@ -11,12 +10,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
 object RoomModule {
 
-   private const val CRYPTO_DATABASE_NAME = "crypto_database"
+    private const val CRYPTO_DATABASE_NAME = "crypto_database"
 
     @Singleton
     @Provides

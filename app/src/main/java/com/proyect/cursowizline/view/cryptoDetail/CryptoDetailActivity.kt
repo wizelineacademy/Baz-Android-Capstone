@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.proyect.cursowizline.R
 import com.proyect.cursowizline.databinding.DetailCryptoBinding
 import com.proyect.cursowizline.domain.model.CryptoM
-import com.proyect.cursowizline.model.Crypto
 import com.proyect.cursowizline.model.ResponseStatus
 import dagger.hilt.android.AndroidEntryPoint
 

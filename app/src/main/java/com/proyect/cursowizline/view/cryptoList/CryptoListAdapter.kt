@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.proyect.cursowizline.databinding.ListItemBookCryptoBinding
 import com.proyect.cursowizline.domain.model.CryptoM
-import com.proyect.cursowizline.model.Crypto
 
 class CryptoListAdapter : ListAdapter<CryptoM, CryptoListAdapter.CryptoViewHolder>(DiffCallback) {
 

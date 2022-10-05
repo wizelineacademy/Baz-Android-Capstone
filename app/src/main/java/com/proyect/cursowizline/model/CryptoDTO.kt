@@ -15,5 +15,5 @@ class CryptoDTO (
     val maximum_value:  String,
     @field: Json(name = "tick_size")
     val tick_size:      String,
- )
+)
 

@@ -38,7 +38,6 @@ class CryptoListActivity : AppCompatActivity() {
 
         recycler.adapter = adapter
 
-
         cryptoListViewModel.cryptoList.observe(this) { cryptoList ->
             adapter.submitList(cryptoList)
         }

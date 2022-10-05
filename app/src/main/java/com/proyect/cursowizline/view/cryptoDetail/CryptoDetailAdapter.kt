@@ -15,7 +15,7 @@ class CryptoDetailAdapter :
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: CryptoOrder, newItem: CryptoOrder): Boolean {
+    override fun areContentsTheSame(oldItem: CryptoOrder, newItem: CryptoOrder): Boolean {
             return oldItem.book == newItem.book
         }
     }
@@ -24,7 +24,6 @@ class CryptoDetailAdapter :
         val binding = ListOrderBookCryptoBinding.inflate(LayoutInflater.from(parent.context))
         return CryptDetailViewHolder(binding)
     }
-
 
     override fun onBindViewHolder(holder: CryptDetailViewHolder, position: Int) {
         val cryptoOrder = getItem(position)

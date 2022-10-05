@@ -15,5 +15,4 @@ suspend fun <T> makeNetworkCall(
     } catch (e: Exception) {
         ResponseStatus.Error(R.string.error_unknown)
     }
-
 }

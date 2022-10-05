@@ -6,11 +6,9 @@ import com.proyect.cursowizline.database.dao.CryptoDao
 import com.proyect.cursowizline.database.entities.CryptoEntity
 import com.proyect.cursowizline.domain.model.CryptoM
 import com.proyect.cursowizline.domain.model.toDomain
-import com.proyect.cursowizline.model.Crypto
 import com.proyect.cursowizline.model.CryptoMapDTO
 import com.proyect.cursowizline.model.ResponseStatus
 import javax.inject.Inject
-
 
 class CryptoRepository @Inject constructor(private val cryptoListResponde : ApiService, private val cryptoDao: CryptoDao ){
     suspend fun downloadCrypto(): ResponseStatus<List<CryptoM>> {

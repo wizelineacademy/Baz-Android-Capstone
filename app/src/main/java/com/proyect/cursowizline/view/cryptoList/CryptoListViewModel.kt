@@ -3,9 +3,7 @@ package com.proyect.cursowizline.view.cryptoList
 import androidx.lifecycle.*
 import com.proyect.cursowizline.database.entities.toDatabase
 import com.proyect.cursowizline.domain.model.CryptoM
-import com.proyect.cursowizline.model.Crypto
 import com.proyect.cursowizline.model.ResponseStatus
-import com.proyect.cursowizline.view.cryptoList.CryptoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,17 +20,6 @@ class CryptoListViewModel @Inject constructor(private val cryptoRepository : Cry
     val status: LiveData<ResponseStatus<List<CryptoM>>>
         get() = _status
 
-
- /*   val cryptoList = liveData(Dispatchers.IO){
-        val listCrypto = cryptoRepository.downloadCrypto()
-        emit(listCrypto)
-    }
-
-    val status = liveData(Dispatchers.IO){
-        val okStatus = cryptoRepository.downloadCrypto()
-        emit(okStatus)
-    }
-*/
     init {
         downloadCrypto()
     }
