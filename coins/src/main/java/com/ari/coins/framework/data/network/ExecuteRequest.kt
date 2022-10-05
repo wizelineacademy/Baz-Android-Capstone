@@ -9,19 +9,25 @@ import java.net.ConnectException
 import java.net.UnknownHostException
 
 /**
- * @author        Ari Valencia
- * @file          ResponseHandler
- * @description   Generic function used for extract response of crypto API with Success or Error
+ * @author Ari Valencia
+ * @file ResponseHandler
+ * @description Generic function used for extract response of crypto API with Success or Error
  */
 
-suspend fun <R, T: CryptoResponseData<T>> execute(
+suspend fun <R, T : CryptoResponseData<T>> executeRequest(
     task: suspend () -> Response<T>
 ): ResultData<R> = try {
     val response = task.invoke()
     if (response.isSuccessful) {
-        val body = response.body()!!
-        if (body.success) ResultData.Success(body.payload as R)
-        else ResultData.Error(body.error!!.message, body.error.code)
+        response.body()?.let { body ->
+            if (body.success) ResultData.Success(body.payload as R)
+            else ResultData.Error(
+                body.error?.message ?: ErrorMessage.UNKNOWN,
+                body.error?.code ?: ErrorCode.UNKNOWN
+            )
+        } ?: run {
+            ResultData.Error(response.message(), response.code())
+        }
     } else {
         ResultData.Error(response.message(), ErrorCode.UNKNOWN_LOCAL)
     }
