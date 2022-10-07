@@ -1,6 +1,5 @@
 package com.example.cryptocurrency_challenge.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,15 +8,25 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.cryptocurrency_challenge.adapter.OrderBookAdapter
+import com.example.cryptocurrency_challenge.data.network.RetrofitClientImpl
 import com.example.cryptocurrency_challenge.databinding.FragmentDetailCurrencysBinding
-import com.example.cryptocurrency_challenge.viewmodel.CryptocurrencyViewModel
+import com.example.cryptocurrency_challenge.domain.OrderBookUseCase
+import com.example.cryptocurrency_challenge.domain.TickerUseCase
+import com.example.cryptocurrency_challenge.repository.OrderBookRepositoryImpl
+import com.example.cryptocurrency_challenge.repository.TickerRepositoryImpl
+import com.example.cryptocurrency_challenge.viewmodel.*
+import dagger.hilt.android.AndroidEntryPoint
 
-@SuppressLint("SetTextI18n")
+@AndroidEntryPoint
 class DetailCurrencysFragment : Fragment() {
+
+    private val viewModelTicker: TickerViewModel by viewModels()
+    private val viewModelOrderBook: OrderBookViewModel by viewModels()
 
     private var _binding: FragmentDetailCurrencysBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: CryptocurrencyViewModel by viewModels()
     private var currency_name:String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,14 +50,20 @@ class DetailCurrencysFragment : Fragment() {
 
         with(binding) {
             txtCurrencyName.text = currency_name?.uppercase()?.replace("_MXN", " ")
-            viewModel.getInfoTicker(currency_name)
-            viewModel.isLoading.observe(viewLifecycleOwner, Observer {
+            viewModelTicker.geTicker(currency_name)
+            viewModelOrderBook.getOrderBook(currency_name)
+            viewModelTicker.isLoading.observe(viewLifecycleOwner, Observer {
                 loading.isVisible = it
             })
-            viewModel.payLoadTicker?.observe(viewLifecycleOwner, Observer { it ->
-                txtLastPriceAmount.text = "$${it?.last}"
-                txtHighestPriceAmount.text = "$${it?.high}"
-                txtLowestPriceAmount.text = "$${it?.low}"
+            viewModelTicker.payLoadTicker.observe(viewLifecycleOwner, Observer { it ->
+                "$${it?.payLoadTicker?.last}".also { txtLastPriceAmount.text = it }
+                "$${it?.payLoadTicker?.high}".also { txtHighestPriceAmount.text = it }
+                "$${it?.payLoadTicker?.low}".also { txtLowestPriceAmount.text = it }
+            })
+            viewModelOrderBook.orderBookModel.observe(viewLifecycleOwner, Observer {
+                val adaptador = OrderBookAdapter(it.askList!!)
+                binding.recyclerviewAsks.adapter= adaptador
+                binding.recyclerviewAsks.layoutManager= LinearLayoutManager(context)
             })
         }
     }

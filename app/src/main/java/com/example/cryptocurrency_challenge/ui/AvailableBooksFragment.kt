@@ -10,14 +10,21 @@ import androidx.lifecycle.Observer
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cryptocurrency_challenge.adapter.CurrencyAdapter
+import com.example.cryptocurrency_challenge.data.network.RetrofitClientImpl
 import com.example.cryptocurrency_challenge.databinding.FragmentAvailableBooksBinding
+import com.example.cryptocurrency_challenge.domain.AvailableBooksUseCase
+import com.example.cryptocurrency_challenge.repository.AvailableBooksRepositoryImpl
 import com.example.cryptocurrency_challenge.viewmodel.CryptocurrencyViewModel
+import com.example.cryptocurrency_challenge.viewmodel.MainViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AvailableBooksFragment : Fragment() {
+
+    private val viewModel: CryptocurrencyViewModel by viewModels()
 
     private var _binding: FragmentAvailableBooksBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: CryptocurrencyViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,12 +36,12 @@ class AvailableBooksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getAvailable_books()
+        viewModel.getAvailableBooks()
         viewModel.isLoading.observe(viewLifecycleOwner, Observer {
             binding.loading.isVisible = it
         })
-        viewModel.availableBookModel?.observe(viewLifecycleOwner, Observer {
-            val adaptador = CurrencyAdapter(it)
+        viewModel.availableBookModel.observe(viewLifecycleOwner, Observer {
+            val adaptador = CurrencyAdapter(it.payLoadList)
             binding.recyclerview.adapter= adaptador
             binding.recyclerview.layoutManager= LinearLayoutManager(context)
         })
