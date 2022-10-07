@@ -11,6 +11,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:textColor" tools:targetApi="l">@color/black</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -25,6 +26,24 @@
 
     <style name="TitleSmall" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">@dimen/title_small</item>
+    </style>
+
+    <style name="Title">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="PriceTitle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">#8BC34A</item>
+    </style>
+
+    <style name="AmountTitle">
+    <item name="android:textSize">14sp</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textColor">#F44336</item>
     </style>
 
 

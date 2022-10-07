@@ -1,4 +1,4 @@
-package com.baz.cmv.criptomonedas.coins.model.remote.response
+package com.baz.cmv.criptomonedas.coins.data.remote.response
 
 
 import com.google.gson.annotations.SerializedName

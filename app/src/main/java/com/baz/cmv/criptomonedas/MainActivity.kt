@@ -2,15 +2,14 @@ package com.baz.cmv.criptomonedas
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.baz.cmv.criptomonedas.coins.Coins
+import com.baz.cmv.criptomonedas.coins.data.remote.database.CoinsDataBase
 import com.baz.cmv.criptomonedas.databinding.ActivityMainBinding
-import com.baz.cmv.criptomonedas.coins.ui.CoinsAdapter
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val noteDatabase by lazy { CoinsDataBase.getDatabase(this).coinDao() }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

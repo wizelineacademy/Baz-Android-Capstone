@@ -28,7 +28,7 @@ class CoinsAdapter (val coins:List<Coins>): RecyclerView.Adapter<CoinsAdapter.Co
 
         class CoinsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val criptomoneda = view.findViewById<TextView>(R.id.text_criptomoneda)
-            val precio = view.findViewById<TextView>(R.id.text_precio)
+            val precio = view.findViewById<TextView>(R.id.crypto_order_price)
 
         }
 
