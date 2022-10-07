@@ -1,8 +1,10 @@
 package com.example.readbitso.models.bitsoModels.bitsoBooks.trading
 
+import com.google.gson.annotations.SerializedName
+
 data class PayloadTrades(
-    val amount: String,
-    val book: String,
-    val maker_side: String,
-    val price: String
+    @SerializedName("amount") val amount: String,
+    @SerializedName("book") val book: String,
+    @SerializedName("maker_side") val makerSide: String,
+    @SerializedName("price") val price: String
 )

@@ -9,6 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.readbitso.navroute.MenuNav
+import com.example.readbitso.repository.UserAgent
 import com.example.readbitso.ui.theme.ReadBitsoTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        UserAgent.setContext(this)
         setContent {
 
             ReadBitsoTheme {

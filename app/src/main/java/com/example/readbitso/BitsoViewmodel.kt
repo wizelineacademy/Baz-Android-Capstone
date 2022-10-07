@@ -24,7 +24,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BitsoViewmodel
-@Inject constructor(private val bitsoRepositoryImp: BitsoRepository) : ViewModel() {
+@Inject constructor(private val bitsoRepositoryImp: BitsoRepository) : ViewModel()
+{
     private var openedPayloads: List<BooksPayload> by mutableStateOf(listOf())
     private var _detailedPayload: List<DetailedPayload> by mutableStateOf(listOf())
     var detailedPayload: List<DetailedPayload> by mutableStateOf(_detailedPayload)
@@ -37,17 +38,18 @@ class BitsoViewmodel
     private val _errorMessage = MutableStateFlow("")
     val errorMessage: StateFlow<String> = _errorMessage
 
-    private val _uiError = MutableStateFlow(ErrorState.Error(Throwable()))
-    private val uiError: StateFlow<ErrorState> = _uiError
+    private val _uiError = MutableStateFlow(ServicesResponse.Error(Throwable()))
+    private val uiError: StateFlow<ServicesResponse> = _uiError
 
     private val _isLoading = MutableStateFlow(false)
     var isLoading: StateFlow<Boolean> = _isLoading
 
-    private val _uiAskBidState = MutableStateFlow(LatestAskBidsState.Success(emptyList()))
-    private val uiStateAskBidsState: StateFlow<LatestAskBidsState> = _uiAskBidState
+    private val _uiAskBidState = MutableStateFlow(ServicesResponse.AskBidsConsumeSuccess(emptyList()))
+    private val uiStateAskBidsState: StateFlow<ServicesResponse> = _uiAskBidState
 
-    private val _uiTradesState = MutableStateFlow(LatestTradesState.Success(emptyList()))
-    private val uiTradesState: StateFlow<LatestTradesState> = _uiTradesState
+    private val _uiTradesState = MutableStateFlow(ServicesResponse.TradingBooksConsumeSuccess(emptyList()))
+    private val uiTradesState: StateFlow<ServicesResponse> = _uiTradesState
+
 
     private var _openedPayloadsCoin: List<PayloadTickers> by mutableStateOf(listOf())
     var openedPayloadsCoin: List<PayloadTickers> by mutableStateOf(_openedPayloadsCoin)
@@ -90,7 +92,7 @@ class BitsoViewmodel
                                         delay(2000)
 
                                         when (uiTradesState.value) {
-                                            is LatestTradesState.Success -> {
+                                            is ServicesResponse.TradingBooksConsumeSuccess -> {
                                                 trades = getnewListTrades(_trades)
                                                 extensionLambda { insertDbTrades() }
                                                 _uiState.value = true
@@ -98,18 +100,18 @@ class BitsoViewmodel
                                         }
 
                                         when (uiStateAskBidsState.value) {
-                                            is LatestAskBidsState.Success -> {
+                                            is ServicesResponse.TradingBooksConsumeSuccess -> {
                                                 openedPayloadsCoin = _openedPayloadsCoin
                                                 extensionLambda { insertDbAskBids() }
                                             }
                                         }
 
                                         when (uiError.value) {
-                                            is ErrorState.Error -> {
+                                            is ServicesResponse.Error -> {
                                                 when (_uiError.value.exception) {
-                                                    is UnknownHostException -> loggerD(_uiError.value.toString())
+                                                    is UnknownHostException -> loggerD(this@BitsoViewmodel._uiError.value.toString())
                                                     else -> {
-                                                        loggerD(" Todo ok ")
+                                                        loggerD("All it's Ok ")
                                                     }
                                                 }
                                             }
@@ -135,14 +137,14 @@ class BitsoViewmodel
     }
 
     private fun readResponse() {
-        bitsoRepositoryImp.getRfBitsoBooks()
+        bitsoRepositoryImp.getRetrofitSingleBooks()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { message -> processBooks(message.payload, errorMessage = "ok") },
                 { error ->
                     viewModelScope.launch {
-                        processBooks(bitsoRepositoryImp.internetError(error))
+                        processBooks(bitsoRepositoryImp.getInternetErrorResponse(error))
                     }
                 })
     }
@@ -158,8 +160,8 @@ class BitsoViewmodel
                 BooksPayload(
                     id = index,
                     book = it.book,
-                    maximum_price = it.maximum_price.take(10),
-                    minimum_price = it.minimum_price.take(10)
+                    maximumPrice = it.maximumPrice.take(10),
+                    minimumPrice = it.minimumPrice.take(10)
                 )
             )
         }
@@ -179,7 +181,7 @@ class BitsoViewmodel
             }
             else -> {
                 viewModelScope.launch {
-                    _errorMessage.value = bitsoRepositoryImp.getInternetFlag("wifi").toString()
+                    _errorMessage.value = bitsoRepositoryImp.getInternetError("wifi").toString()
                 }
             }
         }
@@ -199,7 +201,7 @@ class BitsoViewmodel
             .map {
                 DetailedPayload(
                     payload = it,
-                    shortname = shortToken(it.book),
+                    shortName = shortToken(it.book),
                     icon = icon(it.book)
                 )
             }
@@ -219,29 +221,30 @@ class BitsoViewmodel
 
     private suspend fun getBidsAsk(name: String, message: String): List<PayloadTickers> {
         viewModelScope.launch(IO) {
-            bitsoRepositoryImp.getRfBitsoBids(name)
+            bitsoRepositoryImp.getRetrofitResponseAskBids(name)
                 .catch {}
                 .map { it.body()?.payload }
                 .collect {
                     it?.let {
                         _openedPayloadsCoin = listOf(it)
-                        _uiAskBidState.value = LatestAskBidsState.Success(listOf(it))
                     }
                 }
         }
         setError(message)
+        openedPayloadsCoin=_openedPayloadsCoin
         return _openedPayloadsCoin
     }
 
     private suspend fun getTrades(name: String): List<PayloadTrades> {
         viewModelScope.launch {
-            bitsoRepositoryImp.getRfBitsoTrades(name)
-                .catch {}
+            bitsoRepositoryImp.getRetrofitResponseTrades(name)
+                .catch {
+                 }
                 .map { it.body()?.payload }
                 .take(15)
                 .collect {
                     it?.let {
-                        _uiTradesState.value = LatestTradesState.Success(it)
+                        _uiTradesState.value = ServicesResponse.TradingBooksConsumeSuccess(it)
                         _trades = it
                     }
                 }
@@ -256,7 +259,7 @@ class BitsoViewmodel
                 PayloadTrades(
                     amount = it.amount.take(10),
                     book = it.book,
-                    maker_side = operationKind(it.maker_side),
+                    makerSide = operationKind(it.makerSide),
                     price = it.price.take(10)
                 )
             )
@@ -269,13 +272,13 @@ class BitsoViewmodel
 
     fun setCoin(coin: String) {
         viewModelScope.launch {
-            bitsoRepositoryImp.selectActualToken("name", coin)
+            bitsoRepositoryImp.selectCurrency("name", coin)
         }
     }
 
     private suspend fun getCoin(): String? {
         viewModelScope.launch {
-            selectedCoin = bitsoRepositoryImp.getActualToken("name")
+            selectedCoin = bitsoRepositoryImp.getSelectedCurrency("name")
         }
         if (_errorMessage.value == "")
             lastconsume = tokens(selectedCoin.toString())
@@ -309,10 +312,10 @@ class BitsoViewmodel
             .map { it ->
                 it.map {
                     PayloadTrades(
-                        amount = it.Amount.toString(),
+                        amount = it.amount.toString(),
                         book = it.pair.toString(),
-                        maker_side = operationKind(it.Type.toString()),
-                        price = it.Price.toString(),
+                        makerSide = operationKind(it.type.toString()),
+                        price = it.price.toString(),
                     )
                 }
             }
@@ -335,9 +338,9 @@ class BitsoViewmodel
             .map {
                 it.map { AB ->
                     PayloadTickers(
-                        ask = AB.Ask,
-                        bid = AB.Bid,
-                        book = AB.Book)
+                        ask = AB.ask,
+                        bid = AB.bid,
+                        book = AB.book)
                 }
             }
             .collect { it ->
@@ -352,16 +355,11 @@ class BitsoViewmodel
 }
 
 
-sealed class LatestAskBidsState {
-    data class Success(val Askbid: List<PayloadTickers>) : LatestAskBidsState()
-}
 
-sealed class LatestTradesState {
-    data class Success(val trades: List<PayloadTrades>) : LatestTradesState()
-}
-
-sealed class ErrorState {
-    data class Error(val exception: Throwable) : ErrorState()
+sealed class ServicesResponse {
+    data class AskBidsConsumeSuccess(val Askbid: List<PayloadTickers>) : ServicesResponse()
+    data class TradingBooksConsumeSuccess(val trades: List<PayloadTrades>) : ServicesResponse()
+    data class Error(val exception: Throwable) : ServicesResponse()
 }
 
 
