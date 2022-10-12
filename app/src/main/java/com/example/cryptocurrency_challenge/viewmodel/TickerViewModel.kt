@@ -9,7 +9,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TickerViewModel @Inject constructor(private val tickerUseCase: TickerUseCase):ViewModel(){
-//class TickerViewModel (private val tickerUseCase: TickerUseCase): ViewModel() {
 
     private val _payLoadTicker      : MutableLiveData <TickerUiState> = MutableLiveData()
     private val _isLoading          : MutableLiveData<Boolean> = MutableLiveData()
@@ -30,13 +29,6 @@ class TickerViewModel @Inject constructor(private val tickerUseCase: TickerUseCa
     }
 }
 
-class TickerViewModelFactory(private val tickerUseCase: TickerUseCase) :
-    ViewModelProvider.Factory{
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return modelClass.getConstructor(TickerUseCase::class.java)
-            .newInstance(tickerUseCase)
-    }
-}
 
 
 

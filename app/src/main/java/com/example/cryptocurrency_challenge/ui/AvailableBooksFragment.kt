@@ -10,12 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cryptocurrency_challenge.adapter.CurrencyAdapter
-import com.example.cryptocurrency_challenge.data.network.RetrofitClientImpl
 import com.example.cryptocurrency_challenge.databinding.FragmentAvailableBooksBinding
-import com.example.cryptocurrency_challenge.domain.AvailableBooksUseCase
-import com.example.cryptocurrency_challenge.repository.AvailableBooksRepositoryImpl
 import com.example.cryptocurrency_challenge.viewmodel.CryptocurrencyViewModel
-import com.example.cryptocurrency_challenge.viewmodel.MainViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

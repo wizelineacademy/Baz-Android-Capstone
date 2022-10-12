@@ -9,7 +9,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CryptocurrencyViewModel @Inject constructor (private val availableBooksUseCase : AvailableBooksUseCase): ViewModel(){
-//class CryptocurrencyViewModel(private val availableBooksUseCase: AvailableBooksUseCase): ViewModel()  {
 
     private val _availableBookModel : MutableLiveData<AvailableBooksUiState>  = MutableLiveData()
     private val _isLoading          : MutableLiveData<Boolean> = MutableLiveData()
@@ -30,10 +29,4 @@ class CryptocurrencyViewModel @Inject constructor (private val availableBooksUse
     }
 }
 
-class MainViewModelFactory(private val availableBooksUseCase: AvailableBooksUseCase) :
-    ViewModelProvider.Factory{
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return modelClass.getConstructor(AvailableBooksUseCase::class.java)
-            .newInstance(availableBooksUseCase)
-    }
-}
+

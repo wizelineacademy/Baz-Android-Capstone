@@ -9,7 +9,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OrderBookViewModel @Inject constructor(private val orderBookUseCase: OrderBookUseCase):ViewModel(){
-//class OrderBookViewModel  (private val orderBookUseCase: OrderBookUseCase): ViewModel() {
 
     private val _orderBookModel : MutableLiveData<OrderBookUiState>  = MutableLiveData()
     private val _isLoading : MutableLiveData<Boolean> = MutableLiveData()
@@ -28,10 +27,3 @@ class OrderBookViewModel @Inject constructor(private val orderBookUseCase: Order
     }
 }
 
-class OrderBookViewModelFactory(private val orderBookUseCase: OrderBookUseCase) :
-    ViewModelProvider.Factory{
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return modelClass.getConstructor(OrderBookUseCase::class.java)
-            .newInstance(orderBookUseCase)
-    }
-}

@@ -10,12 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cryptocurrency_challenge.adapter.OrderBookAdapter
-import com.example.cryptocurrency_challenge.data.network.RetrofitClientImpl
 import com.example.cryptocurrency_challenge.databinding.FragmentDetailCurrencysBinding
-import com.example.cryptocurrency_challenge.domain.OrderBookUseCase
-import com.example.cryptocurrency_challenge.domain.TickerUseCase
-import com.example.cryptocurrency_challenge.repository.OrderBookRepositoryImpl
-import com.example.cryptocurrency_challenge.repository.TickerRepositoryImpl
 import com.example.cryptocurrency_challenge.viewmodel.*
 import dagger.hilt.android.AndroidEntryPoint
 

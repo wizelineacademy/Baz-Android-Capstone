@@ -57,7 +57,6 @@ class OrderBookAdapter(private val dataSet: PayloadOrderBook) :
         holder.linkItem(dataSet)
     }
 
-
     override fun getItemViewType(position: Int): Int {
         return position
     }
