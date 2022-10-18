@@ -13,21 +13,21 @@ class OrderBookAdapter(private val dataSet: PayloadOrderBook) :
     RecyclerView.Adapter<OrderBookAdapter.ViewHolder>() {
     class ViewHolder (view: View): RecyclerView.ViewHolder(view){
 
-        private val txtBook_asks  : TextView
+        private val txtBook_asks    : TextView
         private val txtAmount_asks  : TextView
-        private val txtPrice_asks  : TextView
+        private val txtPrice_asks   : TextView
 
-        private val txtBook_bids  : TextView
+        private val txtBook_bids    : TextView
         private val txtAmount_bids  : TextView
-        private val txtPrice_bids  : TextView
+        private val txtPrice_bids   : TextView
 
         init {
-            txtBook_asks   = view.findViewById(R.id.book)
-            txtAmount_asks   = view.findViewById(R.id.amount)
+            txtBook_asks    = view.findViewById(R.id.book)
+            txtAmount_asks  = view.findViewById(R.id.amount)
             txtPrice_asks   = view.findViewById(R.id.price)
 
-            txtBook_bids   = view.findViewById(R.id.book_bids)
-            txtAmount_bids   = view.findViewById(R.id.amount_bids)
+            txtBook_bids    = view.findViewById(R.id.book_bids)
+            txtAmount_bids  = view.findViewById(R.id.amount_bids)
             txtPrice_bids   = view.findViewById(R.id.price_bids)
         }
 

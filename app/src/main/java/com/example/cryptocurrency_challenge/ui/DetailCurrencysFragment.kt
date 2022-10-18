@@ -22,12 +22,12 @@ class DetailCurrencysFragment : Fragment() {
 
     private var _binding: FragmentDetailCurrencysBinding? = null
     private val binding get() = _binding!!
-    private var currency_name:String? = ""
+    private var currency_name: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let { bundle->
-            currency_name= bundle.getString("nameclicked")
+            currency_name= bundle.getString("nameclicked").toString()
         }
     }
 
@@ -50,13 +50,16 @@ class DetailCurrencysFragment : Fragment() {
             viewModelTicker.isLoading.observe(viewLifecycleOwner, Observer {
                 loading.isVisible = it
             })
+            viewModelOrderBook.isLoading.observe(viewLifecycleOwner, Observer {
+                loading.isVisible = it
+            })
             viewModelTicker.payLoadTicker.observe(viewLifecycleOwner, Observer { it ->
                 "$${it?.payLoadTicker?.last}".also { txtLastPriceAmount.text = it }
                 "$${it?.payLoadTicker?.high}".also { txtHighestPriceAmount.text = it }
                 "$${it?.payLoadTicker?.low}".also { txtLowestPriceAmount.text = it }
             })
             viewModelOrderBook.orderBookModel.observe(viewLifecycleOwner, Observer {
-                val adaptador = OrderBookAdapter(it.askList!!)
+                val adaptador = OrderBookAdapter(it.askList)
                 binding.recyclerviewAsks.adapter= adaptador
                 binding.recyclerviewAsks.layoutManager= LinearLayoutManager(context)
             })

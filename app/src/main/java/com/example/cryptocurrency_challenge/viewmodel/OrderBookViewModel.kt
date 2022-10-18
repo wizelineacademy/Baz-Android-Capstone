@@ -14,14 +14,15 @@ class OrderBookViewModel @Inject constructor(private val orderBookUseCase: Order
     private val _isLoading : MutableLiveData<Boolean> = MutableLiveData()
 
     val orderBookModel  : LiveData<OrderBookUiState> = _orderBookModel
-    val isLoading : LiveData<Boolean> = _isLoading
+    val isLoading           : LiveData<Boolean> = _isLoading
+
 
     fun getOrderBook(currency_name: String?){
         viewModelScope.launch {
             val result = orderBookUseCase(currency_name)
             result.let {
                 _isLoading.postValue(false)
-                _orderBookModel.value = OrderBookUiState(askList = result.payload )
+                _orderBookModel.value = OrderBookUiState(askList = result )
             }
         }
     }

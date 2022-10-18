@@ -38,8 +38,8 @@ class AvailableBooksFragment : Fragment() {
         })
         viewModel.availableBookModel.observe(viewLifecycleOwner, Observer {
             val adaptador = CurrencyAdapter(it.payLoadList)
-            binding.recyclerview.adapter= adaptador
             binding.recyclerview.layoutManager= LinearLayoutManager(context)
+            binding.recyclerview.adapter= adaptador
         })
     }
 }

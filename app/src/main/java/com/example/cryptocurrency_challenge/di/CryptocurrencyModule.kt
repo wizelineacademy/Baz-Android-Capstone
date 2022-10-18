@@ -1,7 +1,7 @@
 package com.example.cryptocurrency_challenge.di
 
 import com.example.cryptocurrency_challenge.data.network.NetworkDataSource
-import com.example.cryptocurrency_challenge.data.network.RetrofitClientImpl
+import com.example.cryptocurrency_challenge.data.network.NetworkDataSourceImpl
 import com.example.cryptocurrency_challenge.repository.*
 import dagger.Binds
 import dagger.Module
@@ -22,7 +22,7 @@ abstract class CryptocurrencyModule {
     abstract fun providesOrderBookRepository(orderBookRepository: OrderBookRepositoryImpl): OrderBookRepository
 
     @Binds
-    abstract fun providesNetworkDataSource(retrofitClientImpl: RetrofitClientImpl): NetworkDataSource
+    abstract fun providesNetworkDataSource(retrofitClientImpl: NetworkDataSourceImpl): NetworkDataSource
 
 }
 

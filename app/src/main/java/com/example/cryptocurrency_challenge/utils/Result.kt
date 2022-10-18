@@ -55,19 +55,19 @@ suspend fun <T: Any> NetworkResult<T>.onException(
 }
 
 data class TickerUiState(
-    val payLoadTicker: Payload_Ticker? = null,
-    val errorMessage: String? = null,
+    val payLoadTicker: Payload_Ticker = Payload_Ticker(),
+    val errorMessage: String = "",
     val exception: Throwable? = null
 )
 
 data class AvailableBooksUiState(
     val payLoadList: List<Payload> = emptyList(),
-    val errorMessage: String? = null,
+    val errorMessage: String = "",
     val exception: Throwable? = null
 )
 
 data class OrderBookUiState(
-    val askList: PayloadOrderBook? = null,
-    val errorMessage: String? = null,
+    val askList: PayloadOrderBook = PayloadOrderBook(),
+    val errorMessage: String = "",
     val exception: Throwable? = null
 )

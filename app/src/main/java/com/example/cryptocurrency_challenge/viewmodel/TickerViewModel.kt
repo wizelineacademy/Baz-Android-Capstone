@@ -16,16 +16,14 @@ class TickerViewModel @Inject constructor(private val tickerUseCase: TickerUseCa
     val payLoadTicker       : LiveData <TickerUiState> = _payLoadTicker
     val isLoading           : LiveData<Boolean> = _isLoading
 
-
     fun geTicker(currency_name: String?) {
         viewModelScope.launch {
             val result = tickerUseCase.invoke(currency_name)
             result.let {
                 _isLoading.postValue(false)
-                _payLoadTicker.value = TickerUiState(payLoadTicker = result.payload)
+                _payLoadTicker.value = TickerUiState(payLoadTicker = result)
             }
         }
-
     }
 }
 

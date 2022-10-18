@@ -18,14 +18,12 @@ class CryptocurrencyViewModel @Inject constructor (private val availableBooksUse
 
     fun getAvailableBooks(){
         viewModelScope.launch {
-            val result = availableBooksUseCase()
-            result.let {
-                _isLoading.postValue(false)
-                val list_mxn_currencys  = result.payload.filter{ it.book.contains("mxn") }
-                _availableBookModel.value = AvailableBooksUiState(payLoadList = list_mxn_currencys)
-            }
+                val result = availableBooksUseCase.invoke()
+                result.let {
+                    _isLoading.postValue(false)
+                    _availableBookModel.value = AvailableBooksUiState(payLoadList = result)
+                }
         }
-
     }
 }
 
