@@ -17,7 +17,7 @@ class OrderBookViewModel @Inject constructor(private val orderBookUseCase: Order
     val isLoading           : LiveData<Boolean> = _isLoading
 
 
-    fun getOrderBook(currency_name: String?){
+    fun getOrderBook(currency_name: String){
         viewModelScope.launch {
             val result = orderBookUseCase(currency_name)
             result.let {

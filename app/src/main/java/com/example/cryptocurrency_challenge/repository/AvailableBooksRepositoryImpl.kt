@@ -6,11 +6,8 @@ import javax.inject.Inject
 
 class AvailableBooksRepositoryImpl @Inject constructor (private val remoteDataSource : NetworkDataSource) :
     AvailableBooksRepository {
-        override suspend fun getAvailable_books(): List<Payload> {
-            return if (remoteDataSource.getAvailablebooksRX().body()!!.success){
-                remoteDataSource.getAvailablebooksRX().body()!!.payload.filter{ it.book.contains("mxn") }
-            }else{
-                emptyList()
-            }
-        }
+    override suspend fun getAvailableBooks(): List<Payload> {
+        val result = remoteDataSource.getAvailableBooksRX().body()
+        return result?.payload?.filter { it.book.contains("mxn") } ?: emptyList()
+    }
 }

@@ -4,7 +4,6 @@ import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.cryptocurrency_challenge.data.model.Payload_Ticker
 
 /************** Ticker Entity ************************/
 
@@ -28,8 +27,5 @@ data class TickerEntity(
     @NonNull
     var low: String = "low",
 )
-fun TickerEntity.asExternalModel() = Payload_Ticker (
-    book = book, high = high, last= last, low = low
-        )
 
 

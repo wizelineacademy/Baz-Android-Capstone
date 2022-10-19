@@ -1,7 +1,7 @@
 package com.example.cryptocurrency_challenge.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.cryptocurrency_challenge.data.model.Payload_Ticker
+import com.example.cryptocurrency_challenge.data.model.PayloadTicker
 import com.example.cryptocurrency_challenge.domain.TickerUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -42,7 +42,7 @@ class TickerViewModelTest{
     fun `Cuando vm recibe correctamente la informacion del api el loader se setea en false` () =  runTest {
 
         //Given
-        val myTickerTest = Payload_Ticker("btc_mxn", "5","4","3")
+        val myTickerTest = PayloadTicker("btc_mxn", "5","4","3")
 
         coEvery { tickerUseCase("btc_mxn") } returns  myTickerTest
 
@@ -58,7 +58,7 @@ class TickerViewModelTest{
     fun `Cuando vm recibe correctamente la informacion del api se setea payLoadTicker` () =  runTest {
 
         //Given
-        val myTickerTest = Payload_Ticker("btc_mxn", "5","4","3")
+        val myTickerTest = PayloadTicker("btc_mxn", "5","4","3")
 
         coEvery { tickerUseCase("btc_mxn") } returns  myTickerTest
 

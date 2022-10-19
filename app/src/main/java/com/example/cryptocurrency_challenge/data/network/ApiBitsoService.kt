@@ -1,6 +1,6 @@
 package com.example.cryptocurrency_challenge.data.network
 
-import com.example.cryptocurrency_challenge.data.model.Available_books_response
+import com.example.cryptocurrency_challenge.data.model.AvailableBooksResponse
 import com.example.cryptocurrency_challenge.data.model.InfoTickerResponse
 import com.example.cryptocurrency_challenge.data.model.OrderBookResponse
 import io.reactivex.rxjava3.core.Single
@@ -18,7 +18,7 @@ interface ApiBitsoService {
 
     @GET("https://api.bitso.com/v3/available_books/")
     fun getAllCurrenciesRX():
-            Single<Response<Available_books_response>>
+            Single<Response<AvailableBooksResponse>>
 
     @GET("https://api.bitso.com/v3/ticker/")
     suspend fun getInfoTicker(@Query("book") value:String):

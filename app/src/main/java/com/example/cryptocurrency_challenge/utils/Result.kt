@@ -2,7 +2,7 @@ package com.example.cryptocurrency_challenge.utils
 
 import com.example.cryptocurrency_challenge.data.model.Payload
 import com.example.cryptocurrency_challenge.data.model.PayloadOrderBook
-import com.example.cryptocurrency_challenge.data.model.Payload_Ticker
+import com.example.cryptocurrency_challenge.data.model.PayloadTicker
 import retrofit2.HttpException
 import retrofit2.Response
 
@@ -55,7 +55,7 @@ suspend fun <T: Any> NetworkResult<T>.onException(
 }
 
 data class TickerUiState(
-    val payLoadTicker: Payload_Ticker = Payload_Ticker(),
+    val payLoadTicker: PayloadTicker = PayloadTicker(),
     val errorMessage: String = "",
     val exception: Throwable? = null
 )

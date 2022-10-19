@@ -4,7 +4,7 @@ import com.example.cryptocurrency_challenge.room.TickerEntity
 
 /************** Books MODELS ************************/
 
-data class Available_books_response(
+data class AvailableBooksResponse(
     val payload: List<Payload> = emptyList(),
     val success: Boolean = false
 )
@@ -16,18 +16,18 @@ data class Payload(
 /************** Ticker MODELS ************************/
 
 data class InfoTickerResponse(
-    val payload:  Payload_Ticker = Payload_Ticker(),
+    val payload:  PayloadTicker = PayloadTicker(),
     val success: Boolean = false
 )
 
-data class Payload_Ticker(
+data class PayloadTicker(
     val book: String = "",
     val high: String = "",
     val last: String = "",
     val low: String  = "",
 )
 
-fun Payload_Ticker.asExternalEntity() = TickerEntity (
+fun PayloadTicker.asExternalEntity() = TickerEntity (
     book = book, high = high, last= last, low = low
         )
 

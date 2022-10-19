@@ -1,6 +1,6 @@
 package com.example.cryptocurrency_challenge.domain
 
-import com.example.cryptocurrency_challenge.data.model.Payload_Ticker
+import com.example.cryptocurrency_challenge.data.model.PayloadTicker
 import com.example.cryptocurrency_challenge.repository.TickerRepository
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -26,9 +26,9 @@ class TickerUseCaseTest {
     fun `Cuando La Api Ticker Responde Exitosamente`() = runBlocking {
 
         //Given
-        val myListTest = Payload_Ticker("btc_mxn", "5","4","3")
+        val myListTest = PayloadTicker("btc_mxn", "5","4","3")
 
-        coEvery { repository.get_Ticker("btc_mxn")} returns myListTest
+        coEvery { repository.getTicker("btc_mxn")} returns myListTest
 
         //When
         val responseBook = tickerUseCase("btc_mxn").book.isNotEmpty()

@@ -6,11 +6,8 @@ import javax.inject.Inject
 
 class OrderBookRepositoryImpl @Inject constructor  (private val remoteDataSource : NetworkDataSource) :
     OrderBookRepository {
-    override suspend fun get_OrderBook(currency_name: String?): PayloadOrderBook {
-         return if ( remoteDataSource.getOrderBook(currency_name).body()!!.success){
-            remoteDataSource.getOrderBook(currency_name).body()!!.payload
-        }else{
-            PayloadOrderBook()
-         }
+    override suspend fun getOrderBook(currency_name: String): PayloadOrderBook {
+        val result = remoteDataSource.getOrderBook(currency_name).body()
+            return result?.payload ?: PayloadOrderBook()
     }
 }

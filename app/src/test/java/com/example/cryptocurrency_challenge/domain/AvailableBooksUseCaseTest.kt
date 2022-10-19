@@ -1,6 +1,6 @@
 package com.example.cryptocurrency_challenge.domain
 
-import com.example.cryptocurrency_challenge.data.model.Available_books_response
+import com.example.cryptocurrency_challenge.data.model.AvailableBooksResponse
 import com.example.cryptocurrency_challenge.data.model.Payload
 import com.example.cryptocurrency_challenge.repository.AvailableBooksRepository
 import io.mockk.MockKAnnotations
@@ -27,7 +27,7 @@ internal class AvailableBooksUseCaseTest {
     fun `Cuando La Api AvailableBooks Responde Exitosamente`() = runBlocking {
 
         //Given
-        val myListTest = Available_books_response(
+        val myListTest = AvailableBooksResponse(
             payload = listOf(
                 Payload(""),
                 Payload("")
@@ -35,7 +35,7 @@ internal class AvailableBooksUseCaseTest {
             success = true
         )
 
-        coEvery { repository.getAvailable_books() } returns myListTest.payload
+        coEvery { repository.getAvailableBooks() } returns myListTest.payload
 
         //When
         val response = availableBooksUseCase.invoke().isEmpty()

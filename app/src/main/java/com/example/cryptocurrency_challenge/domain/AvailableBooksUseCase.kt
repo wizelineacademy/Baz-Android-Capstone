@@ -6,5 +6,5 @@ import javax.inject.Inject
 
 class AvailableBooksUseCase @Inject constructor (private val repository: AvailableBooksRepository) {
     suspend operator fun invoke() : List<Payload> =
-        repository.getAvailable_books()
+        repository.getAvailableBooks()
 }

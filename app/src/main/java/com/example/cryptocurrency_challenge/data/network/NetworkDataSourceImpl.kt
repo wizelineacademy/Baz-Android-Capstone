@@ -17,7 +17,7 @@ class NetworkDataSourceImpl @Inject constructor (
     private val appDataBase : RoomEntityDao)
     : NetworkDataSource {
 
-        override suspend fun getAvailablebooksRX(): Response<Available_books_response> =
+        override suspend fun getAvailableBooksRX(): Response<AvailableBooksResponse> =
             suspendCoroutine { coroutine ->
                 apiBitsoService.getAllCurrenciesRX()
                     .subscribeOn(Schedulers.io())
@@ -27,7 +27,7 @@ class NetworkDataSourceImpl @Inject constructor (
                             coroutine.resume(response)
                         }else{
                             coroutine.resume(response.apply {
-                                Available_books_response(
+                                AvailableBooksResponse(
                                     payload = listOf(Payload()),
                                     success = false
                                 )
@@ -41,14 +41,14 @@ class NetworkDataSourceImpl @Inject constructor (
             val responseAux = apiBitsoService.getInfoTicker(currency_name!!)
              if (responseAux.isSuccessful){
                 CoroutineScope((Dispatchers.IO)).launch {
-                    appDataBase.insertTicker(responseAux.body()!!.payload.asExternalEntity())
+                    responseAux.body()?.payload?.let { appDataBase.insertTicker(it.asExternalEntity()) }
                 }
 
             }
             return responseAux
         }
 
-        override suspend fun getOrderBook(currency_name: String?): Response<OrderBookResponse> =
-            apiBitsoService.getOrderBook(currency_name!!)
+        override suspend fun getOrderBook(currency_name: String): Response<OrderBookResponse> =
+            apiBitsoService.getOrderBook(currency_name)
 
     }
