@@ -1,6 +1,6 @@
 package com.example.bazandroidcourse.data.entities
 
-class BookResumeModel(
+class BookOrderResumeModel(
     val book: String,
     val price: String,
     val amount: String

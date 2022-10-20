@@ -1,6 +1,6 @@
 package com.example.bazandroidcourse.data.entities
 
-data class TickerInfoModel(
+data class BookDetailModel(
     val book: String,
     val volume: String,
     val high: String,

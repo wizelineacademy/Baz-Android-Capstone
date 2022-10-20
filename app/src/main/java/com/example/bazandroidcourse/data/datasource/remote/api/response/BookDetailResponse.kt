@@ -2,7 +2,7 @@ package com.example.bazandroidcourse.data.datasource.remote.api.response
 
 import com.google.gson.annotations.SerializedName
 
-data class TickerInfoResponse(
+data class BookDetailResponse(
     var success: Boolean? = null,
     var payload: TickerInfo
 ) {
@@ -15,6 +15,7 @@ data class TickerInfoResponse(
         var vwap: String? = null, //: "5393.45",
         var ask: String? = null, //: "5632.24",
         var bid: String? = null, //: "5520.01",
+        @SerializedName ("created_date")
         var create: String? = null, //: "2016-04-08T17:52:31.000+00:00"
     )
 }

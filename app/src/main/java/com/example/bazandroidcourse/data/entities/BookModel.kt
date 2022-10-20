@@ -1,7 +1,5 @@
 package com.example.bazandroidcourse.data.entities
 
-import com.google.gson.annotations.SerializedName
-
 data class BookModel(
     val book: String,
     val minimumAmount: String,

@@ -30,7 +30,7 @@ package com.example.bazandroidcourse.data.datasource.remote.api.response
     }
 }
 * */
-data class OrderBookResponse (
+data class BookOrdersResponse (
     var success: Boolean? = null,
     var payload: OrderPayload
 
@@ -39,7 +39,6 @@ data class OrderBookResponse (
         var asks:List<BookResume>? = null,
         var bids:List<BookResume>? = null
     ){
-
 
     }
     data class BookResume(
