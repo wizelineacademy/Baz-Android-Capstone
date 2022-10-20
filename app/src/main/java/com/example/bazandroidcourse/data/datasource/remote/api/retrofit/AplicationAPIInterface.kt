@@ -3,6 +3,7 @@ package com.example.bazandroidcourse.data.datasource.remote.api.retrofit
 import com.example.bazandroidcourse.data.datasource.remote.api.response.BooksResponse
 import com.example.bazandroidcourse.data.datasource.remote.api.response.BookOrdersResponse
 import com.example.bazandroidcourse.data.datasource.remote.api.response.BookDetailResponse
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -10,15 +11,15 @@ interface ApplicationAPIInterface {
     /***
      * This endpoint returns a list of existing exchange order books and their respective order placement limits.
      */
-    @GET("v3/available_books/")
-    fun fetchAvailableBooks():BooksResponse
+    @GET("available_books/")
+    suspend fun fetchAvailableBooks():Response<BooksResponse>
 
     /***
      * This endpoint returns trading information from the specified book.
      * @param book:String	Specifies which book to use
      */
-    @GET("v3/ticker/")
-    fun getBookDetail(@Query("book") book: String):BookDetailResponse
+    @GET("ticker/")
+    suspend fun getBookDetail(@Query("book") book: String):Response<BookDetailResponse>
 
     /***
      * This endpoint returns a list of all open orders in the specified book.
@@ -27,7 +28,7 @@ interface ApplicationAPIInterface {
      * If the aggregate parameter is set to false, the response will include the full order book.
      * @param book:String	Specifies which book to use
      */
-    @GET("v3/order_book/")
-    fun getBookOrders(@Query("book") book: String):BookOrdersResponse
+    @GET("order_book/")
+    suspend fun getBookOrders(@Query("book") book: String):Response<BookOrdersResponse>
 
 }
