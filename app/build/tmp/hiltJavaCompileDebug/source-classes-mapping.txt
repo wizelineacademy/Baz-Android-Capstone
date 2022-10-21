@@ -1,0 +1,4 @@
+dagger/hilt/internal/processedrootsentinel/codegen/_com_lefg095_criptoone_MyApplication.java
+ dagger.hilt.internal.processedrootsentinel.codegen._com_lefg095_criptoone_MyApplication
+com/lefg095/criptoone/MyApplication_ComponentTreeDeps.java
+ com.lefg095.criptoone.MyApplication_ComponentTreeDeps
