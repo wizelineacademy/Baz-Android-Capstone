@@ -14,11 +14,7 @@ class CryptoRemoteDataSourceImpl(
 
     override suspend fun fetchAllBooks(): List<BookModel> {
         return withContext(Dispatchers.IO) {
-            apiInterface.fetchAvailableBooks().let {
-                it.payload.map{
-                    it.toDomain()
-                }
-            }
+            apiInterface.fetchAvailableBooks().payload.toDomain()
         }
     }
 

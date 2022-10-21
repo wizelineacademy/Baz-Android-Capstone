@@ -31,3 +31,9 @@ fun Book.toDomain(): BookModel {
         maximumValue    = maximumValue.orEmpty(),
     )
 }
+
+fun List<Book>.toDomain():List<BookModel>{
+    return map {
+        it.toDomain()
+    }
+}
