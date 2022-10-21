@@ -2,7 +2,8 @@ package com.example.bazandroidcourse
 
 import com.example.bazandroidcourse.data.datasource.remote.CryptoRemoteDataSourceImpl
 import com.example.bazandroidcourse.data.datasource.remote.CryptoRemoteDataSourceInterface
-import com.example.bazandroidcourse.data.datasource.remote.api.retrofit.RetrofitHelper
+import com.example.bazandroidcourse.data.datasource.remote.api.retrofit.apiInstance
+import com.example.bazandroidcourse.data.datasource.remote.api.retrofit.retrofitInstance
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -15,24 +16,17 @@ class RemoteDataSourceImplTest {
 
     @Before
     fun setup(){
-        retorfit = RetrofitHelper.getRetrofitHelper()
-        remoteDataSource = CryptoRemoteDataSourceImpl(retorfit)
+        retorfit = retrofitInstance
+        remoteDataSource = CryptoRemoteDataSourceImpl(apiInstance)
     }
 
     @Test
-    fun `fetchAllBooks_returnsIsNotNull_test`() {
-        runBlocking{
-            val data = remoteDataSource.fetchBooks()
-            assertNotNull(data)
-        }
+    fun `fetch all books returns IsNotNull test`() {
 
     }
 
     @Test
-    fun `fetchAllBooks_returnsElemnts_test`() {
-        runBlocking{
-            val data = remoteDataSource.fetchBooks()
-            assert( data.size > 0)
-        }
+    fun `fetch all books returns elements test`() {
+
     }
 }

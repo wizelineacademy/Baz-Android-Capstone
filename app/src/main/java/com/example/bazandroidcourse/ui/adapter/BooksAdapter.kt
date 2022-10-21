@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bazandroidcourse.R
 import com.example.bazandroidcourse.data.entities.BookModel
+import com.example.bazandroidcourse.databinding.BookItemLayoutBinding
 import com.example.bazandroidcourse.ui.utils.getIcon
 import com.squareup.picasso.Picasso
 
@@ -18,8 +19,9 @@ class BooksAdapter : ListAdapter<BookModel, BooksAdapter.ItemViewholder>(DiffCal
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewholder {
         return ItemViewholder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.book_item_layout, parent, false)
+            BookItemLayoutBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
         )
     }
 
@@ -27,13 +29,9 @@ class BooksAdapter : ListAdapter<BookModel, BooksAdapter.ItemViewholder>(DiffCal
         holder.bind(getItem(position))
     }
 
-    class ItemViewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ItemViewholder(private val binding: BookItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: BookModel) = with(itemView) {
-            // TODO: Bind the data with View
-            val tvName : TextView = findViewById(R.id.tv_name)
-            val ivIcon : ImageView = findViewById(R.id.iv_icon)
-
+        fun bind(item: BookModel) = with(binding) {
             tvName.text = item.book
             try {
                 Picasso.get().load(
@@ -42,7 +40,7 @@ class BooksAdapter : ListAdapter<BookModel, BooksAdapter.ItemViewholder>(DiffCal
             }catch (e:Exception){
                 e.printStackTrace()
             }
-            setOnClickListener {
+            binding.root.setOnClickListener {
                 // TODO: Handle on click
             }
         }
@@ -50,11 +48,6 @@ class BooksAdapter : ListAdapter<BookModel, BooksAdapter.ItemViewholder>(DiffCal
 }
 
 class DiffCallback : DiffUtil.ItemCallback<BookModel>() {
-    override fun areItemsTheSame(oldItem: BookModel, newItem: BookModel): Boolean {
-        return oldItem?.book == newItem?.book
-    }
-
-    override fun areContentsTheSame(oldItem: BookModel, newItem: BookModel): Boolean {
-        return oldItem == newItem
-    }
+    override fun areItemsTheSame(oldItem: BookModel, newItem: BookModel): Boolean  = oldItem.book == newItem.book
+    override fun areContentsTheSame(oldItem: BookModel, newItem: BookModel): Boolean = oldItem == newItem
 }

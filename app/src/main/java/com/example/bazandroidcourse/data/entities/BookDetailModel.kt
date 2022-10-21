@@ -10,5 +10,4 @@ data class BookDetailModel(
     val ask     : String = "",
     val bid     : String = "",
     val create  : String = "",
-){
-}
+)

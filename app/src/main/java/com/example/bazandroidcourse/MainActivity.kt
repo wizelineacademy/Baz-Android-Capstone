@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
     fun addObservers(){
         viewModel.allBooks.observe(this){
-            adapter.submitList(it.sortedBy { it.book })
+            adapter.submitList(it)
         }
     }
 

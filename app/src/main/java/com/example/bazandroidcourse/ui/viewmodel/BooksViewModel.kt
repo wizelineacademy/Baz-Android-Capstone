@@ -6,20 +6,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bazandroidcourse.data.datasource.local.CryptoLocalDataSourceImpl
 import com.example.bazandroidcourse.data.datasource.remote.CryptoRemoteDataSourceImpl
-import com.example.bazandroidcourse.data.datasource.remote.api.retrofit.RetrofitHelper
+import com.example.bazandroidcourse.data.datasource.remote.api.retrofit.apiInstance
 import com.example.bazandroidcourse.data.entities.BookModel
 import com.example.bazandroidcourse.data.repository.BooksRepositoryImpl
 import com.example.bazandroidcourse.data.utils.network.NetworkManagerImpl
-import com.example.bazandroidcourse.domain.GetAllBooksUseCase
+import com.example.bazandroidcourse.domain.GetAllBooksSortedUseCase
 import kotlinx.coroutines.launch
 
-class BooksViewModel(context: Context):ViewModel( ) {
+class BooksViewModel(context: Context):ViewModel() {
 
-    private val getBooksUseCase = GetAllBooksUseCase(
-        repository =  BooksRepositoryImpl(
+    private val getBooksUseCase = GetAllBooksSortedUseCase(
+         BooksRepositoryImpl(
             NetworkManagerImpl(context),
             CryptoLocalDataSourceImpl(),
-            CryptoRemoteDataSourceImpl(RetrofitHelper.getRetrofitHelper())
+            CryptoRemoteDataSourceImpl(apiInstance)
         )
     )
 

@@ -1,6 +1,4 @@
 package com.example.bazandroidcourse.data.datasource.remote.api.response
-
-import com.example.bazandroidcourse.data.entities.BookDetailModel
 import com.google.gson.annotations.SerializedName
 
 data class BookDetailResponse(
@@ -18,19 +16,5 @@ data class BookDetailResponse(
         var bid     : String? = null, //: "5520.01",
         @SerializedName ("created_date")
         var create  : String? = null, //: "2016-04-08T17:52:31.000+00:00"
-    )
-}
-
-fun BookDetailResponse.BookDetail.transformToDomain():BookDetailModel{
-    return BookDetailModel(
-        book = book ?: "",
-        volume = volume ?: "",
-        high = high ?: "",
-        last = last ?: "",
-        low = low ?: "",
-        vwap = vwap ?: "",
-        ask = ask ?: "",
-        bid = bid ?: "",
-        create = create ?: ""
     )
 }
