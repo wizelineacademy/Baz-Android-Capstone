@@ -70,3 +70,7 @@ Thumbs.db
 /.gradle/7.3.3/
 /.gradle/buildOutputCleanup/
 /.gradle/vcs-1/
+.gradle/
+.gradle/7.3.3/
+.gradle/buildOutputCleanup/
+.gradle/vcs-1/
