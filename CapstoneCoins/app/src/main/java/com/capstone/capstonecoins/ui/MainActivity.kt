@@ -1,7 +1,8 @@
-package com.capstone.capstonecoins
+package com.capstone.capstonecoins.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.capstone.capstonecoins.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
