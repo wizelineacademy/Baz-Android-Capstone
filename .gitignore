@@ -67,5 +67,6 @@ Thumbs.db
 /app/build/
 /app/.gradle/
 /.gradle/
-/.gradle/
-/.idea/
+/.gradle/7.3.3/
+/.gradle/buildOutputCleanup/
+/.gradle/vcs-1/
