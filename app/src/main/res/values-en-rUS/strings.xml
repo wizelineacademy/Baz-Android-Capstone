@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Cripto</string>
+    <string name="detail_title">Cripto</string>
+    <string name="detail_max_price">Higher Price</string>
+    <string name="detail_min_price">Lower Price</string>
+    <string name="detail_binds">Binds</string>
+    <string name="detail_asks">Asks</string>
 </resources>

@@ -15,4 +15,50 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="custom_card_view" parent="CardView">
+        <item name="android:layout_marginTop">@dimen/general_vertical_margin_min</item>
+        <item name="android:layout_marginBottom">@dimen/general_vertical_margin_min</item>
+        <item name="marginHorizontal">@dimen/general_horizontal_margin</item>
+        <item name="cornerRadius">@dimen/general_corner_radius</item>
+    </style>
+
+    <style name="title" parent="Theme.BazAndroidCourse">
+        <item name="android:textSize">@dimen/font_title</item>
+        <item name="marginHorizontal">@dimen/general_horizontal_margin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/general_vertical_margin</item>
+        <item name="android:layout_marginBottom">@dimen/general_vertical_margin</item>
+
+    </style>
+
+    <style name="sub_title" parent="Theme.BazAndroidCourse">
+        <item name="android:textSize">@dimen/font_title</item>
+        <item name="marginHorizontal">@dimen/general_horizontal_margin</item>
+
+    </style>
+
+    <style name="regular_text" parent="Theme.BazAndroidCourse">
+        <item name="android:textSize">@dimen/font_content</item>
+        <item name="marginHorizontal">@dimen/general_horizontal_margin</item>
+
+    </style>
+
+    <style name="upper_price" parent="Theme.BazAndroidCourse">
+        <item name="android:textSize">@dimen/font_content</item>
+        <item name="android:textColor">@color/green</item>
+        <item name="android:gravity">end</item>
+        <item name="marginHorizontal">@dimen/general_horizontal_margin</item>
+
+
+    </style>
+
+    <style name="lower_price" parent="Theme.BazAndroidCourse">
+        <item name="android:textSize">@dimen/font_content</item>
+        <item name="android:textColor">@color/red</item>
+        <item name="android:gravity">end</item>
+        <item name="marginHorizontal">@dimen/general_horizontal_margin</item>
+    </style>
+
 </resources>

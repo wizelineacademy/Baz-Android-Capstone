@@ -12,15 +12,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:gravity="center"
         android:text="@string/app_name"
-        android:textSize="@dimen/font_title"
-        android:textStyle="bold"
+        style="@style/title"
         app:layout_constraintBottom_toTopOf="@+id/recycler_books"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="15dp"
+
         />
 
     <androidx.recyclerview.widget.RecyclerView

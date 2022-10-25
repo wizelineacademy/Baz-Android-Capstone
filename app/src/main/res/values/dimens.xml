@@ -6,7 +6,10 @@
     <dimen name="font_content">14sp</dimen>
     <dimen name="font_content_food">12dsp</dimen>
 
-    <dimen name="general_horizontal_margin">15sp</dimen>
-    <dimen name="general_vertical_margin">15sp</dimen>
+    <dimen name="general_horizontal_margin">15dp</dimen>
+    <dimen name="general_vertical_margin">15dp</dimen>
+    <dimen name="general_vertical_margin_min">5dp</dimen>
+
+    <dimen name="general_corner_radius">10dp</dimen>
 
 </resources>
