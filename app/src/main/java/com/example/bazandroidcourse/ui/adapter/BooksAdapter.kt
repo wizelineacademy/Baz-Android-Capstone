@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bazandroidcourse.R
 import com.example.bazandroidcourse.data.entities.BookModel
+import com.example.bazandroidcourse.data.utils.mappers.getCryptoName
 import com.example.bazandroidcourse.databinding.BookItemLayoutBinding
 import com.example.bazandroidcourse.ui.utils.getIcon
 import com.squareup.picasso.Picasso
 
-class BooksAdapter : ListAdapter<BookModel, BooksAdapter.ItemViewholder>(DiffCallback())  {
+class BooksAdapter ( val callback:(BookModel)->(Unit)): ListAdapter<BookModel, BooksAdapter.ItemViewholder>(DiffCallback())  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewholder {
         return ItemViewholder(
@@ -32,7 +33,7 @@ class BooksAdapter : ListAdapter<BookModel, BooksAdapter.ItemViewholder>(DiffCal
     inner class ItemViewholder(private val binding: BookItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: BookModel) = with(binding) {
-            tvName.text = item.book
+            tvName.text = item.book.getCryptoName()
             try {
                 Picasso.get().load(
                     item.getIcon()
@@ -41,7 +42,7 @@ class BooksAdapter : ListAdapter<BookModel, BooksAdapter.ItemViewholder>(DiffCal
                 e.printStackTrace()
             }
             binding.root.setOnClickListener {
-                // TODO: Handle on click
+               callback(item)
             }
         }
     }

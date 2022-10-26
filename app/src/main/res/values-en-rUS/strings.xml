@@ -2,8 +2,11 @@
 <resources>
     <string name="app_name">Cripto</string>
     <string name="detail_title">Cripto</string>
-    <string name="detail_max_price">Higher Price</string>
-    <string name="detail_min_price">Lower Price</string>
+    <string name="detail_max_price">Higher Price(24h)</string>
+    <string name="detail_min_price">Lower Price(24h)</string>
     <string name="detail_binds">Binds</string>
     <string name="detail_asks">Asks</string>
+    <string name="detail_volume">Volume</string>
+    <string name="detail_last">Last Price(24h)</string>
+    <string name="day_in_hrs">24h</string>
 </resources>

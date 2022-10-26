@@ -4,7 +4,7 @@
     <dimen name="font_subtilte">18sp</dimen>
     <dimen name="font_subtilte_1">16sp</dimen>
     <dimen name="font_content">14sp</dimen>
-    <dimen name="font_content_food">12dsp</dimen>
+    <dimen name="font_content_footer">12dsp</dimen>
 
     <dimen name="general_horizontal_margin">15dp</dimen>
     <dimen name="general_vertical_margin">15dp</dimen>

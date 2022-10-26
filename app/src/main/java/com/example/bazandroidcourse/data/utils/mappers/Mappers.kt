@@ -37,3 +37,19 @@ fun List<Book>.toDomain():List<BookModel>{
         it.toDomain()
     }
 }
+
+fun String.getCryptoName():String{
+    return when {
+        startsWith("btc")->"Bitcoin"
+        startsWith("eth")->"Ethereum"
+        startsWith("xrp")->"Ripple"
+        startsWith("ltc")->"Litecoin"
+        startsWith("bch")->"Bitcoin Cash"
+        startsWith("tusd")->"TrueUSD"
+        startsWith("mana")->"Decentraland"
+        startsWith("bat")->"Basic Attention Token"
+        startsWith("aave")->"AAVE"
+        else ->this
+    }
+}
+
