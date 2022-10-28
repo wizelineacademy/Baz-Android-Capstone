@@ -5,8 +5,11 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.example.cryptocurrencyapp.data.repository.WCCryptoRepositoryImp
 import com.example.cryptocurrencyapp.domain.repository.retrofit
+import com.example.cryptocurrencyapp.domain.use_case.OrderUseCase
 import com.example.cryptocurrencyapp.domain.use_case.TickerUseCase
+import com.example.cryptocurrencyapp.presentation.view_model.OrderViewModel
 import com.example.cryptocurrencyapp.presentation.view_model.TickerViewModel
+import com.example.cryptocurrencyapp.presentation.view_model.ViewModelFactoryOrder
 import com.example.cryptocurrencyapp.presentation.view_model.ViewModelFactoryTicker
 
 
@@ -14,14 +17,18 @@ class MainActivity : AppCompatActivity() {
     /*private  val viewModel: WCCAvailableVM by viewModels {
         ViewModelFactory(WCCAvailableUseCase(WCCryptoRepositoryImp(retrofit)))
     }*/
-    private val viewModels : TickerViewModel by viewModels {
+    /*private val viewModels : TickerViewModel by viewModels {
         ViewModelFactoryTicker(TickerUseCase(WCCryptoRepositoryImp(retrofit)))
+    }*/
+    private val viewModel : OrderViewModel by viewModels {
+        ViewModelFactoryOrder(OrderUseCase(WCCryptoRepositoryImp(retrofit)))
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //viewModel.getAvailableBook()
-        viewModels.getTicker("eth_mxn")
+        //viewModels.getTicker("eth_mxn")
+        viewModel.getOrderBook("eth_mxn")
     }
 
 }

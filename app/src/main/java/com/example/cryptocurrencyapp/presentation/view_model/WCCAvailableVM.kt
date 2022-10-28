@@ -1,12 +1,11 @@
 package com.example.cryptocurrencyapp.presentation.view_model
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.cryptocurrencyapp.domain.entity.WCCryptoBookDTO
 import com.example.cryptocurrencyapp.domain.use_case.WCCAvailableUseCase
 import com.example.cryptocurrencyapp.utils.Resource
-import com.example.cryptocurrencyapp.utils.WCCryptoConstants
+import com.example.cryptocurrencyapp.utils.CryptoConstants
 import kotlinx.coroutines.launch
 
 class WCCAvailableVM(private val availableUseCase : WCCAvailableUseCase) : ViewModel() {
@@ -24,7 +23,7 @@ class WCCAvailableVM(private val availableUseCase : WCCAvailableUseCase) : ViewM
                        Log.i("depur","cargando")
                     is Resource.Success ->{
                         val filteredCoin = coins.data?.filter { coin ->
-                            coin.book.contains(WCCryptoConstants.MXN)
+                            coin.book.contains(CryptoConstants.MXN)
                         }
                         Log.i("datos", "$filteredCoin")
                     }

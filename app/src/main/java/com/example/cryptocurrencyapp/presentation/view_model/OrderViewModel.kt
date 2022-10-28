@@ -4,32 +4,33 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.cryptocurrencyapp.domain.use_case.TickerUseCase
+import com.example.cryptocurrencyapp.domain.use_case.OrderUseCase
 import com.example.cryptocurrencyapp.utils.Resource
 import kotlinx.coroutines.launch
 
-class TickerViewModel (private val tickerUseCase: TickerUseCase): ViewModel() {
-    fun getTicker(book:String){
+class OrderViewModel(private val orderUseCase: OrderUseCase) : ViewModel() {
+    fun getOrderBook(book: String) {
         viewModelScope.launch {
-            val response = tickerUseCase.ticker(book)
-            response.collect{ ticker ->
-                when(ticker){
+            val response = orderUseCase.order(book)
+            response.collect { order ->
+                when (order) {
                     is Resource.Loading ->
-                        Log.i("depur","cargando")
+                        Log.i("depur", "cargando")
                     is Resource.Success ->
-                        Log.i("datos","$ticker")
+                        Log.i("data", "$order")
                     is Resource.Error ->
-                        Log.i("depur","Error")
+                        Log.i("depur", "Error")
                 }
             }
         }
     }
 }
-class ViewModelFactoryTicker(private val tickerUseCase: TickerUseCase ) : ViewModelProvider.Factory {
+
+class ViewModelFactoryOrder (private val orderUseCase: OrderUseCase) : ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(TickerViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(OrderViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return TickerViewModel(tickerUseCase) as T
+            return OrderViewModel(orderUseCase) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
