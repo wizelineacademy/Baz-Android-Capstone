@@ -6,6 +6,7 @@ import androidx.lifecycle.*
 import com.example.cryptocurrencyapp.domain.entity.WCCryptoBookDTO
 import com.example.cryptocurrencyapp.domain.use_case.WCCAvailableUseCase
 import com.example.cryptocurrencyapp.utils.Resource
+import com.example.cryptocurrencyapp.utils.WCCryptoConstants
 import kotlinx.coroutines.launch
 
 class WCCAvailableVM(private val availableUseCase : WCCAvailableUseCase) : ViewModel() {
@@ -16,15 +17,16 @@ class WCCAvailableVM(private val availableUseCase : WCCAvailableUseCase) : ViewM
 
     fun getAvailableBook() {
         viewModelScope.launch {
-            val response = availableUseCase.invoke()
-            response.collect{
-                when(it){
+            val response = availableUseCase.coin()
+            response.collect{ coins ->
+                when(coins){
                     is Resource.Loading ->
                        Log.i("depur","cargando")
                     is Resource.Success ->{
-                        Log.i("datos", "${it.data}")
-                        // quiero llamar al caso de uso y pintar los datos en el log
-
+                        val filteredCoin = coins.data?.filter { coin ->
+                            coin.book.contains(WCCryptoConstants.MXN)
+                        }
+                        Log.i("datos", "$filteredCoin")
                     }
                     is Resource.Error ->
                         Log.i("depur","Error")

@@ -11,5 +11,5 @@ data class WCCryptoTickerResponse (
 
     @SerializedName("payload")
     @Expose
-    val payload: List<WCCryptoTicker> = listOf()
+    val payload: WCCryptoTicker? = WCCryptoTicker()
 )

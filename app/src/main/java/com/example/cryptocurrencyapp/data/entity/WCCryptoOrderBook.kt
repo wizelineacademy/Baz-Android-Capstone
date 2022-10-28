@@ -24,7 +24,5 @@ data class WCCryptoOrderBook(
             amount = amount,
 
         )
-
-
     }
 }

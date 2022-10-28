@@ -44,14 +44,9 @@ data class WCCryptoTicker (
     fun toBitsoTicker(): WCCTickerDTO{
         return WCCTickerDTO(
             book = book,
-            volume = volume,
             high = high,
             last = last,
             low = low,
-            vwap = vwap,
-            ask = ask,
-            bid = bid,
-            createdAt = createdAt
         )
     }
 }
