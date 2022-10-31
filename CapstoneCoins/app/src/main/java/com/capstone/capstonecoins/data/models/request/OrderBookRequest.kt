@@ -1,5 +1,5 @@
 package com.capstone.capstonecoins.data.models.request
 
-data class orderBookRequest(
+data class OrderBookRequest(
     var book: String = ""
 )

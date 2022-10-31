@@ -1,6 +1,6 @@
 package com.capstone.capstonecoins.data.models.orderbook
 
-data class orderBook(
-    val payload: List<Payload>,
+data class OrderBooks(
+    val payload: Payload,
     val success: Boolean
 )

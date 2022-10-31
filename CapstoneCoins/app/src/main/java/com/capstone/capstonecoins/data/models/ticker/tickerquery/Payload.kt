@@ -1,4 +1,4 @@
-package com.capstone.capstonecoins.data.models.ticker
+package com.capstone.capstonecoins.data.models.ticker.tickerquery
 
 data class Payload(
     val ask: String,
