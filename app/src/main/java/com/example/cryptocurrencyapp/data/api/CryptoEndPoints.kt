@@ -1,6 +1,6 @@
 package com.example.cryptocurrencyapp.data.api
 
-object WCCryptoEndPoints {
+object CryptoEndPoints {
     const val  AVAILABLE_BOOKS =
         "available_books/"
     const val TICKER_BOOK =

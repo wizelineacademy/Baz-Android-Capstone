@@ -4,31 +4,31 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.example.cryptocurrencyapp.data.repository.WCCryptoRepositoryImp
+import com.example.cryptocurrencyapp.databinding.ActivityMainBinding
 import com.example.cryptocurrencyapp.domain.repository.retrofit
 import com.example.cryptocurrencyapp.domain.use_case.OrderUseCase
 import com.example.cryptocurrencyapp.domain.use_case.TickerUseCase
-import com.example.cryptocurrencyapp.presentation.view_model.OrderViewModel
-import com.example.cryptocurrencyapp.presentation.view_model.TickerViewModel
-import com.example.cryptocurrencyapp.presentation.view_model.ViewModelFactoryOrder
-import com.example.cryptocurrencyapp.presentation.view_model.ViewModelFactoryTicker
+import com.example.cryptocurrencyapp.domain.use_case.WCCAvailableUseCase
+import com.example.cryptocurrencyapp.presentation.view_model.*
 
 
 class MainActivity : AppCompatActivity() {
-    /*private  val viewModel: WCCAvailableVM by viewModels {
-        ViewModelFactory(WCCAvailableUseCase(WCCryptoRepositoryImp(retrofit)))
-    }*/
-    /*private val viewModels : TickerViewModel by viewModels {
+    private lateinit var binding: ActivityMainBinding
+
+
+    private val viewModelTicker : TickerViewModel by viewModels {
         ViewModelFactoryTicker(TickerUseCase(WCCryptoRepositoryImp(retrofit)))
-    }*/
-    private val viewModel : OrderViewModel by viewModels {
+    }
+    private val viewModelOrder : OrderViewModel by viewModels {
         ViewModelFactoryOrder(OrderUseCase(WCCryptoRepositoryImp(retrofit)))
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        //viewModel.getAvailableBook()
-        //viewModels.getTicker("eth_mxn")
-        viewModel.getOrderBook("eth_mxn")
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        //viewModelTicker.getTicker("eth_mxn")
+        viewModelOrder.getOrderBook("eth_mxn")
     }
 
 }

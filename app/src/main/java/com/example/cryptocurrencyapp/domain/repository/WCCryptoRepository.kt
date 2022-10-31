@@ -8,7 +8,7 @@ import com.example.cryptocurrencyapp.utils.Resource
 import retrofit2.Response
 
 interface WCCryptoRepository {
-    suspend fun getAvaliableBooks(): List<WCCryptoBookDTO>
+    suspend fun getAvailableBooks(): List<WCCryptoBookDTO>
     suspend fun getTickerBook(book: String): WCCTickerDTO
     suspend fun getOrderBook(book: String): WCCOrdeRDTO
 }

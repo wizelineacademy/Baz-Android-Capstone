@@ -12,7 +12,7 @@ class WCCAvailableUseCase (private val repository: WCCryptoRepositoryImp) {
     suspend fun coin(): Flow<Resource<List<WCCryptoBookDTO>>> = flow {
         try {
             emit(Resource.Loading())
-            val response = repository.getAvaliableBooks()
+            val response = repository.getAvailableBooks()
             emit(Resource.Success(response))
 
         }catch (e: HttpException){

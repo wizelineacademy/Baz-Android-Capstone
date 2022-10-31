@@ -1,14 +1,17 @@
 package com.example.cryptocurrencyapp.presentation.view_model
 
 import android.util.Log
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.cryptocurrencyapp.domain.entity.WCCTickerDTO
 import com.example.cryptocurrencyapp.domain.use_case.TickerUseCase
 import com.example.cryptocurrencyapp.utils.Resource
 import kotlinx.coroutines.launch
 
 class TickerViewModel (private val tickerUseCase: TickerUseCase): ViewModel() {
+
+    private val _tickerBook = MutableLiveData<WCCTickerDTO>()
+    val resumeTicker: LiveData<WCCTickerDTO> get() = _tickerBook
+
     fun getTicker(book:String){
         viewModelScope.launch {
             val response = tickerUseCase.ticker(book)
@@ -16,8 +19,10 @@ class TickerViewModel (private val tickerUseCase: TickerUseCase): ViewModel() {
                 when(ticker){
                     is Resource.Loading ->
                         Log.i("depur","cargando")
-                    is Resource.Success ->
-                        Log.i("datos","$ticker")
+                    is Resource.Success ->{
+                        _tickerBook.value = ticker.data ?: WCCTickerDTO()
+                                Log.i("datos","$_tickerBook")
+                    }
                     is Resource.Error ->
                         Log.i("depur","Error")
                 }

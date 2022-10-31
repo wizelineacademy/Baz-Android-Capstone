@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 data class WCCryptoOrderBook(
     @SerializedName("book")
     @Expose
-    val book: String = "",
+    val coin: String = "",
 
     @SerializedName("price")
     @Expose
@@ -19,7 +19,7 @@ data class WCCryptoOrderBook(
 ){
     fun toOrderDTO(): WCCOrderBookDTO{
         return WCCOrderBookDTO(
-            book = book,
+            book = coin,
             price = price,
             amount = amount,
 

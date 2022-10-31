@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.view.CryptoListFragment">
-
+    android:layout_margin="8dp">
     <TextView
         android:id="@+id/txtWallet"
         android:layout_width="match_parent"
@@ -23,9 +22,12 @@
         android:layout_marginTop="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtWallet"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtWallet"
+        app:layout_constraintVertical_bias="0"
         tools:itemCount="12"
         tools:listitem="@layout/crypto_item"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,14 +1,17 @@
 package com.example.cryptocurrencyapp.presentation.view_model
 
 import android.util.Log
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.cryptocurrencyapp.domain.entity.WCCOrdeRDTO
 import com.example.cryptocurrencyapp.domain.use_case.OrderUseCase
 import com.example.cryptocurrencyapp.utils.Resource
 import kotlinx.coroutines.launch
 
 class OrderViewModel(private val orderUseCase: OrderUseCase) : ViewModel() {
+
+    private val _orderBok = MutableLiveData<WCCOrdeRDTO>()
+    val resumeOrder: LiveData<WCCOrdeRDTO> get() = _orderBok
+
     fun getOrderBook(book: String) {
         viewModelScope.launch {
             val response = orderUseCase.order(book)
@@ -16,8 +19,10 @@ class OrderViewModel(private val orderUseCase: OrderUseCase) : ViewModel() {
                 when (order) {
                     is Resource.Loading ->
                         Log.i("depur", "cargando")
-                    is Resource.Success ->
-                        Log.i("data", "$order")
+                    is Resource.Success ->{
+                        _orderBok.value = order.data ?: WCCOrdeRDTO()
+                        Log.i("data", "$_orderBok")
+                    }
                     is Resource.Error ->
                         Log.i("depur", "Error")
                 }

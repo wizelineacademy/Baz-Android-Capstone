@@ -1,17 +1,16 @@
 package com.example.cryptocurrencyapp.data.repository
 
-import com.example.cryptocurrencyapp.data.api.WCCryptoApi
+import com.example.cryptocurrencyapp.data.api.CryptoApi
 import com.example.cryptocurrencyapp.data.entity.response.WCCryptoAvailableResponse
-import com.example.cryptocurrencyapp.data.entity.response.WCCryptoTickerResponse
 import com.example.cryptocurrencyapp.domain.entity.WCCOrdeRDTO
 import com.example.cryptocurrencyapp.domain.entity.WCCTickerDTO
 import com.example.cryptocurrencyapp.domain.entity.WCCryptoBookDTO
 import com.example.cryptocurrencyapp.domain.repository.WCCryptoRepository
 
-// aqui se determina se se hace el consumo de manera remota o desde el datasource
 
-class WCCryptoRepositoryImp(private val api: WCCryptoApi) : WCCryptoRepository {
-    override suspend fun getAvaliableBooks(): List<WCCryptoBookDTO> =
+class WCCryptoRepositoryImp(private val api: CryptoApi) : WCCryptoRepository {
+
+    override suspend fun getAvailableBooks(): List<WCCryptoBookDTO> =
         api.getExchangeBooks().toListWCCryptoBookDTO().orEmpty()
 
     override suspend fun getTickerBook(book: String): WCCTickerDTO =

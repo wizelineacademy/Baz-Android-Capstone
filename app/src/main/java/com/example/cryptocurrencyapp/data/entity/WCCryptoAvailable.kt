@@ -4,7 +4,7 @@ import com.example.cryptocurrencyapp.domain.entity.WCCryptoBookDTO
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class WCCryptoAvailable (
+data class  WCCryptoAvailable (
     @SerializedName("book")
     @Expose
     val book: String  = "",

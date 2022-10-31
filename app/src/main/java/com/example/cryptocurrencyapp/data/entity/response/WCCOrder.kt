@@ -29,9 +29,7 @@ data class WCCOrder(
             }.toMutableList(),
             bids = bids.map { bid ->
                 bid.toOrderDTO()
-            }.toMutableList(),
-            updatedAt = updatedAt,
-            sequence = sequence
+            }.toMutableList()
         )
     }
 }

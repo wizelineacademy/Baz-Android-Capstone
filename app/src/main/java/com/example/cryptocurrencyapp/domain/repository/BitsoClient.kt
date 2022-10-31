@@ -1,6 +1,6 @@
 package com.example.cryptocurrencyapp.domain.repository
 
-import com.example.cryptocurrencyapp.data.api.WCCryptoApi
+import com.example.cryptocurrencyapp.data.api.CryptoApi
 import com.example.cryptocurrencyapp.utils.CryptoConstants
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -9,6 +9,6 @@ var retrofit = Retrofit.Builder()
             .baseUrl(CryptoConstants.BITSO_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(OkHttpClient())
-            .build().create(WCCryptoApi::class.java)
+            .build().create(CryptoApi::class.java)
 
 //fun repository(): WCCryptoApi = getBitsoData().create(WCCryptoApi::class.java)

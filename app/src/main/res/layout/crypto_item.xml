@@ -44,16 +44,18 @@
             tools:text="MNX" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtPriceMin"
+            android:id="@+id/txtMinPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/txtCryptoName"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="precio_Minimo" />
+
         <androidx.appcompat.widget.AppCompatTextView
+            android:id ="@+id/txtMaxPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/txtPriceMin"
+            app:layout_constraintTop_toBottomOf="@+id/txtMinPrice"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="precio_ maximo"/>
 
