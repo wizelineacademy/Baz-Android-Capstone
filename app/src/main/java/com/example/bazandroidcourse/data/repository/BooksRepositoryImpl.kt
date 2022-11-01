@@ -13,14 +13,17 @@ class BooksRepositoryImpl(
 ): BooksRepositoryInterface {
 
     override suspend fun getAllBooks(): List<BookModel> {
-        return if(networkManagerUtils.isOnline()) remoteDataSource.fetchAllBooks() else localeDataSource.getAllBooks()
+        return if(networkManagerUtils.isOnline()) remoteDataSource.fetchAllBooks()
+        else localeDataSource.getAllBooks()
     }
 
     override suspend fun getBookInfo(id: String): BookDetailModel {
-       return if(networkManagerUtils.isOnline()) remoteDataSource.fetchBookDetail(id) else localeDataSource.getBookDetail(id)
+       return if(networkManagerUtils.isOnline()) remoteDataSource.fetchBookDetail(id)
+       else localeDataSource.getBookDetail(id)
     }
 
     override suspend fun getBookOrders(id: String): BookOrdersModel {
-        return if(networkManagerUtils.isOnline()) remoteDataSource.fetchBookOrders(id) else localeDataSource.getBookOrder(id)
+        return if(networkManagerUtils.isOnline()) remoteDataSource.fetchBookOrders(id)
+        else localeDataSource.getBookOrder(id)
     }
 }

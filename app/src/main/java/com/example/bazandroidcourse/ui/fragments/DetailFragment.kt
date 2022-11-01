@@ -1,24 +1,24 @@
 package com.example.bazandroidcourse.ui.fragments
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.bazandroidcourse.databinding.FragmentDetailBinding
+import com.example.bazandroidcourse.ui.fragments.adapters.BookOrdersAdapter
+import com.example.bazandroidcourse.ui.utils.createURLImage
+import com.example.bazandroidcourse.ui.utils.cryptoName
+import com.example.bazandroidcourse.ui.utils.getTicker
+import com.example.bazandroidcourse.ui.utils.getCurrency
 import com.example.bazandroidcourse.data.datasource.local.CryptoLocalDataSourceImpl
 import com.example.bazandroidcourse.data.datasource.remote.CryptoRemoteDataSourceImpl
 import com.example.bazandroidcourse.data.datasource.remote.api.retrofit.apiInstance
 import com.example.bazandroidcourse.data.repository.BooksRepositoryImpl
-import com.example.bazandroidcourse.databinding.FragmentDetailBinding
 import com.example.bazandroidcourse.domain.GetAllBooksFilteredUseCase
 import com.example.bazandroidcourse.domain.GetBookDetailUseCase
 import com.example.bazandroidcourse.domain.GetBookOrdersUseCase
-import com.example.bazandroidcourse.ui.fragments.adapters.BookOrdersAdapter
-import com.example.bazandroidcourse.ui.utils.createURLImage
-import com.example.bazandroidcourse.ui.utils.cryptoName
-import com.example.bazandroidcourse.ui.utils.getCurrency
-import com.example.bazandroidcourse.ui.utils.getTicker
 import com.example.bazandroidcourse.ui.viewmodel.BooksViewModel
 import com.squareup.picasso.Picasso
 
