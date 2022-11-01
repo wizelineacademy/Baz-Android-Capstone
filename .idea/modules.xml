@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/baz_android_course.iml" filepath="$PROJECT_DIR$/.idea/modules/baz_android_course.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/baz_android_course.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/baz_android_course.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/baz_android_course.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/baz_android_course.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/baz_android_course.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/baz_android_course.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/baz_android_course.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/baz_android_course.app.unitTest.iml" />
+    </modules>
+  </component>
+</project>

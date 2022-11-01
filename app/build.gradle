@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -8,12 +9,34 @@ android {
 
     defaultConfig {
         applicationId "com.example.bazandroidcourse"
-        minSdk 21
+        minSdk 24
         targetSdk 32
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        if (variant.buildType.name == 'release') {
+            if (names.contains("development")) {
+                setIgnore(true)
+            } else if (names.contains("preProduction")) {
+                setIgnore(true)
+            }
+        }
+    }
+
+    flavorDimensions "versionName"
+
+    productFlavors {
+        development {
+            versionNameSuffix " dv"
+            versionName "1.0.0"
+            buildConfigField("String", "API_PRINCIPAL_PATH", '"https://api.bitso.com/v3/"')
+            buildConfigField("String", "API_ICONS", '"https://cryptoflash-icons-api.herokuapp.com/"')
+        }
     }
 
     buildTypes {
@@ -22,6 +45,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -29,15 +53,55 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
+
+    def retrofitVersion ="2.9.0"
+    def lifecycle_version = "2.5.1"
+    def nav_version = "2.5.3"
+
+    /*
+    def roomVersion = "2.4.2"
+    def okhttpVersion = '4.9.0'
+    def arch_version = "2.1.0"*/
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    // ViewModel utilities for Compose
+    //implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    // Lifecycles only (without ViewModel or LiveData)
+   // implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+
+    // Saved state module for ViewModel
+   // implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+
+
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    //testing
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation 'com.squareup.picasso:picasso:2.8'
+
+    // Kotlin Navigation Component
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    //implementation 'androidx.navigation:navigation-safe-args-gradle-plugin:2.6.0-alpha02'
+
 }
