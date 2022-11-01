@@ -1,7 +1,7 @@
 package com.example.bazandroidcourse.data.datasource.local
 
-import com.example.bazandroidcourse.data.entities.BookModel
 import com.example.bazandroidcourse.data.entities.BookDetailModel
+import com.example.bazandroidcourse.data.entities.BookModel
 import com.example.bazandroidcourse.data.entities.BookOrdersModel
 
 interface CryptoLocalDataSourceInterface {

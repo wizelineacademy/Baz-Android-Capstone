@@ -1,9 +1,8 @@
 package com.example.bazandroidcourse.data.datasource.remote.api.retrofit
 
-import com.example.bazandroidcourse.data.datasource.remote.api.response.BooksResponse
-import com.example.bazandroidcourse.data.datasource.remote.api.response.BookOrdersResponse
 import com.example.bazandroidcourse.data.datasource.remote.api.response.BookDetailResponse
-import retrofit2.Response
+import com.example.bazandroidcourse.data.datasource.remote.api.response.BookOrdersResponse
+import com.example.bazandroidcourse.data.datasource.remote.api.response.BooksResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
