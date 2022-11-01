@@ -4,6 +4,7 @@ import com.example.bazandroidcourse.data.datasource.local.CryptoLocalDataSourceI
 import com.example.bazandroidcourse.data.datasource.remote.CryptoRemoteDataSourceInterface
 import com.example.bazandroidcourse.data.entities.BookModel
 import com.example.bazandroidcourse.data.entities.BookDetailModel
+import com.example.bazandroidcourse.data.entities.BookOrdersModel
 import com.example.bazandroidcourse.data.utils.network.NetworkManagerInterface
 
 class BooksRepositoryImpl(
@@ -13,18 +14,14 @@ class BooksRepositoryImpl(
 ): BooksRepositoryInterface {
 
     override suspend fun getAllBooks(): List<BookModel> {
-        return if(networkManager.isOnline()) {
-             remoteDataSource.fetchAllBooks()
-        }else{
-             localeDataSource.getAllBooks()
-        }
+        return if(networkManager.isOnline()) remoteDataSource.fetchAllBooks() else localeDataSource.getAllBooks()
     }
 
     override suspend fun getBookInfo(id: String): BookDetailModel {
-       return if (networkManager.isOnline()){
-             remoteDataSource.fetchBookDetail(id)
-        }else{
-             localeDataSource.getBookDetail(id)
-        }
+       return if(networkManager.isOnline()) remoteDataSource.fetchBookDetail(id) else localeDataSource.getBookDetail(id)
+    }
+
+    override suspend fun getBookOrders(id: String): BookOrdersModel {
+        return if(networkManager.isOnline()) remoteDataSource.fetchBookOrders(id) else localeDataSource.getBookOrder(id)
     }
 }

@@ -2,6 +2,7 @@ package com.example.bazandroidcourse.data.datasource.local
 
 import com.example.bazandroidcourse.data.entities.BookDetailModel
 import com.example.bazandroidcourse.data.entities.BookModel
+import com.example.bazandroidcourse.data.entities.BookOrdersModel
 
 class CryptoLocalDataSourceImpl():CryptoLocalDataSourceInterface{
     override suspend fun saveAllBooks(books: List<BookModel>) {
@@ -32,7 +33,7 @@ class CryptoLocalDataSourceImpl():CryptoLocalDataSourceInterface{
         TODO("Not yet implemented")
     }
 
-    override suspend fun getBookOrder() {
+    override suspend fun getBookOrder(id: String): BookOrdersModel {
         TODO("Not yet implemented")
     }
 
