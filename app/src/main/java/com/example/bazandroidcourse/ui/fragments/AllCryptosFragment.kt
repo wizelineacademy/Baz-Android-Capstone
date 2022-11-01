@@ -1,4 +1,4 @@
-package com.example.bazandroidcourse.ui
+package com.example.bazandroidcourse.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bazandroidcourse.data.entities.BookModel
 import com.example.bazandroidcourse.databinding.FragmentAllCryptosBinding
-import com.example.bazandroidcourse.ui.adapter.BooksAdapter
+import com.example.bazandroidcourse.ui.fragments.adapters.BooksAdapter
 import com.example.bazandroidcourse.ui.viewmodel.BooksViewModel
 
 class AllCryptosFragment : Fragment() {
     lateinit var viewModel: BooksViewModel
     private lateinit var binding : FragmentAllCryptosBinding
+    private var curretCurrency = "mxn"
     private val adapter = BooksAdapter(){
         navigateTo(it)
     }
@@ -31,12 +32,12 @@ class AllCryptosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel =  BooksViewModel(requireContext())
-        viewModel.getAllBooks()
+        viewModel.getAllBooks(curretCurrency)
         initList()
        addObservers()
     }
 
-    fun initList(){
+    fun initList() {
         binding.recyclerBooks.layoutManager = LinearLayoutManager(
             requireContext(),
             RecyclerView.VERTICAL,
@@ -45,13 +46,13 @@ class AllCryptosFragment : Fragment() {
         binding.recyclerBooks.adapter = adapter
     }
 
-    fun addObservers(){
+    fun addObservers() {
         viewModel.allBooks.observe(viewLifecycleOwner){
             adapter.submitList(it)
         }
     }
 
-    fun navigateTo(item: BookModel){
+    fun navigateTo(item: BookModel) {
         val action = AllCryptosFragmentDirections.actionAllCryptosToDetail(item.book)
         findNavController().navigate(action)
     }

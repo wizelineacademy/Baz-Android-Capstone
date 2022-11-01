@@ -2,6 +2,7 @@ package com.example.bazandroidcourse.data.datasource.local
 
 import com.example.bazandroidcourse.data.entities.BookModel
 import com.example.bazandroidcourse.data.entities.BookDetailModel
+import com.example.bazandroidcourse.data.entities.BookOrdersModel
 
 interface CryptoLocalDataSourceInterface {
     //Books
@@ -14,6 +15,6 @@ interface CryptoLocalDataSourceInterface {
     suspend fun deleteAllBookDetails()
     //Book Orders
     suspend fun saveAllBookOrder()
-    suspend fun getBookOrder()
+    suspend fun getBookOrder(id:String):BookOrdersModel
     suspend fun deleteAllBookOrders()
 }

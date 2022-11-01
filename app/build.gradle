@@ -13,8 +13,29 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        if (variant.buildType.name == 'release') {
+            if (names.contains("development")) {
+                setIgnore(true)
+            } else if (names.contains("preProduction")) {
+                setIgnore(true)
+            }
+        }
+    }
+
+    flavorDimensions "versionName"
+
+    productFlavors {
+        development {
+            versionNameSuffix " dv"
+            versionName "1.0.0"
+            buildConfigField("String", "API_PRINCIPAL_PATH", '"https://api.bitso.com/v3/"')
+            buildConfigField("String", "API_ICONS", '"https://cryptoflash-icons-api.herokuapp.com/"')
+        }
     }
 
     buildTypes {
@@ -23,6 +44,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -43,19 +65,13 @@ dependencies {
 
     /*
     def roomVersion = "2.4.2"
-
-
     def okhttpVersion = '4.9.0'
-
     def arch_version = "2.1.0"*/
-
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-
-
 
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
@@ -86,8 +102,5 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
     //implementation 'androidx.navigation:navigation-safe-args-gradle-plugin:2.6.0-alpha02'
-
-
-
 
 }

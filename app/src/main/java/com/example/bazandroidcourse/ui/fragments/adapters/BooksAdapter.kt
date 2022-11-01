@@ -1,18 +1,14 @@
-package com.example.bazandroidcourse.ui.adapter
+package com.example.bazandroidcourse.ui.fragments.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bazandroidcourse.R
 import com.example.bazandroidcourse.data.entities.BookModel
-import com.example.bazandroidcourse.data.utils.mappers.getCryptoName
 import com.example.bazandroidcourse.databinding.BookItemLayoutBinding
+import com.example.bazandroidcourse.ui.utils.cryptoName
 import com.example.bazandroidcourse.ui.utils.getIcon
 import com.squareup.picasso.Picasso
 
@@ -31,9 +27,8 @@ class BooksAdapter ( val callback:(BookModel)->(Unit)): ListAdapter<BookModel, B
     }
 
     inner class ItemViewholder(private val binding: BookItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
-
         fun bind(item: BookModel) = with(binding) {
-            tvName.text = item.book.getCryptoName()
+            tvName.text = item.book.cryptoName()
             try {
                 Picasso.get().load(
                     item.getIcon()

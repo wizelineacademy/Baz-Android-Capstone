@@ -5,11 +5,11 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class GetAllBooksSortedUseCase(
+class GetBookOrdersUseCase(
     private val repository: BooksRepositoryInterface,
     private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
 ) {
-    suspend operator fun invoke() = withContext(defaultDispatcher){
-        repository.getAllBooks().sortedBy { it.book }
+    suspend operator fun invoke(bookId:String) = withContext(defaultDispatcher){
+        repository.getBookOrders(bookId)
     }
 }

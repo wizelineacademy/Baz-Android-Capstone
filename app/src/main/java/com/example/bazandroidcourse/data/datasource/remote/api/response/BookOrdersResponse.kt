@@ -6,11 +6,11 @@ data class BookOrdersResponse(
 )
 
 data class OrderPayload(
-    var asks: List<BookResume>? = null,
-    var bids: List<BookResume>? = null
+    var asks: List<OrderResume>? = null,
+    var bids: List<OrderResume>? = null
 )
 
-data class BookResume(
+data class OrderResume(
     var book: String?,
     var price: String?,
     var amount: String?

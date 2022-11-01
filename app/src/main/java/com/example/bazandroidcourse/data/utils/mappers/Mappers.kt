@@ -1,9 +1,11 @@
 package com.example.bazandroidcourse.data.utils.mappers
 
-import com.example.bazandroidcourse.data.datasource.remote.api.response.Book
-import com.example.bazandroidcourse.data.datasource.remote.api.response.BookDetailResponse
+import com.example.bazandroidcourse.data.datasource.remote.api.response.*
 import com.example.bazandroidcourse.data.entities.BookDetailModel
 import com.example.bazandroidcourse.data.entities.BookModel
+import com.example.bazandroidcourse.data.entities.BookOrderResumeModel
+import com.example.bazandroidcourse.data.entities.BookOrdersModel
+import com.example.bazandroidcourse.data.entities.static.ApplicationCurrencies
 
 
 fun BookDetailResponse.BookDetail.toDomain(): BookDetailModel {
@@ -38,18 +40,26 @@ fun List<Book>.toDomain():List<BookModel>{
     }
 }
 
-fun String.getCryptoName():String{
-    return when {
-        startsWith("btc")->"Bitcoin"
-        startsWith("eth")->"Ethereum"
-        startsWith("xrp")->"Ripple"
-        startsWith("ltc")->"Litecoin"
-        startsWith("bch")->"Bitcoin Cash"
-        startsWith("tusd")->"TrueUSD"
-        startsWith("mana")->"Decentraland"
-        startsWith("bat")->"Basic Attention Token"
-        startsWith("aave")->"AAVE"
-        else ->this
+fun OrderPayload.toDomain():BookOrdersModel{
+    return BookOrdersModel(
+       asks = bids?.toDomainList() ?: emptyList(),
+       bids = bids?.toDomainList() ?: emptyList()
+    )
+}
+
+fun List<OrderResume>.toDomainList():List<BookOrderResumeModel>{
+    return map {
+        it.toDomain()
     }
 }
+
+fun OrderResume.toDomain():BookOrderResumeModel{
+    return BookOrderResumeModel(
+        book = book.orEmpty(),
+        amount = amount.orEmpty(),
+        price =  price.orEmpty()
+    )
+}
+
+
 

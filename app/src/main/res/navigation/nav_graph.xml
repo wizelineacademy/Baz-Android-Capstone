@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.example.bazandroidcourse.ui.DetailFragment"
+        android:name="com.example.bazandroidcourse.ui.fragments.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
         <argument
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/allCryptosFragment"
-        android:name="com.example.bazandroidcourse.ui.AllCryptosFragment"
+        android:name="com.example.bazandroidcourse.ui.fragments.AllCryptosFragment"
         android:label="fragment_all_criptos"
         tools:layout="@layout/fragment_all_cryptos" >
 

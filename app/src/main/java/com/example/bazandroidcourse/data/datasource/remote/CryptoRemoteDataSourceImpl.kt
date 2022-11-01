@@ -1,9 +1,9 @@
 package com.example.bazandroidcourse.data.datasource.remote
 
-import com.example.bazandroidcourse.data.datasource.remote.api.response.BookResume
 import com.example.bazandroidcourse.data.datasource.remote.api.retrofit.ApplicationAPIInterface
 import com.example.bazandroidcourse.data.entities.BookDetailModel
 import com.example.bazandroidcourse.data.entities.BookModel
+import com.example.bazandroidcourse.data.entities.BookOrdersModel
 import com.example.bazandroidcourse.data.utils.mappers.toDomain
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -24,7 +24,9 @@ class CryptoRemoteDataSourceImpl(
         }
     }
 
-    override suspend fun fetchBookOrders(book: String): List<BookResume> {
-        TODO("Not yet implemented")
+    override suspend fun fetchBookOrders(book: String): BookOrdersModel {
+        return withContext(Dispatchers.IO){
+            apiInterface.fetchBookOrders(book).payload.toDomain()
+        }
     }
 }
