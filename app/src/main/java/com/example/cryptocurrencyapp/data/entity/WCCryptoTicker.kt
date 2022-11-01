@@ -45,7 +45,6 @@ data class WCCryptoTicker (
         return WCCTickerDTO(
             book = book,
             high = high,
-            last = last,
             low = low,
         )
     }

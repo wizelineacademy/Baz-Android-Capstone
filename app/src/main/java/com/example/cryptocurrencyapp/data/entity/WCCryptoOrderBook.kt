@@ -17,11 +17,12 @@ data class WCCryptoOrderBook(
     @Expose
     val amount: String = ""
 ){
-    fun toOrderDTO(): WCCOrderBookDTO{
+    fun toOrderDTO(type:String): WCCOrderBookDTO{
         return WCCOrderBookDTO(
             book = coin,
             price = price,
             amount = amount,
+            type = type
 
         )
     }

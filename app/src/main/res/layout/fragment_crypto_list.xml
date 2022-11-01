@@ -4,28 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.view.CryptoListFragment">
+    tools:context=".presentation.view.CryptoListFragment"
+    android:background="@color/blue">
 
-    <TextView
-        android:id="@+id/txtWallet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="WALLET"
-        android:textColor="@color/black"
-        android:textAlignment="center"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_available"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtWallet"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:itemCount="12"
-        tools:listitem="@layout/crypto_item"/>
+        app:spanCount="5"
+        tools:listitem="@layout/crypto_item"
+        tools:itemCount="5"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

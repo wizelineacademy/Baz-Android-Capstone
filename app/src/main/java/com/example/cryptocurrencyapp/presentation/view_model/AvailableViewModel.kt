@@ -13,21 +13,27 @@ class AvailableViewModel(private val availableUseCase: WCCAvailableUseCase) : Vi
     private val _cryptoBook = MutableLiveData<List<WCCryptoBookDTO>>()
     val coins: LiveData<List<WCCryptoBookDTO>> get() = _cryptoBook
 
+    private var _isLoading = MutableLiveData<Boolean>(true)
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
     fun getAvailableBook() {
         viewModelScope.launch {
             val response = availableUseCase.coin()
             response.collect { coins ->
                 when (coins) {
                     is Resource.Loading ->
-                        Log.i("depur", "cargando")
+                        _isLoading.value = true
                     is Resource.Success -> {
+                        _isLoading.value = false
                         coins.data?.filter { coin ->
                             coin.book.contains(CryptoConstants.MXN)
                         }?.map {
                             WCCryptoBookDTO(
                                 book = it.book,
                                 minPrice = it.minPrice,
-                                maxPrice = it.maxPrice
+                                maxPrice = it.maxPrice,
+                                name = it.name,
+                                logo = it.logo
                             )
                         } ?.let {
                             _cryptoBook.value = it

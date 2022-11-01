@@ -3,4 +3,8 @@
     <string name="error_unknown">Error Inesperado</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name">BTC Mexicano</string>
+    <string name="low">Precio Bajo</string>
+    <string name="hint">Precio Alto</string>
+
 </resources>

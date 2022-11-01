@@ -11,19 +11,19 @@ import com.example.cryptocurrencyapp.domain.entity.WCCryptoBookDTO
 import com.example.cryptocurrencyapp.utils.Utils
 
 
-class WCCryptoAdapter(private val click: (String) -> Unit) :
+class WCCryptoAdapter(private val click: (WCCryptoBookDTO) -> Unit) :
     ListAdapter<WCCryptoBookDTO, WCCryptoAdapter.ViewHolder>(CoinDiffCallback) {
 
-     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = CryptoItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-         return ViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = CryptoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val coin = getItem(position)
         holder.bind(coin)
-        holder.itemView.setOnClickListener{
-            click.invoke(coin.book)
+        holder.itemView.setOnClickListener {
+            click.invoke(coin)
         }
     }
 
@@ -32,9 +32,12 @@ class WCCryptoAdapter(private val click: (String) -> Unit) :
         fun bind(coin: WCCryptoBookDTO) {
             with(binding) {
                 val name = Utils.cleanString(coin.book)
-                txtCryptoName.text = name
+                imgCrypto.setImageResource(coin.logo)
+                txtMx.text = name
+                txtCryptoName.text = coin.name
                 txtMinPrice.text = coin.minPrice
                 txtMaxPrice.text = coin.maxPrice
+
             }
         }
     }
@@ -43,7 +46,10 @@ class WCCryptoAdapter(private val click: (String) -> Unit) :
         override fun areItemsTheSame(oldItem: WCCryptoBookDTO, newItem: WCCryptoBookDTO): Boolean =
             oldItem.book == newItem.book
 
-        override fun areContentsTheSame(oldItem: WCCryptoBookDTO, newItem: WCCryptoBookDTO): Boolean =
+        override fun areContentsTheSame(
+            oldItem: WCCryptoBookDTO,
+            newItem: WCCryptoBookDTO
+        ): Boolean =
             oldItem == newItem
     }
 

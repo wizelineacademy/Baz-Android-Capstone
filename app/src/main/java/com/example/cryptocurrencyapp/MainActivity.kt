@@ -7,8 +7,7 @@ import com.example.cryptocurrencyapp.data.repository.WCCryptoRepositoryImp
 import com.example.cryptocurrencyapp.databinding.ActivityMainBinding
 import com.example.cryptocurrencyapp.domain.repository.retrofit
 import com.example.cryptocurrencyapp.domain.use_case.OrderUseCase
-import com.example.cryptocurrencyapp.domain.use_case.TickerUseCase
-import com.example.cryptocurrencyapp.domain.use_case.WCCAvailableUseCase
+import com.example.cryptocurrencyapp.domain.use_case.DetailUseCase
 import com.example.cryptocurrencyapp.presentation.view_model.*
 
 
@@ -16,8 +15,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
 
-    private val viewModelTicker : TickerViewModel by viewModels {
-        ViewModelFactoryTicker(TickerUseCase(WCCryptoRepositoryImp(retrofit)))
+    private val viewModelTicker : DetailViewModel by viewModels {
+        ViewModelFactoryTicker(DetailUseCase(WCCryptoRepositoryImp(retrofit)))
     }
     private val viewModelOrder : OrderViewModel by viewModels {
         ViewModelFactoryOrder(OrderUseCase(WCCryptoRepositoryImp(retrofit)))

@@ -30,7 +30,8 @@ class CryptoListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter = WCCryptoAdapter{ book ->
-            findNavController().navigate(R.id.action_cryptoListFragment_to_detailCoinFragment, bundleOf("book" to book))
+            findNavController().navigate(R.id.action_cryptoListFragment_to_detailCoinFragment,
+                bundleOf("book" to book))
         }
         coinViewModel.getAvailableBook()
     }
