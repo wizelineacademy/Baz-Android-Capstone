@@ -1,4 +1,4 @@
-package com.example.cryptocurrencyapp.presentation.view_helper
+package com.example.cryptocurrencyapp.presentation.view.adapters
 
 
 import android.view.ViewGroup

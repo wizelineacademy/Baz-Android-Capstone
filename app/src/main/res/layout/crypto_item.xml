@@ -37,7 +37,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toEndOf="@id/imgCrypto"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Moneda" />
+            tools:text="@string/coin" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtMx"
@@ -46,7 +46,7 @@
             app:layout_constraintStart_toStartOf="@+id/txtCryptoName"
             app:layout_constraintTop_toBottomOf="@id/txtCryptoName"
             app:layout_goneMarginTop="4dp"
-            tools:text="MNX" />
+            tools:text="@string/mxn" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtMinPrice"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/txtCryptoName"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="precio_Minimo" />
+            tools:text="@string/max_price" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id ="@+id/txtMaxPrice"
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/txtMinPrice"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="precio_ maximo"/>
+            tools:text="@string/min_price"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

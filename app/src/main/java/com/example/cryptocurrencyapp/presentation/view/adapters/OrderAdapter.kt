@@ -1,14 +1,12 @@
-package com.example.cryptocurrencyapp.presentation.view_helper
+package com.example.cryptocurrencyapp.presentation.view.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cryptocurrencyapp.databinding.CryptoItemBinding
 import com.example.cryptocurrencyapp.databinding.DetailItemBinding
 import com.example.cryptocurrencyapp.domain.entity.WCCOrderBookDTO
-import com.example.cryptocurrencyapp.domain.entity.WCCryptoBookDTO
 
 class OrderAdapter: ListAdapter<WCCOrderBookDTO, OrderAdapter.ViewHolder>(DetalDiffCallback) {
 

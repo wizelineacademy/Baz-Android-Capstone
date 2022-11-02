@@ -39,61 +39,61 @@ data class WCCryptoAvailable(
         when (book) {
             Utils.CoinType.BITCOIN.value -> WCCryptoBookDTO(
                 book = book, name = Utils.CoinType.BITCOIN.coin,
-                minPrice = minAmount,
+                minPrice = minPrice,
                 maxPrice = maxPrice,
                 logo = R.drawable.ic_bitcoin
             )
             Utils.CoinType.ETHEREUM.value -> WCCryptoBookDTO(
                 book = book, name = Utils.CoinType.ETHEREUM.coin,
-                minPrice = minAmount,
+                minPrice = minPrice,
                 maxPrice = maxPrice,
                 logo = R.drawable.ic_ethereum
             )
             Utils.CoinType.XRP.value -> WCCryptoBookDTO(
                 book = book, name = Utils.CoinType.XRP.coin,
-                minPrice = minAmount,
+                minPrice = minPrice,
                 maxPrice = maxPrice,
                 logo = R.drawable.ic_xrp
             )
             Utils.CoinType.LITECOIN.value -> WCCryptoBookDTO(
                 book = book, name = Utils.CoinType.LITECOIN.coin,
-                minPrice = minAmount,
+                minPrice = minPrice,
                 maxPrice = maxPrice,
                 logo = R.drawable.ic_litecoin
             )
             Utils.CoinType.BITCOIN_CASH.value -> WCCryptoBookDTO(
                 book = book, name = Utils.CoinType.BITCOIN_CASH.coin,
-                minPrice = minAmount,
+                minPrice = minPrice,
                 maxPrice = maxPrice,
                 logo = R.drawable.ic_bitcoin_cash
             )
             Utils.CoinType.TRUEUSD.value -> WCCryptoBookDTO(
                 book = book, name = Utils.CoinType.TRUEUSD.coin,
-                minPrice = minAmount,
+                minPrice = minPrice,
                 maxPrice = maxPrice,
                 logo = R.drawable.ic_trueusd
             )
             Utils.CoinType.DECETRALAND.value -> WCCryptoBookDTO(
                 book = book, name = Utils.CoinType.DECETRALAND.coin,
-                minPrice = minAmount,
+                minPrice = minPrice,
                 maxPrice = maxPrice,
                 logo = R.drawable.ic_decentraland_mana
             )
             Utils.CoinType.BASIC_ATENTION_TOKEN.value -> WCCryptoBookDTO(
                 book = book, name = Utils.CoinType.BASIC_ATENTION_TOKEN.coin,
-                minPrice = minAmount,
+                minPrice = minPrice,
                 maxPrice = maxPrice,
                 logo = R.drawable.ic_basic_attention_token_bat
             )
             Utils.CoinType.DAI.value -> WCCryptoBookDTO(
                 book = book, name = Utils.CoinType.DAI.name,
-                minPrice = minAmount,
+                minPrice = minPrice,
                 maxPrice = maxPrice,
                 logo = R.drawable.ic_dai
             )
             Utils.CoinType.USD_COIN.value -> WCCryptoBookDTO(
                 book = book, name = Utils.CoinType.USD_COIN.coin,
-                minPrice = minAmount,
+                minPrice = minPrice,
                 maxPrice = maxPrice,
                 logo = R.drawable.ic_usd
             )

@@ -1,7 +1,5 @@
-package com.example.cryptocurrencyapp
+package com.example.cryptocurrencyapp.presentation.view.fragments
 
-import android.app.Activity
-import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,11 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.cryptocurrencyapp.data.repository.WCCryptoRepositoryImp
 import com.example.cryptocurrencyapp.databinding.FragmentDetailCoinBinding
-import com.example.cryptocurrencyapp.domain.entity.WCCOrderBookDTO
 import com.example.cryptocurrencyapp.domain.entity.WCCryptoBookDTO
 import com.example.cryptocurrencyapp.domain.repository.retrofit
 import com.example.cryptocurrencyapp.domain.use_case.DetailUseCase
-import com.example.cryptocurrencyapp.presentation.view_helper.OrderAdapter
+import com.example.cryptocurrencyapp.presentation.view.adapters.OrderAdapter
 import com.example.cryptocurrencyapp.presentation.view_model.DetailViewModel
 import com.example.cryptocurrencyapp.presentation.view_model.ViewModelFactoryTicker
 
@@ -65,12 +62,8 @@ class DetailCoinFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         detailModel.isLoading.observe(requireActivity()) { loading ->
-            if (loading) {
-                //binding.crTicker.visibility = View.INVISIBLE
-            } else {
+            if (!loading) {
                 binding.ctLoading.visibility = View.INVISIBLE
-                //binding.crTicker.visibility = View.VISIBLE
-                // binding.ctLoading.visibility = View.VISIBLE
             }
         }
         detailModel.resumeTicker.observe(requireActivity()) { ticker ->
