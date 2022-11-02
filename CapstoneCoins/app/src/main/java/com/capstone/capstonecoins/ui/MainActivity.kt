@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity(), ListenerAdapter {
     lateinit var recyclerView: RecyclerView
     private lateinit var binding: ActivityMainBinding
 
-    //  private val coinViewModel: CoinViewmodel by viewModels()
     private val coinViewModel: CoinViewmodel by viewModels {
         ViewModelFactory(AvailableBooksUseCase(CoinsRepositoryImpl(retrofit)))
     }
@@ -49,6 +48,7 @@ class MainActivity : AppCompatActivity(), ListenerAdapter {
     private fun attachObservers() {
         coinViewModel.cryptoBook.observe(this) {
             callDetail(it)
+            Log.d("Mensaje", "Anuma $it")
         }
     }
 

@@ -17,8 +17,7 @@ class CoinViewmodel(private var useCase: AvailableBooksUseCase) : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             val response = useCase.book()
             response.collect { book ->
-                Log.d("Mensaje", "$book")
-                cryptoBook.value = BooksDto(payload = book.payload, success = book.success)
+                cryptoBook.postValue(BooksDto(payload = book.payload, success = book.success))
             }
         }
 

@@ -10,7 +10,8 @@ import retrofit2.HttpException
 class AvailableBooksUseCase(private var repository: CoinsRepositoryImpl) {
     suspend fun book(): Flow<BooksDto> = flow {
         try {
-            repository.getAvailableBooks()
+            val response = repository.getAvailableBooks()
+            emit(response)
         } catch (e: HttpException) {
             Log.d("Mensaje", "Show Error: $e")
         }

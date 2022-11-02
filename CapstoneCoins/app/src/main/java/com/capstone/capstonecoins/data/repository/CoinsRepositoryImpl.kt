@@ -9,5 +9,4 @@ class CoinsRepositoryImpl(private val api: ApiService) : CoinsRepository {
     override suspend fun getAvailableBooks(): BooksDto =
         api.getAvailableBooks()
 
-
 }
