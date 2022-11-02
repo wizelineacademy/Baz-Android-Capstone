@@ -1,10 +1,11 @@
-package com.capstone.capstonecoins
+package com.capstone.capstonecoins.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.capstone.capstonecoins.R
 
 class CoinsFragment : Fragment() {
 
