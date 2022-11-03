@@ -11,6 +11,7 @@ class AvailableBooksUseCase(private var repository: CoinsRepositoryImpl) {
     suspend fun book(): Flow<BooksDto> = flow {
         try {
             val response = repository.getAvailableBooks()
+            Log.d("Mensaje", repository.getAvailableBooks().toString())
             emit(response)
         } catch (e: HttpException) {
             Log.d("Mensaje", "Show Error: $e")
