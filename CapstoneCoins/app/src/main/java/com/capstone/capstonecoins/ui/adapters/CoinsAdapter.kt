@@ -1,38 +1,40 @@
 package com.capstone.capstonecoins.ui.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.capstone.capstonecoins.R
-import com.capstone.capstonecoins.data.models.availablebooks.Payload
+import com.capstone.capstonecoins.data.repository.models.Book
+import com.capstone.capstonecoins.databinding.ItemCoinBinding
 import com.capstone.capstonecoins.ui.listeners.ListenerAdapter
 
 
-class CoinsAdapter(private var dataSet: List<Payload>, var setListener: ListenerAdapter) :
+class CoinsAdapter(private var dataSet: List<Book>, var setListener: ListenerAdapter) :
     RecyclerView.Adapter<CoinsAdapter.ViewHolder>() {
+    //Todo cambiar adapter a listAdapter
+    //Todo Imagenes de CriptoMonedas
+    inner class ViewHolder(private val binding: ItemCoinBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-    class ViewHolder(view: View, setListener: ListenerAdapter) : RecyclerView.ViewHolder(view) {
-        val textView: TextView
+        fun bind(book: Book) = with(binding) {
+            tvBook.text = book.id
 
-        init {
-            textView = view.findViewById(R.id.tv_book)
-            textView.setOnClickListener {
-                setListener.listener()
+            root.setOnClickListener {
+                setListener.listener(book)
             }
         }
-
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.item_coin, viewGroup, false)
-        return ViewHolder(view, setListener)
+        val layoutInflater =
+            LayoutInflater.from(viewGroup.context)
+
+        val binding = ItemCoinBinding.inflate(layoutInflater, viewGroup, false)
+
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.textView.text = dataSet[position].book
+        viewHolder.bind(dataSet[position])
     }
 
     override fun getItemCount() = dataSet.size

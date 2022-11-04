@@ -9,13 +9,16 @@
         android:name="com.capstone.capstonecoins.ui.CoinsFragment"
         android:label="fragment_coins"
         tools:layout="@layout/fragment_coins" >
+
         <action
-            android:id="@+id/action_coinsFragment2_to_detailCoinFragment"
+            android:id="@+id/action_coinsFragment_to_detailCoinFragment"
             app:destination="@id/detailCoinFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/detailCoinFragment"
         android:name="com.capstone.capstonecoins.ui.DetailCoinFragment"
         android:label="fragment_detail_coin"
-        tools:layout="@layout/fragment_detail_coin" />
+        tools:layout="@layout/fragment_detail_coin" >
+    </fragment>
 </navigation>

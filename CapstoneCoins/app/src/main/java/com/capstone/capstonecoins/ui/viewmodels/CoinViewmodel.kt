@@ -1,23 +1,23 @@
 package com.capstone.capstonecoins.ui.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.capstone.capstonecoins.data.models.availablebooks.BooksDto
+import androidx.lifecycle.viewModelScope
+import com.capstone.capstonecoins.data.repository.models.Book
 import com.capstone.capstonecoins.domain.api.usecases.AvailableBooksUseCase
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CoinViewmodel(private var useCase: AvailableBooksUseCase) : ViewModel() {
-    val cryptoBook = MutableLiveData<BooksDto>()
+    val cryptoBook = MutableLiveData<List<Book>>()
+    //Todo encapsulamiento de liveData
 
     fun getAvailableBooks() {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val response = useCase.book()
-            response.collect { book ->
-                cryptoBook.postValue(BooksDto(payload = book.payload, success = book.success))
+            response.collect { books ->
+                cryptoBook.postValue(books)
             }
         }
 

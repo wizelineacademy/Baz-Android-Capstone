@@ -1,5 +1,7 @@
 package com.capstone.capstonecoins.data.models.availablebooks
 
+import java.io.Serializable
+
 data class Payload(
     val book: String,
     val default_chart: String,
@@ -11,4 +13,4 @@ data class Payload(
     val minimum_price: String,
     val minimum_value: String,
     val tick_size: String
-)
+) : Serializable
