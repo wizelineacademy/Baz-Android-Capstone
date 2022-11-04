@@ -1,6 +1,5 @@
 package com.capstone.capstonecoins.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +13,7 @@ import com.capstone.capstonecoins.R
 import com.capstone.capstonecoins.data.repository.CoinsRepositoryImpl
 import com.capstone.capstonecoins.data.repository.models.Book
 import com.capstone.capstonecoins.data.retrofit
+import com.capstone.capstonecoins.data.utils.BOOKS_KEY
 import com.capstone.capstonecoins.databinding.FragmentCoinsBinding
 import com.capstone.capstonecoins.domain.api.usecases.AvailableBooksUseCase
 import com.capstone.capstonecoins.ui.adapters.CoinsAdapter
@@ -22,7 +22,6 @@ import com.capstone.capstonecoins.ui.viewmodels.CoinViewmodel
 import com.capstone.capstonecoins.ui.viewmodels.ViewModelFactory
 
 class CoinsFragment : Fragment(), ListenerAdapter {
-    lateinit var adapter: CoinsAdapter
     lateinit var recyclerView: RecyclerView
     private var _binding: FragmentCoinsBinding? = null
     private val binding get() = _binding!!
@@ -31,12 +30,22 @@ class CoinsFragment : Fragment(), ListenerAdapter {
         ViewModelFactory(AvailableBooksUseCase(CoinsRepositoryImpl(retrofit)))
     }
 
+    private val adapter by lazy {
+        CoinsAdapter {
+            onBookClick(it)
+        }
+    }
+
+    private fun onBookClick(book: Book) {
+        bundle.putSerializable(BOOKS_KEY, book)
+        findNavController().navigate(R.id.action_coinsFragment_to_detailCoinFragment, bundle)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCoinsBinding.inflate(inflater, container, false)
-        recyclerView = binding.rvCoins
         val view = binding.root
         return view
     }
@@ -47,19 +56,14 @@ class CoinsFragment : Fragment(), ListenerAdapter {
         attachObservers()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private fun callDetail(call: List<Book>) {
-        adapter = CoinsAdapter(
-            call,
-            this
-        )
-        recyclerView.adapter = adapter
-        adapter.notifyDataSetChanged()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.rvCoins.adapter = adapter
     }
 
     private fun attachObservers() {
         coinViewModel.cryptoBook.observe(this) {
-            callDetail(it)
+            adapter.submitList(it)
         }
     }
 
@@ -68,8 +72,7 @@ class CoinsFragment : Fragment(), ListenerAdapter {
     }
 
     override fun listener(book: Book) {
-        bundle.putSerializable("Books", book)
-        findNavController().navigate(R.id.action_coinsFragment_to_detailCoinFragment, bundle)
+
     }
 
     override fun onDestroy() {

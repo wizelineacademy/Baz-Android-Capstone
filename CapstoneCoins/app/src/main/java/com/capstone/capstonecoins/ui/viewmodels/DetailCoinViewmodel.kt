@@ -4,13 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.capstone.capstonecoins.data.models.ticker.tickerquery.TickerWithQuery
+import com.capstone.capstonecoins.data.repository.models.BookDetail
 import com.capstone.capstonecoins.domain.api.usecases.DetailCoinUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DetailCoinViewmodel(private var useCase: DetailCoinUseCase) : ViewModel() {
-    val detailCoin = MutableLiveData<TickerWithQuery>()
+    val detailCoin = MutableLiveData<BookDetail>()
 
     fun getDetailCoin(typeCoin: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -19,8 +19,9 @@ class DetailCoinViewmodel(private var useCase: DetailCoinUseCase) : ViewModel() 
                 detailCoin.postValue(detail)
             }
         }
-
     }
+
+
 }
 
 class ViewModelFactorym(private val detailUseCase: DetailCoinUseCase) :
