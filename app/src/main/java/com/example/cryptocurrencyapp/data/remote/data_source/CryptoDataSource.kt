@@ -1,14 +1,15 @@
-package com.example.cryptocurrencyapp.data.repository
+package com.example.cryptocurrencyapp.data.remote.data_source
 
 import com.example.cryptocurrencyapp.data.api.CryptoApi
-import com.example.cryptocurrencyapp.data.entity.response.WCCryptoAvailableResponse
+import com.example.cryptocurrencyapp.data.remote.entity.response.WCCryptoAvailableResponse
 import com.example.cryptocurrencyapp.domain.entity.WCCOrdeRDTO
 import com.example.cryptocurrencyapp.domain.entity.WCCTickerDTO
 import com.example.cryptocurrencyapp.domain.entity.WCCryptoBookDTO
 import com.example.cryptocurrencyapp.domain.repository.WCCryptoRepository
+import javax.inject.Inject
 
 
-class WCCryptoRepositoryImp(private val api: CryptoApi) : WCCryptoRepository {
+class WCCryptoRepositoryImp @Inject constructor(private val api: CryptoApi) : WCCryptoRepository {
 
     override suspend fun getAvailableBooks(): List<WCCryptoBookDTO> =
         api.getExchangeBooks().toListWCCryptoBookDTO().orEmpty()

@@ -6,15 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import com.example.cryptocurrencyapp.data.repository.WCCryptoRepositoryImp
+import androidx.fragment.app.activityViewModels
 import com.example.cryptocurrencyapp.databinding.FragmentDetailCoinBinding
 import com.example.cryptocurrencyapp.domain.entity.WCCryptoBookDTO
-import com.example.cryptocurrencyapp.domain.repository.retrofit
-import com.example.cryptocurrencyapp.domain.use_case.DetailUseCase
 import com.example.cryptocurrencyapp.presentation.view.adapters.OrderAdapter
 import com.example.cryptocurrencyapp.presentation.view_model.DetailViewModel
-import com.example.cryptocurrencyapp.presentation.view_model.ViewModelFactoryTicker
 
 
 private const val BOOK = "book"
@@ -27,9 +23,7 @@ class DetailCoinFragment : Fragment() {
     private var nameCoin: String? = null
     private var icon: Int = 0
 
-    private val detailModel: DetailViewModel by viewModels {
-        ViewModelFactoryTicker(DetailUseCase(WCCryptoRepositoryImp(retrofit)))
-    }
+    private val detailModel: DetailViewModel by activityViewModels ()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

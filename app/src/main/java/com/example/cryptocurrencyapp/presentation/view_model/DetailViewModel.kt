@@ -6,9 +6,12 @@ import com.example.cryptocurrencyapp.domain.entity.WCCOrdeRDTO
 import com.example.cryptocurrencyapp.domain.entity.WCCTickerDTO
 import com.example.cryptocurrencyapp.domain.use_case.DetailUseCase
 import com.example.cryptocurrencyapp.utils.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailViewModel (private val detailUseCase: DetailUseCase): ViewModel() {
+@HiltViewModel
+class DetailViewModel @Inject constructor (private val detailUseCase: DetailUseCase): ViewModel() {
 
     private val _tickerBook = MutableLiveData<WCCTickerDTO>()
     val resumeTicker: LiveData<WCCTickerDTO> get() = _tickerBook

@@ -6,25 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.cryptocurrencyapp.R
-import com.example.cryptocurrencyapp.data.repository.WCCryptoRepositoryImp
 import com.example.cryptocurrencyapp.databinding.FragmentCryptoListBinding
-import com.example.cryptocurrencyapp.domain.repository.retrofit
-import com.example.cryptocurrencyapp.domain.use_case.WCCAvailableUseCase
 import com.example.cryptocurrencyapp.presentation.view.adapters.WCCryptoAdapter
 import com.example.cryptocurrencyapp.presentation.view_model.AvailableViewModel
-import com.example.cryptocurrencyapp.presentation.view_model.ViewModelFactory
 
 
 class CryptoListFragment : Fragment() {
     private lateinit var binding: FragmentCryptoListBinding
     private lateinit var adapter : WCCryptoAdapter
 
-    private val coinViewModel:AvailableViewModel by viewModels {
-        ViewModelFactory(WCCAvailableUseCase(WCCryptoRepositoryImp(retrofit)))
-    }
+    private val coinViewModel:AvailableViewModel by activityViewModels ()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +43,5 @@ class CryptoListFragment : Fragment() {
         coinViewModel.coins.observe(requireActivity()){ coin ->
             adapter.submitList(coin)
         }
-
     }
 }

@@ -1,6 +1,6 @@
-package com.example.cryptocurrencyapp.data.entity.response
+package com.example.cryptocurrencyapp.data.remote.entity.response
 
-import com.example.cryptocurrencyapp.data.entity.WCCryptoAvailable
+import com.example.cryptocurrencyapp.data.remote.entity.WCCryptoAvailable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 

@@ -6,9 +6,12 @@ import com.example.cryptocurrencyapp.domain.entity.WCCryptoBookDTO
 import com.example.cryptocurrencyapp.domain.use_case.WCCAvailableUseCase
 import com.example.cryptocurrencyapp.utils.Resource
 import com.example.cryptocurrencyapp.utils.CryptoConstants
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AvailableViewModel(private val availableUseCase: WCCAvailableUseCase) : ViewModel() {
+@HiltViewModel
+class AvailableViewModel @Inject constructor(private val availableUseCase: WCCAvailableUseCase) : ViewModel() {
 
     private val _cryptoBook = MutableLiveData<List<WCCryptoBookDTO>>()
     val coins: LiveData<List<WCCryptoBookDTO>> get() = _cryptoBook
@@ -47,7 +50,7 @@ class AvailableViewModel(private val availableUseCase: WCCAvailableUseCase) : Vi
     }
 }
 
-class ViewModelFactory(private val availableUseCase: WCCAvailableUseCase) :
+/*class ViewModelFactory(private val availableUseCase: WCCAvailableUseCase) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(AvailableViewModel::class.java)) {
@@ -56,4 +59,4 @@ class ViewModelFactory(private val availableUseCase: WCCAvailableUseCase) :
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
-}
+}*/

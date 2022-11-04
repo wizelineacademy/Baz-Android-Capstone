@@ -1,4 +1,4 @@
-package com.example.cryptocurrencyapp.data.entity
+package com.example.cryptocurrencyapp.data.remote.entity
 
 import com.example.cryptocurrencyapp.domain.entity.WCCTickerDTO
 import com.google.gson.annotations.Expose

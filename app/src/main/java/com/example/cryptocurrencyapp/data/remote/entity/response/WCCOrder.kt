@@ -1,6 +1,6 @@
-package com.example.cryptocurrencyapp.data.entity.response
+package com.example.cryptocurrencyapp.data.remote.entity.response
 
-import com.example.cryptocurrencyapp.data.entity.WCCryptoOrderBook
+import com.example.cryptocurrencyapp.data.remote.entity.WCCryptoOrderBook
 import com.example.cryptocurrencyapp.domain.entity.WCCOrdeRDTO
 import com.example.cryptocurrencyapp.utils.CryptoConstants
 import com.google.gson.annotations.Expose

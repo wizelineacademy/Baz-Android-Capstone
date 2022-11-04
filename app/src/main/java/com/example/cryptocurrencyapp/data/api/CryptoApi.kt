@@ -1,8 +1,8 @@
 package com.example.cryptocurrencyapp.data.api
 
-import com.example.cryptocurrencyapp.data.entity.response.WCCryptoTickerResponse
-import com.example.cryptocurrencyapp.data.entity.response.WCCryptoAvailableResponse
-import com.example.cryptocurrencyapp.data.entity.response.WCCryptoOrderResponse
+import com.example.cryptocurrencyapp.data.remote.entity.response.WCCryptoTickerResponse
+import com.example.cryptocurrencyapp.data.remote.entity.response.WCCryptoAvailableResponse
+import com.example.cryptocurrencyapp.data.remote.entity.response.WCCryptoOrderResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

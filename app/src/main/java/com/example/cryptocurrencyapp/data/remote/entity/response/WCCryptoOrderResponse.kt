@@ -1,4 +1,4 @@
-package com.example.cryptocurrencyapp.data.entity.response
+package com.example.cryptocurrencyapp.data.remote.entity.response
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -10,5 +10,5 @@ data class WCCryptoOrderResponse (
 
     @SerializedName("payload")
     @Expose
-    val payload: WCCOrder ?= null
+    val payload: WCCOrder?= null
 )
