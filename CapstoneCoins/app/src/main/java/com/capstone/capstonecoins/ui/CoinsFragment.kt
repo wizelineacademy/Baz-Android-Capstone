@@ -68,8 +68,8 @@ class CoinsFragment : Fragment(), ListenerAdapter {
     }
 
     override fun listener(book: Book) {
-        //  bundle.putSerializable("Books", payload)
-        findNavController().navigate(R.id.action_coinsFragment_to_detailCoinFragment)
+        bundle.putSerializable("Books", book)
+        findNavController().navigate(R.id.action_coinsFragment_to_detailCoinFragment, bundle)
     }
 
     override fun onDestroy() {
