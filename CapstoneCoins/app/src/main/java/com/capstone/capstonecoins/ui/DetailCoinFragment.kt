@@ -4,19 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.capstone.capstonecoins.R
 import com.capstone.capstonecoins.data.repository.DetailCoinRepositoryImpl
 import com.capstone.capstonecoins.data.repository.models.Book
 import com.capstone.capstonecoins.data.repository.models.BookDetail
 import com.capstone.capstonecoins.data.retrofit
 import com.capstone.capstonecoins.data.utils.BOOKS_KEY
-import com.capstone.capstonecoins.data.utils.COIN_KEY
 import com.capstone.capstonecoins.databinding.FragmentDetailCoinBinding
 import com.capstone.capstonecoins.domain.api.usecases.DetailCoinUseCase
+import com.capstone.capstonecoins.ui.adapters.BidsAdapter
 import com.capstone.capstonecoins.ui.viewmodels.DetailCoinViewmodel
 import com.capstone.capstonecoins.ui.viewmodels.ViewModelFactorym
 
@@ -25,9 +23,12 @@ class DetailCoinFragment : Fragment() {
     private var _binding: FragmentDetailCoinBinding? = null
     private val binding get() = _binding!!
     var type: String = ""
-    var bundle = bundleOf()
 
-
+    private val adapter by lazy {
+        BidsAdapter { bid ->
+            bid
+        }
+    }
     private val detailCoinViewModel: DetailCoinViewmodel by viewModels {
         ViewModelFactorym(DetailCoinUseCase(DetailCoinRepositoryImpl(retrofit)))
     }
@@ -49,25 +50,8 @@ class DetailCoinFragment : Fragment() {
             if (typeCoin is Book) {
                 callServices(typeCoin.id)
                 attachObservers()
-                loadListeners()
+                binding.lvBids.adapter = adapter
             }
-        }
-
-    }
-
-    private fun loadListeners() {
-        with(binding) {
-
-            bundle.putString(COIN_KEY, type)
-
-            btnAsks.setOnClickListener {
-                findNavController().navigate(R.id.action_detailCoinFragment_to_bidsFragment, bundle)
-            }
-
-            btnBids.setOnClickListener {
-                findNavController().navigate(R.id.action_detailCoinFragment_to_bidsFragment, bundle)
-            }
-
         }
     }
 
@@ -75,7 +59,12 @@ class DetailCoinFragment : Fragment() {
         detailCoinViewModel.detailCoin.observe(viewLifecycleOwner) {
             showDetailInfo(it)
         }
+
+        detailCoinViewModel.bidsAsksCoin.observe(viewLifecycleOwner) {
+            adapter.submitList(it.payload.bids)
+        }
     }
+
 
     private fun showDetailInfo(detail: BookDetail) = with(binding) {
         tvMaxPrice.text = getString(R.string.max_price, detail.high)
@@ -85,8 +74,8 @@ class DetailCoinFragment : Fragment() {
 
     private fun callServices(typeCoin: String) {
         detailCoinViewModel.getDetailCoin(typeCoin)
+        detailCoinViewModel.getBidsAsksCoin(typeCoin)
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

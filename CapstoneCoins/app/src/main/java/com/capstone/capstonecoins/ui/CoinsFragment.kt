@@ -21,8 +21,7 @@ import com.capstone.capstonecoins.ui.listeners.ListenerAdapter
 import com.capstone.capstonecoins.ui.viewmodels.CoinViewmodel
 import com.capstone.capstonecoins.ui.viewmodels.ViewModelFactory
 
-class CoinsFragment : Fragment(), ListenerAdapter {
-    lateinit var recyclerView: RecyclerView
+class CoinsFragment : Fragment() {
     private var _binding: FragmentCoinsBinding? = null
     private val binding get() = _binding!!
     var bundle = bundleOf()
@@ -69,10 +68,6 @@ class CoinsFragment : Fragment(), ListenerAdapter {
 
     private fun callServices() {
         coinViewModel.getAvailableBooks()
-    }
-
-    override fun listener(book: Book) {
-
     }
 
     override fun onDestroy() {

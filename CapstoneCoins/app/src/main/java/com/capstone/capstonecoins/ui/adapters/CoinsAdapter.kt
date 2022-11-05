@@ -22,7 +22,6 @@ class CoinsAdapter(var itemClick: (Book) -> Unit) :
 
     }
 
-    //Todo cambiar adapter a listAdapter
     //Todo Imagenes de CriptoMonedas
     inner class ViewHolder(private val binding: ItemCoinBinding) :
         RecyclerView.ViewHolder(binding.root) {
