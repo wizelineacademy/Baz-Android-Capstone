@@ -24,6 +24,15 @@ Estos son los requerimientos principales que evaluaremos:
     - Diseño de UI
     - Patrones de diseño
 
+## Enviando los entregables
+
+Para publicar tu trabajo, deberás seguir estos pasos:
+
+1. Crear un `pull request` con tu código, apuntando a la rama `master`
+2. Llenar este [formato](https://docs.google.com/forms/d/e/1FAIpQLSeiEq0dPXjLnni5OBHzNwGMs-NYWckzFgrn5PS18Culpojt-A/viewform)
+3. Mantente al pendiente de la retroalimentación.
+4. Genera los cambios conforme a los comentarios de tu mentor.
+
 ## Para empezar
 
 Para empezar, sigue los siguientes pasos:
@@ -87,11 +96,4 @@ Con base en el material de autoestudio y las mentorías hasta este entregable, s
 
 > Importante: este es el último entregabble, por lo cual todos los requerimientos deben ser incluidos. Proveeremos retroalimentación de tu entregable y tendrás 3 días más para aplicar los cambios. En el tercer día, dejaremos de recibir cambios a las 11:00 a.m.
 
-## Enviando los entregables
 
-Para publicar tu trabajo, deberás seguir estos pasos:
-
-1. Crear un `pull request` con tu código, apuntando a la rama `master`
-2. Llenar este [formato](https://docs.google.com/forms/d/e/1FAIpQLSeiEq0dPXjLnni5OBHzNwGMs-NYWckzFgrn5PS18Culpojt-A/viewform)
-3. Mantente al pendiente de la retroalimentación.
-4. Genera los cambios conforme a los comentarios de tu mentor.
