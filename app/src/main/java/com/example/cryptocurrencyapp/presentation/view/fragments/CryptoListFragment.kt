@@ -6,19 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.cryptocurrencyapp.R
 import com.example.cryptocurrencyapp.databinding.FragmentCryptoListBinding
 import com.example.cryptocurrencyapp.presentation.view.adapters.WCCryptoAdapter
 import com.example.cryptocurrencyapp.presentation.view_model.AvailableViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class CryptoListFragment : Fragment() {
     private lateinit var binding: FragmentCryptoListBinding
     private lateinit var adapter : WCCryptoAdapter
 
-    private val coinViewModel:AvailableViewModel by activityViewModels ()
+    private val coinViewModel by viewModels <AvailableViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,13 +27,13 @@ class CryptoListFragment : Fragment() {
             findNavController().navigate(R.id.action_cryptoListFragment_to_detailCoinFragment,
                 bundleOf("book" to book))
         }
-        coinViewModel.getAvailableBook()
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCryptoListBinding.inflate(layoutInflater,container,false)
         binding.rvAvailable.adapter = adapter
         return binding.root
@@ -40,6 +41,8 @@ class CryptoListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        coinViewModel.getAvailableBook()
+
         coinViewModel.coins.observe(requireActivity()){ coin ->
             adapter.submitList(coin)
         }

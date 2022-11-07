@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "available_table")
 data class AvailableBookEntity(
 
-    @PrimaryKey val book: String = "",
+    @PrimaryKey val book: String,
     val minPrice: String = "",
     val maxPrice: String = "",
     val logo: Int,

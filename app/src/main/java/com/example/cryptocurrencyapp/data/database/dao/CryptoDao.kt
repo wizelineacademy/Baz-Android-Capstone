@@ -8,15 +8,15 @@ import androidx.room.*
 interface CryptoDao {
 
     @Query("SELECT * FROM available_table")
-    fun getAllAvailableBookDB(): List<AvailableBookEntity>
+    suspend fun getAllAvailableBookDB(): List<AvailableBookEntity>
 
-    @Insert
-    fun insertAvailableBooDB (book: List<AvailableBookEntity>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAvailableBooDB (book: List<AvailableBookEntity>)
 
     @Update
-    fun updateAvailableBookDB(bookList: List<AvailableBookEntity>)
+   suspend fun updateAvailableBookDB(bookList: List<AvailableBookEntity>)
 
     @Query("DELETE FROM available_table")
-    fun deleteAllAvailableBookDB()
+   suspend fun deleteAllAvailableBookDB()
 
 }

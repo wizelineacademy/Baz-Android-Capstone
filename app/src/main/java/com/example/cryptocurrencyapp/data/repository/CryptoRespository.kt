@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.util.Log
 import com.example.cryptocurrencyapp.data.database.data_source.CryptoLocalDataSource
 import com.example.cryptocurrencyapp.data.database.entities.AvailableBookEntity
 import com.example.cryptocurrencyapp.data.remote.data_source.WCCryptoRepositoryImp
@@ -23,7 +24,6 @@ class CryptoRespository @Inject constructor(
     override suspend fun getAvailableBooks(): List<WCCryptoBookDTO> {
         if (isInternetAvailable(context)) {
             val cryptoList = remoteDataSource.getAvailableBooks()
-
             if (cryptoList.isNotEmpty()) {
                 localDataSource.insertAvailableBookToDB(
                     cryptoList.map {
@@ -38,7 +38,7 @@ class CryptoRespository @Inject constructor(
             }
             return cryptoList
         } else {
-            try{
+            try {
                 return localDataSource.getAllAvailableFromDB().map {
                     WCCryptoBookDTO(
                         book = it.book,
@@ -47,7 +47,7 @@ class CryptoRespository @Inject constructor(
                         logo = it.logo
                     )
                 }
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
                 return emptyList()
             }

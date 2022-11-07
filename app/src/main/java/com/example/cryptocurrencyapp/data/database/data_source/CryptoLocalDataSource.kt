@@ -9,12 +9,13 @@ class CryptoLocalDataSource @Inject constructor(
 ){
 
     //Available
-     fun getAllAvailableFromDB(): List<AvailableBookEntity> =
+     suspend fun getAllAvailableFromDB(): List<AvailableBookEntity> =
          cryptpDB.getAllAvailableBookDB()
 
-    fun insertAvailableBookToDB(bookList: List<AvailableBookEntity>) =
+
+    suspend fun insertAvailableBookToDB(bookList: List<AvailableBookEntity>) =
         cryptpDB.insertAvailableBooDB(bookList)
 
-    fun updateAvailableBookDB(bookList: List<AvailableBookEntity>) =
+    suspend fun updateAvailableBookDB(bookList: List<AvailableBookEntity>) =
         cryptpDB.updateAvailableBookDB(bookList)
 }
