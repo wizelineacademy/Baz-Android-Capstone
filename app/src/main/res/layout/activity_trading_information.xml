@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imgcurrency"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:scaleType="centerInside"/>
+
+                        <TextView
+                            android:text="@string/sTo"
+                            android:layout_margin="10dp"
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <ImageView
+                            android:id="@+id/imgcurrento"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:scaleType="centerInside"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/svolume" />
+
+                        <TextView
+                            android:id="@+id/txtVolume"
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/shigh" />
+
+                        <TextView
+                            android:id="@+id/txtHighn"
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/slast" />
+
+                        <TextView
+                            android:id="@+id/txtLast"
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/slow" />
+
+                        <TextView
+                            android:id="@+id/txtLow"
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/svwap" />
+
+                        <TextView
+                            android:id="@+id/txtVwap"
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sask" />
+
+                        <TextView
+                            android:id="@+id/txtAsk"
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sbid" />
+
+                        <TextView
+                            android:id="@+id/txtBid"
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/screated" />
+
+                        <TextView
+                            android:id="@+id/txtCreated"
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/asks" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rcvAsks"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:background="@color/background"
+                            android:baselineAligned="false"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bids" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rcvBids"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:background="@color/background"
+                            android:layout_weight="1"/>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+        </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
