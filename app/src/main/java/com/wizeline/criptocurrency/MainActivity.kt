@@ -3,16 +3,8 @@ package com.wizeline.criptocurrency
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.wizeline.criptocurrency.common.adapters.RetrofitClient
-import com.wizeline.criptocurrency.data.repository.BitsoRepository
-import com.wizeline.criptocurrency.data.repository.BitsoRepositoryImp
-import com.wizeline.criptocurrency.domain.model.use_case.AvailableBooksUseCase
-import com.wizeline.criptocurrency.domain.model.use_case.OrderBookUseCase
-import com.wizeline.criptocurrency.domain.model.use_case.TickerUseCase
 import com.wizeline.criptocurrency.ui.AvailableBooksFragment
-import com.wizeline.criptocurrency.ui.CriptoCurrencyViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

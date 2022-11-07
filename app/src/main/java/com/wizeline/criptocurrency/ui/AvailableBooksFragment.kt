@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.wizeline.criptocurrency.MainActivity
 import com.wizeline.criptocurrency.common.adapters.*
-import com.wizeline.criptocurrency.data.remote.dto.BitsoApi
 import com.wizeline.criptocurrency.data.repository.BitsoRepositoryImp
 import com.wizeline.criptocurrency.databinding.FragmentAvailableBooksBinding
 import com.wizeline.criptocurrency.domain.model.use_case.AvailableBooksUseCase
@@ -39,15 +38,29 @@ class AvailableBooksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        criptoCurrencyVM.getAvailableBooks (error = { Toast.makeText(context,it, Toast.LENGTH_SHORT).show()})
+        criptoCurrencyVM.getAvailableBooks()
 
         binding.apply {
             criptoCurrencyVM.isLoading.observe(viewLifecycleOwner) {
-              rvBooks.adapter = AvailableBooksAdapter(criptoCurrencyVM.availableOrderBookList.value ?: emptyList(),
-                  goToDetail = {
-                      criptoCurrencyVM.setSelectedOrderBook(it?.book.orEmpty())
-                      (activity as MainActivity).loadFragment(OrderBookDetailFragment())
-                  })
+                criptoCurrencyVM.isLoading.observe(viewLifecycleOwner) {
+                    if(it){
+                        //ShowProgress
+                    }else{
+                        //HideProgress
+                        rvBooks.adapter = AvailableBooksAdapter(criptoCurrencyVM.availableOrderBookList.value ?: emptyList(),
+                            goToDetail = { availableBook,coinName->
+                                criptoCurrencyVM.setSelectedOrderBook(availableBook?.book.orEmpty())
+                                criptoCurrencyVM.setSelectedCoinName(coinName)
+                                (activity as MainActivity).loadFragment(OrderBookDetailFragment())
+                            }
+                        )
+                    }
+                }
+
+            }
+
+            criptoCurrencyVM.error.observe(viewLifecycleOwner){
+                Toast.makeText(context,it,Toast.LENGTH_SHORT).show()
             }
         }
     }

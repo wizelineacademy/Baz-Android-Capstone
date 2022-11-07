@@ -9,5 +9,8 @@
     <string name="price">Price</string>
     <string name="amount">Amount</string>
     <string name="book">BOOK</string>
+    <string name="last">Last: %s</string>
+    <string name="high">High: %s</string>
+    <string name="low">Low: %s</string>
 
 </resources>

@@ -12,4 +12,4 @@ data class AvailableBooksResponse (
     @SerializedName("payload")
     @Expose
     var payload: List<AvailableBookDto>? = null
-):Serializable
+)
