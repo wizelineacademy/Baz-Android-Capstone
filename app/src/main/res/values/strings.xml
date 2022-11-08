@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Proyecto_bitcoin</string>
+    <string name="txt_max_price">Precio máximo: </string>
+    <string name="txt_min_price">Precio minimo: </string>
 </resources>
