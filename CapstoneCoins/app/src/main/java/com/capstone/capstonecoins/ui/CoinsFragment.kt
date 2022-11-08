@@ -25,6 +25,7 @@ class CoinsFragment : Fragment() {
     private var _binding: FragmentCoinsBinding? = null
     private val binding get() = _binding!!
     var bundle = bundleOf()
+
     private val coinViewModel: CoinViewmodel by viewModels {
         ViewModelFactory(AvailableBooksUseCase(CoinsRepositoryImpl(retrofit)))
     }

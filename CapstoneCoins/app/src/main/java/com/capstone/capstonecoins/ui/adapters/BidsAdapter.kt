@@ -26,9 +26,9 @@ class BidsAdapter(var itemClick: (Bid) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(bids: Bid) = with(binding) {
-            tvAmount.text = bids.amount
-            tvBook.text = bids.book
-            tvPrice.text = bids.price
+            tvAmount.text = "Amount: " + bids.amount
+            //tvBook.text = bids.book
+            tvPrice.text = "Price: " + bids.price
         }
     }
 

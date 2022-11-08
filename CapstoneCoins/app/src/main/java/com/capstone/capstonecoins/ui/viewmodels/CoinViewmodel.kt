@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
 
 class CoinViewmodel(private var useCase: AvailableBooksUseCase) : ViewModel() {
     val cryptoBook = MutableLiveData<List<Book>>()
-    //Todo encapsulamiento de liveData
 
     fun getAvailableBooks() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -20,7 +19,6 @@ class CoinViewmodel(private var useCase: AvailableBooksUseCase) : ViewModel() {
                 cryptoBook.postValue(books)
             }
         }
-
     }
 
 }

@@ -58,11 +58,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lv_bids"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:orientation="vertical"
-            android:padding="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toStartOf="@+id/lv_asks"
             app:layout_constraintStart_toStartOf="parent"
@@ -71,9 +69,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lv_asks"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/lv_bids"

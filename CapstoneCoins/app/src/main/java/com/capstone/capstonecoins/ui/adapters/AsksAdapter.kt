@@ -1,6 +1,5 @@
 package com.capstone.capstonecoins.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -26,10 +25,9 @@ class AsksAdapter(itemClick: (Ask) -> Unit) :
     inner class ViewHolder(private val binding: ItemAskBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(ask: Ask) = with(binding) {
-            tvAmountA.text = ask.amount
-            tvBookA.text = ask.book
-            tvPriceA.text = ask.price
-            Log.d("Mensaje", "anuma: $ask")
+            tvAmountA.text = "Amount: " + ask.amount
+            // tvBookA.text = ask.book
+            tvPriceA.text = "Price: " + ask.price
         }
     }
 

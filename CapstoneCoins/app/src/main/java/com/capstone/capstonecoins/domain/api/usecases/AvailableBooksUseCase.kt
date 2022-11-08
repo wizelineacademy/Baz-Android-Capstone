@@ -1,7 +1,6 @@
 package com.capstone.capstonecoins.domain.api.usecases
 
 import android.util.Log
-import com.capstone.capstonecoins.data.models.availablebooks.BooksDto
 import com.capstone.capstonecoins.data.repository.CoinsRepositoryImpl
 import com.capstone.capstonecoins.data.repository.models.Book
 import kotlinx.coroutines.flow.Flow
