@@ -27,5 +27,4 @@ class DetailCoinUseCase(private var repository: DetailCoinRepositoryImpl) {
         }
     }
 
-
 }

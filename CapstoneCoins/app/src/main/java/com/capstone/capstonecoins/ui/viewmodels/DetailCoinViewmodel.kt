@@ -32,7 +32,6 @@ class DetailCoinViewmodel(private var useCase: DetailCoinUseCase) : ViewModel() 
         }
     }
 
-
 }
 
 class ViewModelFactorym(private val detailUseCase: DetailCoinUseCase) :

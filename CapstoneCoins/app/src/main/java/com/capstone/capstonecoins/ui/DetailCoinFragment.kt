@@ -14,6 +14,7 @@ import com.capstone.capstonecoins.data.retrofit
 import com.capstone.capstonecoins.data.utils.BOOKS_KEY
 import com.capstone.capstonecoins.databinding.FragmentDetailCoinBinding
 import com.capstone.capstonecoins.domain.api.usecases.DetailCoinUseCase
+import com.capstone.capstonecoins.ui.adapters.AsksAdapter
 import com.capstone.capstonecoins.ui.adapters.BidsAdapter
 import com.capstone.capstonecoins.ui.viewmodels.DetailCoinViewmodel
 import com.capstone.capstonecoins.ui.viewmodels.ViewModelFactorym
@@ -29,6 +30,13 @@ class DetailCoinFragment : Fragment() {
             bid
         }
     }
+
+    private val adapterAsks by lazy {
+        AsksAdapter { asks ->
+            asks
+        }
+    }
+
     private val detailCoinViewModel: DetailCoinViewmodel by viewModels {
         ViewModelFactorym(DetailCoinUseCase(DetailCoinRepositoryImpl(retrofit)))
     }
@@ -51,6 +59,7 @@ class DetailCoinFragment : Fragment() {
                 callServices(typeCoin.id)
                 attachObservers()
                 binding.lvBids.adapter = adapter
+                binding.lvAsks.adapter = adapterAsks
             }
         }
     }
@@ -62,6 +71,7 @@ class DetailCoinFragment : Fragment() {
 
         detailCoinViewModel.bidsAsksCoin.observe(viewLifecycleOwner) {
             adapter.submitList(it.payload.bids)
+            adapterAsks.submitList(it.payload.asks)
         }
     }
 
