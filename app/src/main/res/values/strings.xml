@@ -10,7 +10,7 @@
     <string name="mnx">MXN</string>
     <string name="max_price">Precio minimo</string>
     <string name="min_price">Precio Maximo</string>
-    <string name="ask">ask</string>
+    <string name="price">price</string>
     <string name="amount">monto</string>
     <string name="wallet">WaLLET</string>
 

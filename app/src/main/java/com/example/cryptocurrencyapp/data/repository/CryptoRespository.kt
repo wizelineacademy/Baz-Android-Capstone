@@ -5,19 +5,18 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.util.Log
+import com.example.cryptocurrencyapp.data.api.CryptoApi
 import com.example.cryptocurrencyapp.data.database.data_source.CryptoLocalDataSource
-import com.example.cryptocurrencyapp.data.database.entities.AvailableBookEntity
+import com.example.cryptocurrencyapp.data.database.entities.*
 import com.example.cryptocurrencyapp.data.remote.data_source.WCCryptoRepositoryImp
-import com.example.cryptocurrencyapp.data.remote.entity.response.WCCryptoAvailableResponse
-import com.example.cryptocurrencyapp.domain.entity.WCCOrdeRDTO
-import com.example.cryptocurrencyapp.domain.entity.WCCTickerDTO
-import com.example.cryptocurrencyapp.domain.entity.WCCryptoBookDTO
+import com.example.cryptocurrencyapp.domain.entity.*
 import com.example.cryptocurrencyapp.domain.repository.WCCryptoRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class CryptoRespository @Inject constructor(
     @ApplicationContext private val context: Context,
+    private val api: CryptoApi,
     private val localDataSource: CryptoLocalDataSource,
     private val remoteDataSource: WCCryptoRepositoryImp,
 ) : WCCryptoRepository {
@@ -29,6 +28,7 @@ class CryptoRespository @Inject constructor(
                     cryptoList.map {
                         AvailableBookEntity(
                             book = it.book,
+                            name = it.name,
                             minPrice = it.minPrice,
                             maxPrice = it.maxPrice,
                             logo = it.logo
@@ -42,6 +42,7 @@ class CryptoRespository @Inject constructor(
                 return localDataSource.getAllAvailableFromDB().map {
                     WCCryptoBookDTO(
                         book = it.book,
+                        name = it.name,
                         minPrice = it.minPrice,
                         maxPrice = it.maxPrice,
                         logo = it.logo
@@ -55,11 +56,46 @@ class CryptoRespository @Inject constructor(
     }
 
     override suspend fun getTickerBook(book: String): WCCTickerDTO {
-        TODO("Not yet implemented")
+        return if (isInternetAvailable(context)) {
+            val ticker: WCCTickerDTO = remoteDataSource.getTickerBook(book)
+
+            if (ticker.book != "") {
+                localDataSource.insertTickerToDB(ticker.toTickerEntity())
+                ticker.toTickerEntity().toWCCTickerDTO()
+            } else
+                localDataSource.getTickerFromDB(book).toWCCTickerDTO()
+        } else
+            localDataSource.getTickerFromDB(book).toWCCTickerDTO()
     }
 
     override suspend fun getOrderBook(book: String): WCCOrdeRDTO {
-        TODO("Not yet implemented")
+        if (isInternetAvailable(context)) {
+            val order = remoteDataSource.getOrderBook(book)
+            if (order.ask.isNotEmpty() && order.bids.isNotEmpty()){
+               // localDataSource.deletList(book)
+                localDataSource.insertOrdertoDB(order.ask.map {
+                        AskEntity(
+                            book = it.book,
+                            price = it.price,
+                            amount = it.amount,
+                            type = it.type
+                        )
+                }, order.bids.map { bid->
+                    BidEntity(
+                        book = bid.book,
+                        price = bid.price,
+                        amount = bid.amount,
+                        type = bid.type
+                    )
+                }.toMutableList())
+                //localDataSource.insertOrdertoDB(order.ask.toAaskEntityList(),order.bids.toBidEnttyList())
+            }else{
+                localDataSource.getOrderFromDB(book)
+            }
+            return order
+        }else
+            return localDataSource.getOrderFromDB(book)
+
     }
 
 }

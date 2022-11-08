@@ -7,6 +7,8 @@ import com.example.cryptocurrencyapp.domain.entity.WCCTickerDTO
 import com.example.cryptocurrencyapp.domain.use_case.DetailUseCase
 import com.example.cryptocurrencyapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,26 +27,26 @@ class DetailViewModel @Inject constructor (private val detailUseCase: DetailUseC
     fun getTicker(book:String){
         viewModelScope.launch {
             val response =detailUseCase.ticker(book)
-            response.collect{ ticker ->
+            response.onEach{ ticker ->
                 when(ticker){
                     is Resource.Loading ->
                         _isLoading.value = true
                     is Resource.Success ->{
                         _tickerBook.value = ticker.data ?: WCCTickerDTO()
-                        _isLoading.value = true
+                        _isLoading.value = false
                                 Log.i("datos","$_tickerBook")
                     }
                     is Resource.Error ->
                         Log.i("depur","Error")
                 }
-            }
+            }.launchIn(viewModelScope)
         }
     }
 
     fun getOrderBook(book: String) {
         viewModelScope.launch {
             val response = detailUseCase.order(book)
-            response.collect { order ->
+            response.onEach { order ->
                 when (order) {
                     is Resource.Loading ->
                        _isLoading.value = true
@@ -56,7 +58,7 @@ class DetailViewModel @Inject constructor (private val detailUseCase: DetailUseC
                     is Resource.Error ->
                         Log.i("depur", "Error")
                 }
-            }
+            }.launchIn(viewModelScope)
         }
     }
 

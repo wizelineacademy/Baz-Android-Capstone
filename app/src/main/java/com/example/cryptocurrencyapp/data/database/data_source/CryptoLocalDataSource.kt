@@ -1,11 +1,17 @@
 package com.example.cryptocurrencyapp.data.database.data_source
 
 import com.example.cryptocurrencyapp.data.database.dao.CryptoDao
+import com.example.cryptocurrencyapp.data.database.dao.TickerDao
+import com.example.cryptocurrencyapp.data.database.entities.AskEntity
 import com.example.cryptocurrencyapp.data.database.entities.AvailableBookEntity
+import com.example.cryptocurrencyapp.data.database.entities.BidEntity
+import com.example.cryptocurrencyapp.data.database.entities.TickerEntity
 import javax.inject.Inject
 
 class CryptoLocalDataSource @Inject constructor(
-    private val cryptpDB: CryptoDao
+    private val cryptpDB: CryptoDao,
+    private val tickerBD: TickerDao
+
 ){
 
     //Available
@@ -18,4 +24,27 @@ class CryptoLocalDataSource @Inject constructor(
 
     suspend fun updateAvailableBookDB(bookList: List<AvailableBookEntity>) =
         cryptpDB.updateAvailableBookDB(bookList)
+
+
+    //Ticker
+    suspend fun getTickerFromDB(book : String) : TickerEntity =
+        tickerBD.getickerBD(book)
+
+    suspend fun insertTickerToDB(tickerEntity: TickerEntity) =
+        tickerBD.insertTickerBD(tickerEntity)
+
+
+    suspend fun getOrderFromDB(book: String) =
+        cryptpDB.getOrderBookDB(book)
+
+    suspend fun insertOrdertoDB(askList: List<AskEntity>,bidList: List<BidEntity>) =
+        cryptpDB.insertOrderBookFromDatabase(askList,bidList)
+
+   /* suspend fun deletList(book:String){
+        cryptpDB.deleteAskList(book)
+        cryptpDB.deleteBidList(book)
+    }*/
+
 }
+
+

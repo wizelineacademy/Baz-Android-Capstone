@@ -2,6 +2,7 @@ package com.example.cryptocurrencyapp.data.remote.data_source
 
 import com.example.cryptocurrencyapp.data.api.CryptoApi
 import com.example.cryptocurrencyapp.data.remote.entity.response.WCCryptoAvailableResponse
+import com.example.cryptocurrencyapp.data.remote.entity.toBitsoTicker
 import com.example.cryptocurrencyapp.domain.entity.WCCOrdeRDTO
 import com.example.cryptocurrencyapp.domain.entity.WCCTickerDTO
 import com.example.cryptocurrencyapp.domain.entity.WCCryptoBookDTO

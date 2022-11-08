@@ -4,14 +4,14 @@ import com.example.cryptocurrencyapp.domain.entity.WCCTickerDTO
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class WCCryptoTicker (
+data class WCCryptoTicker(
     @SerializedName("book")
     @Expose
     val book: String = "",
 
     @SerializedName("volume")
     @Expose
-    val volume: String  = "",
+    val volume: String = "",
 
     @SerializedName("high")
     @Expose
@@ -40,12 +40,12 @@ data class WCCryptoTicker (
     @SerializedName("created_at")
     @Expose
     val createdAt: String = ""
-){
-    fun toBitsoTicker(): WCCTickerDTO{
-        return WCCTickerDTO(
-            book = book,
-            high = high,
-            low = low,
-        )
-    }
+)
+
+fun WCCryptoTicker.toBitsoTicker(): WCCTickerDTO {
+    return WCCTickerDTO(
+        book = this.book,
+        high = high,
+        low = low,
+    )
 }

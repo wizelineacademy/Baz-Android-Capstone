@@ -7,14 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.example.cryptocurrencyapp.databinding.FragmentDetailCoinBinding
 import com.example.cryptocurrencyapp.domain.entity.WCCryptoBookDTO
 import com.example.cryptocurrencyapp.presentation.view.adapters.OrderAdapter
 import com.example.cryptocurrencyapp.presentation.view_model.DetailViewModel
-
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val BOOK = "book"
 
+@AndroidEntryPoint
 class DetailCoinFragment : Fragment() {
     private lateinit var binding: FragmentDetailCoinBinding
     private lateinit var bidAdapter: OrderAdapter
@@ -23,7 +25,7 @@ class DetailCoinFragment : Fragment() {
     private var nameCoin: String? = null
     private var icon: Int = 0
 
-    private val detailModel: DetailViewModel by activityViewModels ()
+    private val detailModel by viewModels<DetailViewModel> ()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +39,8 @@ class DetailCoinFragment : Fragment() {
         }
         bidAdapter = OrderAdapter()
         askAdapter = OrderAdapter()
-        detailModel.getOrderBook(book.book)
         detailModel.getTicker(book.book)
+        detailModel.getOrderBook(book.book)
     }
 
     override fun onCreateView(

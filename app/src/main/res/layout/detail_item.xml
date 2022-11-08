@@ -59,7 +59,7 @@
             android:id="@+id/txt_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "@string/ask"
+            android:text = "@string/price"
             android:textSize="16sp"
             android:textStyle="bold"
             android:maxLines="1"

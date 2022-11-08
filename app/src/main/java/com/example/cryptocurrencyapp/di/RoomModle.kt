@@ -26,4 +26,8 @@ object RoomModle {
     @Singleton
     @Provides
     fun providerCoinDao (bd: CoinDataBase) = bd.getCoinDao()
+
+    @Singleton
+    @Provides
+    fun providerTicker (bd: CoinDataBase) = bd.getTickerDao()
 }
