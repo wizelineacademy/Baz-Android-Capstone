@@ -18,7 +18,7 @@ data class AvailableBookDto (
     fun toAvailableBook(): AvailableBook =
         AvailableBook(
             book = this.book,
-            minimum_value = this.minimum_value?.toDouble(),
-            maximum_value = this.maximum_value?.toDouble()
+            minimum_value = this.minimum_value,
+            maximum_value = this.maximum_value
         )
 }

@@ -12,7 +12,9 @@ import javax.inject.Inject
 
 class AvailableBooksUseCase @Inject constructor (private val repository: BitsoRepository) {
 
+
     operator fun invoke(): Flow<RequestState<List<AvailableBook>>> = flow {
+
         try {
             emit(RequestState.Loading<List<AvailableBook>>())
 

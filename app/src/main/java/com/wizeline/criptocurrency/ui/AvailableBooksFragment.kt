@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.wizeline.criptocurrency.MainActivity
 import com.wizeline.criptocurrency.common.adapters.*
+import com.wizeline.criptocurrency.data.database.dao.CryptoCurrencyDao
+import com.wizeline.criptocurrency.data.database.data_source.CryptoCurrencyLocalDataSource
 import com.wizeline.criptocurrency.data.repository.BitsoRepositoryImp
 import com.wizeline.criptocurrency.databinding.FragmentAvailableBooksBinding
 import com.wizeline.criptocurrency.domain.model.use_case.AvailableBooksUseCase
@@ -20,6 +22,7 @@ class AvailableBooksFragment : Fragment() {
     private lateinit var availableBooksUseCase: AvailableBooksUseCase
     private lateinit var tickerUseCase: TickerUseCase
     private lateinit var orderBookUseCase: OrderBookUseCase
+    private lateinit var localDataSource: CryptoCurrencyLocalDataSource
     private val criptoCurrencyVM by activityViewModels<CriptoCurrencyViewModel>(){
         ViewModelFactory(availableBooksUseCase,tickerUseCase,orderBookUseCase)}
     private lateinit var binding: FragmentAvailableBooksBinding
@@ -29,10 +32,10 @@ class AvailableBooksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAvailableBooksBinding.inflate(layoutInflater, container, false)
-        availableBooksUseCase = AvailableBooksUseCase(BitsoRepositoryImp(RetrofitClient.repository()))
-        tickerUseCase = TickerUseCase(BitsoRepositoryImp(RetrofitClient.repository()))
-        orderBookUseCase = OrderBookUseCase(BitsoRepositoryImp(RetrofitClient.repository()))
-
+        localDataSource= CryptoCurrencyLocalDataSource(cryptoCurrencyDB.dao)
+        availableBooksUseCase = AvailableBooksUseCase(BitsoRepositoryImp(RetrofitClient.repository(),localDataSource,requireContext()))
+        tickerUseCase = TickerUseCase(BitsoRepositoryImp(RetrofitClient.repository(),localDataSource,requireContext()))
+        orderBookUseCase = OrderBookUseCase(BitsoRepositoryImp(RetrofitClient.repository(),localDataSource,requireContext()))
         return binding.root
     }
 
