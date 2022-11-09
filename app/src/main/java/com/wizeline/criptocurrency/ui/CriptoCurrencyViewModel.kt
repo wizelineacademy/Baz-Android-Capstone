@@ -100,7 +100,6 @@ class CriptoCurrencyViewModel @Inject constructor(
                     getOrderBook(book)
                 }
                 is RequestState.Error -> {
-                    _ticker.value = state.data?: Ticker()
                     _error.value=state.message.toString()
                     getOrderBook(book)
                 }

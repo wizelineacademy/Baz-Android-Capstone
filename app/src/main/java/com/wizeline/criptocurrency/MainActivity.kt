@@ -3,6 +3,7 @@ package com.wizeline.criptocurrency
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.wizeline.criptocurrency.common.adapters.utilities.toast
 import com.wizeline.criptocurrency.ui.AvailableBooksFragment
 import dagger.hilt.android.AndroidEntryPoint
 

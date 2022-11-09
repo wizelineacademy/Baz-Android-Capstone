@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.room.Room
 import com.wizeline.criptocurrency.MainActivity
 import com.wizeline.criptocurrency.common.adapters.*
+import com.wizeline.criptocurrency.common.adapters.utilities.toast
 import com.wizeline.criptocurrency.config.InitApplication.Companion.criptoCurrencyDB
 import com.wizeline.criptocurrency.data.database.CriptoCurrencyDB
 import com.wizeline.criptocurrency.data.database.data_source.CryptoCurrencyLocalDataSource
@@ -55,6 +56,7 @@ class AvailableBooksFragment : Fragment() {
             criptoCurrencyVM.isLoading.observe(viewLifecycleOwner) {
                 criptoCurrencyVM.isLoading.observe(viewLifecycleOwner) {
                     if(it){
+                        toast("Loading...")
                         //ShowProgress
                     }else{
                         //HideProgress
@@ -71,7 +73,7 @@ class AvailableBooksFragment : Fragment() {
             }
 
             criptoCurrencyVM.error.observe(viewLifecycleOwner){
-                Toast.makeText(context,it,Toast.LENGTH_SHORT).show()
+                toast(it)
             }
         }
     }
