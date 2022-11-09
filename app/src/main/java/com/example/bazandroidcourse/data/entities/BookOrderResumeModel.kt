@@ -4,5 +4,4 @@ data class BookOrderResumeModel(
     val book: String,
     val price: String,
     val amount: String
-) {
-}
+)

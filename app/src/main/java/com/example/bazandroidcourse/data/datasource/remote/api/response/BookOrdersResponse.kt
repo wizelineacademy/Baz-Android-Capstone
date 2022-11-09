@@ -2,10 +2,10 @@ package com.example.bazandroidcourse.data.datasource.remote.api.response
 
 data class BookOrdersResponse(
     var success: Boolean? = null,
-    var payload: OrderPayload
+    var payload: OrderPayloadResponse
 )
 
-data class OrderPayload(
+data class OrderPayloadResponse(
     var asks: List<OrderResume>? = null,
     var bids: List<OrderResume>? = null
 )

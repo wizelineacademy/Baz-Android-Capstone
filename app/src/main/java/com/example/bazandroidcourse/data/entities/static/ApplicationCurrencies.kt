@@ -2,8 +2,9 @@ package com.example.bazandroidcourse.data.entities.static
 
 sealed class ApplicationCurrencies(
     id: String,
-    name: String
-):CryptoCurrency(id, name) {
+    name: String,
+    trading:Boolean = false
+):CryptoCurrency(id, name, trading ) {
     companion object{
         fun findByTicker(ticker:String):ApplicationCurrencies?{
             return when {
@@ -16,15 +17,36 @@ sealed class ApplicationCurrencies(
                 Mana.itsMe(ticker)        -> Mana
                 Bat.itsMe(ticker)         -> Bat
                 Aave.itsMe(ticker)        -> Aave
-                PesoMX.itsMe(ticker)      -> Aave
+                PesoMX.itsMe(ticker)      -> PesoMX
+                else -> null
+            }
+        }
+        fun findByName(name:String):ApplicationCurrencies?{
+            return when(name) {
+                Bitcoin.javaClass.simpleName   -> Bitcoin
+                Ethereum.javaClass.simpleName    -> Ethereum
+                Ripple.javaClass.simpleName      -> Ripple
+                Litecoin.javaClass.simpleName    -> Litecoin
+                BitcoinCash.javaClass.simpleName -> BitcoinCash
+                TrueUSD.javaClass.simpleName     -> TrueUSD
+                Mana.javaClass.simpleName        -> Mana
+                Bat.javaClass.simpleName         -> Bat
+                Aave.javaClass.simpleName        -> Aave
+                PesoMX.javaClass.simpleName      -> PesoMX
                 else -> null
             }
         }
     }
+    object  PesoMX: ApplicationCurrencies(
+        "mxn",
+        "Pesos MX",
+        true
+    )
 
     object Bitcoin: ApplicationCurrencies(
         "btc",
-        "Bitcoin"
+        "Bitcoin",
+        true
     )
 
     object Ethereum: ApplicationCurrencies(
@@ -33,7 +55,7 @@ sealed class ApplicationCurrencies(
     )
 
     object Ripple: ApplicationCurrencies(
-        "xpr",
+        "xrp",
         "Ripple"
     )
 
@@ -66,10 +88,7 @@ sealed class ApplicationCurrencies(
         "Aave"
     )
 
-    object  PesoMX: ApplicationCurrencies(
-        "mxn",
-        "Pesos MX"
-    )
+
 
 
 }

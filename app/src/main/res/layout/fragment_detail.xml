@@ -19,23 +19,24 @@
         >
 
         <ImageView
-            android:id="@+id/iv_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/iv_back"
+            android:layout_width="20dp"
+            android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:contentDescription="@string/detail_title"
-            android:src="@drawable/default_coin"
+            android:src="@drawable/icon_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/title_container"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/iv_icon"
+            app:layout_constraintStart_toStartOf="@+id/iv_back"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -68,7 +69,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_crypto_ticker" />
 
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/detail_title"
+            android:src="@drawable/default_coin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="10dp"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -270,7 +284,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lbl_asks" />
+            app:layout_constraintTop_toBottomOf="@id/lbl_asks"
+            />
 
         <TextView
             android:id="@+id/lbl_bids"

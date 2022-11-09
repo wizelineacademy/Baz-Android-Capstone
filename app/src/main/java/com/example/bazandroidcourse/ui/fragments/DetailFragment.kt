@@ -5,47 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.bazandroidcourse.R
 import com.example.bazandroidcourse.databinding.FragmentDetailBinding
 import com.example.bazandroidcourse.ui.fragments.adapters.BookOrdersAdapter
 import com.example.bazandroidcourse.ui.utils.createURLImage
 import com.example.bazandroidcourse.ui.utils.cryptoName
 import com.example.bazandroidcourse.ui.utils.getTicker
 import com.example.bazandroidcourse.ui.utils.getCurrency
-import com.example.bazandroidcourse.data.datasource.local.CryptoLocalDataSourceImpl
-import com.example.bazandroidcourse.data.datasource.remote.CryptoRemoteDataSourceImpl
-import com.example.bazandroidcourse.data.datasource.remote.api.retrofit.apiInstance
-import com.example.bazandroidcourse.data.repository.BooksRepositoryImpl
-import com.example.bazandroidcourse.domain.GetAllBooksFilteredUseCase
-import com.example.bazandroidcourse.domain.GetBookDetailUseCase
-import com.example.bazandroidcourse.domain.GetBookOrdersUseCase
 import com.example.bazandroidcourse.ui.viewmodel.BooksViewModel
 import com.squareup.picasso.Picasso
 
 class DetailFragment : Fragment() {
     private lateinit var binding: FragmentDetailBinding
     private lateinit var bookId:String
-    private val repository = BooksRepositoryImpl(
-        CryptoLocalDataSourceImpl(),
-        CryptoRemoteDataSourceImpl(apiInstance)
-    )
-    private val getBooksUseCase = GetAllBooksFilteredUseCase(
-        repository
-    )
-    private val getBookDetailUseCase = GetBookDetailUseCase(
-        repository
-    )
 
-    private val getBookOrdersUseCase = GetBookOrdersUseCase(
-        repository
-    )
-    private val viewModel: BooksViewModel = BooksViewModel(
-        getBooksUseCase,
-        getBookDetailUseCase,
-        getBookOrdersUseCase
-    )
-    val asksAdapter = BookOrdersAdapter(){}
-    val bidsAdapter = BookOrdersAdapter(){}
+    private val viewModel: BooksViewModel = BooksViewModel.createInstance()
+    val asksAdapter = BookOrdersAdapter()
+    val bidsAdapter = BookOrdersAdapter()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -77,6 +55,9 @@ class DetailFragment : Fragment() {
                 tvUpperUnit.text = unit
                 tvLowerUnit.text = unit
                 tvPriceUnit.text = unit
+                ivBack.setOnClickListener {
+                    findNavController().navigate(R.id.action_detail_to_allCryptos)
+                }
             }
         }
     }
