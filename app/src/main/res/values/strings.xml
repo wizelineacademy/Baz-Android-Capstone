@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">CryptocurrencyApp</string>
+    <string name="error_unknown">Error Inesperado</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name">BTC Mexicano</string>
+    <string name="low">Precio Bajo</string>
+    <string name="hint">Precio Alto</string>
+    <string name="coin">Coin</string>
+    <string name="mxn">MXN</string>
+    <string name="max_price">Precio minimo</string>
+    <string name="min_price">Precio Maximo</string>
+    <string name="price">price</string>
+    <string name="amount">monto</string>
+    <string name="wallet">WaLLET</string>
+
+
+
+
+
+
+</resources>
