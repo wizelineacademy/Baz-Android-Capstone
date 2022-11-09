@@ -1,11 +1,12 @@
 package com.example.bazandroidcourse.data.datasource.remote
 
-import com.example.bazandroidcourse.data.entities.BookDetailModel
-import com.example.bazandroidcourse.data.entities.BookModel
-import com.example.bazandroidcourse.data.entities.BookOrdersModel
+import com.example.bazandroidcourse.data.datasource.remote.api.response.BookResponse
+import com.example.bazandroidcourse.data.datasource.remote.api.response.BookDetailResponse
+import com.example.bazandroidcourse.data.datasource.remote.api.response.DetailResponse
+import com.example.bazandroidcourse.data.datasource.remote.api.response.OrderPayloadResponse
 
 interface CryptoRemoteDataSourceInterface {
-    suspend fun fetchAllBooks():List<BookModel>
-    suspend fun fetchBookDetail(book:String):BookDetailModel
-    suspend fun fetchBookOrders(book:String):BookOrdersModel
+    suspend fun fetchAllBooks():List<BookResponse>
+    suspend fun fetchBookDetail(book:String):DetailResponse
+    suspend fun fetchBookOrders(book:String):OrderPayloadResponse
 }

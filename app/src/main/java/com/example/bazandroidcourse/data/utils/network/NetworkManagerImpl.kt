@@ -12,7 +12,6 @@ object networkManagerUtils : NetworkManagerInterface {
     override fun isOnline(): Boolean {
         var result = false
         context?.let {
-
             val connectivityManager =
                 it.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val networkCapabilities = connectivityManager.activeNetwork ?: return false
