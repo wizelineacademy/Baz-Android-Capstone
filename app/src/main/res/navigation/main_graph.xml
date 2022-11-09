@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/bitsoFragment">
+    <fragment
+        android:id="@+id/bitsoFragment"
+        android:name="com.example.myapplication.ui.BitsoFragment"
+        android:label="fragment_bitso"
+        tools:layout="@layout/fragment_bitso" >
+        <action
+            android:id="@+id/action_bitsoFragment_to_bitsoDetailsFragment"
+            app:destination="@id/bitsoDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bitsoDetailsFragment"
+        android:name="com.example.myapplication.ui.BitsoDetailsFragment"
+        android:label="fragment_bitso_details"
+        tools:layout="@layout/fragment_bitso_details" />
+</navigation>
