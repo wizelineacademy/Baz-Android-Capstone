@@ -62,15 +62,4 @@ class DetailViewModel @Inject constructor (private val detailUseCase: DetailUseC
             }.launchIn(viewModelScope)
         }
     }
-
-
 }
-/*class ViewModelFactoryTicker(private val detaiUseCase: DetailUseCase ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return DetailViewModel(detaiUseCase) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}*/
