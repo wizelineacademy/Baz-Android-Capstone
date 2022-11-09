@@ -9,14 +9,16 @@ import androidx.lifecycle.Observer
 import com.example.myapplication.R
 import com.example.myapplication.core.Resource
 import com.example.myapplication.data.remote.BitsoDataSource
+import com.example.myapplication.databinding.FragmentBitsoBinding
 import com.example.myapplication.presentation.BitsoViewModel
 import com.example.myapplication.presentation.BitsoViewModelFactory
 import com.example.myapplication.repository.BitsoRepositoryImpl
 import com.example.myapplication.repository.RetrofitClient
 
 
-class BitsoFragment : Fragment(R.layout.activity_main) {
+class BitsoFragment : Fragment(R.layout.fragment_bitso) {
 
+    private lateinit var binding: FragmentBitsoBinding
     private val viewModel by viewModels<BitsoViewModel> {
         BitsoViewModelFactory(
             BitsoRepositoryImpl(
@@ -27,6 +29,7 @@ class BitsoFragment : Fragment(R.layout.activity_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentBitsoBinding.bind(view)
 
         viewModel.fetchAvailiableBooks().observe(viewLifecycleOwner, Observer { result ->
             when(result){
