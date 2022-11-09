@@ -59,12 +59,12 @@ class DetailCoinFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         detailModel.isLoading.observe(requireActivity()) { loading ->
             if (!loading) {
-                binding.ctLoading.visibility = View.INVISIBLE
+                binding.progressBar.visibility = View.INVISIBLE
             }
         }
         detailModel.resumeTicker.observe(requireActivity()) { ticker ->
             binding.imgCoin.setImageResource(book.logo)
-            binding.txtCoinName.text = nameCoin
+            binding.txtCoinName.text = book.name
             binding.txtValueMaxPrice.text = ticker.high
             binding.txtValueMinPrice.text = ticker.low
         }

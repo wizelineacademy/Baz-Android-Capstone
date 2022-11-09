@@ -11,5 +11,5 @@ data class WCCryptoTickerResponse (
 
     @SerializedName("payload")
     @Expose
-    val payload: WCCryptoTicker? = null
+    val tickerCoin: WCCryptoTicker? = null
 )

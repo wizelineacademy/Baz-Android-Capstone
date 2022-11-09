@@ -1,5 +1,6 @@
 package com.example.cryptocurrencyapp.presentation.view.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -22,6 +23,7 @@ class OrderAdapter: ListAdapter<WCCOrderBookDTO, OrderAdapter.ViewHolder>(DetalD
 
     inner class ViewHolder(private val binding: DetailItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(coin :WCCOrderBookDTO){
+            Log.i("depur","datos coin $coin")
             with(binding){
                 txtCryptoValue.text = coin.book
                 txtValueAmount.text = coin.amount

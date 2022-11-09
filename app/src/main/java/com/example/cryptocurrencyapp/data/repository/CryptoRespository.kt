@@ -4,8 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import android.util.Log
-import com.example.cryptocurrencyapp.data.api.CryptoApi
+import com.example.cryptocurrencyapp.data.remote.api.CryptoApi
 import com.example.cryptocurrencyapp.data.database.data_source.CryptoLocalDataSource
 import com.example.cryptocurrencyapp.data.database.entities.*
 import com.example.cryptocurrencyapp.data.remote.data_source.WCCryptoRepositoryImp
@@ -39,7 +38,7 @@ class CryptoRespository @Inject constructor(
             return cryptoList
         } else {
             try {
-                return localDataSource.getAllAvailableFromDB().map {
+                val a=localDataSource.getAllAvailableFromDB().map {
                     WCCryptoBookDTO(
                         book = it.book,
                         name = it.name,
@@ -48,6 +47,7 @@ class CryptoRespository @Inject constructor(
                         logo = it.logo
                     )
                 }
+                return  a
             } catch (e: Exception) {
                 e.printStackTrace()
                 return emptyList()
@@ -71,9 +71,16 @@ class CryptoRespository @Inject constructor(
     override suspend fun getOrderBook(book: String): WCCOrdeRDTO {
         if (isInternetAvailable(context)) {
             val order = remoteDataSource.getOrderBook(book)
-            if (order.ask.isNotEmpty() && order.bids.isNotEmpty()){
+            if (order.ask.isNotEmpty() && order.bids.isNotEmpty()) {
+                localDataSource.deteOrderBook(book)
+                localDataSource.insertOrderBookDB(
+                    order.ask.toAskEntityList(),
+                    order.bids.toBidsEntityList()
+                )
+            }
+            /*if (order.ask.isNotEmpty() && order.bids.isNotEmpty()){
                // localDataSource.deletList(book)
-                localDataSource.insertOrdertoDB(order.ask.map {
+               localDataSource.insertOrdertoDB(order.ask.map {
                         AskEntity(
                             book = it.book,
                             price = it.price,
@@ -91,13 +98,15 @@ class CryptoRespository @Inject constructor(
                 //localDataSource.insertOrdertoDB(order.ask.toAaskEntityList(),order.bids.toBidEnttyList())
             }else{
                 localDataSource.getOrderFromDB(book)
-            }
+            }*/
             return order
-        }else
-            return localDataSource.getOrderFromDB(book)
+        } else {
+            return localDataSource.getOrderBookDB(book)
 
+            //WCCOrdeRDTO() //localDataSource.getOrderFromDB(book)
+
+        }
     }
-
 }
 
 fun isInternetAvailable(context: Context): Boolean {

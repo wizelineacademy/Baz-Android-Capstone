@@ -5,7 +5,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "available_table")
 data class AvailableBookEntity(
-
     @PrimaryKey
     val book: String,
     val name: String = "",

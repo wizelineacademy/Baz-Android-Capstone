@@ -1,7 +1,6 @@
 package com.example.cryptocurrencyapp.data.database.dao
 
 
-import android.util.Log
 import androidx.room.*
 import com.example.cryptocurrencyapp.data.database.entities.*
 import com.example.cryptocurrencyapp.domain.entity.WCCOrdeRDTO
@@ -18,29 +17,31 @@ interface CryptoDao {
     @Update
    suspend fun updateAvailableBookDB(bookList: List<AvailableBookEntity>)
 
-   /* @Query("DELETE FROM available_table")
-   suspend fun deleteAllAvailableBookDB()*/
-
-   //Order
-   //@Query("SELECT * FROM ")
-
 
    //BID
    @Query("SELECT * FROM bid_table WHERE book LIKE :book")
    suspend fun getBidBookDB(book: String): List<BidEntity>
 
    @Insert(onConflict = OnConflictStrategy.REPLACE)
-   suspend fun insertBidtoDB (bid:List<BidEntity>)
+   suspend fun insertBidtoDB (bid: List<BidEntity>)
+
+    @Query("DELETE FROM bid_table WHERE book LIKE :book")
+    fun deleteBidsListDB(book: String)
 
 
-   //ASK
+    //ASK
    @Query("SELECT * FROM ask_table WHERE book LIKE :book")
    suspend fun getAskBookDB(book: String): List<AskEntity>
 
    @Insert(onConflict = OnConflictStrategy.REPLACE)
    suspend fun insertAsktoDB(ask: List<AskEntity>)
 
-   @Transaction
+    @Query("DELETE FROM ask_table WHERE book LIKE :book")
+    fun deleteAsksListDB(book: String)
+
+
+
+    @Transaction
    suspend fun getOrderBookDB(book: String): WCCOrdeRDTO{
        val ask = getAskBookDB(book)
        val bid = getBidBookDB(book)
@@ -57,9 +58,9 @@ interface CryptoDao {
         insertBidtoDB(bidList)
     }
 
-   /* @Query ("DELETE FROM ask_table WHERE book LIKE :book")
-    suspend fun deleteAskList(book: String)
-
-    @Query ("DELETE FROM bid_table WHERE book LIKE :book")
-    suspend fun deleteBidList(book: String)*/
+    @Transaction
+   suspend fun deleteOrderBookDB(book: String){
+        deleteBidsListDB(book)
+        deleteAsksListDB(book)
+    }
 }

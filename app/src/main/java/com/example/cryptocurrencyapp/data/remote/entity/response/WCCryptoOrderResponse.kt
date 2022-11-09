@@ -10,5 +10,5 @@ data class WCCryptoOrderResponse (
 
     @SerializedName("payload")
     @Expose
-    val payload: WCCOrder?= null
+    val orderCoin: WCCOrder?= null
 )

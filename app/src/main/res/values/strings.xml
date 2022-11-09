@@ -7,7 +7,7 @@
     <string name="low">Precio Bajo</string>
     <string name="hint">Precio Alto</string>
     <string name="coin">Coin</string>
-    <string name="mnx">MXN</string>
+    <string name="mxn">MXN</string>
     <string name="max_price">Precio minimo</string>
     <string name="min_price">Precio Maximo</string>
     <string name="price">price</string>

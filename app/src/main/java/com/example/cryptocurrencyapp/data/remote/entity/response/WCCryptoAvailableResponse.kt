@@ -5,11 +5,11 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class WCCryptoAvailableResponse(
-    @SerializedName("succes")
+    @SerializedName("success")
     @Expose
-    val succes: Boolean  = false,
+    val success: Boolean  = false,
 
     @SerializedName("payload")
     @Expose
-    val payload: List<WCCryptoAvailable>? = null
+    val coins: List<WCCryptoAvailable>? = null
 )

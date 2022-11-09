@@ -42,6 +42,11 @@ class CryptoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         coinViewModel.getAvailableBook()
+        coinViewModel.isLoading.observe(requireActivity()) { loading ->
+            if (!loading) {
+                binding.progressBar.visibility = View.INVISIBLE
+            }
+        }
 
         coinViewModel.coins.observe(requireActivity()){ coin ->
             adapter.submitList(coin)

@@ -1,6 +1,6 @@
 package com.example.cryptocurrencyapp.data.remote.data_source
 
-import com.example.cryptocurrencyapp.data.api.CryptoApi
+import com.example.cryptocurrencyapp.data.remote.api.CryptoApi
 import com.example.cryptocurrencyapp.data.remote.entity.response.WCCryptoAvailableResponse
 import com.example.cryptocurrencyapp.data.remote.entity.toBitsoTicker
 import com.example.cryptocurrencyapp.domain.entity.WCCOrdeRDTO
@@ -16,14 +16,14 @@ class WCCryptoRepositoryImp @Inject constructor(private val api: CryptoApi) : WC
         api.getExchangeBooks().toListWCCryptoBookDTO().orEmpty()
 
     override suspend fun getTickerBook(book: String): WCCTickerDTO =
-        api.getTickerBook(book = book).payload?.toBitsoTicker() ?: WCCTickerDTO()
+        api.getTickerBook(book = book).tickerCoin?.toBitsoTicker() ?: WCCTickerDTO()
 
     override suspend fun getOrderBook(book: String): WCCOrdeRDTO =
-        api.getOrderBook(book = book).payload?.toOrder() ?: WCCOrdeRDTO()
+        api.getOrderBook(book = book).orderCoin?.toOrder() ?: WCCOrdeRDTO()
 }
 
 fun WCCryptoAvailableResponse.toListWCCryptoBookDTO() =
-    this.payload?.map {
+    this.coins?.map {
         it.toBook()
     }
 

@@ -1,6 +1,7 @@
 package com.example.cryptocurrencyapp.data.remote.entity
 
 import com.example.cryptocurrencyapp.domain.entity.WCCOrderBookDTO
+import com.example.cryptocurrencyapp.domain.entity.WCCryptoBookDTO
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -11,17 +12,17 @@ data class WCCryptoOrderBook(
 
     @SerializedName("price")
     @Expose
-    val price: String = "",
+    val priceCoin: String = "",
 
     @SerializedName("amount")
     @Expose
-    val amount: String = ""
+    val amountCoin: String = ""
 ){
     fun toOrderDTO(type:String): WCCOrderBookDTO{
         return WCCOrderBookDTO(
             book = coin,
-            price = price,
-            amount = amount,
+            price = priceCoin,
+            amount = amountCoin,
             type = type
 
         )

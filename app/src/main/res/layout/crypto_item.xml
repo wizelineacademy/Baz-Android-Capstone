@@ -21,7 +21,7 @@
         android:layout_margin="16dp">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgCrypto"
+            android:id="@+id/img_crypto"
             android:layout_width="51dp"
             android:layout_height="55dp"
             android:src="@drawable/ic_monetization"
@@ -30,30 +30,30 @@
             android:layout_marginTop="8dp"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtCryptoName"
+            android:id="@+id/txt_crypto_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="24dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintStart_toEndOf="@id/imgCrypto"
+            app:layout_constraintStart_toEndOf="@id/img_crypto"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/coin" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtMx"
+            android:id="@+id/txt_mx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/txtCryptoName"
-            app:layout_constraintTop_toBottomOf="@id/txtCryptoName"
+            app:layout_constraintStart_toStartOf="@+id/txt_crypto_name"
+            app:layout_constraintTop_toBottomOf="@id/txt_crypto_name"
             app:layout_goneMarginTop="4dp"
-            tools:text="@string/mxn" />
+            tools:text="@string/mxn"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtMinPrice"
+            android:id="@+id/txt_min_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/txtCryptoName"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_crypto_name"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="@string/max_price" />
 
@@ -61,7 +61,7 @@
             android:id ="@+id/txtMaxPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/txtMinPrice"
+            app:layout_constraintTop_toBottomOf="@+id/txt_min_price"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="@string/min_price"/>
 

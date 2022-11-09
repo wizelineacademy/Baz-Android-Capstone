@@ -34,17 +34,22 @@ class CryptoLocalDataSource @Inject constructor(
         tickerBD.insertTickerBD(tickerEntity)
 
 
-    suspend fun getOrderFromDB(book: String) =
+    /*suspend fun getOrderFromDB(book: String) =
         cryptpDB.getOrderBookDB(book)
 
     suspend fun insertOrdertoDB(askList: List<AskEntity>,bidList: List<BidEntity>) =
-        cryptpDB.insertOrderBookFromDatabase(askList,bidList)
+        cryptpDB.insertOrderBookFromDatabase(askList,bidList)*/
 
-   /* suspend fun deletList(book:String){
-        cryptpDB.deleteAskList(book)
-        cryptpDB.deleteBidList(book)
-    }*/
 
+    //Order
+    suspend fun getOrderBookDB(book: String) =
+        cryptpDB.getOrderBookDB(book)
+
+    suspend fun insertOrderBookDB(askList: List<AskEntity>, bidList: List<BidEntity>) =
+        cryptpDB.insertOrderBookFromDatabase(askList, bidList)
+
+    suspend fun deteOrderBook(book: String) =
+        cryptpDB.deleteOrderBookDB(book)
 }
 
 

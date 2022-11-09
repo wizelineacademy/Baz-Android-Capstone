@@ -13,7 +13,7 @@ data class WCCOrder(
 
     @SerializedName("bids")
     @Expose
-    val bids: List<WCCryptoOrderBook>,
+    val bid: List<WCCryptoOrderBook>,
 
     @SerializedName("updated_at")
     @Expose
@@ -28,7 +28,7 @@ data class WCCOrder(
             ask = ask.map { ask ->
                 ask.toOrderDTO(CryptoConstants.ASK)
             }.toMutableList(),
-            bids = bids.map { bid ->
+            bids = bid.map { bid ->
                 bid.toOrderDTO(CryptoConstants.BID)
             }.toMutableList()
         )

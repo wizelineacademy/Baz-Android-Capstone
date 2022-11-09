@@ -1,16 +1,36 @@
 package com.example.cryptocurrencyapp.utils
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.DialogInterface
 import com.example.cryptocurrencyapp.R
 import java.text.Normalizer
 
 object Utils {
+
+    var dialog: AlertDialog? = null
     fun cleanString(text: String): String {
         var query = text
         query = Normalizer.normalize(text, Normalizer.Form.NFD)
         query = text.replace("[\\p{InCombiningDiacriticalMarks}]".toRegex(), "")
         return query
     }
+
+
+   fun errorDialog(activity: Activity)
+   {
+       val builder = AlertDialog.Builder(activity)
+       builder.setTitle("ERROR").setMessage("Error al cargar datos, intentarlo más tarde")
+       dialog = builder.create()
+   }
+    fun showDialog(){
+        dialog?.show()
+    }
+
+
+
+
+
 
     enum class CoinType(val value: String, val coin: String, val logo: Int) {
         BITCOIN("btc_mxn", "Bitcoin",R.drawable.ic_bitcoin),

@@ -1,6 +1,6 @@
 package com.example.cryptocurrencyapp.di
 
-import com.example.cryptocurrencyapp.data.api.CryptoApi
+import com.example.cryptocurrencyapp.data.remote.api.CryptoApi
 import com.example.cryptocurrencyapp.utils.CryptoConstants
 import dagger.Module
 import dagger.Provides

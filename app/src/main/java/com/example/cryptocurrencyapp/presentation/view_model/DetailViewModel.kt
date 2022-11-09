@@ -6,6 +6,7 @@ import com.example.cryptocurrencyapp.domain.entity.WCCOrdeRDTO
 import com.example.cryptocurrencyapp.domain.entity.WCCTickerDTO
 import com.example.cryptocurrencyapp.domain.use_case.DetailUseCase
 import com.example.cryptocurrencyapp.utils.Resource
+import com.example.cryptocurrencyapp.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -37,7 +38,7 @@ class DetailViewModel @Inject constructor (private val detailUseCase: DetailUseC
                                 Log.i("datos","$_tickerBook")
                     }
                     is Resource.Error ->
-                        Log.i("depur","Error")
+                       Utils.showDialog()
                 }
             }.launchIn(viewModelScope)
         }
@@ -56,7 +57,7 @@ class DetailViewModel @Inject constructor (private val detailUseCase: DetailUseC
                         Log.i("data", "$_orderBok")
                     }
                     is Resource.Error ->
-                        Log.i("depur", "Error")
+                        Utils.showDialog()
                 }
             }.launchIn(viewModelScope)
         }
@@ -64,7 +65,7 @@ class DetailViewModel @Inject constructor (private val detailUseCase: DetailUseC
 
 
 }
-class ViewModelFactoryTicker(private val detaiUseCase: DetailUseCase ) : ViewModelProvider.Factory {
+/*class ViewModelFactoryTicker(private val detaiUseCase: DetailUseCase ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
@@ -72,4 +73,4 @@ class ViewModelFactoryTicker(private val detaiUseCase: DetailUseCase ) : ViewMod
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
-}
+}*/

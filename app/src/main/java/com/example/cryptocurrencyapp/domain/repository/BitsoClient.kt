@@ -1,6 +1,6 @@
 package com.example.cryptocurrencyapp.domain.repository
 
-import com.example.cryptocurrencyapp.data.api.CryptoApi
+import com.example.cryptocurrencyapp.data.remote.api.CryptoApi
 import com.example.cryptocurrencyapp.utils.CryptoConstants
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

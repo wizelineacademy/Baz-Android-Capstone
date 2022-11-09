@@ -1,4 +1,4 @@
-package com.example.cryptocurrencyapp.data.api
+package com.example.cryptocurrencyapp.data.remote.api
 
 import com.example.cryptocurrencyapp.data.remote.entity.response.WCCryptoTickerResponse
 import com.example.cryptocurrencyapp.data.remote.entity.response.WCCryptoAvailableResponse

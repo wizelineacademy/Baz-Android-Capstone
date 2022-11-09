@@ -1,4 +1,4 @@
-package com.example.cryptocurrencyapp.data.api
+package com.example.cryptocurrencyapp.data.remote.api
 
 object CryptoEndPoints {
     const val  AVAILABLE_BOOKS =
