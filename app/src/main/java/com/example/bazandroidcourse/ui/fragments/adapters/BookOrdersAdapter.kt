@@ -8,9 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bazandroidcourse.data.entities.BookOrderResumeModel
 import com.example.bazandroidcourse.databinding.BookOrderItemLayoutBinding
 
-class BookOrdersAdapter (
-    val callback:(BookOrderResumeModel)->(Unit)
-):ListAdapter<BookOrderResumeModel, BookOrdersAdapter.ItemViewHolder> (DiffCallback()){
+class BookOrdersAdapter ():
+    ListAdapter<BookOrderResumeModel, BookOrdersAdapter.ItemViewHolder> (DiffCallback()) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -33,7 +32,7 @@ class BookOrdersAdapter (
     inner class ItemViewHolder(
         private val binding: BookOrderItemLayoutBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item:BookOrderResumeModel) = with(binding){
+        fun bind(item:BookOrderResumeModel) = with(binding) {
             tvAmount.text = item.amount
             tvPrice.text  = item.price
         }
