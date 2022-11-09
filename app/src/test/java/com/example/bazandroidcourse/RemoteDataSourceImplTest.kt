@@ -20,13 +20,4 @@ class RemoteDataSourceImplTest {
         remoteDataSource = CryptoRemoteDataSourceImpl(apiInstance)
     }
 
-    @Test
-    fun `fetch all books returns IsNotNull test`() {
-
-    }
-
-    @Test
-    fun `fetch all books returns elements test`() {
-
-    }
 }

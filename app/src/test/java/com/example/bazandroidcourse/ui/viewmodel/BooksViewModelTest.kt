@@ -28,12 +28,6 @@ class BooksViewModelTest {
 
     @Test
     fun `fetch all books returns IsNotNull test`() {
-        every { viewModel.getAllBooks("btc_mxn") }
-        verify(exactly = 1) {viewModel.getAllBooks(any())}
-    }
-
-    @Test
-    fun `fetch all books returns elements test`() {
 
     }
 

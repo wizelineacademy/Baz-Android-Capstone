@@ -13,6 +13,7 @@ import com.example.bazandroidcourse.data.datasource.remote.api.retrofit.apiInsta
 import com.example.bazandroidcourse.data.entities.BookDetailModel
 import com.example.bazandroidcourse.data.entities.BookModel
 import com.example.bazandroidcourse.data.entities.BookOrdersModel
+import com.example.bazandroidcourse.data.entities.static.ApplicationCurrencies
 import com.example.bazandroidcourse.data.repository.BooksRepositoryImpl
 import com.example.bazandroidcourse.domain.GetAllBooksFilteredUseCase
 import com.example.bazandroidcourse.domain.GetBookDetailUseCase
@@ -53,11 +54,21 @@ class BooksViewModel(
     private val _currentBookOrders = MutableLiveData<BookOrdersModel>()
     val currentBookOrders: MutableLiveData<BookOrdersModel> = _currentBookOrders
 
+    val names :List<String> = ApplicationCurrencies::class.sealedSubclasses.map {
+        it.simpleName?:""
+    }
+
     fun getAllBooks(currency: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _allBooks.postValue(
                 getBooksUseCase.invoke(currency)
             )
+        }
+    }
+
+    fun getAllBooksByCurrency(className:String){
+        ApplicationCurrencies.findByName(className)?.let {
+            getAllBooks(it.id)
         }
     }
 
