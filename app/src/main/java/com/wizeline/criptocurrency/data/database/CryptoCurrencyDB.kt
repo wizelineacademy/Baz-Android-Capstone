@@ -8,7 +8,7 @@ import com.wizeline.criptocurrency.data.database.entities.AvailableBookEntity
 import com.wizeline.criptocurrency.data.database.entities.BidsEntity
 import com.wizeline.criptocurrency.data.database.entities.TickerEntity
 
-@Database(entities = [AvailableBookEntity::class, TickerEntity::class, AsksEntity::class, BidsEntity::class], version = 2)
+@Database(entities = [AvailableBookEntity::class, TickerEntity::class, AsksEntity::class, BidsEntity::class], version = 1)
 abstract class CriptoCurrencyDB: RoomDatabase() {
 
     abstract fun getCriptoCurrencyDao(): CryptoCurrencyDao

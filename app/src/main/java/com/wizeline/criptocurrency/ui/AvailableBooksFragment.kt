@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.room.Room
 import com.wizeline.criptocurrency.MainActivity
 import com.wizeline.criptocurrency.common.adapters.*
 import com.wizeline.criptocurrency.config.InitApplication.Companion.criptoCurrencyDB
+import com.wizeline.criptocurrency.data.database.CriptoCurrencyDB
 import com.wizeline.criptocurrency.data.database.data_source.CryptoCurrencyLocalDataSource
 import com.wizeline.criptocurrency.data.repository.BitsoRepositoryImp
 import com.wizeline.criptocurrency.databinding.FragmentAvailableBooksBinding
@@ -32,6 +34,12 @@ class AvailableBooksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAvailableBooksBinding.inflate(layoutInflater, container, false)
+        criptoCurrencyDB= Room.databaseBuilder(
+            requireContext(),
+            CriptoCurrencyDB::class.java,
+            "criptoCurrencyDB"
+        ).allowMainThreadQueries()
+            .build()
         localDataSource= CryptoCurrencyLocalDataSource(criptoCurrencyDB.getCriptoCurrencyDao())
         availableBooksUseCase = AvailableBooksUseCase(BitsoRepositoryImp(RetrofitClient.repository(),localDataSource,requireContext()))
         tickerUseCase = TickerUseCase(BitsoRepositoryImp(RetrofitClient.repository(),localDataSource,requireContext()))
