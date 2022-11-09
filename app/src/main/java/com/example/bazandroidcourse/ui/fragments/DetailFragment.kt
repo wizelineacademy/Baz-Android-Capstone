@@ -1,10 +1,10 @@
 package com.example.bazandroidcourse.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bazandroidcourse.R
@@ -12,8 +12,8 @@ import com.example.bazandroidcourse.databinding.FragmentDetailBinding
 import com.example.bazandroidcourse.ui.fragments.adapters.BookOrdersAdapter
 import com.example.bazandroidcourse.ui.utils.createURLImage
 import com.example.bazandroidcourse.ui.utils.cryptoName
-import com.example.bazandroidcourse.ui.utils.getTicker
 import com.example.bazandroidcourse.ui.utils.getCurrency
+import com.example.bazandroidcourse.ui.utils.getTicker
 import com.example.bazandroidcourse.ui.viewmodel.BooksViewModel
 import com.squareup.picasso.Picasso
 

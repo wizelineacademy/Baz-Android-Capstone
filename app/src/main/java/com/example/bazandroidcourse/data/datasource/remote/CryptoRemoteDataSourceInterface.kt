@@ -1,7 +1,6 @@
 package com.example.bazandroidcourse.data.datasource.remote
 
 import com.example.bazandroidcourse.data.datasource.remote.api.response.BookResponse
-import com.example.bazandroidcourse.data.datasource.remote.api.response.BookDetailResponse
 import com.example.bazandroidcourse.data.datasource.remote.api.response.DetailResponse
 import com.example.bazandroidcourse.data.datasource.remote.api.response.OrderPayloadResponse
 
