@@ -14,12 +14,31 @@
             android:layout_marginTop="15dp"
             android:text="@string/app_name"
             style="@style/title"
-            app:layout_constraintBottom_toTopOf="@+id/recycler_books"
+            app:layout_constraintBottom_toTopOf="@+id/options_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
 
             />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/options_container"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/general_vertical_margin"
+            app:layout_constraintBottom_toTopOf="@+id/top_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+                <Spinner
+                    android:id="@+id/spinner_currencies"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_books"
@@ -33,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/top_guideline"
-            app:layout_constraintGuide_begin="70dp"
+            app:layout_constraintGuide_begin="100dp"
             android:orientation="horizontal"/>
 
 
