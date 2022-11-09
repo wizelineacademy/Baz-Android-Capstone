@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Criptomonedas</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="coin">Coin</string>
+    <string name="asks">Asks</string>
+    <string name="bids">Bids</string>
+    <string name="last_price">Ultimo precio</string>
+    <string name="high_price">Precio mas alto</string>
+    <string name="low_price">Precio mas bajo</string>
+    <string name="price">Price:</string>
+    <string name="amount">Amount:</string>
 </resources>

@@ -1,9 +1,8 @@
 package com.course.criptomonedas.data.models
 
-data class Payload(
+data class ModelBook(
     val book: String,
     val default_chart: String,
-    val fees: Fees,
     val maximum_amount: String,
     val maximum_price: String,
     val maximum_value: String,

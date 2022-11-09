@@ -14,4 +14,3 @@ object RetrofitClient {
 
 val service: AvailableBooksService =
     RetrofitClient.retrofit.create(AvailableBooksService::class.java)
-

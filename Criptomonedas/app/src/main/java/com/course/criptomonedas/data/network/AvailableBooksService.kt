@@ -1,6 +1,8 @@
 package com.course.criptomonedas.data.network
 
 import com.course.criptomonedas.data.models.AvailableBooks
+import com.course.criptomonedas.data.models.ModelDetails
+import com.course.criptomonedas.data.models.OrderBook
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -10,8 +12,8 @@ interface AvailableBooksService {
     suspend fun getBooks(): AvailableBooks
 
     @GET("ticker/")
-    fun getDetailBook(@Query("book") id: String)
+    suspend fun getDetailBook(@Query("book") id: String): ModelDetails
 
     @GET("order_book/")
-    fun getBooksById(@Query("book") id: String)
+    suspend fun getBooksById(@Query("book") book: String): OrderBook
 }
