@@ -8,4 +8,7 @@ import com.example.bazandroidcourse.data.datasource.local.database.room.entities
 interface BooksDao:GenericDao<BookEntity> {
     @Query("SELECT * from books")
     suspend fun getAll():List<BookEntity>
+
+    @Query("DELETE from books")
+    suspend fun deleteAll()
 }

@@ -7,9 +7,14 @@ import com.example.bazandroidcourse.data.datasource.local.database.room.entities
 
 @Dao
 interface BookDetailsDao:GenericDao<BookDetailEntity> {
-    @Query("SELECT book_id, amount, price, type  FROM book_orders ")
+    @Query("SELECT * FROM book_details ")
     suspend fun getAll():List<BookDetailEntity>
 
-    @Query("SELECT book_id, volume, low, high, last from book_details where book_id = :bookId")
-    suspend fun getBookDetail(bookId:String):BookDetailEntity
+    @Query("SELECT * from book_details where book_id = :bookId")
+    suspend fun getBookDetail(bookId:String):BookDetailEntity?
+
+    @Query("DELETE from book_details")
+    suspend fun deleteAll()
+
+
 }
