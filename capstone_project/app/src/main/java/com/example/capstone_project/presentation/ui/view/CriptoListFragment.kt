@@ -44,7 +44,7 @@ class CriptoListFragment : Fragment() {
             criptoViewModel.avaibleBooks.collect {
                 when (it) {
                     is Resource.Error -> {
-                        Toast.makeText(activity,"Ha ocurrido un error", Toast.LENGTH_LONG)
+                        Toast.makeText(activity, "Ha ocurrido un error", Toast.LENGTH_LONG)
                     }
                     is Resource.Loading -> {
                         _binding?.progressBar?.visibility = View.VISIBLE

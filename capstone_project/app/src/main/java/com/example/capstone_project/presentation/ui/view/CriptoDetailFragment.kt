@@ -35,10 +35,6 @@ class CriptoDetailFragment : Fragment() {
     private var adapterBids = BidsAdapter()
     private var adapterAsks = AskAdapter()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,10 +54,9 @@ class CriptoDetailFragment : Fragment() {
             criptoViewModel.asks.collect {
                 when (it) {
                     is Resource.Error -> {
-                        Toast.makeText(activity, "Ha ocurrido un error", Toast.LENGTH_LONG)
+                        Toast.makeText(activity, R.string.errorToast, Toast.LENGTH_LONG)
                     }
                     is Resource.Loading -> {
-                        _binding?.progressBar?.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
                         _binding?.progressBar?.visibility = View.GONE
@@ -78,7 +73,7 @@ class CriptoDetailFragment : Fragment() {
                     criptoViewModel.bids.collect {
                         when (it) {
                             is Resource.Error -> {
-                                Toast.makeText(activity, "Ha ocurrido un error", Toast.LENGTH_LONG)
+                                Toast.makeText(activity, R.string.errorToast, Toast.LENGTH_LONG)
                             }
                             is Resource.Loading -> {}
                             is Resource.Success -> {
@@ -99,7 +94,7 @@ class CriptoDetailFragment : Fragment() {
             criptoViewModel.tickers.collect {
                 when (it) {
                     is Resource.Error -> {
-                        Toast.makeText(activity, "Ha ocurrido un error", Toast.LENGTH_LONG)
+                        Toast.makeText(activity, R.string.errorToast, Toast.LENGTH_LONG)
                     }
                     is Resource.Loading -> {}
                     is Resource.Success -> {
