@@ -24,7 +24,6 @@ data class WCCryptoOrderBook(
             price = priceCoin,
             amount = amountCoin,
             type = type
-
         )
     }
 }

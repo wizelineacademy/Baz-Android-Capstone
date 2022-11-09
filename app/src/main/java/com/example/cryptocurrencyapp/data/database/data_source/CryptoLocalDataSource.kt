@@ -1,7 +1,6 @@
 package com.example.cryptocurrencyapp.data.database.data_source
 
 import com.example.cryptocurrencyapp.data.database.dao.CryptoDao
-import com.example.cryptocurrencyapp.data.database.dao.TickerDao
 import com.example.cryptocurrencyapp.data.database.entities.AskEntity
 import com.example.cryptocurrencyapp.data.database.entities.AvailableBookEntity
 import com.example.cryptocurrencyapp.data.database.entities.BidEntity
@@ -9,47 +8,39 @@ import com.example.cryptocurrencyapp.data.database.entities.TickerEntity
 import javax.inject.Inject
 
 class CryptoLocalDataSource @Inject constructor(
-    private val cryptpDB: CryptoDao,
-    private val tickerBD: TickerDao
+    private val cryptoDB: CryptoDao
 
 ){
 
     //Available
      suspend fun getAllAvailableFromDB(): List<AvailableBookEntity> =
-         cryptpDB.getAllAvailableBookDB()
+         cryptoDB.getAllAvailableBookDB()
 
 
     suspend fun insertAvailableBookToDB(bookList: List<AvailableBookEntity>) =
-        cryptpDB.insertAvailableBooDB(bookList)
+        cryptoDB.insertAvailableBooDB(bookList)
 
     suspend fun updateAvailableBookDB(bookList: List<AvailableBookEntity>) =
-        cryptpDB.updateAvailableBookDB(bookList)
+        cryptoDB.updateAvailableBookDB(bookList)
 
 
     //Ticker
     suspend fun getTickerFromDB(book : String) : TickerEntity =
-        tickerBD.getickerBD(book)
+        cryptoDB.getickerBD(book)
 
     suspend fun insertTickerToDB(tickerEntity: TickerEntity) =
-        tickerBD.insertTickerBD(tickerEntity)
-
-
-    /*suspend fun getOrderFromDB(book: String) =
-        cryptpDB.getOrderBookDB(book)
-
-    suspend fun insertOrdertoDB(askList: List<AskEntity>,bidList: List<BidEntity>) =
-        cryptpDB.insertOrderBookFromDatabase(askList,bidList)*/
+        cryptoDB.insertTickerBD(tickerEntity)
 
 
     //Order
-    suspend fun getOrderBookDB(book: String) =
-        cryptpDB.getOrderBookDB(book)
+    suspend fun getOrderBookFromDB(book: String) =
+        cryptoDB.getOrderBookDB(book)
 
     suspend fun insertOrderBookDB(askList: List<AskEntity>, bidList: List<BidEntity>) =
-        cryptpDB.insertOrderBookFromDatabase(askList, bidList)
+        cryptoDB.insertOrderBookFromDatabase(askList, bidList)
 
-    suspend fun deteOrderBook(book: String) =
-        cryptpDB.deleteOrderBookDB(book)
+    suspend fun deleteOrderBook(book: String) =
+        cryptoDB.deleteOrderBookDB(book)
 }
 
 

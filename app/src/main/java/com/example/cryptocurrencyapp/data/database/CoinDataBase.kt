@@ -3,7 +3,6 @@ package com.example.cryptocurrencyapp.data.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.cryptocurrencyapp.data.database.dao.CryptoDao
-import com.example.cryptocurrencyapp.data.database.dao.TickerDao
 import com.example.cryptocurrencyapp.data.database.entities.AskEntity
 import com.example.cryptocurrencyapp.data.database.entities.AvailableBookEntity
 import com.example.cryptocurrencyapp.data.database.entities.BidEntity
@@ -13,6 +12,4 @@ import com.example.cryptocurrencyapp.data.database.entities.TickerEntity
 abstract class CoinDataBase : RoomDatabase() {
 
     abstract fun getCoinDao(): CryptoDao
-
-    abstract fun getTickerDao(): TickerDao
 }

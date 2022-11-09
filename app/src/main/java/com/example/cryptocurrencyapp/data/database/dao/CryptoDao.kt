@@ -17,6 +17,13 @@ interface CryptoDao {
     @Update
    suspend fun updateAvailableBookDB(bookList: List<AvailableBookEntity>)
 
+   //TICKER
+   @Query("SELECT * FROM ticker_table WHERE book LIKE :book")
+   suspend fun getickerBD(book: String): TickerEntity
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTickerBD (ticker: TickerEntity)
+
 
    //BID
    @Query("SELECT * FROM bid_table WHERE book LIKE :book")

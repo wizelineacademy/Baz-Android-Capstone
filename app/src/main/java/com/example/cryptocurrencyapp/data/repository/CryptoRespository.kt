@@ -23,37 +23,23 @@ class CryptoRespository @Inject constructor(
         if (isInternetAvailable(context)) {
             val cryptoList = remoteDataSource.getAvailableBooks()
             if (cryptoList.isNotEmpty()) {
-                localDataSource.insertAvailableBookToDB(
-                    cryptoList.map {
-                        AvailableBookEntity(
-                            book = it.book,
-                            name = it.name,
-                            minPrice = it.minPrice,
-                            maxPrice = it.maxPrice,
-                            logo = it.logo
-                        )
-                    }
-                )
+                localDataSource.insertAvailableBookToDB(cryptoList.toAvailableEntity())
+            } else {
+                localDataSource.getAllAvailableFromDB()
             }
             return cryptoList
         } else {
-            try {
-                val a=localDataSource.getAllAvailableFromDB().map {
-                    WCCryptoBookDTO(
-                        book = it.book,
-                        name = it.name,
-                        minPrice = it.minPrice,
-                        maxPrice = it.maxPrice,
-                        logo = it.logo
-                    )
+            return try {
+                localDataSource.getAllAvailableFromDB().map {
+                    it.toWCCryptoBookDTO()
                 }
-                return  a
             } catch (e: Exception) {
                 e.printStackTrace()
-                return emptyList()
+                emptyList()
             }
         }
     }
+
 
     override suspend fun getTickerBook(book: String): WCCTickerDTO {
         return if (isInternetAvailable(context)) {
@@ -65,46 +51,31 @@ class CryptoRespository @Inject constructor(
             } else
                 localDataSource.getTickerFromDB(book).toWCCTickerDTO()
         } else
-            localDataSource.getTickerFromDB(book).toWCCTickerDTO()
-    }
+            try {
+                localDataSource.getTickerFromDB(book).toWCCTickerDTO()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return WCCTickerDTO()
+            } }
 
     override suspend fun getOrderBook(book: String): WCCOrdeRDTO {
         if (isInternetAvailable(context)) {
             val order = remoteDataSource.getOrderBook(book)
             if (order.ask.isNotEmpty() && order.bids.isNotEmpty()) {
-                localDataSource.deteOrderBook(book)
+                localDataSource.deleteOrderBook(book)
                 localDataSource.insertOrderBookDB(
                     order.ask.toAskEntityList(),
                     order.bids.toBidsEntityList()
                 )
             }
-            /*if (order.ask.isNotEmpty() && order.bids.isNotEmpty()){
-               // localDataSource.deletList(book)
-               localDataSource.insertOrdertoDB(order.ask.map {
-                        AskEntity(
-                            book = it.book,
-                            price = it.price,
-                            amount = it.amount,
-                            type = it.type
-                        )
-                }, order.bids.map { bid->
-                    BidEntity(
-                        book = bid.book,
-                        price = bid.price,
-                        amount = bid.amount,
-                        type = bid.type
-                    )
-                }.toMutableList())
-                //localDataSource.insertOrdertoDB(order.ask.toAaskEntityList(),order.bids.toBidEnttyList())
-            }else{
-                localDataSource.getOrderFromDB(book)
-            }*/
             return order
         } else {
-            return localDataSource.getOrderBookDB(book)
-
-            //WCCOrdeRDTO() //localDataSource.getOrderFromDB(book)
-
+            return try {
+                localDataSource.getOrderBookFromDB(book)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                WCCOrdeRDTO()
+            }
         }
     }
 }
