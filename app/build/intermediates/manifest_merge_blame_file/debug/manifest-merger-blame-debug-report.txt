@@ -1,0 +1,106 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.lefg095.criptoone"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="31" />
+9-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml:5:5-67
+11-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml:5:22-64
+12
+13    <application
+13-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml:7:5-24:19
+14        android:name="com.lefg095.criptoone.MyApplication"
+14-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml:8:9-38
+15        android:allowBackup="true"
+15-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml:9:9-35
+16        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+16-->[androidx.core:core:1.8.0] C:\Users\chiva\.gradle\caches\transforms-3\2bae9d96e1780709a540960a18f25b1e\transformed\core-1.8.0\AndroidManifest.xml:24:18-86
+17        android:debuggable="true"
+18        android:icon="@mipmap/ic_launcher"
+18-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml:10:9-43
+19        android:label="@string/app_name"
+19-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml:11:9-41
+20        android:roundIcon="@mipmap/ic_launcher_round"
+20-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml:12:9-54
+21        android:supportsRtl="true"
+21-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml:13:9-35
+22        android:testOnly="true"
+23        android:theme="@style/Theme.CriptoOne" >
+23-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml:14:9-47
+24        <activity
+24-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml:15:9-23:20
+25            android:name="com.lefg095.criptoone.ui.MainActivity"
+25-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml:16:13-44
+26            android:exported="true" >
+26-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml:17:13-36
+27            <intent-filter>
+27-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml:18:13-22:29
+28                <action android:name="android.intent.action.MAIN" />
+28-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml:19:17-69
+28-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml:19:25-66
+29
+30                <category android:name="android.intent.category.LAUNCHER" />
+30-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml:21:17-77
+30-->C:\Users\chiva\AndroidStudioProjects\CursoAndroid_by_LEFG\CriptoOne\app\src\main\AndroidManifest.xml:21:27-74
+31            </intent-filter>
+32        </activity>
+33
+34        <uses-library
+34-->[androidx.window:window:1.0.0] C:\Users\chiva\.gradle\caches\transforms-3\0b86ad30a40e65b70c53eb20fd2b6542\transformed\jetified-window-1.0.0\AndroidManifest.xml:25:9-27:40
+35            android:name="androidx.window.extensions"
+35-->[androidx.window:window:1.0.0] C:\Users\chiva\.gradle\caches\transforms-3\0b86ad30a40e65b70c53eb20fd2b6542\transformed\jetified-window-1.0.0\AndroidManifest.xml:26:13-54
+36            android:required="false" />
+36-->[androidx.window:window:1.0.0] C:\Users\chiva\.gradle\caches\transforms-3\0b86ad30a40e65b70c53eb20fd2b6542\transformed\jetified-window-1.0.0\AndroidManifest.xml:27:13-37
+37        <uses-library
+37-->[androidx.window:window:1.0.0] C:\Users\chiva\.gradle\caches\transforms-3\0b86ad30a40e65b70c53eb20fd2b6542\transformed\jetified-window-1.0.0\AndroidManifest.xml:28:9-30:40
+38            android:name="androidx.window.sidecar"
+38-->[androidx.window:window:1.0.0] C:\Users\chiva\.gradle\caches\transforms-3\0b86ad30a40e65b70c53eb20fd2b6542\transformed\jetified-window-1.0.0\AndroidManifest.xml:29:13-51
+39            android:required="false" />
+39-->[androidx.window:window:1.0.0] C:\Users\chiva\.gradle\caches\transforms-3\0b86ad30a40e65b70c53eb20fd2b6542\transformed\jetified-window-1.0.0\AndroidManifest.xml:30:13-37
+40
+41        <meta-data
+41-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\chiva\.gradle\caches\transforms-3\bef6d3225bd8c50296cb37a685d97d59\transformed\jetified-play-services-basement-16.0.1\AndroidManifest.xml:23:9-25:69
+42            android:name="com.google.android.gms.version"
+42-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\chiva\.gradle\caches\transforms-3\bef6d3225bd8c50296cb37a685d97d59\transformed\jetified-play-services-basement-16.0.1\AndroidManifest.xml:24:13-58
+43            android:value="@integer/google_play_services_version" />
+43-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\chiva\.gradle\caches\transforms-3\bef6d3225bd8c50296cb37a685d97d59\transformed\jetified-play-services-basement-16.0.1\AndroidManifest.xml:25:13-66
+44
+45        <provider
+45-->[com.squareup.picasso:picasso:2.71828] C:\Users\chiva\.gradle\caches\transforms-3\7dd57751d2d0b114021ec9cf72c15032\transformed\jetified-picasso-2.71828\AndroidManifest.xml:8:9-11:40
+46            android:name="com.squareup.picasso.PicassoProvider"
+46-->[com.squareup.picasso:picasso:2.71828] C:\Users\chiva\.gradle\caches\transforms-3\7dd57751d2d0b114021ec9cf72c15032\transformed\jetified-picasso-2.71828\AndroidManifest.xml:9:13-64
+47            android:authorities="com.lefg095.criptoone.com.squareup.picasso"
+47-->[com.squareup.picasso:picasso:2.71828] C:\Users\chiva\.gradle\caches\transforms-3\7dd57751d2d0b114021ec9cf72c15032\transformed\jetified-picasso-2.71828\AndroidManifest.xml:10:13-72
+48            android:exported="false" />
+48-->[com.squareup.picasso:picasso:2.71828] C:\Users\chiva\.gradle\caches\transforms-3\7dd57751d2d0b114021ec9cf72c15032\transformed\jetified-picasso-2.71828\AndroidManifest.xml:11:13-37
+49        <provider
+49-->[androidx.emoji2:emoji2:1.0.0] C:\Users\chiva\.gradle\caches\transforms-3\6753024c0586eec5b6e85601abfcf486\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
+50            android:name="androidx.startup.InitializationProvider"
+50-->[androidx.emoji2:emoji2:1.0.0] C:\Users\chiva\.gradle\caches\transforms-3\6753024c0586eec5b6e85601abfcf486\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:27:13-67
+51            android:authorities="com.lefg095.criptoone.androidx-startup"
+51-->[androidx.emoji2:emoji2:1.0.0] C:\Users\chiva\.gradle\caches\transforms-3\6753024c0586eec5b6e85601abfcf486\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:28:13-68
+52            android:exported="false" >
+52-->[androidx.emoji2:emoji2:1.0.0] C:\Users\chiva\.gradle\caches\transforms-3\6753024c0586eec5b6e85601abfcf486\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:29:13-37
+53            <meta-data
+53-->[androidx.emoji2:emoji2:1.0.0] C:\Users\chiva\.gradle\caches\transforms-3\6753024c0586eec5b6e85601abfcf486\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
+54                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+54-->[androidx.emoji2:emoji2:1.0.0] C:\Users\chiva\.gradle\caches\transforms-3\6753024c0586eec5b6e85601abfcf486\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:32:17-75
+55                android:value="androidx.startup" />
+55-->[androidx.emoji2:emoji2:1.0.0] C:\Users\chiva\.gradle\caches\transforms-3\6753024c0586eec5b6e85601abfcf486\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:33:17-49
+56            <meta-data
+56-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\chiva\.gradle\caches\transforms-3\7bea82142d0bf51e29c12d82213f610e\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
+57                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+57-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\chiva\.gradle\caches\transforms-3\7bea82142d0bf51e29c12d82213f610e\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
+58                android:value="androidx.startup" />
+58-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\chiva\.gradle\caches\transforms-3\7bea82142d0bf51e29c12d82213f610e\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
+59        </provider>
+60    </application>
+61
+62</manifest>

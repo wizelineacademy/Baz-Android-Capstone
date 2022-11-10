@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "C:\\Users\\chiva\\AndroidStudioProjects\\CursoAndroid_by_LEFG\\CriptoOne\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_main.xml",
+        "source": "C:\\Users\\chiva\\AndroidStudioProjects\\CursoAndroid_by_LEFG\\CriptoOne\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\chiva\\AndroidStudioProjects\\CursoAndroid_by_LEFG\\CriptoOne\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_dashboard.xml",
+        "source": "C:\\Users\\chiva\\AndroidStudioProjects\\CursoAndroid_by_LEFG\\CriptoOne\\app\\src\\main\\res\\layout\\fragment_dashboard.xml"
+    },
+    {
+        "merged": "C:\\Users\\chiva\\AndroidStudioProjects\\CursoAndroid_by_LEFG\\CriptoOne\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_order.xml",
+        "source": "C:\\Users\\chiva\\AndroidStudioProjects\\CursoAndroid_by_LEFG\\CriptoOne\\app\\src\\main\\res\\layout\\item_order.xml"
+    },
+    {
+        "merged": "C:\\Users\\chiva\\AndroidStudioProjects\\CursoAndroid_by_LEFG\\CriptoOne\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_detail.xml",
+        "source": "C:\\Users\\chiva\\AndroidStudioProjects\\CursoAndroid_by_LEFG\\CriptoOne\\app\\src\\main\\res\\layout\\fragment_detail.xml"
+    },
+    {
+        "merged": "C:\\Users\\chiva\\AndroidStudioProjects\\CursoAndroid_by_LEFG\\CriptoOne\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_blank.xml",
+        "source": "C:\\Users\\chiva\\AndroidStudioProjects\\CursoAndroid_by_LEFG\\CriptoOne\\app\\src\\main\\res\\layout\\fragment_blank.xml"
+    },
+    {
+        "merged": "C:\\Users\\chiva\\AndroidStudioProjects\\CursoAndroid_by_LEFG\\CriptoOne\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_book.xml",
+        "source": "C:\\Users\\chiva\\AndroidStudioProjects\\CursoAndroid_by_LEFG\\CriptoOne\\app\\src\\main\\res\\layout\\item_book.xml"
+    }
+]

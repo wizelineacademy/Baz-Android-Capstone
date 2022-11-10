@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_detail"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_last_price_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:text="@string/last_price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail" />
+
+    <TextView
+        android:id="@+id/tv_last_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_last_price_desc"
+        app:layout_constraintTop_toTopOf="@+id/tv_last_price_desc" />
+
+    <TextView
+        android:id="@+id/tv_high_price_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:text="@string/high_price"
+        app:layout_constraintStart_toStartOf="@+id/tv_last_price_desc"
+        app:layout_constraintTop_toBottomOf="@+id/tv_last_price_desc" />
+
+
+    <TextView
+        android:id="@+id/tv_high_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_high_price_desc"
+        app:layout_constraintTop_toTopOf="@+id/tv_high_price_desc" />
+
+    <TextView
+        android:id="@+id/tv_down_price_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:text="@string/down_price_str"
+        app:layout_constraintStart_toStartOf="@+id/tv_high_price_desc"
+        app:layout_constraintTop_toBottomOf="@+id/tv_high_price_desc" />
+
+
+    <TextView
+        android:id="@+id/tv_down_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_down_price_desc"
+        app:layout_constraintStart_toEndOf="@+id/tv_down_price_desc"
+        app:layout_constraintTop_toTopOf="@+id/tv_down_price_desc" />
+
+    <TextView
+        android:id="@+id/tv_ask_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/asks_str"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_high_price_desc"
+        app:layout_constraintTop_toBottomOf="@+id/tv_down_price_desc" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_asks"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_last_price_desc"
+        app:layout_constraintTop_toBottomOf="@+id/tv_ask_desc" />
+
+    <TextView
+        android:id="@+id/tv_bid_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/bids_str"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_high_price_desc"
+        app:layout_constraintTop_toBottomOf="@+id/rv_asks" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_bids"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_bid_desc"
+        app:layout_constraintTop_toBottomOf="@+id/tv_bid_desc" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
