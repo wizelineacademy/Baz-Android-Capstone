@@ -18,13 +18,15 @@ import com.example.bazandroidcourse.data.repository.BooksRepositoryImpl
 import com.example.bazandroidcourse.domain.GetAllBooksFilteredUseCase
 import com.example.bazandroidcourse.domain.GetBookDetailUseCase
 import com.example.bazandroidcourse.domain.GetBookOrdersUseCase
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class BooksViewModel(
     private val getBooksUseCase: GetAllBooksFilteredUseCase,
     private val getBookDetailUseCase: GetBookDetailUseCase,
-    private val getBookOrdersUseCase: GetBookOrdersUseCase
+    private val getBookOrdersUseCase: GetBookOrdersUseCase,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 
 ) : ViewModel() {
     companion object {
@@ -58,7 +60,7 @@ class BooksViewModel(
     }
 
     fun getAllBooks(currency: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher) {
             _allBooks.postValue(
                 getBooksUseCase.invoke(currency)
             )

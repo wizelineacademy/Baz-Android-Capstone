@@ -18,8 +18,6 @@ import com.example.bazandroidcourse.ui.viewmodel.BooksViewModel
 class AllCryptosFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private val viewModel: BooksViewModel = BooksViewModel.createInstance()
     private lateinit var binding: FragmentAllCryptosBinding
-
-    //private var currentCurrency = "mxn"
     private var currentCurrency = "mxn"
     private val adapter = BooksAdapter() {
         navigateTo(it)
