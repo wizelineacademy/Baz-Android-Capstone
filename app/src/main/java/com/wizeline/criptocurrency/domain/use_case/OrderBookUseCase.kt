@@ -15,6 +15,7 @@ class OrderBookUseCase @Inject constructor(private val repository: BitsoReposito
         try {
             emit(RequestState.Loading())
             val response = repository.getOrderBook(book)
+            val r=response
                 emit(RequestState.Success(response))
             }
          catch (e: HttpException) {

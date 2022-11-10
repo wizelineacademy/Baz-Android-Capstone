@@ -66,6 +66,7 @@ dependencies {
 
     //Hilt
     implementation("com.google.dagger:hilt-android:2.44")
+    implementation 'com.google.android.mediahome:books:+'
     testImplementation 'junit:junit:4.12'
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 
@@ -108,8 +109,10 @@ dependencies {
     // optional - RxJava3 support for Room
     implementation("androidx.room:room-rxjava3:2.4.3")
 
-
     //HTTP Logging Interceptor
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+
+
+
 
 }

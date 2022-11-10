@@ -20,22 +20,20 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CriptoCurrencyViewModel @Inject constructor(
-    private val availableBooksUseCase: AvailableBooksUseCase,
+class OrderBookDetailViewModel @Inject constructor(
     private val tickerUseCase: TickerUseCase,
     private val orderBookUseCase: OrderBookUseCase
 ) : ViewModel() {
 
-    private var _availableOrderBookList = MutableLiveData<List<AvailableBook>>()
     private var _selectedOrderBookName = MutableLiveData<String>()
     private var _selectedCoinName = MutableLiveData<String>()
+
 
     private var _ticker = MutableLiveData<Ticker>()
     private var _orderBook = MutableLiveData<OrderBook?>()
     private var _isLoading = MutableLiveData<Boolean>(true)
     private var _error = MutableLiveData<String>()
 
-    val availableOrderBookList: LiveData<List<AvailableBook>> get() = _availableOrderBookList
     val selectedOrderBook: LiveData<String> get() = _selectedOrderBookName
     val selectedCoinName: LiveData<String> get() = _selectedCoinName
     val ticker: LiveData<Ticker> get() = _ticker
@@ -50,45 +48,6 @@ class CriptoCurrencyViewModel @Inject constructor(
 
     fun setSelectedCoinName(coinName: String) {
         _selectedCoinName.value = coinName
-    }
-
-
-    //Crear observable para manejar errores
-    //Separar ViewModel para cada fragment
-
-    fun getAvailableBooksCoroutine() {
-        CoroutineScope(Dispatchers.Main).launch{
-            availableBooksUseCase().onEach {
-                when (it) {
-                    is RequestState.Loading -> _isLoading.value = true
-                    is RequestState.Success -> {
-                        _availableOrderBookList.value = it.data ?: emptyList()
-                        _isLoading.value = false
-                    }
-                    is RequestState.Error -> {
-                        _error.value=it.message.toString()
-                        _isLoading.value = false
-                    }
-                }
-            }
-        }
-
-    }
-
-    fun getAvailableBooks() {
-        availableBooksUseCase().onEach {
-            when (it) {
-                is RequestState.Loading -> _isLoading.value = true
-                is RequestState.Success -> {
-                    _availableOrderBookList.value = it.data ?: emptyList()
-                    _isLoading.value = false
-                }
-                is RequestState.Error -> {
-                    _error.value=it.message.toString()
-                    _isLoading.value = false
-                }
-            }
-        }.launchIn(viewModelScope)
     }
 
     fun getTicker(book: String) {

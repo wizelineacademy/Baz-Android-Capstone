@@ -5,12 +5,19 @@ import androidx.lifecycle.ViewModelProvider
 import com.wizeline.criptocurrency.domain.model.use_case.AvailableBooksUseCase
 import com.wizeline.criptocurrency.domain.model.use_case.OrderBookUseCase
 import com.wizeline.criptocurrency.domain.model.use_case.TickerUseCase
-import com.wizeline.criptocurrency.ui.CriptoCurrencyViewModel
+import com.wizeline.criptocurrency.ui.AvailableBooksViewModel
+import com.wizeline.criptocurrency.ui.OrderBookDetailViewModel
 
-class ViewModelFactory(val availableBooksUseCase: AvailableBooksUseCase,
-                         val tickerUseCase: TickerUseCase,
-                         val orderBookUseCase: OrderBookUseCase
+class AvailableBooksViewModelFactory(val availableBooksUseCase: AvailableBooksUseCase
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
-        CriptoCurrencyViewModel(availableBooksUseCase,tickerUseCase,orderBookUseCase) as T
+        AvailableBooksViewModel(availableBooksUseCase) as T
+}
+
+class OrderBooksDetailViewModelFactory(
+                       val tickerUseCase: TickerUseCase,
+                       val orderBookUseCase: OrderBookUseCase
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T =
+        OrderBookDetailViewModel(tickerUseCase,orderBookUseCase) as T
 }

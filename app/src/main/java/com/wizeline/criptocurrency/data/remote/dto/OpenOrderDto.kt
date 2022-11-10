@@ -1,4 +1,4 @@
-package com.wizeline.criptocurrency.data.remote.dto.response
+package com.wizeline.criptocurrency.data.remote.dto
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -6,7 +6,7 @@ import com.wizeline.criptocurrency.data.remote.dto.AvailableBookDto
 import com.wizeline.criptocurrency.domain.model.OpenOrder
 import java.io.Serializable
 
-data class OpenOrderResponse (
+data class OpenOrderDto (
     @SerializedName("book")
     @Expose
     var book: String? = null,

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.room.Room
@@ -23,18 +22,17 @@ import com.wizeline.criptocurrency.domain.model.use_case.TickerUseCase
 class AvailableBooksFragment : Fragment() {
 
     private lateinit var availableBooksUseCase: AvailableBooksUseCase
-    private lateinit var tickerUseCase: TickerUseCase
-    private lateinit var orderBookUseCase: OrderBookUseCase
     private lateinit var localDataSource: CryptoCurrencyLocalDataSource
-    private val criptoCurrencyVM by activityViewModels<CriptoCurrencyViewModel>(){
-        ViewModelFactory(availableBooksUseCase,tickerUseCase,orderBookUseCase)}
+    private val availableBooksVM by activityViewModels<AvailableBooksViewModel>(){
+        AvailableBooksViewModelFactory(availableBooksUseCase)}
     private lateinit var binding: FragmentAvailableBooksBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAvailableBooksBinding.inflate(layoutInflater, container, false)
+        binding = FragmentAvailableBooksBinding.inflate(layoutInflater,
+            container, false)
         criptoCurrencyDB= Room.databaseBuilder(
             requireContext(),
             CriptoCurrencyDB::class.java,
@@ -42,37 +40,39 @@ class AvailableBooksFragment : Fragment() {
         ).allowMainThreadQueries()
             .build()
         localDataSource= CryptoCurrencyLocalDataSource(criptoCurrencyDB.getCriptoCurrencyDao())
-        availableBooksUseCase = AvailableBooksUseCase(BitsoRepositoryImp(RetrofitClient.repository(),localDataSource,requireContext()))
-        tickerUseCase = TickerUseCase(BitsoRepositoryImp(RetrofitClient.repository(),localDataSource,requireContext()))
-        orderBookUseCase = OrderBookUseCase(BitsoRepositoryImp(RetrofitClient.repository(),localDataSource,requireContext()))
+        availableBooksUseCase = AvailableBooksUseCase(
+            BitsoRepositoryImp(RetrofitClient.repository(),localDataSource,requireContext()))
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        criptoCurrencyVM.getAvailableBooks()
+        availableBooksVM.getAvailableBooks()
 
         binding.apply {
-            criptoCurrencyVM.isLoading.observe(viewLifecycleOwner) {
-                criptoCurrencyVM.isLoading.observe(viewLifecycleOwner) {
-                    if(it){
-                        toast("Loading...")
-                        //ShowProgress
-                    }else{
-                        //HideProgress
-                        rvBooks.adapter = AvailableBooksAdapter(criptoCurrencyVM.availableOrderBookList.value ?: emptyList(),
+            availableBooksVM.isLoading.observe(viewLifecycleOwner) {
+                if(it){
+                    toast("Loading...")
+                    //ShowProgress
+                }else{
+                    //HideProgress
+                }
+            }
+                availableBooksVM.availableOrderBookList.observe(viewLifecycleOwner) {
+
+                        rvBooks.adapter = AvailableBooksAdapter(it ?: emptyList(),
                             goToDetail = { availableBook,coinName->
-                                criptoCurrencyVM.setSelectedOrderBook(availableBook?.book.orEmpty())
-                                criptoCurrencyVM.setSelectedCoinName(coinName)
-                                (activity as MainActivity).loadFragment(OrderBookDetailFragment())
+                                (activity as MainActivity).loadFragment(
+                                    OrderBookDetailFragment.newInstance(
+                                        bookParameter = availableBook?.book.orEmpty(),
+                                        coinNameParameter = coinName))
                             }
                         )
-                    }
+
                 }
 
-            }
 
-            criptoCurrencyVM.error.observe(viewLifecycleOwner){
+            availableBooksVM.error.observe(viewLifecycleOwner){
                 toast(it)
             }
         }

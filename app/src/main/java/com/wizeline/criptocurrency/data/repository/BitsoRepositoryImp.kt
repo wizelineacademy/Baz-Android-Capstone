@@ -4,10 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.wizeline.criptocurrency.common.adapters.utilities.isInternetAvailable
 import com.wizeline.criptocurrency.data.database.data_source.CryptoCurrencyLocalDataSource
-import com.wizeline.criptocurrency.data.database.entities.toAvailableBookEntityList
-import com.wizeline.criptocurrency.data.database.entities.toAvailableBookListFromEntity
-import com.wizeline.criptocurrency.data.database.entities.toTickerEntity
-import com.wizeline.criptocurrency.data.database.entities.toTickerFromEntity
+import com.wizeline.criptocurrency.data.database.entities.*
 import com.wizeline.criptocurrency.data.remote.dto.BitsoApi
 import com.wizeline.criptocurrency.domain.model.AvailableBook
 import com.wizeline.criptocurrency.domain.model.OrderBook
@@ -62,9 +59,14 @@ class BitsoRepositoryImp @Inject constructor(
 
     override suspend fun getOrderBook(book: String): OrderBook =
         if (isInternetAvailable(context)){
-            api.getOrderBook(book = book).toOrderBook(book = book)
-        }else OrderBook()
-
-
+            val orderBook =api.getOrderBook(book = book).payload?.toOrderBook(book = book)?:OrderBook()
+            localDataSource.deleteOpenOrdersFromDatabase(book)
+            localDataSource.insertOpenOrdersToDatabase(orderBook.bids.toBidsEntityList(), orderBook.asks.toAsksEntityList())
+            Log.i("CriptoCurrencyDataBase", "OrderBook inserted")
+            orderBook
+        }else localDataSource.getOrderBookfromDatabase(book).let {orderBook->
+            if (orderBook.book.isNullOrEmpty()) OrderBook()
+            else orderBook
+            }
 
 }

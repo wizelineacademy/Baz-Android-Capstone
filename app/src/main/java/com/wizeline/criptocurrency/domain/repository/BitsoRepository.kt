@@ -9,7 +9,7 @@ import com.wizeline.criptocurrency.domain.model.Ticker
 import retrofit2.Response
 
 interface BitsoRepository {
-    suspend fun getAvailableBooks(): List<AvailableBook>
-    suspend fun getTicker(book: String): Ticker
-    suspend fun getOrderBook(book: String): OrderBook
+     suspend fun getAvailableBooks(): List<AvailableBook>
+     suspend fun getTicker(book: String): Ticker
+     suspend fun getOrderBook(book: String): OrderBook
 }
