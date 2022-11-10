@@ -1,8 +1,8 @@
-plugins {
-    id 'com.android.application'
+plugins {id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-kapt'
+    id 'jacoco'
 }
 
 android {
@@ -29,15 +29,19 @@ android {
         }
     }
 
+
+
+
     flavorDimensions "versionName"
 
     productFlavors {
         development {
-            versionNameSuffix " dv"
+            versionNameSuffix "dv"
             versionName "1.0.0"
             buildConfigField("String", "API_PRINCIPAL_PATH", '"https://api.bitso.com/v3/"')
             buildConfigField("String", "API_ICONS", '"https://cryptoflash-icons-api.herokuapp.com/"')
         }
+
     }
 
     buildTypes {
@@ -45,11 +49,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug{
+            testCoverageEnabled true
+        }
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -57,16 +65,27 @@ android {
     viewBinding {
         enabled = true
     }
+    testOptions {
+        // Used for Unit testing Android dependent elements in /test folder
+        unitTests.includeAndroidResources = true
+        unitTests.returnDefaultValues = true
+    }
+
+
+
 }
+
+
 
 dependencies {
 
-    def retrofitVersion ="2.9.0"
+    def retrofitVersion = "2.9.0"
     def lifecycle_version = "2.5.1"
     def nav_version = "2.5.3"
     def room_version = "2.4.3"
     def okhttpVersion = "4.10.0"
-    def mockkVersion  = "1.13.2"
+    def mockkVersion = "1.13.2"
+    def coroutines_version = "1.6.1"
 
     /*
     def arch_version = "2.1.0"*/
@@ -83,10 +102,10 @@ dependencies {
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     // Lifecycles only (without ViewModel or LiveData)
-   // implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    // implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 
     // Saved state module for ViewModel
-   // implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+    // implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
 
 
     //retrofit
@@ -102,6 +121,9 @@ dependencies {
     testImplementation "io.mockk:mockk-android:${mockkVersion}"
     testImplementation "io.mockk:mockk-agent:${mockkVersion}"
     testImplementation "com.google.truth:truth:1.1.3"
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+
 
     //Picasso:load Images by URL
     implementation 'com.squareup.picasso:picasso:2.8'
@@ -126,3 +148,49 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.10"
 
 }
+
+
+
+jacoco {
+    toolVersion = "$jococo_version"
+}
+
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*']
+}
+
+def fileFilter = [
+        '**/R.class',
+        '**/R$*.class',
+        '**/BuildConfig.*',
+        '**/Manifest*.*',
+        '**/*Test*.*',
+        'android/**/*.*',
+        '**/fragments/*',
+        '**/adapters/*',
+        '**/activities/*',
+        '**/animations/*',
+        '**/di/*',
+        '**/common/*'
+]
+def debugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+def mainSrc = "$project.projectDir/src/main/java"
+def variant  = "DevelopmentDebug"
+task jacocoTestReport(type: JacocoReport) {
+    dependsOn = ["test${variant}UnitTest", 'createCoverageReport']
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    sourceDirectories.from = files([mainSrc])
+    classDirectories.from = files([debugTree])
+    executionData.from = fileTree(dir: project.buildDir, includes: [
+            "jacoco/test${variant}UnitTest.exec",
+            'outputs/code_coverage/debugAndroidTest/connected/*.ec'
+    ])
+}
+
+
