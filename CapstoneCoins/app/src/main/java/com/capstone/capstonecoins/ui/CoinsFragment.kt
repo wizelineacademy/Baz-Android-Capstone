@@ -8,18 +8,22 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.capstone.capstonecoins.R
+import com.capstone.capstonecoins.data.models.availablebooks.Payload
 import com.capstone.capstonecoins.data.repository.CoinsRepositoryImpl
+import com.capstone.capstonecoins.data.repository.database.BooksDB
 import com.capstone.capstonecoins.data.repository.models.Book
 import com.capstone.capstonecoins.data.retrofit
 import com.capstone.capstonecoins.data.utils.BOOKS_KEY
 import com.capstone.capstonecoins.databinding.FragmentCoinsBinding
 import com.capstone.capstonecoins.domain.api.usecases.AvailableBooksUseCase
 import com.capstone.capstonecoins.ui.adapters.CoinsAdapter
-import com.capstone.capstonecoins.ui.listeners.ListenerAdapter
 import com.capstone.capstonecoins.ui.viewmodels.CoinViewmodel
 import com.capstone.capstonecoins.ui.viewmodels.ViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class CoinsFragment : Fragment() {
     private var _binding: FragmentCoinsBinding? = null
@@ -59,6 +63,63 @@ class CoinsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvCoins.adapter = adapter
+        callRoom()
+    }
+
+    private fun callRoom() {
+        val room: BooksDB = Room
+            .databaseBuilder(
+                requireContext(),
+                BooksDB::class.java,
+                "BooksDatabase"
+            )
+            .build()
+        CoroutineScope(Dispatchers.IO).launch {
+            var lista = ArrayList<Payload>()
+            lista.add(
+                Payload(
+                    0,
+                    "Anuma",
+                    "jajaja",
+                    "jajaja",
+                    "jajaja",
+                    "jajaja",
+                    "jajaja",
+                    "jajaja",
+                    "jajaja",
+                    "jajaja"
+                )
+            )
+            lista.add(
+                Payload(
+                    1,
+                    "David",
+                    "jajaja",
+                    "jajaja",
+                    "jajaja",
+                    "jajaja",
+                    "jajaja",
+                    "jajaja",
+                    "jajaja",
+                    "jajaja"
+                )
+            )
+            lista.add(
+                Payload(
+                    2,
+                    "Salas",
+                    "jajaja",
+                    "jajaja",
+                    "jajaja",
+                    "jajaja",
+                    "jajaja",
+                    "jajaja",
+                    "jajaja",
+                    "jajaja"
+                )
+            )
+            room.contactDao().insertAllBooks(lista)
+        }
     }
 
     private fun attachObservers() {
