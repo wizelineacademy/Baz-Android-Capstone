@@ -7,23 +7,23 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.course.criptomonedas.R
-import com.course.criptomonedas.data.models.ModelBook
+import com.course.criptomonedas.data.db.model.BooksEntity
 import com.course.criptomonedas.databinding.ItemBookBinding
 
 class AdapterBooks(
-    private var bookSelected: (ModelBook) -> Unit
-) : ListAdapter<ModelBook, AdapterBooks.ViewHolder>(DiffUtilCallback) {
+    private var bookSelected: (BooksEntity) -> Unit
+) : ListAdapter<BooksEntity, AdapterBooks.ViewHolder>(DiffUtilCallback) {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemBookBinding.bind(view)
 
         fun bind(
-            itemBook: ModelBook,
-            bookSelected: (ModelBook) -> Unit
+            itemBook: BooksEntity,
+            bookSelected: (BooksEntity) -> Unit
         ) = with(binding) {
-            tvBook.text = itemBook.book
+            tvBook.text = itemBook.name
             val id = itemView.context.resources.getIdentifier(
-                itemBook.book,
+                itemBook.name,
                 "drawable",
                 binding.root.context.packageName
             )
@@ -45,12 +45,12 @@ class AdapterBooks(
     }
 }
 
-object DiffUtilCallback : DiffUtil.ItemCallback<ModelBook>() {
-    override fun areItemsTheSame(oldItem: ModelBook, newItem: ModelBook): Boolean {
-        return oldItem.book == newItem.book
+object DiffUtilCallback : DiffUtil.ItemCallback<BooksEntity>() {
+    override fun areItemsTheSame(oldItem: BooksEntity, newItem: BooksEntity): Boolean {
+        return oldItem.name == newItem.name
     }
 
-    override fun areContentsTheSame(oldItem: ModelBook, newItem: ModelBook): Boolean {
+    override fun areContentsTheSame(oldItem: BooksEntity, newItem: BooksEntity): Boolean {
         return oldItem == newItem
     }
 }

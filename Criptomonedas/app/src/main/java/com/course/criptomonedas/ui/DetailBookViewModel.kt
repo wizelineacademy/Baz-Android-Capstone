@@ -17,13 +17,13 @@ class DetailBookViewModel(
     private val useCaseGetDetailsBooksCase: GetDetailBookCase,
     private val useCaseGetOrderBookCase: GetOrderBookCase
 ) : ViewModel() {
-    val _detail_books = MutableLiveData<ModelDetails>()
+    private val _detail_books = MutableLiveData<ModelDetails>()
     val detailBooks = _detail_books
 
-    val _order_bids = MutableLiveData<List<Bid>>()
+    private val _order_bids = MutableLiveData<List<Bid>>()
     val orderBids = _order_bids
 
-    val _order_asks = MutableLiveData<List<Ask>>()
+    private val _order_asks = MutableLiveData<List<Ask>>()
     val orderAsks = _order_asks
 
 

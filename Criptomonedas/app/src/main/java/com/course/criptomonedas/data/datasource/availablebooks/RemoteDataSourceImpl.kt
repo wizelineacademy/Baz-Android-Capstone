@@ -4,8 +4,9 @@ import com.course.criptomonedas.data.models.AvailableBooks
 import com.course.criptomonedas.data.models.ModelDetails
 import com.course.criptomonedas.data.models.OrderBook
 import com.course.criptomonedas.data.network.AvailableBooksService
+import javax.inject.Inject
 
-class RemoteDataSourceImpl(
+class RemoteDataSourceImpl @Inject constructor(
     private val service: AvailableBooksService
 ) : RemoteDataSource {
     override suspend fun getAvailableBooks(): AvailableBooks {
