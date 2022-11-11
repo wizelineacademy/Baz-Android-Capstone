@@ -16,7 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var binding: FragmentHomeBinding
-    val TAG = "Criptos"
     private lateinit var adapterAvBooks: AdapterBooks
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var viewModel: AvailableBooksViewModel
@@ -26,7 +25,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding = FragmentHomeBinding.bind(view)
         configAdapter()
 
-        viewModel = ViewModelProvider(this).get(AvailableBooksViewModel::class.java)
+        viewModel = ViewModelProvider(this)[AvailableBooksViewModel::class.java]
 
         viewModel.getAvailableBooks()
 

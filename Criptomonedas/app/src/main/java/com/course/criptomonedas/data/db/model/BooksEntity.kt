@@ -9,6 +9,5 @@ import androidx.room.PrimaryKey
 )
 data class BooksEntity(
     @ColumnInfo(name = "name") var name: String,
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+    @PrimaryKey() var id: String
 )

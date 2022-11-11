@@ -26,12 +26,12 @@ class AvailableBooksViewModel @Inject constructor(
             val result = useCaseGetAvailableBooksCase()
             val entities = result.map { currency ->
                 BooksEntity(
-                    name = currency.book
+                    name = currency.book,
+                    id = currency.book
                 )
             }
             dao.insertBook(books = entities)
             val localData = dao.getBooks()
-
             _available_books.postValue(localData)
         } catch (e: Exception) {
             Log.d("TAG_FRANK", "getAvailableBooks: Error")

@@ -56,12 +56,13 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         viewModel.getAvailableBooks(book)
         viewModel.getOrderBooks(book)
         binding.detalle.text = book
-        val id = context?.resources?.getIdentifier(
+        context?.resources?.getIdentifier(
             book,
             "drawable",
             binding.root.context.packageName
-        )
-        id?.let { binding.imgCoin.setImageResource(it) }
+        ).apply {
+            binding.imgCoin.setImageResource(this!!)
+        }
 
         viewModel.detailBooks.observe(viewLifecycleOwner) {
             binding.ultimoP.text = it.payload.last
