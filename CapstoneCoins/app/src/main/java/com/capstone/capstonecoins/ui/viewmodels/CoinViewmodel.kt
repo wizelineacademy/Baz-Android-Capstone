@@ -6,10 +6,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.capstone.capstonecoins.data.repository.models.Book
 import com.capstone.capstonecoins.domain.api.usecases.AvailableBooksUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CoinViewmodel(private var useCase: AvailableBooksUseCase) : ViewModel() {
+@HiltViewModel
+class CoinViewmodel @Inject constructor(private var useCase: AvailableBooksUseCase) : ViewModel() {
     val cryptoBook = MutableLiveData<List<Book>>()
 
     fun getAvailableBooks() {

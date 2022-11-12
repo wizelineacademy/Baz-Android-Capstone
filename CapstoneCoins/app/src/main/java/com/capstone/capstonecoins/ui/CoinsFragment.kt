@@ -8,31 +8,36 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.room.Room
 import com.capstone.capstonecoins.R
 import com.capstone.capstonecoins.data.models.availablebooks.Payload
 import com.capstone.capstonecoins.data.repository.CoinsRepositoryImpl
-import com.capstone.capstonecoins.data.repository.database.BooksDB
 import com.capstone.capstonecoins.data.repository.models.Book
 import com.capstone.capstonecoins.data.retrofit
 import com.capstone.capstonecoins.data.utils.BOOKS_KEY
 import com.capstone.capstonecoins.databinding.FragmentCoinsBinding
+import com.capstone.capstonecoins.domain.api.BooksDao
 import com.capstone.capstonecoins.domain.api.usecases.AvailableBooksUseCase
 import com.capstone.capstonecoins.ui.adapters.CoinsAdapter
 import com.capstone.capstonecoins.ui.viewmodels.CoinViewmodel
 import com.capstone.capstonecoins.ui.viewmodels.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class CoinsFragment : Fragment() {
+    @Inject
+    lateinit var booksDao: BooksDao
     private var _binding: FragmentCoinsBinding? = null
     private val binding get() = _binding!!
     var bundle = bundleOf()
 
-    private val coinViewModel: CoinViewmodel by viewModels {
-        ViewModelFactory(AvailableBooksUseCase(CoinsRepositoryImpl(retrofit)))
-    }
+    private val coinViewModel: CoinViewmodel by viewModels()
+    //{
+      //  ViewModelFactory(AvailableBooksUseCase(CoinsRepositoryImpl(retrofit, booksDao)))
+   // }
 
     private val adapter by lazy {
         CoinsAdapter {
@@ -63,17 +68,11 @@ class CoinsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvCoins.adapter = adapter
-        callRoom()
+        //callRoom()
     }
 
     private fun callRoom() {
-        val room: BooksDB = Room
-            .databaseBuilder(
-                requireContext(),
-                BooksDB::class.java,
-                "BooksDatabase"
-            )
-            .build()
+
         CoroutineScope(Dispatchers.IO).launch {
             var lista = ArrayList<Payload>()
             lista.add(
@@ -118,7 +117,7 @@ class CoinsFragment : Fragment() {
                     "jajaja"
                 )
             )
-            room.contactDao().insertAllBooks(lista)
+            //room.contactDao().insertAllBooks(lista)
         }
     }
 

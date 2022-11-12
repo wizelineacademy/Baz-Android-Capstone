@@ -6,8 +6,9 @@ import com.capstone.capstonecoins.data.repository.models.Book
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
+import javax.inject.Inject
 
-class AvailableBooksUseCase(private var repository: CoinsRepositoryImpl) {
+class AvailableBooksUseCase @Inject constructor(private var repository: CoinsRepositoryImpl) {
     suspend fun book(): Flow<List<Book>> = flow {
         try {
             val response = repository.getAvailableBooks()

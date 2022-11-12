@@ -22,3 +22,4 @@ var retrofit = retrofit2.Retrofit.Builder()
     .addConverterFactory(GsonConverterFactory.create())
     .client(createInterceptor())
     .build().create(ApiService::class.java)
+
