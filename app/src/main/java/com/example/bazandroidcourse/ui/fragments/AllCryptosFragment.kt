@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,9 +15,11 @@ import com.example.bazandroidcourse.data.entities.BookModel
 import com.example.bazandroidcourse.databinding.FragmentAllCryptosBinding
 import com.example.bazandroidcourse.ui.fragments.adapters.BooksAdapter
 import com.example.bazandroidcourse.ui.viewmodel.BooksViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AllCryptosFragment : Fragment(), AdapterView.OnItemSelectedListener {
-    private val viewModel: BooksViewModel = BooksViewModel.createInstance()
+    private val viewModel: BooksViewModel by viewModels()
     private lateinit var binding: FragmentAllCryptosBinding
     private var currentCurrency = "mxn"
     private val adapter = BooksAdapter() {

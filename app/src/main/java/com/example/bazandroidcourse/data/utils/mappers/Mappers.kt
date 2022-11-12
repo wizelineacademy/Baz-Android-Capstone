@@ -4,7 +4,7 @@ import com.example.bazandroidcourse.data.datasource.local.database.room.entities
 import com.example.bazandroidcourse.data.datasource.local.database.room.entities.BookEntity
 import com.example.bazandroidcourse.data.datasource.local.database.room.entities.BookOrderEntity
 import com.example.bazandroidcourse.data.datasource.local.database.room.entities.BookOrderTypes
-import com.example.bazandroidcourse.data.datasource.remote.api.response.BookResponse
+import com.example.bazandroidcourse.data.datasource.remote.api.response.BookResponsePayload
 import com.example.bazandroidcourse.data.datasource.remote.api.response.DetailResponse
 import com.example.bazandroidcourse.data.datasource.remote.api.response.OrderPayloadResponse
 import com.example.bazandroidcourse.data.datasource.remote.api.response.OrderResume
@@ -24,14 +24,14 @@ fun DetailResponse.toDomain(): BookDetailModel {
     )
 }
 
-fun BookResponse.toDomain(): BookModel {
+fun BookResponsePayload.toDomain(): BookModel {
     return BookModel(
         book   = book.orEmpty(),
         name   = book?.cryptoName().orEmpty()
     )
 }
 
-fun List<BookResponse>.toDomain():List<BookModel> {
+fun List<BookResponsePayload>.toDomain():List<BookModel> {
     return map {
         it.toDomain()
     }

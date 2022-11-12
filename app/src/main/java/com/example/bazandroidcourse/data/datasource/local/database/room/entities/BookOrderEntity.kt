@@ -14,7 +14,7 @@ data class BookOrderEntity (
     val type: Int = 0
  )
 
-enum class BookOrderTypes(val id:Int){
+enum class BookOrderTypes(val id:Int) {
     BID(1),
     ASK(2)
 }

@@ -3,48 +3,26 @@ package com.example.bazandroidcourse.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.bazandroidcourse.data.datasource.local.database.room.BookDetailsLocalDatasourceImpl
-import com.example.bazandroidcourse.data.datasource.local.database.room.BookOrdersLocalDataSourceImpl
-import com.example.bazandroidcourse.data.datasource.local.database.room.BooksLocalDataSourceImpl
-import com.example.bazandroidcourse.data.datasource.local.database.room.core.AppDataBase
-import com.example.bazandroidcourse.data.datasource.local.database.room.core.dataBaseHelper
-import com.example.bazandroidcourse.data.datasource.remote.CryptoRemoteDataSourceImpl
-import com.example.bazandroidcourse.data.datasource.remote.api.retrofit.apiInstance
 import com.example.bazandroidcourse.data.entities.BookDetailModel
 import com.example.bazandroidcourse.data.entities.BookModel
 import com.example.bazandroidcourse.data.entities.BookOrdersModel
 import com.example.bazandroidcourse.data.entities.static.ApplicationCurrencies
-import com.example.bazandroidcourse.data.repository.BooksRepositoryImpl
 import com.example.bazandroidcourse.domain.GetAllBooksFilteredUseCase
 import com.example.bazandroidcourse.domain.GetBookDetailUseCase
 import com.example.bazandroidcourse.domain.GetBookOrdersUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class BooksViewModel(
+@HiltViewModel
+class BooksViewModel @Inject constructor(
     private val getBooksUseCase: GetAllBooksFilteredUseCase,
     private val getBookDetailUseCase: GetBookDetailUseCase,
     private val getBookOrdersUseCase: GetBookOrdersUseCase,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-
+   // private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
 ) : ViewModel() {
-    companion object {
-        fun createInstance(): BooksViewModel {
-            val databaseHelper: AppDataBase = dataBaseHelper.getInstance()!!
-            val repository = BooksRepositoryImpl(
-                BooksLocalDataSourceImpl(databaseHelper.booksDao()),
-                BookDetailsLocalDatasourceImpl(databaseHelper.bookDetailsDao()),
-                BookOrdersLocalDataSourceImpl(databaseHelper.BookOrdersDao()),
-                CryptoRemoteDataSourceImpl(apiInstance)
-            )
-            return BooksViewModel(
-                GetAllBooksFilteredUseCase(repository),
-                GetBookDetailUseCase(repository),
-                GetBookOrdersUseCase(repository)
-            )
-        }
-    }
 
     private val _allBooks = MutableLiveData<List<BookModel>>()
     val allBooks: MutableLiveData<List<BookModel>> = _allBooks
@@ -60,14 +38,14 @@ class BooksViewModel(
     }
 
     fun getAllBooks(currency: String) {
-        viewModelScope.launch(dispatcher) {
+        viewModelScope.launch(Dispatchers.IO) {
             _allBooks.postValue(
                 getBooksUseCase.invoke(currency)
             )
         }
     }
 
-    fun getAllBooksByCurrency(className:String){
+    fun getAllBooksByCurrency(className:String) {
         ApplicationCurrencies.findByName(className)?.let {
             getAllBooks(it.id)
         }

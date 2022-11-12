@@ -12,12 +12,17 @@ import com.example.bazandroidcourse.data.entities.BookModel
 import com.example.bazandroidcourse.data.entities.BookOrdersModel
 import com.example.bazandroidcourse.data.utils.mappers.*
 import com.example.bazandroidcourse.data.utils.network.networkManagerUtils
+import javax.inject.Inject
 
-class BooksRepositoryImpl(
-    val localeBooksDataSource: GeneralLocalDataSourceInterface<BookEntity>,
-    val localeDetailDataSource: RowByIdLocaleDataSourceInterface<BookDetailEntity, String>,
-    val localeOrdersDataSource: CollectionLocaleDataSourceInterface<BookOrderEntity, String>,
-    val remoteDataSource: CryptoRemoteDataSourceInterface,
+class BooksRepositoryImpl @Inject constructor(
+    val localeBooksDataSource:
+    //BooksInterface,
+    GeneralLocalDataSourceInterface<BookEntity>,
+    val localeDetailDataSource: //BookDetailsInterface,
+    RowByIdLocaleDataSourceInterface<BookDetailEntity, String>,
+    val localeOrdersDataSource: //BookOrdersInterface,
+    CollectionLocaleDataSourceInterface<BookOrderEntity, String>,
+    val remoteDataSource: CryptoRemoteDataSourceInterface
 ) : BooksRepositoryInterface {
 
     override suspend fun getAllBooks(): List<BookModel> {

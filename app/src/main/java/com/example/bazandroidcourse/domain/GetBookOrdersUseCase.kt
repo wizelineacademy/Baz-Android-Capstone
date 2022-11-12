@@ -2,15 +2,15 @@ package com.example.bazandroidcourse.domain
 
 import com.example.bazandroidcourse.data.entities.BookOrdersModel
 import com.example.bazandroidcourse.data.repository.BooksRepositoryInterface
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class GetBookOrdersUseCase(
+class GetBookOrdersUseCase @Inject constructor(
     private val repository: BooksRepositoryInterface,
-    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
+   // @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
 ) {
-    suspend operator fun invoke(bookId:String): BookOrdersModel = withContext(defaultDispatcher){
+    suspend operator fun invoke(bookId:String): BookOrdersModel = withContext(Dispatchers.IO) {
         repository.getBookOrders(bookId)
     }
 }

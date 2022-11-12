@@ -1,10 +1,11 @@
 package com.example.bazandroidcourse
 
 import android.app.Application
-import com.example.bazandroidcourse.data.datasource.local.database.room.core.dataBaseHelper
 import com.example.bazandroidcourse.data.utils.network.networkManagerUtils
+import dagger.hilt.android.HiltAndroidApp
 
-class Application():Application(){
+@HiltAndroidApp
+class Application():Application() {
     override fun onCreate() {
         super.onCreate()
         /**
@@ -13,11 +14,7 @@ class Application():Application(){
          */
         networkManagerUtils.context = this
 
-        /***
-         * this is important
-         * todo:Inject this with some framework
-         */
-        dataBaseHelper.context = this
+
 
     }
 
