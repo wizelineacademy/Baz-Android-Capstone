@@ -2,7 +2,9 @@ plugins {id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-kapt'
-    id 'jacoco'
+//    id 'jacoco'
+    id 'com.google.dagger.hilt.android'
+
 }
 
 android {
@@ -29,9 +31,6 @@ android {
         }
     }
 
-
-
-
     flavorDimensions "versionName"
 
     productFlavors {
@@ -49,9 +48,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        debug{
-            testCoverageEnabled true
-        }
+//        debug{
+//            testCoverageEnabled true
+//        }
     }
 
     compileOptions {
@@ -65,20 +64,14 @@ android {
     viewBinding {
         enabled = true
     }
-    testOptions {
-        // Used for Unit testing Android dependent elements in /test folder
-        unitTests.includeAndroidResources = true
-        unitTests.returnDefaultValues = true
-    }
-
-
-
+//    testOptions {
+//        // Used for Unit testing Android dependent elements in /test folder
+//        unitTests.includeAndroidResources = true
+//        unitTests.returnDefaultValues = true
+//    }
 }
 
-
-
 dependencies {
-
     def retrofitVersion = "2.9.0"
     def lifecycle_version = "2.5.1"
     def nav_version = "2.5.3"
@@ -86,9 +79,6 @@ dependencies {
     def okhttpVersion = "4.10.0"
     def mockkVersion = "1.13.2"
     def coroutines_version = "1.6.1"
-
-    /*
-    def arch_version = "2.1.0"*/
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -124,14 +114,12 @@ dependencies {
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
 
-
     //Picasso:load Images by URL
     implementation 'com.squareup.picasso:picasso:2.8'
 
     // Kotlin Navigation Component
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
-    //implementation 'androidx.navigation:navigation-safe-args-gradle-plugin:2.6.0-alpha02'
 
     //okhttp
     // define a BOM and its version
@@ -147,50 +135,57 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.10"
 
+    //Hilt
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+
 }
-
-
-
-jacoco {
-    toolVersion = "$jococo_version"
-}
-
-
-tasks.withType(Test) {
-    jacoco.includeNoLocationClasses = true
-    jacoco.excludes = ['jdk.internal.*']
-}
-
-def fileFilter = [
-        '**/R.class',
-        '**/R$*.class',
-        '**/BuildConfig.*',
-        '**/Manifest*.*',
-        '**/*Test*.*',
-        'android/**/*.*',
-        '**/fragments/*',
-        '**/adapters/*',
-        '**/activities/*',
-        '**/animations/*',
-        '**/di/*',
-        '**/common/*'
-]
-def debugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
-def mainSrc = "$project.projectDir/src/main/java"
-def variant  = "DevelopmentDebug"
-task jacocoTestReport(type: JacocoReport) {
-    dependsOn = ["test${variant}UnitTest", 'createCoverageReport']
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
-
-    sourceDirectories.from = files([mainSrc])
-    classDirectories.from = files([debugTree])
-    executionData.from = fileTree(dir: project.buildDir, includes: [
-            "jacoco/test${variant}UnitTest.exec",
-            'outputs/code_coverage/debugAndroidTest/connected/*.ec'
-    ])
-}
+//
+//kapt {
+//    correctErrorTypes true
+//}
+//
+//
+//jacoco {
+//    toolVersion = "$jococo_version"
+//}
+//
+//
+//tasks.withType(Test) {
+//    jacoco.includeNoLocationClasses = true
+//    jacoco.excludes = ['jdk.internal.*']
+//}
+//
+//def fileFilter = [
+//        '**/R.class',
+//        '**/R$*.class',
+//        '**/BuildConfig.*',
+//        '**/Manifest*.*',
+//        '**/*Test*.*',
+//        'android/**/*.*',
+//        '**/fragments/*',
+//        '**/adapters/*',
+//        '**/activities/*',
+//        '**/animations/*',
+//        '**/di/*',
+//        '**/common/*'
+//]
+//def debugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+//def mainSrc = "$project.projectDir/src/main/java"
+//def variant  = "DevelopmentDebug"
+//task jacocoTestReport(type: JacocoReport) {
+//    dependsOn = ["test${variant}UnitTest", 'createCoverageReport']
+//    reports {
+//        xml.enabled = true
+//        html.enabled = true
+//    }
+//
+//    sourceDirectories.from = files([mainSrc])
+//    classDirectories.from = files([debugTree])
+//    executionData.from = fileTree(dir: project.buildDir, includes: [
+//            "jacoco/test${variant}UnitTest.exec",
+//            'outputs/code_coverage/debugAndroidTest/connected/*.ec'
+//    ])
+//}
 
 

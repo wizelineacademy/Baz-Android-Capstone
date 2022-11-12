@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bazandroidcourse.R
 import com.example.bazandroidcourse.databinding.FragmentDetailBinding
 import com.example.bazandroidcourse.ui.fragments.adapters.BookOrdersAdapter
-import com.example.bazandroidcourse.ui.utils.createURLImage
+import com.example.bazandroidcourse.ui.utils.createURLImageByBookId
 import com.example.bazandroidcourse.ui.utils.cryptoName
 import com.example.bazandroidcourse.ui.utils.getCurrency
 import com.example.bazandroidcourse.ui.utils.getTicker
@@ -46,7 +46,7 @@ class DetailFragment : Fragment() {
             binding.apply {
                 try{
                     Picasso.get()
-                        .load(createURLImage(bookId))
+                        .load(createURLImageByBookId(bookId))
                         .into(ivIcon)
                 }catch (e:Exception) {
                     e.printStackTrace()

@@ -8,14 +8,12 @@ import com.example.bazandroidcourse.domain.GetBookDetailUseCase
 import com.example.bazandroidcourse.domain.GetBookOrdersUseCase
 import com.google.common.truth.Truth.assertThat
 import io.mockk.MockKAnnotations
+import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.junit.After
 import org.junit.Before
@@ -41,7 +39,7 @@ class BooksViewModelTest {
     @MockK(relaxed = true)
     lateinit var ordersUseCaseMockk: GetBookOrdersUseCase
 
-    private  val dispatcher = CoroutineScope(SupervisorJob() + TestCoroutineDispatcher()) // TestCoroutineDispatcher()//StandardTestDispatcher()
+    private  val dispatcher = CoroutineScope(SupervisorJob() + TestCoroutineDispatcher())
 
 
     @Before
@@ -95,8 +93,10 @@ class BooksViewModelTest {
         assertThat(allBooksValue).isEqualTo(books)
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @After
     fun tearDown() {
+        clearAllMocks()
         Dispatchers.resetMain()
     }
 }

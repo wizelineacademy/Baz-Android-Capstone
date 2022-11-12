@@ -10,6 +10,7 @@ import com.example.bazandroidcourse.databinding.BookOrderItemLayoutBinding
 
 class BookOrdersAdapter ():
     ListAdapter<BookOrderResumeModel, BookOrdersAdapter.ItemViewHolder> (DiffCallback()) {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -22,6 +23,7 @@ class BookOrdersAdapter ():
             )
         )
     }
+
     override fun onBindViewHolder(
         holder:BookOrdersAdapter.ItemViewHolder,
         position:Int

@@ -14,6 +14,10 @@ import com.example.bazandroidcourse.data.entities.BookOrderResumeModel
 import com.example.bazandroidcourse.data.entities.BookOrdersModel
 import com.example.bazandroidcourse.ui.utils.cryptoName
 
+
+/***
+ *  API response transformations
+ */
 fun DetailResponse.toDomain(): BookDetailModel {
     return BookDetailModel(
         book    = book.orEmpty(),
@@ -58,6 +62,25 @@ fun OrderResume.toDomain():BookOrderResumeModel {
     )
 }
 
+fun List<DetailResponse>.toBookDetailList():List<BookDetailEntity> {
+    return map{
+        it.toEntity()
+    }
+}
+
+fun DetailResponse.toEntity():BookDetailEntity {
+    return BookDetailEntity(
+        book    = book.orEmpty(),
+        volume  = volume.orEmpty(),
+        high    = high.orEmpty(),
+        low     = low.orEmpty(),
+        last    = last.orEmpty()
+    )
+}
+
+/***
+ * Entity transformations
+ */
 fun List<BookOrderEntity>.toOrderDomain():BookOrdersModel {
     val bids = filter { it.type == BookOrderTypes.BID.id }
         .map {
@@ -115,6 +138,9 @@ fun BookDetailEntity.toDomain():BookDetailModel {
     )
 }
 
+/***
+ *  Model transformations
+ */
 fun List<BookModel>.toBookEntityList():List<BookEntity> {
     return map{
         it.toEntity()
@@ -125,22 +151,6 @@ fun BookModel.toEntity():BookEntity{
     return BookEntity(
         book = book,
         name = name
-    )
-}
-
-fun List<DetailResponse>.toBookDetailList():List<BookDetailEntity> {
-    return map{
-        it.toEntity()
-    }
-}
-
-fun DetailResponse.toEntity():BookDetailEntity {
-    return BookDetailEntity(
-        book    = book.orEmpty(),
-        volume  = volume.orEmpty(),
-        high    = high.orEmpty(),
-        low     = low.orEmpty(),
-        last    = last.orEmpty()
     )
 }
 
