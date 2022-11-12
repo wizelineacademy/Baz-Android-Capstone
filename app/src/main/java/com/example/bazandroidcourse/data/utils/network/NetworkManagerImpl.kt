@@ -3,27 +3,30 @@ package com.example.bazandroidcourse.data.utils.network
 import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.Network
 import android.net.NetworkCapabilities
+import com.example.bazandroidcourse.data.di.ApplicationScope
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
 
-@SuppressLint("StaticFieldLeak")
-object networkManagerUtils : NetworkManagerInterface {
-    var context: Context? = null
+
+class NetworkManagerImpl
+@Inject constructor( @ApplicationContext private val context: Context): NetworkManagerInterface {
     override fun isOnline(): Boolean {
-        var result = false
-        context?.let {
+      return  context.let {
             val connectivityManager =
                 it.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val networkCapabilities = connectivityManager.activeNetwork ?: return false
             val actNw =
                 connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false
-            result = when {
+             when {
                 actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
                 actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
                 actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
                 else -> false
             }
         }
-        return result
     }
 }
+

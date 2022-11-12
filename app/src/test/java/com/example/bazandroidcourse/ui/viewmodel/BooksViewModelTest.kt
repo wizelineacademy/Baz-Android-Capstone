@@ -12,8 +12,9 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
-import io.mockk.verify
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.*
 import org.junit.After
@@ -40,14 +41,14 @@ class BooksViewModelTest {
     @MockK(relaxed = true)
     lateinit var ordersUseCaseMockk: GetBookOrdersUseCase
 
-    private  val dispatcher = TestCoroutineDispatcher()//StandardTestDispatcher()
+    private  val dispatcher = CoroutineScope(SupervisorJob() + TestCoroutineDispatcher()) // TestCoroutineDispatcher()//StandardTestDispatcher()
 
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
         Dispatchers.setMain(
-            dispatcher
+            TestCoroutineDispatcher()
         )
         viewModel = BooksViewModel(
             getAllBooksFilteredUseCaseMockk,

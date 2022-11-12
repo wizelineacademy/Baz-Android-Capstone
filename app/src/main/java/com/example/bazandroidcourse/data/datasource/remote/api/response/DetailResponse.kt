@@ -6,9 +6,9 @@ data class BookDetailResponse(
 )
 
 data class DetailResponse(
-    var book    : String? = null, //: "btc_mxn",
-    var volume  : String? = null, //: "22.31349615",
-    var high    : String? = null, //: "5750.00",
-    var last    : String? = null, //: "5633.98",
-    var low     : String? = null, //: "5450.00",
+    var book    : String? = null,
+    var volume  : String? = null,
+    var high    : String? = null,
+    var last    : String? = null,
+    var low     : String? = null,
 )

@@ -11,22 +11,19 @@ import com.example.bazandroidcourse.data.entities.BookDetailModel
 import com.example.bazandroidcourse.data.entities.BookModel
 import com.example.bazandroidcourse.data.entities.BookOrdersModel
 import com.example.bazandroidcourse.data.utils.mappers.*
-import com.example.bazandroidcourse.data.utils.network.networkManagerUtils
+import com.example.bazandroidcourse.data.utils.network.NetworkManagerInterface
 import javax.inject.Inject
 
 class BooksRepositoryImpl @Inject constructor(
-    val localeBooksDataSource:
-    //BooksInterface,
-    GeneralLocalDataSourceInterface<BookEntity>,
-    val localeDetailDataSource: //BookDetailsInterface,
-    RowByIdLocaleDataSourceInterface<BookDetailEntity, String>,
-    val localeOrdersDataSource: //BookOrdersInterface,
-    CollectionLocaleDataSourceInterface<BookOrderEntity, String>,
-    val remoteDataSource: CryptoRemoteDataSourceInterface
+    val localeBooksDataSource: GeneralLocalDataSourceInterface<BookEntity>,
+    val localeDetailDataSource: RowByIdLocaleDataSourceInterface<BookDetailEntity, String>,
+    val localeOrdersDataSource: CollectionLocaleDataSourceInterface<BookOrderEntity, String>,
+    val remoteDataSource: CryptoRemoteDataSourceInterface,
+    val networkManager: NetworkManagerInterface
 ) : BooksRepositoryInterface {
 
     override suspend fun getAllBooks(): List<BookModel> {
-        if (networkManagerUtils.isOnline()) {
+        if (networkManager.isOnline()) {
             val books = remoteDataSource.fetchAllBooks().toDomain()
             localeBooksDataSource.saveAll(books.toBookEntityList())
         }
@@ -34,7 +31,7 @@ class BooksRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getBookInfo(id: String): BookDetailModel {
-        if (networkManagerUtils.isOnline()) {
+        if (networkManager.isOnline()) {
             val bookDetail = remoteDataSource.fetchBookDetail(id).toDomain()
             localeDetailDataSource.addRow(bookDetail.toEntity())
         }
@@ -43,7 +40,7 @@ class BooksRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getBookOrders(id: String): BookOrdersModel {
-        if (networkManagerUtils.isOnline()) {
+        if (networkManager.isOnline()) {
             val bookOrders = remoteDataSource.fetchBookOrders(id).toDomain()
             localeOrdersDataSource.deleteAll(id)
             localeOrdersDataSource.saveAll(bookOrders.toEntityList())

@@ -3,6 +3,7 @@ package com.example.bazandroidcourse.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.bazandroidcourse.data.di.ApplicationScope
 import com.example.bazandroidcourse.data.entities.BookDetailModel
 import com.example.bazandroidcourse.data.entities.BookModel
 import com.example.bazandroidcourse.data.entities.BookOrdersModel
@@ -12,6 +13,7 @@ import com.example.bazandroidcourse.domain.GetBookDetailUseCase
 import com.example.bazandroidcourse.domain.GetBookOrdersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,7 +23,7 @@ class BooksViewModel @Inject constructor(
     private val getBooksUseCase: GetAllBooksFilteredUseCase,
     private val getBookDetailUseCase: GetBookDetailUseCase,
     private val getBookOrdersUseCase: GetBookOrdersUseCase,
-   // private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
+    @ApplicationScope private val externalScope: CoroutineScope
 ) : ViewModel() {
 
     private val _allBooks = MutableLiveData<List<BookModel>>()
@@ -38,7 +40,7 @@ class BooksViewModel @Inject constructor(
     }
 
     fun getAllBooks(currency: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(externalScope.coroutineContext) {
             _allBooks.postValue(
                 getBooksUseCase.invoke(currency)
             )
@@ -52,7 +54,7 @@ class BooksViewModel @Inject constructor(
     }
 
     fun getBookDetail(bookId: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(externalScope.coroutineContext) {
             _currentBook.postValue(
                 getBookDetailUseCase.invoke(bookId)
             )
@@ -60,7 +62,7 @@ class BooksViewModel @Inject constructor(
     }
 
     fun getBookOrders(bookId: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(externalScope.coroutineContext) {
             _currentBookOrders.postValue(
                 getBookOrdersUseCase.invoke(bookId)
             )

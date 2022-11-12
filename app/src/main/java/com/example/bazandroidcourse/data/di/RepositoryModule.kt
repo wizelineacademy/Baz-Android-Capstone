@@ -9,25 +9,12 @@ import com.example.bazandroidcourse.data.datasource.local.database.room.entities
 import com.example.bazandroidcourse.data.datasource.remote.CryptoRemoteDataSourceInterface
 import com.example.bazandroidcourse.data.repository.BooksRepositoryImpl
 import com.example.bazandroidcourse.data.repository.BooksRepositoryInterface
+import com.example.bazandroidcourse.data.utils.network.NetworkManagerInterface
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-
-/*@Qualifier
-annotation class Repository
-
-*@Module
-@InstallIn(ActivityComponent::class)
-abstract class RepositoryModule {
-    @Repository
-    @Singleton
-    @Binds
-   abstract fun bindRepository(
-        implementation: BooksRepositoryImpl
-    ): BooksRepositoryInterface
-}*/
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -36,18 +23,18 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideRepository(
-        localeBooksDataSource:/* BooksInterface,*/ GeneralLocalDataSourceInterface<BookEntity>,
-        localeDetailDataSource:/* BookDetailsInterface,*/
-        RowByIdLocaleDataSourceInterface<BookDetailEntity, String>,
-        localeOrdersDataSource: //BookOrdersInterface, //
-         CollectionLocaleDataSourceInterface<BookOrderEntity, String>,
-        remoteDataSource: CryptoRemoteDataSourceInterface
+        localeBooksDataSource: GeneralLocalDataSourceInterface<BookEntity>,
+        localeDetailDataSource: RowByIdLocaleDataSourceInterface<BookDetailEntity, String>,
+        localeOrdersDataSource: CollectionLocaleDataSourceInterface<BookOrderEntity, String>,
+        remoteDataSource: CryptoRemoteDataSourceInterface,
+        networkManager:NetworkManagerInterface
     ): BooksRepositoryInterface {
         return BooksRepositoryImpl(
             localeBooksDataSource,
             localeDetailDataSource,
             localeOrdersDataSource,
-            remoteDataSource
+            remoteDataSource,
+            networkManager
         )
     }
 

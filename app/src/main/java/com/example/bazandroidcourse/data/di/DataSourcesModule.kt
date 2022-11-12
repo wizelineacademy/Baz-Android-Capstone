@@ -20,34 +20,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-
-/*
-@Module
-@InstallIn(ActivityComponent::class)
-abstract class DataSourcesModule {
-
-    @Binds
-    abstract fun bindBooksLocalDataSource(
-        implementation: BooksLocalDataSourceImpl
-    ): BooksInterface // GeneralLocalDataSourceInterface<BookEntity>
-
-    @Binds
-    abstract  fun binLocaleDetailDataSource(
-        implementation:  BookDetailsLocalDatasourceImpl
-    ): BookDetailsInterface//RowByIdLocaleDataSourceInterface<BookDetailEntity, String>
-
-    @Binds
-    abstract fun bindLocaleOrdersDataSource(
-        implementation: BookOrdersLocalDataSourceImpl//CollectionLocaleDataSourceInterface<BookOrderEntity, String>
-    ):BookOrdersInterface//CollectionLocaleDataSourceInterface<BookOrderEntity, String>
-
-    @Binds
-    abstract fun bindRemoteDataSource(
-        implementation: CryptoRemoteDataSourceImpl
-    ): CryptoRemoteDataSourceInterface
-
-}*/
-
 @Module
 @InstallIn(SingletonComponent::class)
 object DataSourcesModule {
@@ -56,9 +28,7 @@ object DataSourcesModule {
     @Provides
     fun provideBooksLocalDataSource(
         dao: BooksDao
-    ):      GeneralLocalDataSourceInterface<BookEntity>
-            //BooksInterface
-    {
+    ):GeneralLocalDataSourceInterface<BookEntity> {
         return BooksLocalDataSourceImpl(
                 dao
         )
@@ -68,10 +38,7 @@ object DataSourcesModule {
     @Provides
     fun provideBookDetailsLocalDataSource(
         dao: BookDetailsDao
-    ):
-     //BookDetailsInterface
-      RowByIdLocaleDataSourceInterface<BookDetailEntity,String>
-    {
+    ): RowByIdLocaleDataSourceInterface<BookDetailEntity,String> {
         return BookDetailsLocalDatasourceImpl(
             dao
         )
@@ -81,10 +48,7 @@ object DataSourcesModule {
     @Provides
     fun provideBookOrdersDataSource(
         dao: BookOrdersDao
-    ):
-    CollectionLocaleDataSourceInterface<BookOrderEntity,String>
-    //        BookOrdersInterface
-    {
+    ): CollectionLocaleDataSourceInterface<BookOrderEntity,String> {
         return BookOrdersLocalDataSourceImpl(
             dao
         )
