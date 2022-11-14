@@ -22,6 +22,8 @@ class OrderBookDetailFragment : Fragment() {
 
     private lateinit var tickerUseCase: TickerUseCase
     private lateinit var orderBookUseCase: OrderBookUseCase
+    private var book:String=""
+    private var coinName:String=""
 
     private lateinit var localDataSource: CryptoCurrencyLocalDataSource
     private val orderBookDetailVM by activityViewModels<OrderBookDetailViewModel>(){
@@ -29,16 +31,7 @@ class OrderBookDetailFragment : Fragment() {
     }
     private lateinit var binding: FragmentBookDetailBinding
 
-    companion object {
-        private var book:String=""
-        private var coinName:String=""
-        fun newInstance(bookParameter:String,coinNameParameter:String) = OrderBookDetailFragment().apply {
-           book=bookParameter
-            coinName=coinNameParameter
-        }
 
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +47,9 @@ class OrderBookDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        book = arguments?.getString(getString(R.string.book_code)).orEmpty()
+        coinName = arguments?.getString(getString(R.string.coin_code)).orEmpty()
+
         orderBookDetailVM.setSelectedOrderBook(book)
         orderBookDetailVM.setSelectedCoinName(coinName)
         orderBookDetailVM.getTicker(orderBookDetailVM.selectedOrderBook.value.orEmpty())

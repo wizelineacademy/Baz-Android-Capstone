@@ -2,6 +2,7 @@ package com.wizeline.criptocurrency.data.remote.dto
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.wizeline.criptocurrency.data.database.entities.AvailableBookEntity
 import com.wizeline.criptocurrency.domain.model.AvailableBook
 
 data class AvailableBookDto (
@@ -21,4 +22,5 @@ data class AvailableBookDto (
             minimum_value = this.minimum_value,
             maximum_value = this.maximum_value
         )
+
 }

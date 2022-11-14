@@ -4,6 +4,7 @@ import com.wizeline.criptocurrency.common.adapters.RequestState
 import com.wizeline.criptocurrency.data.remote.dto.response.AvailableBooksResponse
 import com.wizeline.criptocurrency.domain.repository.BitsoRepository
 import com.wizeline.criptocurrency.domain.model.AvailableBook
+import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
@@ -28,5 +29,8 @@ class AvailableBooksUseCase @Inject constructor (private val repository: BitsoRe
             emit(RequestState.Error("Couldn't reach server. Check your internet connection."))
             }
     }
+
+    suspend fun availableBooksRx(): Single<AvailableBooksResponse> = repository.getAvailableBooksRxJava()
+
 
 }

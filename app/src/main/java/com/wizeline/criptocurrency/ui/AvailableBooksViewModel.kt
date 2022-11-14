@@ -5,13 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wizeline.criptocurrency.common.adapters.RequestState
+import com.wizeline.criptocurrency.data.remote.dto.response.toMXNAvailableBookList
 import com.wizeline.criptocurrency.domain.model.AvailableBook
-import com.wizeline.criptocurrency.domain.model.OrderBook
-import com.wizeline.criptocurrency.domain.model.Ticker
 import com.wizeline.criptocurrency.domain.model.use_case.AvailableBooksUseCase
-import com.wizeline.criptocurrency.domain.model.use_case.OrderBookUseCase
-import com.wizeline.criptocurrency.domain.model.use_case.TickerUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
@@ -33,7 +35,7 @@ class AvailableBooksViewModel @Inject constructor(
     val error: LiveData<String> get() = _error
 
 
-
+    private val  defaultScheduler: Scheduler = Schedulers.io()
 
     fun getAvailableBooksCoroutine() {
         CoroutineScope(Dispatchers.Main).launch{
@@ -52,6 +54,25 @@ class AvailableBooksViewModel @Inject constructor(
             }
         }
 
+    }
+
+    suspend fun getAvailableBooksRxJava(error: (info: String) -> Unit) = MutableLiveData<List<AvailableBook>>().apply {
+        CompositeDisposable().add(
+            availableBooksUseCase.availableBooksRx()
+                .subscribeOn(defaultScheduler)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(
+                    onSuccess = {
+                        with(it?.payload.toMXNAvailableBookList()) {
+                            if (this.isNullOrEmpty()) error("No stored data")
+                            _availableOrderBookList.postValue(this)
+                        }
+                    },
+                    onError = {
+                        error(it.message.orEmpty())
+                    },
+                )
+        )
     }
 
     fun getAvailableBooks() {

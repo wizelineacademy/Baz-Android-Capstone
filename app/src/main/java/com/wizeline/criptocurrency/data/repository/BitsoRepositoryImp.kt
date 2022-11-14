@@ -6,11 +6,13 @@ import com.wizeline.criptocurrency.common.adapters.utilities.isInternetAvailable
 import com.wizeline.criptocurrency.data.database.data_source.CryptoCurrencyLocalDataSource
 import com.wizeline.criptocurrency.data.database.entities.*
 import com.wizeline.criptocurrency.data.remote.dto.BitsoApi
+import com.wizeline.criptocurrency.data.remote.dto.response.AvailableBooksResponse
 import com.wizeline.criptocurrency.domain.model.AvailableBook
 import com.wizeline.criptocurrency.domain.model.OrderBook
 import com.wizeline.criptocurrency.domain.model.Ticker
 import com.wizeline.criptocurrency.domain.repository.BitsoRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
+import io.reactivex.Single
 import javax.inject.Inject
 
 class BitsoRepositoryImp @Inject constructor(
@@ -68,5 +70,18 @@ class BitsoRepositoryImp @Inject constructor(
             if (orderBook.book.isNullOrEmpty()) OrderBook()
             else orderBook
             }
+
+    override suspend fun getAvailableBooksRxJava(): Single<AvailableBooksResponse> =
+        if (isInternetAvailable(context))
+            api.getAvailableBooksRxJava().let {
+                Single.just(
+                    it.blockingSingle().body()
+                )
+            }
+        else Single.just(getAllAvailableOrderBookRxJavaFromDatabase())
+
+    private fun getAllAvailableOrderBookRxJavaFromDatabase(): AvailableBooksResponse =
+        localDataSource.getAllAvailableBooksFromDatabase().let {it.toAvailableBookResponse()}
+
 
 }

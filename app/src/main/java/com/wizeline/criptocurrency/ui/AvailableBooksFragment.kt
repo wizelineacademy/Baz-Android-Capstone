@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.room.Room
 import com.wizeline.criptocurrency.MainActivity
+import com.wizeline.criptocurrency.R
 import com.wizeline.criptocurrency.common.adapters.*
 import com.wizeline.criptocurrency.common.adapters.utilities.toast
 import com.wizeline.criptocurrency.config.InitApplication.Companion.criptoCurrencyDB
@@ -62,10 +66,17 @@ class AvailableBooksFragment : Fragment() {
 
                         rvBooks.adapter = AvailableBooksAdapter(it ?: emptyList(),
                             goToDetail = { availableBook,coinName->
+                                var bundle= bundleOf("book_code" to availableBook?.book.orEmpty(),
+                                "coin_code" to coinName)
+                                findNavController().navigate(R.id.orderBookDetailFragment,bundle)
+
+                                /*
                                 (activity as MainActivity).loadFragment(
                                     OrderBookDetailFragment.newInstance(
                                         bookParameter = availableBook?.book.orEmpty(),
                                         coinNameParameter = coinName))
+                                 */
+
                             }
                         )
 

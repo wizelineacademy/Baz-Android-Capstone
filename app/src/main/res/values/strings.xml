@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">WizelineChallenge</string>
-    <string name="book_code">book-code</string>
+    <string name="book_code">book_code</string>
+    <string name="coin_code">coin_code</string>
     <string name="last_price">Last Price</string>
     <string name="high_price">High price</string>
     <string name="low_price">low price</string>

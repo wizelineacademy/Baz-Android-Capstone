@@ -3,6 +3,8 @@ package com.wizeline.criptocurrency.data.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.wizeline.criptocurrency.data.remote.dto.AvailableBookDto
+import com.wizeline.criptocurrency.data.remote.dto.response.AvailableBooksResponse
 import com.wizeline.criptocurrency.domain.model.AvailableBook
 
 @Entity(tableName = "available_book_table")
@@ -37,5 +39,18 @@ fun List<AvailableBookEntity>?.toAvailableBookListFromEntity() = mutableListOf<A
                     maximum_value  = it.maximum_value
                 )
             )
+        }
+    }
+
+fun List<AvailableBookEntity>?.toAvailableBookResponse() =
+    AvailableBooksResponse(
+        payload = this.toAvailableBookResponseListFromEntity()
+    )
+
+fun List<AvailableBookEntity>?.toAvailableBookResponseListFromEntity() = mutableListOf<AvailableBookDto>()
+    .apply {
+        //val availableBookDtoList :MutableList<AvailableBookDto> = mutableListOf()
+        this@toAvailableBookResponseListFromEntity?.forEach {
+            this.add(AvailableBookDto(it.book,it.minimum_value,it.maximum_value))
         }
     }
