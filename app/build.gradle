@@ -75,6 +75,7 @@ android {
 ktlint{
     android = true
     ignoreFailures = false
+    disabledRules = ["import-ordering"]
     reporters{
         reporter "plain"
         reporter "checkstyle"

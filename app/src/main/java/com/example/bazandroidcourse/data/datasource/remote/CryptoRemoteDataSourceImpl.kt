@@ -7,16 +7,16 @@ import com.example.bazandroidcourse.data.datasource.remote.api.response.OrderPay
 import com.example.bazandroidcourse.data.datasource.remote.api.retrofit.ApplicationAPIInterface
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 class CryptoRemoteDataSourceImpl @Inject constructor(
     private val apiInterface: ApplicationAPIInterface
 ) : CryptoRemoteDataSourceInterface {
 
     @SuppressLint("CheckResult")
-     override suspend fun fetchAllBooks(callback: (List<BookResponsePayload>) -> (Unit)) {
+    override suspend fun fetchAllBooks(callback: (List<BookResponsePayload>) -> (Unit)) {
         apiInterface.fetchAvailableBooks()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

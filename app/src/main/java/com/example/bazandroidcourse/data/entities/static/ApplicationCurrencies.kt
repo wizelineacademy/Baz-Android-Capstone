@@ -6,20 +6,20 @@ sealed class ApplicationCurrencies(
     trading: Boolean = false
 ) : CryptoCurrency(id, name, trading) {
     companion object {
-         val supportedCurrencies by lazy {
-             listOf(
-                 Bitcoin,
-                 Ethereum,
-                 Ripple,
-                 Litecoin,
-                 BitcoinCash,
-                 TrueUSD,
-                 Mana,
-                 Bat,
-                 Aave,
-                 PesoMX
-             )
-         }
+        val supportedCurrencies by lazy {
+            listOf(
+                Bitcoin,
+                Ethereum,
+                Ripple,
+                Litecoin,
+                BitcoinCash,
+                TrueUSD,
+                Mana,
+                Bat,
+                Aave,
+                PesoMX
+            )
+        }
 
         inline fun findByProperty(
             ticker: String,
@@ -107,6 +107,7 @@ sealed class ApplicationCurrencies(
         "mana",
         "Decentraland"
     )
+
     object Bat : ApplicationCurrencies(
         "bat",
         "Basic Attention Token"

@@ -9,7 +9,7 @@ interface CryptoRemoteDataSourceInterface {
      * Allows fetch all books of crypto currencies from remote datasource.
      * @return List<BookResponsePayload>
      */
-     suspend  fun fetchAllBooks(callback: (List<BookResponsePayload>) -> (Unit))
+    suspend fun fetchAllBooks(callback: (List<BookResponsePayload>) -> (Unit))
 
     /***
      * Allows fetch an books of crypto currency from remote datasource.

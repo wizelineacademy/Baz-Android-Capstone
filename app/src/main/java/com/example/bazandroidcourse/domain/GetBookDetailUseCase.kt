@@ -3,9 +3,9 @@ package com.example.bazandroidcourse.domain
 import com.example.bazandroidcourse.data.di.ApplicationScope
 import com.example.bazandroidcourse.data.entities.BookDetailModel
 import com.example.bazandroidcourse.data.repository.BooksRepositoryInterface
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 class GetBookDetailUseCase @Inject constructor(
     private val repository: BooksRepositoryInterface,

@@ -67,8 +67,10 @@ class DetailFragment : Fragment() {
 
     fun initLists() {
         binding.apply {
-            recyclerAsks.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            recyclerBinds.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            recyclerAsks.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            recyclerBinds.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             recyclerBinds.adapter = bidsAdapter
             recyclerAsks.adapter = asksAdapter
         }

@@ -12,9 +12,9 @@ import com.example.bazandroidcourse.domain.GetAllBooksFilteredUseCase
 import com.example.bazandroidcourse.domain.GetBookDetailUseCase
 import com.example.bazandroidcourse.domain.GetBookOrdersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class BooksViewModel @Inject constructor(

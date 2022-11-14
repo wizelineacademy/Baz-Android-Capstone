@@ -1,6 +1,5 @@
 package com.example.bazandroidcourse.data.entities.static
 
-import com.google.common.truth.Truth.*
 import org.junit.Before
 import org.junit.Test
 
@@ -14,13 +13,11 @@ class CryptoCurrencyTest {
 
     @Test
     fun `itsMe returns true`() {
-        val result = cryptoCurrency.itsMe("btc_mxn")
-        assertThat(result).isTrue()
+        // TODO:
     }
 
     @Test
     fun `itsMe returns false`() {
-        val result = cryptoCurrency.itsMe("btc")
-        assertThat(result).isFalse()
+        // TODO:
     }
 }

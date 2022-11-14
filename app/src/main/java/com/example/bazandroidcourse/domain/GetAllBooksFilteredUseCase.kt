@@ -4,9 +4,9 @@ import com.example.bazandroidcourse.data.di.ApplicationScope
 import com.example.bazandroidcourse.data.entities.BookModel
 import com.example.bazandroidcourse.data.entities.static.ApplicationCurrencies
 import com.example.bazandroidcourse.data.repository.BooksRepositoryInterface
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 class GetAllBooksFilteredUseCase @Inject constructor(
     private val repository: BooksRepositoryInterface,
