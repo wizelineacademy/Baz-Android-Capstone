@@ -27,7 +27,7 @@ object RepositoryModule {
         localeDetailDataSource: RowByIdLocaleDataSourceInterface<BookDetailEntity, String>,
         localeOrdersDataSource: CollectionLocaleDataSourceInterface<BookOrderEntity, String>,
         remoteDataSource: CryptoRemoteDataSourceInterface,
-        networkManager:NetworkManagerInterface
+        networkManager: NetworkManagerInterface
     ): BooksRepositoryInterface {
         return BooksRepositoryImpl(
             localeBooksDataSource,
@@ -37,7 +37,4 @@ object RepositoryModule {
             networkManager
         )
     }
-
 }
-
-

@@ -96,5 +96,4 @@ class AllCryptosFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onNothingSelected(parent: AdapterView<*>?) {
     }
 
-
 }

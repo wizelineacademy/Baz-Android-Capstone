@@ -1,7 +1,6 @@
 package com.example.bazandroidcourse.data.repository
 
 import com.example.bazandroidcourse.data.datasource.local.CollectionLocaleDataSourceInterface
-import com.example.bazandroidcourse.data.datasource.local.GeneralLocalDataSourceInterface
 import com.example.bazandroidcourse.data.datasource.local.RXInterface
 import com.example.bazandroidcourse.data.datasource.local.RowByIdLocaleDataSourceInterface
 import com.example.bazandroidcourse.data.datasource.local.database.room.entities.BookDetailEntity
@@ -25,10 +24,10 @@ class BooksRepositoryImpl @Inject constructor(
 
     override suspend fun getAllBooks(): List<BookModel> {
         if (networkManager.isOnline()) {
-           remoteDataSource.fetchAllBooks({
-               val books = it.toDomain()
+            remoteDataSource.fetchAllBooks({
+                val books = it.toDomain()
                 localeBooksDataSource.saveAllRx(books.toBookEntityList())
-           })
+            })
         }
         return localeBooksDataSource.getAll().toBookListDomain()
     }

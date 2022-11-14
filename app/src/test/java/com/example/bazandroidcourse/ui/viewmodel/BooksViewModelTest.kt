@@ -39,8 +39,7 @@ class BooksViewModelTest {
     @MockK(relaxed = true)
     lateinit var ordersUseCaseMockk: GetBookOrdersUseCase
 
-    private  val dispatcher = CoroutineScope(SupervisorJob() + TestCoroutineDispatcher())
-
+    private val dispatcher = CoroutineScope(SupervisorJob() + TestCoroutineDispatcher())
 
     @Before
     fun setup() {
@@ -58,14 +57,14 @@ class BooksViewModelTest {
 
     @Test
     fun `verify all books is invoked once`() = runBlocking {
-        //Given
+        // Given
         coEvery { getAllBooksFilteredUseCaseMockk.invoke(any()) } returns emptyList()
         coEvery { repositoryMockK.getAllBooks() } returns emptyList()
 
-        //When
+        // When
         viewModel.getAllBooks("btc")
 
-        //Then
+        // Then
         coVerify(exactly = 1) { getAllBooksFilteredUseCaseMockk("btc") }
     }
 
@@ -77,7 +76,7 @@ class BooksViewModelTest {
 
     @Test
     fun `fetch all books returns correct data `() = runBlocking {
-        //given
+        // given
         val books = listOf(
             BookModel("btc", "Bitcoin"),
             BookModel("eth", "Etherium"),
@@ -85,11 +84,11 @@ class BooksViewModelTest {
         )
         coEvery { getAllBooksFilteredUseCaseMockk("btc") } returns books
 
-        //when
+        // when
         viewModel.getAllBooks("btc")
         val allBooksValue = viewModel.allBooks.value
 
-        //then
+        // then
         assertThat(allBooksValue).isEqualTo(books)
     }
 

@@ -29,9 +29,9 @@ object DataSourcesModule {
     @Provides
     fun provideBooksLocalDataSource(
         dao: BooksDao
-    ):GeneralLocalDataSourceInterface<BookEntity> {
+    ): GeneralLocalDataSourceInterface<BookEntity> {
         return BooksLocalDataSourceImpl(
-                dao
+            dao
         )
     }
 
@@ -39,7 +39,7 @@ object DataSourcesModule {
     @Provides
     fun provideBooksLocalDataSourceRx(
         dao: BooksDao
-    ):RXInterface<BookEntity> {
+    ): RXInterface<BookEntity> {
         return BooksLocalDataSourceImpl(
             dao
         )
@@ -49,7 +49,7 @@ object DataSourcesModule {
     @Provides
     fun provideBookDetailsLocalDataSource(
         dao: BookDetailsDao
-    ): RowByIdLocaleDataSourceInterface<BookDetailEntity,String> {
+    ): RowByIdLocaleDataSourceInterface<BookDetailEntity, String> {
         return BookDetailsLocalDatasourceImpl(
             dao
         )
@@ -59,7 +59,7 @@ object DataSourcesModule {
     @Provides
     fun provideBookOrdersDataSource(
         dao: BookOrdersDao
-    ): CollectionLocaleDataSourceInterface<BookOrderEntity,String> {
+    ): CollectionLocaleDataSourceInterface<BookOrderEntity, String> {
         return BookOrdersLocalDataSourceImpl(
             dao
         )
@@ -74,5 +74,4 @@ object DataSourcesModule {
             apiInterface
         )
     }
-
 }

@@ -6,9 +6,9 @@ data class BookDetailResponse(
 )
 
 data class DetailResponse(
-    var book    : String? = null,
-    var volume  : String? = null,
-    var high    : String? = null,
-    var last    : String? = null,
-    var low     : String? = null,
+    var book: String? = null,
+    var volume: String? = null,
+    var high: String? = null,
+    var last: String? = null,
+    var low: String? = null,
 )

@@ -6,8 +6,8 @@ import com.example.bazandroidcourse.data.datasource.local.database.room.entities
 import javax.inject.Inject
 
 class BookDetailsLocalDatasourceImpl @Inject constructor(
-    private val dao:BookDetailsDao
-): RowByIdLocaleDataSourceInterface<BookDetailEntity,String> {
+    private val dao: BookDetailsDao
+) : RowByIdLocaleDataSourceInterface<BookDetailEntity, String> {
     override suspend fun saveAll(items: List<BookDetailEntity>) = dao.insertAll(items)
 
     override suspend fun getAll(): List<BookDetailEntity> = dao.getAll()
@@ -17,8 +17,8 @@ class BookDetailsLocalDatasourceImpl @Inject constructor(
     override suspend fun addRow(item: BookDetailEntity) = dao.addRow(item)
 
     override suspend fun getRow(id: String): BookDetailEntity {
-       return dao.getBookDetail(id).let {
+        return dao.getBookDetail(id).let {
             it
-        }?: BookDetailEntity()
+        } ?: BookDetailEntity()
     }
 }

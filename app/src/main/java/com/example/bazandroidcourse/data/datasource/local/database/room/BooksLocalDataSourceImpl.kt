@@ -10,13 +10,13 @@ import javax.inject.Inject
 
 class BooksLocalDataSourceImpl @Inject constructor(
     private val dao: BooksDao
-): RXInterface<BookEntity>{
+) : RXInterface<BookEntity> {
 
     override suspend fun saveAll(items: List<BookEntity>) = dao.insertAll(items)
 
-    override suspend fun getAll(): List<BookEntity> =   dao.getAll()
+    override suspend fun getAll(): List<BookEntity> = dao.getAll()
 
-    override suspend fun deleteAll() =  dao.deleteAll()
+    override suspend fun deleteAll() = dao.deleteAll()
 
     override suspend fun addRow(item: BookEntity) = dao.addRow(item)
 
@@ -27,6 +27,5 @@ class BooksLocalDataSourceImpl @Inject constructor(
             .subscribe {
                 dao.insertAll(items)
             }
-
     }
 }

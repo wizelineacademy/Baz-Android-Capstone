@@ -12,9 +12,9 @@ import com.example.bazandroidcourse.domain.GetAllBooksFilteredUseCase
 import com.example.bazandroidcourse.domain.GetBookDetailUseCase
 import com.example.bazandroidcourse.domain.GetBookOrdersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class BooksViewModel @Inject constructor(
@@ -33,9 +33,7 @@ class BooksViewModel @Inject constructor(
     private val _currentBookOrders = MutableLiveData<BookOrdersModel>()
     val currentBookOrders: MutableLiveData<BookOrdersModel> = _currentBookOrders
 
-    val names :List<String> = ApplicationCurrencies::class.sealedSubclasses.map {
-        it.simpleName?:""
-    }
+    val names: List<String> = ApplicationCurrencies.supportedCurrencies.map { it.name }
 
     fun getAllBooks(currency: String) {
         viewModelScope.launch(externalScope.coroutineContext) {
@@ -45,7 +43,7 @@ class BooksViewModel @Inject constructor(
         }
     }
 
-    fun getAllBooksByCurrency(className:String) {
+    fun getAllBooksByCurrency(className: String) {
         ApplicationCurrencies.findByName(className)?.let {
             getAllBooks(it.id)
         }

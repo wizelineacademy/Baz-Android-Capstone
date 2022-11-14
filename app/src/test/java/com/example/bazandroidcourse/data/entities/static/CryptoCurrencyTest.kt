@@ -15,12 +15,12 @@ class CryptoCurrencyTest {
     @Test
     fun `itsMe returns true`() {
         val result = cryptoCurrency.itsMe("btc_mxn")
-        assertThat( result).isTrue()
+        assertThat(result).isTrue()
     }
 
     @Test
     fun `itsMe returns false`() {
         val result = cryptoCurrency.itsMe("btc")
-        assertThat( result).isFalse()
+        assertThat(result).isFalse()
     }
 }

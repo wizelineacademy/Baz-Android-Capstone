@@ -5,6 +5,6 @@ data class BooksResponse(
     var payload: List<BookResponsePayload> = emptyList()
 )
 
-data class BookResponsePayload (
+data class BookResponsePayload(
     var book: String? = null
 )

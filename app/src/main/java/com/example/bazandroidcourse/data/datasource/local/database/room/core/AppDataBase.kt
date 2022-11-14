@@ -1,6 +1,5 @@
 package com.example.bazandroidcourse.data.datasource.local.database.room.core
 
-
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.bazandroidcourse.data.datasource.local.database.room.dao.BookDetailsDao
@@ -25,7 +24,3 @@ abstract class AppDataBase : RoomDatabase() {
     abstract fun bookDetailsDao(): BookDetailsDao
     abstract fun bookOrdersDao(): BookOrdersDao
 }
-
-
-
-

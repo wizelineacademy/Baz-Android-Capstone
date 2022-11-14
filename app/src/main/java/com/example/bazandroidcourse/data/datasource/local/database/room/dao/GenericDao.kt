@@ -6,9 +6,9 @@ import androidx.room.OnConflictStrategy
 
 @Dao
 interface GenericDao<T> {
-     @Insert(onConflict = OnConflictStrategy.REPLACE)
-     fun insertAll(items:List<T>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(items: List<T>)
 
-     @Insert(onConflict = OnConflictStrategy.REPLACE)
-     suspend fun addRow(item:T)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addRow(item: T)
 }

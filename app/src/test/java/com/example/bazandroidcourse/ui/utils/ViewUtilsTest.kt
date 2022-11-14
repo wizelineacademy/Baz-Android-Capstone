@@ -5,7 +5,7 @@ import org.junit.Before
 import org.junit.Test
 
 class ViewUtilsTest {
-    lateinit var currentCurrency:String
+    lateinit var currentCurrency: String
 
     @Before
     fun setUp() {
@@ -23,5 +23,4 @@ class ViewUtilsTest {
         val result = getCurrency(currentCurrency)
         assertThat(result).isEqualTo("m")
     }
-
 }

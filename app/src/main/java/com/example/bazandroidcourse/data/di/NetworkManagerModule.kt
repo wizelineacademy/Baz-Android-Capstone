@@ -16,7 +16,7 @@ class NetworkManagerModule {
 
     @Provides
     @Singleton
-    fun providesNetworkManager( @ApplicationContext context: Context):NetworkManagerInterface{
-      return  NetworkManagerImpl(context)
+    fun providesNetworkManager(@ApplicationContext context: Context): NetworkManagerInterface {
+        return NetworkManagerImpl(context)
     }
 }

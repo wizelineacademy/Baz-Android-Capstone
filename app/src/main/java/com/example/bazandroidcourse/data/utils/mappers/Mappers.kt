@@ -14,74 +14,73 @@ import com.example.bazandroidcourse.data.entities.BookOrderResumeModel
 import com.example.bazandroidcourse.data.entities.BookOrdersModel
 import com.example.bazandroidcourse.ui.utils.cryptoName
 
-
 /***
  *  API response transformations
  */
 fun DetailResponse.toDomain(): BookDetailModel {
     return BookDetailModel(
-        book    = book.orEmpty(),
-        volume  = volume.orEmpty(),
-        high    = high.orEmpty(),
-        last    = last.orEmpty(),
-        low     = low.orEmpty()
+        book = book.orEmpty(),
+        volume = volume.orEmpty(),
+        high = high.orEmpty(),
+        last = last.orEmpty(),
+        low = low.orEmpty()
     )
 }
 
 fun BookResponsePayload.toDomain(): BookModel {
     return BookModel(
-        book   = book.orEmpty(),
-        name   = book?.cryptoName().orEmpty()
+        book = book.orEmpty(),
+        name = book?.cryptoName().orEmpty()
     )
 }
 
-fun List<BookResponsePayload>.toDomain():List<BookModel> {
+fun List<BookResponsePayload>.toDomain(): List<BookModel> {
     return map {
         it.toDomain()
     }
 }
 
-fun OrderPayloadResponse.toDomain():BookOrdersModel {
+fun OrderPayloadResponse.toDomain(): BookOrdersModel {
     return BookOrdersModel(
-       asks = bids?.toDomainList() ?: emptyList(),
-       bids = bids?.toDomainList() ?: emptyList()
+        asks = bids?.toDomainList() ?: emptyList(),
+        bids = bids?.toDomainList() ?: emptyList()
     )
 }
 
-fun List<OrderResume>.toDomainList():List<BookOrderResumeModel> {
+fun List<OrderResume>.toDomainList(): List<BookOrderResumeModel> {
     return map {
         it.toDomain()
     }
 }
 
-fun OrderResume.toDomain():BookOrderResumeModel {
+fun OrderResume.toDomain(): BookOrderResumeModel {
     return BookOrderResumeModel(
-        book    = book.orEmpty(),
-        amount  = amount.orEmpty(),
-        price   = price.orEmpty()
+        book = book.orEmpty(),
+        amount = amount.orEmpty(),
+        price = price.orEmpty()
     )
 }
 
-fun List<DetailResponse>.toBookDetailList():List<BookDetailEntity> {
-    return map{
+fun List<DetailResponse>.toBookDetailList(): List<BookDetailEntity> {
+    return map {
         it.toEntity()
     }
 }
 
-fun DetailResponse.toEntity():BookDetailEntity {
+fun DetailResponse.toEntity(): BookDetailEntity {
     return BookDetailEntity(
-        book    = book.orEmpty(),
-        volume  = volume.orEmpty(),
-        high    = high.orEmpty(),
-        low     = low.orEmpty(),
-        last    = last.orEmpty()
+        book = book.orEmpty(),
+        volume = volume.orEmpty(),
+        high = high.orEmpty(),
+        low = low.orEmpty(),
+        last = last.orEmpty()
     )
 }
 
 /***
  * Entity transformations
  */
-fun List<BookOrderEntity>.toOrderDomain():BookOrdersModel {
+fun List<BookOrderEntity>.toOrderDomain(): BookOrdersModel {
     val bids = filter { it.type == BookOrderTypes.BID.id }
         .map {
             it.toDomain()
@@ -97,28 +96,28 @@ fun List<BookOrderEntity>.toOrderDomain():BookOrdersModel {
     )
 }
 
-fun BookOrderEntity.toDomain():BookOrderResumeModel {
+fun BookOrderEntity.toDomain(): BookOrderResumeModel {
     return BookOrderResumeModel(
-        book    = book,
-        amount  = amount,
-        price   = price
+        book = book,
+        amount = amount,
+        price = price
     )
 }
 
-fun List<BookEntity>.toBookListDomain():List<BookModel>{
-    return map{
+fun List<BookEntity>.toBookListDomain(): List<BookModel> {
+    return map {
         it.toDomain()
     }
 }
 
-fun BookEntity.toDomain():BookModel {
+fun BookEntity.toDomain(): BookModel {
     return BookModel(
         book = book,
         name = name
     )
 }
 
-fun BookDetailModel.toEntity():BookDetailEntity {
+fun BookDetailModel.toEntity(): BookDetailEntity {
     return BookDetailEntity(
         book = book,
         volume = volume,
@@ -128,34 +127,34 @@ fun BookDetailModel.toEntity():BookDetailEntity {
     )
 }
 
-fun BookDetailEntity.toDomain():BookDetailModel {
+fun BookDetailEntity.toDomain(): BookDetailModel {
     return BookDetailModel(
-        book    = book,
-        low     = low,
-        high    = high,
-        volume  = volume,
-        last    = last
+        book = book,
+        low = low,
+        high = high,
+        volume = volume,
+        last = last
     )
 }
 
 /***
  *  Model transformations
  */
-fun List<BookModel>.toBookEntityList():List<BookEntity> {
-    return map{
+fun List<BookModel>.toBookEntityList(): List<BookEntity> {
+    return map {
         it.toEntity()
     }
 }
 
-fun BookModel.toEntity():BookEntity{
+fun BookModel.toEntity(): BookEntity {
     return BookEntity(
         book = book,
         name = name
     )
 }
 
-fun BookOrdersModel.toEntityList():List<BookOrderEntity> {
-    val askEntities = this.asks.map{
+fun BookOrdersModel.toEntityList(): List<BookOrderEntity> {
+    val askEntities = this.asks.map {
         it.toEntity(BookOrderTypes.ASK)
     }
     val bidsEntities = this.bids.map {
@@ -164,7 +163,7 @@ fun BookOrdersModel.toEntityList():List<BookOrderEntity> {
     return askEntities.union(bidsEntities).toList()
 }
 
-fun BookOrderResumeModel.toEntity(type:BookOrderTypes):BookOrderEntity {
+fun BookOrderResumeModel.toEntity(type: BookOrderTypes): BookOrderEntity {
     return BookOrderEntity(
         book = book,
         price = price,
