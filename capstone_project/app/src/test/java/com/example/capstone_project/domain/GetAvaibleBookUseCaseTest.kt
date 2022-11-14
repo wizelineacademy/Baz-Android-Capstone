@@ -1,7 +1,8 @@
 package com.example.capstone_project.domain
 
-import com.example.capstone_project.data.Respository.CriptoRepository
+import com.example.capstone_project.data.repository.CriptoRepository
 import com.example.capstone_project.domain.model.BookDomain
+import com.example.capstone_project.domain.usescase.GetAvaibleBookUseCase
 import com.example.capstone_project.presentation.util.Util
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery

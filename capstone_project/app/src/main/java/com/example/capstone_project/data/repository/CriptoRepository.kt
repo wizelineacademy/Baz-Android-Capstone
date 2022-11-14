@@ -1,4 +1,4 @@
-package com.example.capstone_project.data.Respository
+package com.example.capstone_project.data.repository
 
 import com.example.capstone_project.data.local.DAO.AskDao
 import com.example.capstone_project.data.local.DAO.BidDao
@@ -10,7 +10,11 @@ import com.example.capstone_project.data.local.entities.BookEntity
 import com.example.capstone_project.data.local.entities.TickerEntity
 import com.example.capstone_project.data.network.entities.model.Ticker
 import com.example.capstone_project.data.network.service.CryptoService
-import com.example.capstone_project.domain.model.*
+import com.example.capstone_project.domain.model.AskDomain
+import com.example.capstone_project.domain.model.BidDomain
+import com.example.capstone_project.domain.model.BookDomain
+import com.example.capstone_project.domain.model.TickerDomain
+import com.example.capstone_project.domain.model.toDomain
 import javax.inject.Inject
 
 class CriptoRepository @Inject constructor(
@@ -31,6 +35,7 @@ class CriptoRepository @Inject constructor(
         println("response order book" + response)
         return response.map { it.toDomain() }
     }
+
     suspend fun getBidsApi(book: String): List<BidDomain> {
         val response = api.getOrderBooks(book).payload.bid
         println("response order book" + response)
@@ -55,6 +60,7 @@ class CriptoRepository @Inject constructor(
         val resultdb: List<BidsEntity> = bidDao.getAllBids()
         return resultdb.map { it.toDomain() }
     }
+
     suspend fun insertBidLocal(bid: List<BidsEntity>) {
         bidDao.insert(bid.toTypedArray())
     }
@@ -63,6 +69,7 @@ class CriptoRepository @Inject constructor(
         val resultdb: List<AskEntity> = askDao.getAllAsks()
         return resultdb.map { it.toDomain() }
     }
+
     suspend fun insertAsk(ask: List<AskEntity>) {
         askDao.insert(ask.toTypedArray())
     }

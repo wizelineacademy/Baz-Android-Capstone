@@ -40,11 +40,11 @@ class CriptoListFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             criptoViewModel.avaibleBooks.collect {
                 when (it) {
                     is Resource.Error -> {
-                        Toast.makeText(activity, "Ha ocurrido un error", Toast.LENGTH_LONG)
+                        Toast.makeText(activity, "Ha ocurrido un error", Toast.LENGTH_LONG).show()
                     }
                     is Resource.Loading -> {
                         _binding?.progressBar?.visibility = View.VISIBLE

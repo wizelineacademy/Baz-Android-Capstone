@@ -1,13 +1,15 @@
-package com.example.capstone_project.domain
+package com.example.capstone_project.domain.usescase
 
 import com.example.capstone_project.data.Resource
-import com.example.capstone_project.data.Respository.CriptoRepository
+import com.example.capstone_project.data.repository.CriptoRepository
 import com.example.capstone_project.data.local.entities.toDatabase
 import com.example.capstone_project.domain.model.TickerDomain
 import com.example.capstone_project.presentation.util.Util
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
 
 class GetTickerUseCase @Inject constructor(private val repository: CriptoRepository) {
 
@@ -23,5 +25,5 @@ class GetTickerUseCase @Inject constructor(private val repository: CriptoReposit
             } catch (e: Exception) {
                 emit(Resource.error(e.message.toString()))
             }
-        }
+        }.flowOn(Dispatchers.IO)
 }

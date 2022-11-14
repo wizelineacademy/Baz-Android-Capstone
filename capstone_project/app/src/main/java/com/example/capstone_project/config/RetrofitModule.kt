@@ -42,7 +42,10 @@ object RetrofitModule {
     @Provides
     fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         val okHttpClient = OkHttpClient().newBuilder()
-
+            .addInterceptor {
+                val newRequest = it.request().newBuilder().addHeader("User-Agent","Header1").build()
+                it.proceed(newRequest)
+            }
         okHttpClient.callTimeout(20, TimeUnit.SECONDS)
         okHttpClient.connectTimeout(20, TimeUnit.SECONDS)
         okHttpClient.readTimeout(20, TimeUnit.SECONDS)

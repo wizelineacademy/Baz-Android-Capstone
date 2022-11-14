@@ -1,7 +1,6 @@
 package com.example.capstone_project.data.network
 
-import com.example.capstone_project.data.Respository.CriptoRepository
-import com.example.capstone_project.data.network.service.CryptoService
+import com.example.capstone_project.data.repository.CriptoRepository
 import com.example.capstone_project.domain.model.BookDomain
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
