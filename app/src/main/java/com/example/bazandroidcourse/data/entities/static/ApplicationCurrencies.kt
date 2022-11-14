@@ -3,99 +3,117 @@ package com.example.bazandroidcourse.data.entities.static
 sealed class ApplicationCurrencies(
     id: String,
     name: String,
-    trading:Boolean = false
-):CryptoCurrency(id, name, trading ) {
-    companion object{
-        fun findByTicker(ticker:String):ApplicationCurrencies?{
-            return when {
-                Bitcoin.itsMe(ticker)     -> Bitcoin
-                Ethereum.itsMe(ticker)    -> Ethereum
-                Ripple.itsMe(ticker)      -> Ripple
-                Litecoin.itsMe(ticker)    -> Litecoin
-                BitcoinCash.itsMe(ticker) -> BitcoinCash
-                TrueUSD.itsMe(ticker)     -> TrueUSD
-                Mana.itsMe(ticker)        -> Mana
-                Bat.itsMe(ticker)         -> Bat
-                Aave.itsMe(ticker)        -> Aave
-                PesoMX.itsMe(ticker)      -> PesoMX
-                else -> null
+    trading: Boolean = false
+) : CryptoCurrency(id, name, trading) {
+    companion object {
+         val supportedCurrencies by lazy {
+             listOf(
+                 Bitcoin,
+                 Ethereum,
+                 Ripple,
+                 Litecoin,
+                 BitcoinCash,
+                 TrueUSD,
+                 Mana,
+                 Bat,
+                 Aave,
+                 PesoMX
+             )
+         }
+
+        inline fun findByProperty(
+            ticker: String,
+            property: String,
+            list: List<ApplicationCurrencies>,
+            finder: (String, String) -> Boolean
+        ): ApplicationCurrencies? {
+            list.forEach {
+                if (finder(ticker, property)) {
+                    return it
+                }
             }
+            return null
         }
-        fun findByName(name:String):ApplicationCurrencies?{
-            return when(name) {
-                Bitcoin.javaClass.simpleName   -> Bitcoin
-                Ethereum.javaClass.simpleName    -> Ethereum
-                Ripple.javaClass.simpleName      -> Ripple
-                Litecoin.javaClass.simpleName    -> Litecoin
-                BitcoinCash.javaClass.simpleName -> BitcoinCash
-                TrueUSD.javaClass.simpleName     -> TrueUSD
-                Mana.javaClass.simpleName        -> Mana
-                Bat.javaClass.simpleName         -> Bat
-                Aave.javaClass.simpleName        -> Aave
-                PesoMX.javaClass.simpleName      -> PesoMX
-                else -> null
+
+        fun findByTicker(ticker: String): ApplicationCurrencies? {
+            supportedCurrencies.forEach {
+                if (findByProperty(
+                        ticker,
+                        it.id,
+                        supportedCurrencies,
+                        { t, n -> t.startsWith("${n}_") }
+                    ) != null
+                ) {
+                    return it
+                }
             }
+            return null
+        }
+
+        fun findByName(name: String): ApplicationCurrencies? {
+            supportedCurrencies.forEach {
+                if (findByProperty(
+                        name,
+                        it.name,
+                        supportedCurrencies,
+                        { t, n -> t.equals(n) }
+                    ) != null
+                ) {
+                    return it
+                }
+            }
+            return null
         }
     }
-    object  PesoMX: ApplicationCurrencies(
+
+    object PesoMX : ApplicationCurrencies(
         "mxn",
         "Pesos MX",
         true
     )
 
-    object Bitcoin: ApplicationCurrencies(
+    object Bitcoin : ApplicationCurrencies(
         "btc",
         "Bitcoin",
         true
     )
 
-    object Ethereum: ApplicationCurrencies(
+    object Ethereum : ApplicationCurrencies(
         "eth",
-            "Ethereum"
+        "Ethereum"
     )
 
-    object Ripple: ApplicationCurrencies(
+    object Ripple : ApplicationCurrencies(
         "xrp",
         "Ripple"
     )
 
-    object Litecoin:ApplicationCurrencies(
+    object Litecoin : ApplicationCurrencies(
         "ltc",
         "Litecoin"
     )
 
-    object BitcoinCash: ApplicationCurrencies(
+    object BitcoinCash : ApplicationCurrencies(
         "bch",
         "Bitcoint Cash"
     )
 
-    object  TrueUSD: ApplicationCurrencies(
+    object TrueUSD : ApplicationCurrencies(
         "tusd",
         "TrueUSD"
     )
 
-    object  Mana: ApplicationCurrencies(
+    object Mana : ApplicationCurrencies(
         "mana",
         "Decentraland"
     )
-    object  Bat: ApplicationCurrencies(
+    object Bat : ApplicationCurrencies(
         "bat",
         "Basic Attention Token"
     )
 
-    object  Aave: ApplicationCurrencies(
+    object Aave : ApplicationCurrencies(
         "aave",
         "Aave"
     )
-
-
-
-
 }
-
-
-
-
-
-
-
