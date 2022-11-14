@@ -1,5 +1,6 @@
 package com.example.bazandroidcourse.data.datasource.remote.api.retrofit
 
+import io.reactivex.Observable;
 import com.example.bazandroidcourse.data.datasource.remote.api.response.BookDetailResponse
 import com.example.bazandroidcourse.data.datasource.remote.api.response.BookOrdersResponse
 import com.example.bazandroidcourse.data.datasource.remote.api.response.BooksResponse
@@ -12,7 +13,7 @@ interface ApplicationAPIInterface {
      * and their respective order placement limits.
      */
     @GET("available_books/")
-    suspend fun fetchAvailableBooks():BooksResponse
+    fun fetchAvailableBooks():Observable<BooksResponse>
 
     /***
      * This endpoint returns trading information from the specified book.

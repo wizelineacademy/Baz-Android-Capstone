@@ -2,6 +2,7 @@ package com.example.bazandroidcourse.data.di
 
 import com.example.bazandroidcourse.data.datasource.local.CollectionLocaleDataSourceInterface
 import com.example.bazandroidcourse.data.datasource.local.GeneralLocalDataSourceInterface
+import com.example.bazandroidcourse.data.datasource.local.RXInterface
 import com.example.bazandroidcourse.data.datasource.local.RowByIdLocaleDataSourceInterface
 import com.example.bazandroidcourse.data.datasource.local.database.room.BookDetailsLocalDatasourceImpl
 import com.example.bazandroidcourse.data.datasource.local.database.room.BookOrdersLocalDataSourceImpl
@@ -31,6 +32,16 @@ object DataSourcesModule {
     ):GeneralLocalDataSourceInterface<BookEntity> {
         return BooksLocalDataSourceImpl(
                 dao
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideBooksLocalDataSourceRx(
+        dao: BooksDao
+    ):RXInterface<BookEntity> {
+        return BooksLocalDataSourceImpl(
+            dao
         )
     }
 

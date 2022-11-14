@@ -1,13 +1,17 @@
 package com.example.bazandroidcourse.data.datasource.local.database.room
 
-import com.example.bazandroidcourse.data.datasource.local.GeneralLocalDataSourceInterface
+import android.annotation.SuppressLint
+import com.example.bazandroidcourse.data.datasource.local.RXInterface
 import com.example.bazandroidcourse.data.datasource.local.database.room.dao.BooksDao
 import com.example.bazandroidcourse.data.datasource.local.database.room.entities.BookEntity
+import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class BooksLocalDataSourceImpl @Inject constructor(
     private val dao: BooksDao
-): GeneralLocalDataSourceInterface<BookEntity> {
+): RXInterface<BookEntity>{
+
     override suspend fun saveAll(items: List<BookEntity>) = dao.insertAll(items)
 
     override suspend fun getAll(): List<BookEntity> =   dao.getAll()
@@ -15,4 +19,14 @@ class BooksLocalDataSourceImpl @Inject constructor(
     override suspend fun deleteAll() =  dao.deleteAll()
 
     override suspend fun addRow(item: BookEntity) = dao.addRow(item)
+
+    @SuppressLint("CheckResult")
+    override fun saveAllRx(items: List<BookEntity>) {
+        Observable.just(dao)
+            .subscribeOn(Schedulers.io())
+            .subscribe {
+                dao.insertAll(items)
+            }
+
+    }
 }

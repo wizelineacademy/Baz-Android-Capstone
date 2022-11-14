@@ -1,7 +1,7 @@
 package com.example.bazandroidcourse.data.di
 
 import com.example.bazandroidcourse.data.datasource.local.CollectionLocaleDataSourceInterface
-import com.example.bazandroidcourse.data.datasource.local.GeneralLocalDataSourceInterface
+import com.example.bazandroidcourse.data.datasource.local.RXInterface
 import com.example.bazandroidcourse.data.datasource.local.RowByIdLocaleDataSourceInterface
 import com.example.bazandroidcourse.data.datasource.local.database.room.entities.BookDetailEntity
 import com.example.bazandroidcourse.data.datasource.local.database.room.entities.BookEntity
@@ -23,7 +23,7 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideRepository(
-        localeBooksDataSource: GeneralLocalDataSourceInterface<BookEntity>,
+        localeBooksDataSource: RXInterface<BookEntity>,
         localeDetailDataSource: RowByIdLocaleDataSourceInterface<BookDetailEntity, String>,
         localeOrdersDataSource: CollectionLocaleDataSourceInterface<BookOrderEntity, String>,
         remoteDataSource: CryptoRemoteDataSourceInterface,
