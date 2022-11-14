@@ -4,7 +4,7 @@ plugins {
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
     id 'kotlin-android-extensions'
-
+    id 'org.jlleitschuh.gradle.ktlint' version "11.0.0"
 }
 
 android {
@@ -49,6 +49,16 @@ android {
     }
 }
 
+ktlint{
+    android=true
+    ignoreFailures=false
+    reporters{
+        reporter "plain"
+        reporter "checkstyle"
+        reporter "sarif"
+    }
+}
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -65,11 +75,13 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     //Hilt
-    implementation("com.google.dagger:hilt-android:2.44")
+    implementation "com.google.dagger:dagger-android-support:2.42"
+    implementation "com.google.dagger:hilt-android:2.42"
     implementation 'com.google.android.mediahome:books:+'
     testImplementation 'junit:junit:4.12'
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
 
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    kapt "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.4.2"
     //TEST
     // To use the androidx.test.core APIs
     androidTestImplementation("androidx.test:core:1.4.0")
