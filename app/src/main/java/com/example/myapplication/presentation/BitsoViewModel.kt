@@ -7,12 +7,13 @@ import com.example.myapplication.core.Resource
 import com.example.myapplication.repository.BitsoRepository
 import kotlinx.coroutines.Dispatchers
 
-class BitsoViewModel(private val repo: BitsoRepository): ViewModel() {
+class BitsoViewModel(private val repo: BitsoRepository ): ViewModel() {
 
-    fun fetchAvailiableBooks() = liveData(Dispatchers.IO) {
+
+    fun fetchAvailableBook() = liveData(Dispatchers.IO) {
         emit(Resource.Loading())
         try {
-            emit(Resource.Success(repo.getAvailableBooks()))
+            emit(Resource.Success(repo.getAvailableBook()))
 
         } catch (e: Exception) {
             emit(Resource.Failure(e))

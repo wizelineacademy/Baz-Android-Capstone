@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName
 
 data class BookResponse(
     @SerializedName("success") val success: Boolean? = false,
-    @SerializedName("payload") val payload : List<PayloadItem?>? = null,
+    @SerializedName("payload") val results: List<Book> = listOf(),
 )
 
-data class PayloadItem(
+data class Book(
     @SerializedName("book") var book: String? = "",
     @SerializedName("minimum_amount") var minimumAmount: Double? = 0.0,
     @SerializedName("maximum_amount") var maximumAmount: Double? = 0.0,
@@ -16,3 +16,4 @@ data class PayloadItem(
     @SerializedName("minimum_value")  var minimumValue: Double? = 0.0,
     @SerializedName("maximum_value")  var maximumValue: Double? = 0.0
 )
+

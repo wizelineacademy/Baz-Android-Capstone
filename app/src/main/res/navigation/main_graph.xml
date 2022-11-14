@@ -17,5 +17,21 @@
         android:id="@+id/bitsoDetailsFragment"
         android:name="com.example.myapplication.ui.BitsoDetailsFragment"
         android:label="fragment_bitso_details"
-        tools:layout="@layout/fragment_bitso_details" />
+        tools:layout="@layout/fragment_bitso_details" >
+        <argument
+            android:name="bitcoinTitle"
+            app:argType="string" />
+        <argument
+            android:name="maxPrice"
+            app:argType="string" />
+        <argument
+            android:name="minPrice"
+            app:argType="string" />
+        <argument
+            android:name="maxAmount"
+            app:argType="string" />
+        <argument
+            android:name="minAmount"
+            app:argType="string" />
+    </fragment>
 </navigation>

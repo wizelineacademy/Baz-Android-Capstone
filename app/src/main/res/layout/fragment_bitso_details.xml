@@ -53,48 +53,23 @@
         app:layout_constraintGuide_begin="400dp"/>
 
     <TextView
-        android:id="@+id/txt_title"
+        android:id="@+id/txt_bitso_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/cardView"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.608"
         tools:text="Bitcoin" />
 
-    <TextView
-        android:id="@+id/txt_max_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:textStyle="normal"
-        android:drawablePadding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toTopOf="@+id/cardView"
-        tools:text="Maximo" />
 
-    <TextView
-        android:id="@+id/txt_min_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:textStyle="normal"
-        android:drawablePadding="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/txt_max_price"
-        tools:text="Minimo" />
-    
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -109,40 +84,74 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Detalles"
-            app:layout_constraintStart_toEndOf="@+id/cardView"
-            tools:layout_editor_absoluteY="292dp" />
-
     </LinearLayout>
 
     <TextView
-        android:id="@+id/ask_price_label"
+        android:id="@+id/bid_price_label"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Ask"
+        android:text="Price Max"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/separator_right"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/separator_left"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_bias="0.394" />
+
+    <TextView
+        android:id="@+id/min_price_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Price Min"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/separator_left"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintVertical_bias="0.394" />
 
     <TextView
-        android:id="@+id/ask_price"
+        android:id="@+id/min_price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@{NumberUtilsKt.asPrice(book.askPrice)}"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/separator_left"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bid_price_label"
-        app:layout_constraintVertical_bias="0"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="$4,590.01" />
+
+    <TextView
+        android:id="@+id/amount_price_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Amount"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/separator_right"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_bias="0.394" />
+
+    <TextView
+        android:id="@+id/min_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@{NumberUtilsKt.asPrice(Math.abs(book.bidPrice - book.askPrice))}"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/separator_right"
+        app:layout_constraintTop_toBottomOf="@id/bid_price_label"
+        app:layout_constraintVertical_bias="0.005"
+        tools:text="$300.00" />
 
     <View
         android:id="@+id/separator_left"
@@ -150,36 +159,11 @@
         android:layout_height="0dp"
         android:background="?android:attr/colorAccent"
         android:rotation="15"
-        app:layout_constraintBottom_toBottomOf="@id/ask_price"
+        app:layout_constraintBottom_toBottomOf="@id/min_price"
         app:layout_constraintEnd_toStartOf="@id/separator_right"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/ask_price_label"
-        app:layout_constraintVertical_bias="0.1" />
-
-    <TextView
-        android:id="@+id/bid_price_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Bid"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/separator_right"
-        app:layout_constraintStart_toEndOf="@id/separator_left"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="0.1" />
-
-    <TextView
-        android:id="@+id/bid_price"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@{NumberUtilsKt.asPrice(book.bidPrice)}"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/separator_right"
-        app:layout_constraintStart_toEndOf="@id/separator_left"
-        app:layout_constraintTop_toBottomOf="@id/bid_price_label"
-        app:layout_constraintVertical_bias="0"
-        tools:text="$4,290.01" />
+        app:layout_constraintTop_toTopOf="@id/min_price_label"
+        app:layout_constraintVertical_bias="0.0" />
 
     <View
         android:id="@+id/separator_right"
@@ -187,49 +171,39 @@
         android:layout_height="0dp"
         android:background="?android:attr/colorAccent"
         android:rotation="15"
-        app:layout_constraintBottom_toBottomOf="@id/bid_price"
+        app:layout_constraintBottom_toBottomOf="@id/min_price"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/separator_left"
         app:layout_constraintTop_toTopOf="@id/bid_price_label"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintVertical_bias="0.0" />
+
 
     <TextView
-        android:id="@+id/spread_price_label"
+        android:id="@+id/max_price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Spread"
+        android:text="@{NumberUtilsKt.asPrice(book.bidPrice)}"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/separator_right"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="0.1" />
-
-    <TextView
-        android:id="@+id/spread_price"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@{NumberUtilsKt.asPrice(Math.abs(book.bidPrice - book.askPrice))}"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/separator_right"
+        app:layout_constraintEnd_toStartOf="@id/separator_right"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/separator_left"
         app:layout_constraintTop_toBottomOf="@id/bid_price_label"
-        app:layout_constraintVertical_bias="0"
-        tools:text="$300.00" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="$4,290.01" />
 
 
     <TextView
-        android:id="@+id/monthly_history_label"
+        android:id="@+id/max_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LAST MONTH"
+        android:text="$400.0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.873"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bid_price"
-        app:layout_constraintVertical_bias="0.247" />
+        app:layout_constraintTop_toBottomOf="@id/min_price"
+        app:layout_constraintVertical_bias="0.006" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
