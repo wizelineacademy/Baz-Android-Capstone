@@ -11,11 +11,14 @@ class CoinsRepositoryImpl @Inject constructor(
     private val api: ApiService,
     private val dao: BooksDao
 ) : CoinsRepository {
-    //Todo Agregar dataSource
     override suspend fun getAvailableBooks(): List<Book> =
         api.getAvailableBooks().toBooks()
 
     override suspend fun insertLocalBooks(book: List<Book>) =
         dao.insertAllBooks(book)
+
+    override suspend fun getLocalBooks(): List<Book> =
+        dao.getAvailableLocalBooks()
+
 
 }

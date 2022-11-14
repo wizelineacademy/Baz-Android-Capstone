@@ -7,23 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.capstone.capstonecoins.data.repository.DetailCoinRepositoryImpl
-import com.capstone.capstonecoins.data.retrofit
 import com.capstone.capstonecoins.data.utils.COIN_KEY
 import com.capstone.capstonecoins.databinding.FragmentBidsBinding
-import com.capstone.capstonecoins.domain.api.usecases.DetailCoinUseCase
+import com.capstone.capstonecoins.domain.api.BooksDao
 import com.capstone.capstonecoins.ui.viewmodels.BidsViewmodel
-import com.capstone.capstonecoins.ui.viewmodels.ViewModelFactorym
+import javax.inject.Inject
 
 
 class BidsFragment : Fragment() {
-
+    @Inject
+    lateinit var booksDao: BooksDao
     private var _binding: FragmentBidsBinding? = null
     private val binding get() = _binding!!
 
-    private val bidsViewmodel: BidsViewmodel by viewModels {
-        ViewModelFactorym(DetailCoinUseCase(DetailCoinRepositoryImpl(retrofit)))
-    }
+    private val bidsViewmodel: BidsViewmodel by viewModels()
+    /*  {
+          ViewModelFactorym(DetailCoinUseCase(DetailCoinRepositoryImpl(retrofit, booksDao)))
+      }*/
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

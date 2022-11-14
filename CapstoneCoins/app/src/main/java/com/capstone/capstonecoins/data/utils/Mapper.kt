@@ -13,7 +13,13 @@ fun BooksDto.toBooks(): List<Book> =
 
 
 fun TickerWithQuery.toDetail() =
-    BookDetail(high = this.payload.high, last = this.payload.last, low = this.payload.low)
+    BookDetail(
+        id = 0,
+        book = this.payload.book,
+        high = this.payload.high,
+        last = this.payload.last,
+        low = this.payload.low,
+    )
 
 fun Payload.toBook() = Book(id = book, idBook = 0)
 

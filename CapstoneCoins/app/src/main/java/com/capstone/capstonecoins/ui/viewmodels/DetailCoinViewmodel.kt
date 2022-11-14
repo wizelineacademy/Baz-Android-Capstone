@@ -1,6 +1,5 @@
 package com.capstone.capstonecoins.ui.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -8,10 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.capstone.capstonecoins.data.models.orderbook.OrderBooks
 import com.capstone.capstonecoins.data.repository.models.BookDetail
 import com.capstone.capstonecoins.domain.api.usecases.DetailCoinUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailCoinViewmodel(private var useCase: DetailCoinUseCase) : ViewModel() {
+@HiltViewModel
+class DetailCoinViewmodel @Inject constructor(private var useCase: DetailCoinUseCase) :
+    ViewModel() {
     val detailCoin = MutableLiveData<BookDetail>()
     val bidsAsksCoin = MutableLiveData<OrderBooks>()
 

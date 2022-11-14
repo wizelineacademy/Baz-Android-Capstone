@@ -28,9 +28,16 @@ object RetrofitModule {
     @Provides
     fun provideHttpClient(): OkHttpClient {
         val logginInterceptor = HttpLoggingInterceptor().also {
-            it.level = HttpLoggingInterceptor.Level.BODY
+            it.level = HttpLoggingInterceptor.Level.HEADERS
         }
-        return OkHttpClient.Builder().addInterceptor(logginInterceptor).build()
+        return OkHttpClient.Builder().addInterceptor(logginInterceptor)
+            .addNetworkInterceptor { chain ->
+                chain.proceed(
+                    chain.request()
+                        .newBuilder()
+                        .header("User-Agent", "User-Agent").build()
+                )
+            }.build()
     }
 
     @Singleton
@@ -48,5 +55,19 @@ object RetrofitModule {
     fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
+
+    private val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+        this.level = HttpLoggingInterceptor.Level.BASIC
+    }
+
+    private val client =
+        OkHttpClient.Builder().addInterceptor(interceptor).addNetworkInterceptor { chain ->
+            chain.proceed(
+                chain.request()
+                    .newBuilder()
+                    .header("User-Agent", "User-Agent")
+                    .build()
+            )
+        }
 
 }

@@ -7,20 +7,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.capstone.capstonecoins.R
-import com.capstone.capstonecoins.data.repository.DetailCoinRepositoryImpl
 import com.capstone.capstonecoins.data.repository.models.Book
 import com.capstone.capstonecoins.data.repository.models.BookDetail
-import com.capstone.capstonecoins.data.retrofit
 import com.capstone.capstonecoins.data.utils.BOOKS_KEY
 import com.capstone.capstonecoins.databinding.FragmentDetailCoinBinding
-import com.capstone.capstonecoins.domain.api.usecases.DetailCoinUseCase
+import com.capstone.capstonecoins.domain.api.BooksDao
 import com.capstone.capstonecoins.ui.adapters.AsksAdapter
 import com.capstone.capstonecoins.ui.adapters.BidsAdapter
 import com.capstone.capstonecoins.ui.viewmodels.DetailCoinViewmodel
-import com.capstone.capstonecoins.ui.viewmodels.ViewModelFactorym
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class DetailCoinFragment : Fragment() {
-
+    @Inject
+    lateinit var booksDao: BooksDao
     private var _binding: FragmentDetailCoinBinding? = null
     private val binding get() = _binding!!
     var type: String = ""
@@ -37,9 +38,10 @@ class DetailCoinFragment : Fragment() {
         }
     }
 
-    private val detailCoinViewModel: DetailCoinViewmodel by viewModels {
-        ViewModelFactorym(DetailCoinUseCase(DetailCoinRepositoryImpl(retrofit)))
-    }
+    private val detailCoinViewModel: DetailCoinViewmodel by viewModels()
+    /* {
+         ViewModelFactorym(DetailCoinUseCase(DetailCoinRepositoryImpl(retrofit, booksDao)))
+     }*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

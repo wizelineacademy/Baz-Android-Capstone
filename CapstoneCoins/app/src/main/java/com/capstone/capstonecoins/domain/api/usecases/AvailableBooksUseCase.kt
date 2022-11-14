@@ -8,10 +8,18 @@ import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class AvailableBooksUseCase @Inject constructor(private var repository: CoinsRepositoryImpl) {
+class AvailableBooksUseCase
+@Inject constructor(private var repository: CoinsRepositoryImpl) {
+    lateinit var response: List<Book>
+
     suspend fun book(): Flow<List<Book>> = flow {
         try {
-            val response = repository.getAvailableBooks()
+//            if (repository.getAvailableBooks().isNotEmpty()) {
+//                response = repository.getLocalBooks()
+//            } else {
+            response = repository.getAvailableBooks()
+//                repository.insertLocalBooks(response)
+//            }
             emit(response)
         } catch (e: HttpException) {
             Log.d("Mensaje", "Show Error: $e")
