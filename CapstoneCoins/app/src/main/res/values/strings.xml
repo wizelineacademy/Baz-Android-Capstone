@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CapstoneCoins</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="example_text">Texto</string>
+    <string name="max_price">Precio Maximo: %s</string>
+    <string name="min_price">Precio Minimo: %s</string>
+    <string name="last_price">Ultimo Precio: %s</string>
+    <string name="tv_texto">Texto</string>
+</resources>
