@@ -27,8 +27,13 @@ class CoinsAdapter(var itemClick: (Book) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(book: Book) = with(binding) {
+            var image = ivBook.resources.getIdentifier(
+                book.id,
+                "drawable",
+                root.context.packageName
+            )
+            ivBook.setImageResource(image)
             tvBook.text = book.id
-
             root.setOnClickListener {
                 itemClick(book)
             }

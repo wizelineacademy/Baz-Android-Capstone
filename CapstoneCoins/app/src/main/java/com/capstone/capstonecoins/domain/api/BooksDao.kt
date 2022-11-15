@@ -15,9 +15,10 @@ interface BooksDao {
     @Query("SELECT * FROM Book")
     fun getAvailableLocalBooks(): List<Book>
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertLocalDetailBooks(typeCoin: BookDetail)
+
     @Query("SELECT * FROM BookDetail WHERE book = :book")
     fun getLocalDetailBooks(book: String): BookDetail
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertLocalDetailBooks(typeCoin: BookDetail)
 }

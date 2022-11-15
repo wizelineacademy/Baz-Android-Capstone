@@ -14,12 +14,12 @@ class AvailableBooksUseCase
 
     suspend fun book(): Flow<List<Book>> = flow {
         try {
-//            if (repository.getAvailableBooks().isNotEmpty()) {
-//                response = repository.getLocalBooks()
-//            } else {
-            response = repository.getAvailableBooks()
-//                repository.insertLocalBooks(response)
-//            }
+            if (repository.getAvailableBooks().isNotEmpty()) {
+                response = repository.getLocalBooks()
+            } else {
+                response = repository.getAvailableBooks()
+                repository.insertLocalBooks(response)
+            }
             emit(response)
         } catch (e: HttpException) {
             Log.d("Mensaje", "Show Error: $e")
