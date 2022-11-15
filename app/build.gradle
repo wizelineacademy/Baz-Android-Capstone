@@ -7,6 +7,7 @@ plugins {
     id "org.jlleitschuh.gradle.ktlint" version '11.0.0'
     id 'com.google.dagger.hilt.android'
 
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -42,7 +43,6 @@ android {
             buildConfigField("String", "API_PRINCIPAL_PATH", '"https://api.bitso.com/v3/"')
             buildConfigField("String", "API_ICONS", '"https://cryptoflash-icons-api.herokuapp.com/"')
         }
-
     }
 
     buildTypes {
@@ -58,7 +58,9 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-
+    }
+    kapt {
+        generateStubs = true
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -66,12 +68,15 @@ android {
     viewBinding {
         enabled = true
     }
-//    testOptions {
-//        // Used for Unit testing Android dependent elements in /test folder
-//        unitTests.includeAndroidResources = true
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            //        unitTests.includeAndroidResources = true
 //        unitTests.returnDefaultValues = true
-//    }
+        }
+    }
 }
+
 ktlint{
     android = true
     ignoreFailures = false
@@ -83,15 +88,18 @@ ktlint{
 
     }
 }
-
 dependencies {
-    def retrofitVersion = "2.9.0"
+
+    def retrofitVersion ="2.9.0"
     def lifecycle_version = "2.5.1"
     def nav_version = "2.5.3"
     def room_version = "2.4.3"
     def okhttpVersion = "4.10.0"
-    def mockkVersion = "1.13.2"
+    def mockkVersion  = "1.13.2"
     def coroutines_version = "1.6.1"
+
+    /*
+    def arch_version = "2.1.0"*/
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -111,15 +119,23 @@ dependencies {
     // Gson
     implementation 'com.google.code.gson:gson:2.8.6'
 
-    //testing
+    //Unit test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     testImplementation "io.mockk:mockk-android:${mockkVersion}"
     testImplementation "io.mockk:mockk-agent:${mockkVersion}"
-    testImplementation "com.google.truth:truth:1.1.3"
+    testImplementation 'androidx.test:core-ktx:1.4.0'
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+    testImplementation 'com.google.truth:truth:1.1.3'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
+    testImplementation "com.google.truth:truth:1.1.3"
+    testImplementation 'androidx.test.espresso:espresso-core:3.5.0-alpha07'
+    testImplementation 'org.robolectric:robolectric:4.8.1'
+
+    // Instrumented test
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     //Picasso:load Images by URL
     implementation 'com.squareup.picasso:picasso:2.8'

@@ -63,6 +63,13 @@ class BooksViewModelTest {
         )
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @After
+    fun tearDown() {
+        clearAllMocks()
+        Dispatchers.resetMain()
+    }
+
     @Test
     fun `verify all books is invoked once`() = runBlocking {
         // Given
@@ -100,10 +107,5 @@ class BooksViewModelTest {
         assertThat(allBooksValue).isEqualTo(books)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @After
-    fun tearDown() {
-        clearAllMocks()
-        Dispatchers.resetMain()
-    }
+
 }

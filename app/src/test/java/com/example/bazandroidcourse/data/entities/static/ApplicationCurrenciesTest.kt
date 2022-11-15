@@ -8,7 +8,7 @@ import org.junit.Test
 class ApplicationCurrenciesTest {
     @Test
     fun `find by ticker returns valid currency`() {
-        val result = ApplicationCurrencies.findByTicker("btc")
+        val result = ApplicationCurrencies.findByTicker("btc_mxn")
         assert(result == ApplicationCurrencies.Bitcoin)
     }
 
