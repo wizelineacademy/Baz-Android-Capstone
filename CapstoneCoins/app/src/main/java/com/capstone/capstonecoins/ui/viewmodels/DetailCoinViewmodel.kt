@@ -4,13 +4,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.capstone.capstonecoins.data.models.ticker.tickerquery.TickerWithQuery
+import com.capstone.capstonecoins.data.models.orderbook.OrderBooks
+import com.capstone.capstonecoins.data.repository.models.BookDetail
 import com.capstone.capstonecoins.domain.api.usecases.DetailCoinUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailCoinViewmodel(private var useCase: DetailCoinUseCase) : ViewModel() {
-    val detailCoin = MutableLiveData<TickerWithQuery>()
+@HiltViewModel
+class DetailCoinViewmodel @Inject constructor(private var useCase: DetailCoinUseCase) :
+    ViewModel() {
+    val detailCoin = MutableLiveData<BookDetail>()
+    val bidsAsksCoin = MutableLiveData<OrderBooks>()
 
     fun getDetailCoin(typeCoin: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -19,8 +25,17 @@ class DetailCoinViewmodel(private var useCase: DetailCoinUseCase) : ViewModel() 
                 detailCoin.postValue(detail)
             }
         }
-
     }
+
+    fun getBidsAsksCoin(typeCoin: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = useCase.bidsAsksCoin(typeCoin)
+            response.collect { ba ->
+                bidsAsksCoin.postValue(ba)
+            }
+        }
+    }
+
 }
 
 class ViewModelFactorym(private val detailUseCase: DetailCoinUseCase) :

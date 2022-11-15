@@ -20,5 +20,12 @@
         android:name="com.capstone.capstonecoins.ui.DetailCoinFragment"
         android:label="fragment_detail_coin"
         tools:layout="@layout/fragment_detail_coin" >
+        <action
+            android:id="@+id/action_detailCoinFragment_to_bidsFragment"
+            app:destination="@id/bidsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/bidsFragment"
+        android:name="com.capstone.capstonecoins.ui.BidsFragment"
+        android:label="BidsFragment" />
 </navigation>
