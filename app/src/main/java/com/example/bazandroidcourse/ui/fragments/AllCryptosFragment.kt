@@ -21,7 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class AllCryptosFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private val viewModel: BooksViewModel by viewModels()
     private lateinit var binding: FragmentAllCryptosBinding
-    private var currentCurrency = "mxn"
     private val adapter = BooksAdapter() {
         navigateTo(it)
     }
@@ -37,10 +36,9 @@ class AllCryptosFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getAllBooks(currentCurrency)
+        viewModel.currentCurrency.value?.let { viewModel.getAllBooks(it) }
         initVerticalList()
         initSpinner(this)
-
         addObservers()
     }
 

@@ -17,7 +17,15 @@ sealed class ApplicationCurrencies(
                 Mana,
                 Bat,
                 Aave,
-                PesoMX
+                PesoMX,
+                NumARS,
+                USD,
+                Yearn,
+                Shiba,
+                Matic,
+                Cardano,
+                Solana,
+                Sushi
             )
         }
 
@@ -95,7 +103,8 @@ sealed class ApplicationCurrencies(
 
     object BitcoinCash : ApplicationCurrencies(
         "bch",
-        "Bitcoint Cash"
+        "Bitcoint Cash",
+        false
     )
 
     object TrueUSD : ApplicationCurrencies(
@@ -117,4 +126,42 @@ sealed class ApplicationCurrencies(
         "aave",
         "Aave"
     )
+
+    object NumARS : ApplicationCurrencies(
+        "ars",
+        "Num ARS",
+        false
+    )
+
+    object USD : ApplicationCurrencies(
+        "usd",
+        "USD",
+        true
+    )
+
+    object Yearn:ApplicationCurrencies(
+        "yfi",
+        "Yearn Finance"
+    )
+    object Matic:ApplicationCurrencies(
+        "matic",
+        "Polygon"
+    )
+    object Cardano:ApplicationCurrencies(
+        "ada",
+        "Cardano"
+    )
+    object Solana:ApplicationCurrencies(
+        "sol",
+        "Solana"
+    )
+    object Shiba:ApplicationCurrencies(
+        "shib",
+        "Shiba Inu"
+    )
+    object Sushi:ApplicationCurrencies(
+        "sushi",
+        "SushiSwap"
+    )
+
 }

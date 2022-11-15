@@ -13,15 +13,16 @@ class GetAllBooksFilteredUseCase @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope
 ) {
     /***
-     * Returns all valid currencies supported by the application.
+     *
+     * Returns all the currencies supported by the application, valid for making transactions.
      * @param currentCurrency:String is the current currency  to trading operations, example:"mxn"
      * @return List<BookModel> returns a list of BookModel entities.
      */
     suspend operator fun invoke(currentCurrency: String): List<BookModel> =
         withContext(externalScope.coroutineContext) {
             repository.getAllBooks().filter {
-                it.book.endsWith("_$currentCurrency") &&
-                    ApplicationCurrencies.findByTicker((it.book)) != null
+                it.book.endsWith("_$currentCurrency")
+                        && ApplicationCurrencies.findByTicker((it.book)) != null
             }
         }
 }
