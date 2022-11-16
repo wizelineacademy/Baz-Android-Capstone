@@ -1,7 +1,7 @@
-package com.example.capstone_project.config
+package com.example.capstoneproject.config
 
-import com.example.capstone_project.data.network.CriptoApiClient
-import com.example.capstone_project.data.network.CriptoEndpoints
+import com.example.capstoneproject.data.network.CriptoApiClient
+import com.example.capstoneproject.data.network.CriptoEndpoints
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

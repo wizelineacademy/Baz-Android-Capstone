@@ -1,16 +1,16 @@
-package com.example.capstone_project.presentation.ui.viewmodel
+package com.example.capstoneproject.presentation.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.capstone_project.data.Resource
-import com.example.capstone_project.domain.model.AskDomain
-import com.example.capstone_project.domain.model.BidDomain
-import com.example.capstone_project.domain.model.BookDomain
-import com.example.capstone_project.domain.model.TickerDomain
-import com.example.capstone_project.domain.usescase.GetAskUseCase
-import com.example.capstone_project.domain.usescase.GetAvaibleBookUseCase
-import com.example.capstone_project.domain.usescase.GetBidsUseCase
-import com.example.capstone_project.domain.usescase.GetTickerUseCase
+import com.example.capstoneproject.data.Resource
+import com.example.capstoneproject.domain.model.AskDomain
+import com.example.capstoneproject.domain.model.BidDomain
+import com.example.capstoneproject.domain.model.BookDomain
+import com.example.capstoneproject.domain.model.TickerDomain
+import com.example.capstoneproject.domain.usescase.GetAskUseCase
+import com.example.capstoneproject.domain.usescase.GetAvaibleBookUseCase
+import com.example.capstoneproject.domain.usescase.GetBidsUseCase
+import com.example.capstoneproject.domain.usescase.GetTickerUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

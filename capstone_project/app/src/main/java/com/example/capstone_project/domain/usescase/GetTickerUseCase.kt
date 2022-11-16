@@ -1,12 +1,12 @@
-package com.example.capstone_project.domain.usescase
+package com.example.capstoneproject.domain.usescase
 
 import android.util.Log
-import com.example.capstone_project.data.Resource
-import com.example.capstone_project.data.local.entities.toDatabase
-import com.example.capstone_project.data.network.entities.response.TickerResponse
-import com.example.capstone_project.data.repository.CriptoRepository
-import com.example.capstone_project.domain.model.TickerDomain
-import com.example.capstone_project.domain.model.toDomain
+import com.example.capstoneproject.data.Resource
+import com.example.capstoneproject.data.local.entities.toDatabase
+import com.example.capstoneproject.data.network.entities.response.TickerResponse
+import com.example.capstoneproject.data.repository.CriptoRepository
+import com.example.capstoneproject.domain.model.TickerDomain
+import com.example.capstoneproject.domain.model.toDomain
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers

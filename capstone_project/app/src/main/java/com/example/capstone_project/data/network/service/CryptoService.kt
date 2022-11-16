@@ -1,10 +1,10 @@
-package com.example.capstone_project.data.network.service
+package com.example.capstoneproject.data.network.service
 
-import com.example.capstone_project.data.network.CriptoApiClient
-import com.example.capstone_project.data.network.entities.model.BidsAskModel
-import com.example.capstone_project.data.network.entities.response.AvaibleBookResponse
-import com.example.capstone_project.data.network.entities.response.OrderBookResponse
-import com.example.capstone_project.data.network.entities.response.TickerResponse
+import com.example.capstoneproject.data.network.CriptoApiClient
+import com.example.capstoneproject.data.network.entities.model.BidsAskModel
+import com.example.capstoneproject.data.network.entities.response.AvaibleBookResponse
+import com.example.capstoneproject.data.network.entities.response.OrderBookResponse
+import com.example.capstoneproject.data.network.entities.response.TickerResponse
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

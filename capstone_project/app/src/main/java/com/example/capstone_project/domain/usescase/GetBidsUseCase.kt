@@ -1,10 +1,10 @@
-package com.example.capstone_project.domain.usescase
+package com.example.capstoneproject.domain.usescase
 
-import com.example.capstone_project.data.Resource
-import com.example.capstone_project.data.local.entities.toDatabase
-import com.example.capstone_project.data.repository.CriptoRepository
-import com.example.capstone_project.domain.model.BidDomain
-import com.example.capstone_project.presentation.util.Util
+import com.example.capstoneproject.data.Resource
+import com.example.capstoneproject.data.local.entities.toDatabase
+import com.example.capstoneproject.data.repository.CriptoRepository
+import com.example.capstoneproject.domain.model.BidDomain
+import com.example.capstoneproject.presentation.util.Util
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

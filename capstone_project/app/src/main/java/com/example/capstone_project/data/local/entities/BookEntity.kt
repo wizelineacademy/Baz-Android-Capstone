@@ -1,9 +1,9 @@
-package com.example.capstone_project.data.local.entities
+package com.example.capstoneproject.data.local.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.capstone_project.domain.model.BookDomain
+import com.example.capstoneproject.domain.model.BookDomain
 
 @Entity(tableName = "book")
 data class BookEntity(
