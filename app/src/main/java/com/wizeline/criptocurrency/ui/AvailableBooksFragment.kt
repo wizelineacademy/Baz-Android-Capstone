@@ -64,7 +64,7 @@ class AvailableBooksFragment : Fragment() {
             }
             availableBooksVM.availableOrderBookList.observe(viewLifecycleOwner) {
 
-                rvBooks.adapter = AvailableBooksAdapter(
+                rvBooks.adapter = AvailableBooksListAdapter(
                     it ?: emptyList(),
                     goToDetail = { availableBook, coinName ->
                         val bundle = bundleOf(

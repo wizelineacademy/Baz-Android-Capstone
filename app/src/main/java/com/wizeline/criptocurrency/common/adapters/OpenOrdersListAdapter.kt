@@ -2,13 +2,26 @@ package com.wizeline.criptocurrency.common.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wizeline.criptocurrency.databinding.ItemOpenOrderBinding
 import com.wizeline.criptocurrency.domain.model.OpenOrder
 
-class OpenOrdersAdapter(
+class OpenOrdersListAdapter(
     private var data: List<OpenOrder> = emptyList(),
-) : RecyclerView.Adapter<OpenOrdersAdapter.ViewHolder>() {
+) : ListAdapter<OpenOrder,OpenOrdersListAdapter.ViewHolder>(difCallback) {
+
+    companion object {
+        val difCallback = object : DiffUtil.ItemCallback<OpenOrder>() {
+            override fun areItemsTheSame(oldItem: OpenOrder, newItem: OpenOrder): Boolean {
+                return oldItem.amount == newItem.amount
+            }
+            override fun areContentsTheSame(oldItem: OpenOrder, newItem: OpenOrder): Boolean {
+                return oldItem.equals(newItem)
+            }
+        }
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = ItemOpenOrderBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)

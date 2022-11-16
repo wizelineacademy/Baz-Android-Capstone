@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.wizeline.criptocurrency.R
-import com.wizeline.criptocurrency.common.adapters.OpenOrdersAdapter
+import com.wizeline.criptocurrency.common.adapters.OpenOrdersListAdapter
 import com.wizeline.criptocurrency.common.adapters.OrderBooksDetailViewModelFactory
 import com.wizeline.criptocurrency.common.adapters.RetrofitClient
 import com.wizeline.criptocurrency.common.adapters.utilities.toast
@@ -69,8 +69,8 @@ class OrderBookDetailFragment : Fragment() {
             }
 
             orderBookDetailVM.orderBook.observe(viewLifecycleOwner) {
-                rvOrderAsks.adapter = OpenOrdersAdapter(it?.asks ?: emptyList())
-                rvOrderBids.adapter = OpenOrdersAdapter(it?.bids ?: emptyList())
+                rvOrderAsks.adapter = OpenOrdersListAdapter(it?.asks ?: emptyList())
+                rvOrderBids.adapter = OpenOrdersListAdapter(it?.bids ?: emptyList())
             }
 
             orderBookDetailVM.error.observe(viewLifecycleOwner) {

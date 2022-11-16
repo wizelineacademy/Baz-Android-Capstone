@@ -13,5 +13,6 @@
     <string name="last">Last: %s</string>
     <string name="high">High: %s</string>
     <string name="low">Low: %s</string>
-
+    <string name="min">Mínimo: %s</string>
+    <string name="max">Máximo: %s</string>
 </resources>
