@@ -34,9 +34,10 @@ class BooksViewModel @Inject constructor(
     val currentBookOrders: MutableLiveData<BookOrdersModel> = _currentBookOrders
 
     private val _currentCurrency = MutableLiveData("usd")
-    val  currentCurrency = _currentCurrency
+    val currentCurrency = _currentCurrency
 
-    val names: List<String> = ApplicationCurrencies.supportedCurrencies.filter { it.trading }.map { it.name }
+    val names: List<String> = ApplicationCurrencies.supportedCurrencies
+        .filter { it.trading }.map { it.name }
 
     fun getAllBooks(currency: String) {
         viewModelScope.launch(externalScope.coroutineContext) {

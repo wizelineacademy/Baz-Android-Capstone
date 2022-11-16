@@ -100,6 +100,4 @@ class BooksViewModelTest {
         // then
         assertThat(allBooksValue).isEqualTo(books)
     }
-
-
 }

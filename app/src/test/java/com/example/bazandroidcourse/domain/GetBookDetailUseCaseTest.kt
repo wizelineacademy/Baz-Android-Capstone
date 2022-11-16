@@ -3,7 +3,12 @@ package com.example.bazandroidcourse.domain
 import com.example.bazandroidcourse.data.entities.BookDetailModel
 import com.example.bazandroidcourse.data.repository.BooksRepositoryInterface
 import com.google.common.truth.Truth.assertThat
-import io.mockk.*
+
+import io.mockk.MockKAnnotations
+import io.mockk.clearAllMocks
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.mockk
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -17,7 +22,7 @@ import org.junit.Test
 
 class GetBookDetailUseCaseTest {
 
-    var repositoryMockK= mockk<BooksRepositoryInterface>(relaxed = true)
+    var repositoryMockK = mockk<BooksRepositoryInterface>(relaxed = true)
     private val dispatcher = TestCoroutineDispatcher()
     private val scope = CoroutineScope(
         SupervisorJob() + dispatcher
@@ -32,11 +37,11 @@ class GetBookDetailUseCaseTest {
         low = "10",
         volume = "8398747"
     )
-    lateinit var currentBookId:String
+    lateinit var currentBookId: String
 
     @Before
     fun setup() {
-        currentBookId= "btc_mxn"
+        currentBookId = "btc_mxn"
         Dispatchers.setMain(dispatcher)
         target = GetBookDetailUseCase(
             repositoryMockK,
@@ -52,39 +57,36 @@ class GetBookDetailUseCaseTest {
     }
 
     @Test
-    fun `getBookDetailUseCase returns correct response`() = runBlocking{
-        //Given
+    fun `getBookDetailUseCase returns correct response`() = runBlocking {
+        // Given
         coEvery { repositoryMockK.getBookInfo(any()) } returns fakeBook
-        //When
+        // When
         val result = target.invoke(currentBookId)
-        //Then
+        // Then
         assertThat(result).isNotNull()
         assertThat(result).isEqualTo(fakeBook)
     }
 
     @Test
-    fun `getBookDetailUseCase returns empty`() = runBlocking{
-        val emptyBook = BookDetailModel(
-        )
-        //Given
+    fun `getBookDetailUseCase returns empty`() = runBlocking {
+        val emptyBook = BookDetailModel()
+        // Given
         coEvery { repositoryMockK.getBookInfo(any()) } returns emptyBook
-        //When
+        // When
         val result = target.invoke(currentBookId)
-        //Then
+        // Then
         assertThat(result).isNotNull()
         assertThat(result).isEqualTo(emptyBook)
     }
 
-
     @Test
-    fun `getBookDetailUseCase invokes repository method once `() = runBlocking{
-        val emptyBook = BookDetailModel(
-        )
-        //Given
+    fun `getBookDetailUseCase invokes repository method once `() = runBlocking {
+        val emptyBook = BookDetailModel()
+        // Given
         coEvery { repositoryMockK.getBookInfo(any()) } returns emptyBook
-        //When
+        // When
         val result = target.invoke(currentBookId)
-        //Then
+        // Then
         coVerify(exactly = 1) { repositoryMockK.getBookInfo(currentBookId) }
     }
 }

@@ -1,3 +1,4 @@
+
 package com.example.bazandroidcourse.data.datasource.remote
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
@@ -27,7 +28,6 @@ class CryptoRemoteDataSourceImplTest {
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
 
-
     // Data mock
     private val mockAPIInterface = mockk<ApplicationAPIInterface>(relaxed = true)
     private lateinit var targetTest: CryptoRemoteDataSourceInterface
@@ -42,7 +42,7 @@ class CryptoRemoteDataSourceImplTest {
     fun setup() {
         currentBookId = "xrp_mxn"
         Dispatchers.setMain(dispatcher)
-        targetTest = CryptoRemoteDataSourceImpl(mockAPIInterface,scope)
+        targetTest = CryptoRemoteDataSourceImpl(mockAPIInterface, scope)
     }
 
     @After
@@ -52,17 +52,8 @@ class CryptoRemoteDataSourceImplTest {
     }
 
     @Test
-    fun `test fetchAllBooks success response`() = runBlocking {
-        //Todo: reimplement for RXJavaTest
-    }
-
-    fun `test fetchAllBooks failure response`() = runBlocking {
-        //Todo: reimplement for RXJavaTest
-    }
-
-    @Test
     fun `fetchBookDetail invokes repository method once test`() = runBlocking {
-        //Given
+        // Given
         val fakeDetailResponse = DetailResponse(
             book = currentBookId,
             low = "100",
@@ -70,10 +61,12 @@ class CryptoRemoteDataSourceImplTest {
             volume = "73293893",
             last = "838"
         )
-        coEvery { mockAPIInterface.fetchBookDetail(currentBookId) } returns mockk(relaxed = true) { fakeDetailResponse }
-        //When
+        coEvery {
+            mockAPIInterface.fetchBookDetail(currentBookId)
+        } returns mockk(relaxed = true) { fakeDetailResponse }
+        // When
         val result = targetTest.fetchBookDetail(currentBookId)
-        //Then
+        // Then
         assertThat(result).isNotNull()
         assertThat(result).isInstanceOf(DetailResponse::class.java)
         coVerify(exactly = 1) { mockAPIInterface.fetchBookDetail(currentBookId) }
@@ -81,22 +74,21 @@ class CryptoRemoteDataSourceImplTest {
 
     @Test
     fun `fetchBookDetail returns correct data test`() = runBlocking {
-        //Given
-        val  fakeDetailResponse = DetailResponse(
+        // Given
+        val fakeDetailResponse = DetailResponse(
             book = "xrp_mxn",
             low = "100",
             high = "1009",
             volume = "73293893",
             last = "838"
         )
-        coEvery { mockAPIInterface.fetchBookDetail("xrp_mxn") } returns mockk(relaxed = true) { fakeDetailResponse }
-        //When
+        coEvery {
+            mockAPIInterface.fetchBookDetail("xrp_mxn")
+        } returns mockk(relaxed = true) { fakeDetailResponse }
+        // When
         val result = targetTest.fetchBookDetail("xrp_mxn")
-        //Then
+        // Then
         assertThat(result).isNotNull()
         assertThat(result).isInstanceOf(DetailResponse::class.java)
-
     }
 }
-
-
