@@ -7,6 +7,13 @@
     tools:context=".MainActivity"
     android:background="@color/white">
 
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="100dp">
+    </ProgressBar>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_books"
         android:layout_width="match_parent"

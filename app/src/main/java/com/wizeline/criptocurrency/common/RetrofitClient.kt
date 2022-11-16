@@ -5,9 +5,9 @@ import com.google.gson.GsonBuilder
 import com.wizeline.criptocurrency.data.remote.dto.BitsoApi
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import okhttp3.logging.HttpLoggingInterceptor
 
 object RetrofitClient {
 
@@ -22,9 +22,10 @@ object RetrofitClient {
         OkHttpClient.Builder()
             .addInterceptor { chain ->
                 val client: OkHttpClient = OkHttpClient.Builder()
-                    .addNetworkInterceptor(HttpLoggingInterceptor().also {
-                        it.setLevel(HttpLoggingInterceptor.Level.BODY)
-                    }
+                    .addNetworkInterceptor(
+                        HttpLoggingInterceptor().also {
+                            it.setLevel(HttpLoggingInterceptor.Level.BODY)
+                        }
                     ).build()
                 val original = chain.request()
                 val request: Request = original.newBuilder()
@@ -42,5 +43,4 @@ object RetrofitClient {
             .build()
 
     fun repository(): BitsoApi = getRetrofit().create(BitsoApi::class.java)
-
 }

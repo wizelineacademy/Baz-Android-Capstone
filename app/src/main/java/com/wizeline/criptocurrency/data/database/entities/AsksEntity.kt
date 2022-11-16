@@ -5,9 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.wizeline.criptocurrency.domain.model.OpenOrder
 
-
 @Entity(tableName = "asks_table")
-data class AsksEntity (
+data class AsksEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id") val id: Int = 0,
     @ColumnInfo(name = "book") var book: String? = null,

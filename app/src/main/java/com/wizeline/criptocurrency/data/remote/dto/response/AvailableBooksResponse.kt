@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import com.wizeline.criptocurrency.data.remote.dto.AvailableBookDto
 import com.wizeline.criptocurrency.domain.model.AvailableBook
 
-data class AvailableBooksResponse (
+data class AvailableBooksResponse(
     @SerializedName("success")
     @Expose
     var success: Boolean? = null,
@@ -17,16 +17,14 @@ data class AvailableBooksResponse (
 fun List<AvailableBookDto>?.toMXNAvailableBookList() = mutableListOf<AvailableBook>()
     .apply {
         this@toMXNAvailableBookList?.forEach {
-            if (it.book?.contains("mxn")==true){
+            if (it.book?.contains("mxn") == true) {
                 this.add(
                     AvailableBook(
-                        book  = it.book,
+                        book = it.book,
                         minimum_value = it.minimum_value,
-                        maximum_value  = it.maximum_value
+                        maximum_value = it.maximum_value
                     )
                 )
             }
-
         }
     }
-

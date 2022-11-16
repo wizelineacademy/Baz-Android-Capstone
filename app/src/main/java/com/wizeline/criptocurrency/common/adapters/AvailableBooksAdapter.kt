@@ -7,12 +7,12 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.wizeline.criptocurrency.common.adapters.utilities.getCoinImage
 import com.wizeline.criptocurrency.common.adapters.utilities.getCoinName
-import com.wizeline.criptocurrency.domain.model.AvailableBook
 import com.wizeline.criptocurrency.databinding.ItemAvailableBookBinding
+import com.wizeline.criptocurrency.domain.model.AvailableBook
 
 class AvailableBooksAdapter(
     private var data: List<AvailableBook> = emptyList(),
-    private val goToDetail: (availableBook:AvailableBook?,coinName: String) -> Unit,
+    private val goToDetail: (availableBook: AvailableBook?, coinName: String) -> Unit,
 ) : RecyclerView.Adapter<AvailableBooksAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,7 +21,7 @@ class AvailableBooksAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context: Context = holder.itemView.context
-            holder.bindItem(data[position], context)
+        holder.bindItem(data[position], context)
     }
 
     override fun getItemCount(): Int = data.size
@@ -29,17 +29,16 @@ class AvailableBooksAdapter(
     inner class ViewHolder(private val itemBinding: ItemAvailableBookBinding) : RecyclerView.ViewHolder(itemBinding.root) {
         fun bindItem(item: AvailableBook, context: Context) {
             itemBinding.apply {
-                val coinName=getCoinName(item.book.toString())
+                val coinName = getCoinName(item.book.toString())
                 tvCoinName.text = coinName
-                tvValueMin.text= "Mínimo :"+item.minimum_value.toString()
-                tvValueMax.text= "Máximo :"+item.maximum_value.toString()
+                tvValueMin.text = "Mínimo :" + item.minimum_value.toString()
+                tvValueMax.text = "Máximo :" + item.maximum_value.toString()
                 imgCoin.setImageDrawable(ContextCompat.getDrawable(context.applicationContext, getCoinImage(item.book.orEmpty())))
 
                 itemView.setOnClickListener {
-                    goToDetail(item,coinName)
+                    goToDetail(item, coinName)
                 }
             }
         }
     }
-
 }

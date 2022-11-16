@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import com.wizeline.criptocurrency.domain.model.OpenOrder
 
 @Entity(tableName = "bids_table")
-data class BidsEntity (
+data class BidsEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id") val id: Int = 0,
     @ColumnInfo(name = "book") var book: String? = null,

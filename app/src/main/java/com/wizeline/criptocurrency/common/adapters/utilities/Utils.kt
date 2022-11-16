@@ -4,10 +4,15 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.wizeline.criptocurrency.R
+import java.text.NumberFormat
+
+fun Double.formatAsCurrency(): String = NumberFormat.getCurrencyInstance().format(this)
 
 fun getCoinImage(coin: String): Int {
-    val image = when(coin) {
+    val image = when (coin) {
         CoinType.BITCOIN.value -> R.drawable.bitcoin
         CoinType.ETHEREUM.value -> R.drawable.etherium
         CoinType.XRP.value -> R.drawable.xrp
@@ -24,7 +29,7 @@ fun getCoinImage(coin: String): Int {
 }
 
 fun getCoinName(coin: String): String {
-    val name = when(coin) {
+    val name = when (coin) {
         CoinType.BITCOIN.value -> "Bitcoin"
         CoinType.ETHEREUM.value -> "Etherium"
         CoinType.XRP.value -> "XRP"
@@ -40,8 +45,9 @@ fun getCoinName(coin: String): String {
     return name
 }
 
-
-
+fun Fragment.toast(text: String, length: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(requireContext(), text, length).show()
+}
 
 fun isInternetAvailable(context: Context): Boolean {
     var result = false
@@ -66,7 +72,6 @@ fun isInternetAvailable(context: Context): Boolean {
                     ConnectivityManager.TYPE_ETHERNET -> true
                     else -> false
                 }
-
             }
         }
     }

@@ -6,7 +6,7 @@ import com.wizeline.criptocurrency.domain.model.OpenOrder
 import com.wizeline.criptocurrency.domain.model.OrderBook
 import java.util.*
 
-data class OrderBookDto (
+data class OrderBookDto(
     @SerializedName("asks")
     @Expose
     var asks: List<OpenOrderDto>? = null,
@@ -19,10 +19,9 @@ data class OrderBookDto (
     @SerializedName("sequence")
     @Expose
     var sequence: String? = null
-){
+) {
     private fun List<OpenOrderDto>?.toOrderBookList(): List<OpenOrder> =
-        this?.map {it.toOpenOrder()}?: emptyList()
-
+        this?.map { it.toOpenOrder() } ?: emptyList()
 
     fun toOrderBook(book: String): OrderBook =
         OrderBook(

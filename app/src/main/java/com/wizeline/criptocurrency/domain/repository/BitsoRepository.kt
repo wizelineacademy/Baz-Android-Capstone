@@ -7,8 +7,8 @@ import com.wizeline.criptocurrency.domain.model.Ticker
 import io.reactivex.Single
 
 interface BitsoRepository {
-     suspend fun getAvailableBooks(): List<AvailableBook>
-     suspend fun getTicker(book: String): Ticker
-     suspend fun getOrderBook(book: String): OrderBook
-     suspend fun getAvailableBooksRxJava(): Single<AvailableBooksResponse>
+    suspend fun getAvailableBooks(): List<AvailableBook>
+    suspend fun getTicker(book: String): Ticker
+    suspend fun getOrderBook(book: String): OrderBook
+    suspend fun getAvailableBooksRxJava(): Single<AvailableBooksResponse>
 }

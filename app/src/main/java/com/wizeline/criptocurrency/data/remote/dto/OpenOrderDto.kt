@@ -2,11 +2,10 @@ package com.wizeline.criptocurrency.data.remote.dto
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.wizeline.criptocurrency.data.remote.dto.AvailableBookDto
+import com.wizeline.criptocurrency.common.adapters.utilities.formatAsCurrency
 import com.wizeline.criptocurrency.domain.model.OpenOrder
-import java.io.Serializable
 
-data class OpenOrderDto (
+data class OpenOrderDto(
     @SerializedName("book")
     @Expose
     var book: String? = null,
@@ -20,7 +19,7 @@ data class OpenOrderDto (
     fun toOpenOrder(): OpenOrder =
         OpenOrder(
             book = book,
-            price = price?.toString(),
+            price = price?.formatAsCurrency(),
             amount = amount?.toString()
         )
 }

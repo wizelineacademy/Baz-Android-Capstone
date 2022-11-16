@@ -14,12 +14,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class AvailableBooksViewModel @Inject constructor(
@@ -34,11 +34,10 @@ class AvailableBooksViewModel @Inject constructor(
     val isLoading: LiveData<Boolean> get() = _isLoading
     val error: LiveData<String> get() = _error
 
-
-    private val  defaultScheduler: Scheduler = Schedulers.io()
+    private val defaultScheduler: Scheduler = Schedulers.io()
 
     fun getAvailableBooksCoroutine() {
-        CoroutineScope(Dispatchers.Main).launch{
+        CoroutineScope(Dispatchers.Main).launch {
             availableBooksUseCase().onEach {
                 when (it) {
                     is RequestState.Loading -> _isLoading.value = true
@@ -47,13 +46,12 @@ class AvailableBooksViewModel @Inject constructor(
                         _isLoading.value = false
                     }
                     is RequestState.Error -> {
-                        _error.value=it.message.toString()
+                        _error.value = it.message.toString()
                         _isLoading.value = false
                     }
                 }
             }
         }
-
     }
 
     suspend fun getAvailableBooksRxJava(error: (info: String) -> Unit) = MutableLiveData<List<AvailableBook>>().apply {
@@ -84,11 +82,10 @@ class AvailableBooksViewModel @Inject constructor(
                     _isLoading.value = false
                 }
                 is RequestState.Error -> {
-                    _error.value=it.message.toString()
+                    _error.value = it.message.toString()
                     _isLoading.value = false
                 }
             }
         }.launchIn(viewModelScope)
     }
-
 }

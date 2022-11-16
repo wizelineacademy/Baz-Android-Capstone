@@ -8,7 +8,7 @@ import com.wizeline.criptocurrency.data.remote.dto.response.AvailableBooksRespon
 import com.wizeline.criptocurrency.domain.model.AvailableBook
 
 @Entity(tableName = "available_book_table")
-data class AvailableBookEntity (
+data class AvailableBookEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id") val id: Int = 0,
     @ColumnInfo(name = "book") var book: String? = null,
@@ -21,9 +21,9 @@ fun List<AvailableBook>?.toAvailableBookEntityList() = mutableListOf<AvailableBo
         this@toAvailableBookEntityList?.forEach {
             this.add(
                 AvailableBookEntity(
-                    book  = it.book,
+                    book = it.book,
                     minimum_value = it.minimum_value,
-                    maximum_value  = it.maximum_value
+                    maximum_value = it.maximum_value
                 )
             )
         }
@@ -36,7 +36,7 @@ fun List<AvailableBookEntity>?.toAvailableBookListFromEntity() = mutableListOf<A
                 AvailableBook(
                     book = it.book,
                     minimum_value = it.minimum_value,
-                    maximum_value  = it.maximum_value
+                    maximum_value = it.maximum_value
                 )
             )
         }
@@ -49,8 +49,8 @@ fun List<AvailableBookEntity>?.toAvailableBookResponse() =
 
 fun List<AvailableBookEntity>?.toAvailableBookResponseListFromEntity() = mutableListOf<AvailableBookDto>()
     .apply {
-        //val availableBookDtoList :MutableList<AvailableBookDto> = mutableListOf()
+        // val availableBookDtoList :MutableList<AvailableBookDto> = mutableListOf()
         this@toAvailableBookResponseListFromEntity?.forEach {
-            this.add(AvailableBookDto(it.book,it.minimum_value,it.maximum_value))
+            this.add(AvailableBookDto(it.book, it.minimum_value, it.maximum_value))
         }
     }

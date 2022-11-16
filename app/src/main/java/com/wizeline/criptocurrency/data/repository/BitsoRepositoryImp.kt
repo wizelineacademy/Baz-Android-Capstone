@@ -14,6 +14,9 @@ import com.wizeline.criptocurrency.domain.repository.BitsoRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class BitsoRepositoryImp @Inject constructor(
     private val api: BitsoApi,
@@ -21,9 +24,21 @@ class BitsoRepositoryImp @Inject constructor(
     @ApplicationContext private val context: Context,
 ) : BitsoRepository {
 
+    // ==Available Books==
     override suspend fun getAvailableBooks(): List<AvailableBook> =
         if (isInternetAvailable(context = context)) {
             val bookList = api.getAvaliableBooks().payload?.map { it.toAvailableBook() } ?: listOf()
+            updateAvailableOrderBookDatabase(bookList)
+            bookList
+        } else {
+            Log.i("LocalDataBase", "Getting availableBooks from local database.")
+            localDataSource.getAllAvailableBooksFromDatabase().toAvailableBookListFromEntity().let {
+                if (it.isNotEmpty()) it else emptyList()
+            }.toList()
+        }
+
+    fun updateAvailableOrderBookDatabase(bookList: List<AvailableBook>) {
+        CoroutineScope(Dispatchers.IO).launch {
             localDataSource.getAllAvailableBooksFromDatabase().run {
                 if (this.isNullOrEmpty()) {
                     Log.i("LocalDataBase", "AvailableOrderBookEntity inserted.")
@@ -33,44 +48,56 @@ class BitsoRepositoryImp @Inject constructor(
                     localDataSource.updateAvailableOrderBookDatabase(bookList.toAvailableBookEntityList())
                 }
             }
-            bookList
-        } else {
-            Log.i("LocalDataBase", "Getting availableBooks from local database.")
-            localDataSource.getAllAvailableBooksFromDatabase().toAvailableBookListFromEntity().let {
-                if (it.isNotEmpty()) it else emptyList()
-            }.toList()
         }
+    }
 
-
+    // ==Ticker==
     override suspend fun getTicker(book: String): Ticker =
         if (isInternetAvailable(context = context)) {
-           val ticker =api.getTicker(book = book).payload?.toTicker() ?: Ticker()
-            Log.i("LocalDataBase", "TickerEntity deleted.")
-            localDataSource.deleteTickerDatabase(book)
-            Log.i("LocalDataBase", "TickerEntity inserted.")
-            localDataSource.insertTickerToDatabase(ticker.toTickerEntity())
+            val ticker = api.getTicker(book = book).payload?.toTicker() ?: Ticker()
+            updateTickerDatabase(book, ticker)
             ticker
         } else {
             Log.i("LocalDataBase", "Getting ticker from local database.")
-            localDataSource.getTickerFromDatabase(book).toTickerFromEntity().let {ticker->
+            localDataSource.getTickerFromDatabase(book).toTickerFromEntity().let { ticker ->
                 if (ticker.book.isNullOrEmpty()) Ticker()
                 else ticker
             }
         }
 
+    fun updateTickerDatabase(book: String, ticker: Ticker) {
+        CoroutineScope(Dispatchers.IO).launch {
+            Log.i("LocalDataBase", "TickerEntity deleted.")
+            localDataSource.deleteTickerDatabase(book)
+            Log.i("LocalDataBase", "TickerEntity inserted.")
+            localDataSource.insertTickerToDatabase(ticker.toTickerEntity())
+        }
+    }
 
+    // ==Order Book==
     override suspend fun getOrderBook(book: String): OrderBook =
-        if (isInternetAvailable(context)){
-            val orderBook =api.getOrderBook(book = book).payload?.toOrderBook(book = book)?:OrderBook()
-            localDataSource.deleteOpenOrdersFromDatabase(book)
-            localDataSource.insertOpenOrdersToDatabase(orderBook.bids.toBidsEntityList(), orderBook.asks.toAsksEntityList())
-            Log.i("CriptoCurrencyDataBase", "OrderBook inserted")
+        if (isInternetAvailable(context)) {
+            val orderBook =
+                api.getOrderBook(book = book).payload?.toOrderBook(book = book) ?: OrderBook()
+            updateOrderBookDatabase(book, orderBook)
             orderBook
-        }else localDataSource.getOrderBookfromDatabase(book).let {orderBook->
+        } else localDataSource.getOrderBookfromDatabase(book).let { orderBook ->
             if (orderBook.book.isNullOrEmpty()) OrderBook()
             else orderBook
-            }
+        }
 
+    fun updateOrderBookDatabase(book: String, orderBook: OrderBook?) {
+        CoroutineScope(Dispatchers.IO).launch {
+            localDataSource.deleteOpenOrdersFromDatabase(book)
+            localDataSource.insertOpenOrdersToDatabase(
+                orderBook?.bids.toBidsEntityList(),
+                orderBook?.asks.toAsksEntityList()
+            )
+            Log.i("CriptoCurrencyDataBase", "OrderBook inserted")
+        }
+    }
+
+    // AvailableBooks RxJava
     override suspend fun getAvailableBooksRxJava(): Single<AvailableBooksResponse> =
         if (isInternetAvailable(context))
             api.getAvailableBooksRxJava().let {
@@ -81,7 +108,5 @@ class BitsoRepositoryImp @Inject constructor(
         else Single.just(getAllAvailableOrderBookRxJavaFromDatabase())
 
     private fun getAllAvailableOrderBookRxJavaFromDatabase(): AvailableBooksResponse =
-        localDataSource.getAllAvailableBooksFromDatabase().let {it.toAvailableBookResponse()}
-
-
+        localDataSource.getAllAvailableBooksFromDatabase().let { it.toAvailableBookResponse() }
 }

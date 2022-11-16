@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.room.Room
-import com.wizeline.criptocurrency.MainActivity
 import com.wizeline.criptocurrency.R
 import com.wizeline.criptocurrency.common.adapters.*
 import com.wizeline.criptocurrency.common.adapters.utilities.toast
@@ -20,32 +18,35 @@ import com.wizeline.criptocurrency.data.database.data_source.CryptoCurrencyLocal
 import com.wizeline.criptocurrency.data.repository.BitsoRepositoryImp
 import com.wizeline.criptocurrency.databinding.FragmentAvailableBooksBinding
 import com.wizeline.criptocurrency.domain.model.use_case.AvailableBooksUseCase
-import com.wizeline.criptocurrency.domain.model.use_case.OrderBookUseCase
-import com.wizeline.criptocurrency.domain.model.use_case.TickerUseCase
 
 class AvailableBooksFragment : Fragment() {
 
     private lateinit var availableBooksUseCase: AvailableBooksUseCase
     private lateinit var localDataSource: CryptoCurrencyLocalDataSource
-    private val availableBooksVM by activityViewModels<AvailableBooksViewModel>(){
-        AvailableBooksViewModelFactory(availableBooksUseCase)}
+    private val availableBooksVM by activityViewModels<AvailableBooksViewModel>() {
+        AvailableBooksViewModelFactory(availableBooksUseCase)
+    }
     private lateinit var binding: FragmentAvailableBooksBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAvailableBooksBinding.inflate(layoutInflater,
-            container, false)
-        criptoCurrencyDB= Room.databaseBuilder(
+        binding = FragmentAvailableBooksBinding.inflate(
+            layoutInflater,
+            container, false
+        )
+        criptoCurrencyDB = Room.databaseBuilder(
             requireContext(),
             CriptoCurrencyDB::class.java,
             "criptoCurrencyDB"
         ).allowMainThreadQueries()
             .build()
-        localDataSource= CryptoCurrencyLocalDataSource(criptoCurrencyDB.getCriptoCurrencyDao())
+        localDataSource = CryptoCurrencyLocalDataSource(criptoCurrencyDB.getCriptoCurrencyDao())
         availableBooksUseCase = AvailableBooksUseCase(
-            BitsoRepositoryImp(RetrofitClient.repository(),localDataSource,requireContext()))
+            BitsoRepositoryImp(RetrofitClient.repository(), localDataSource, requireContext())
+        )
         return binding.root
     }
 
@@ -55,38 +56,30 @@ class AvailableBooksFragment : Fragment() {
 
         binding.apply {
             availableBooksVM.isLoading.observe(viewLifecycleOwner) {
-                if(it){
-                    toast("Loading...")
-                    //ShowProgress
-                }else{
-                    //HideProgress
+                if (it) {
+                    progressCircular.visibility=View.VISIBLE
+                } else {
+                    progressCircular.visibility=View.GONE
                 }
             }
-                availableBooksVM.availableOrderBookList.observe(viewLifecycleOwner) {
+            availableBooksVM.availableOrderBookList.observe(viewLifecycleOwner) {
 
-                        rvBooks.adapter = AvailableBooksAdapter(it ?: emptyList(),
-                            goToDetail = { availableBook,coinName->
-                                var bundle= bundleOf("book_code" to availableBook?.book.orEmpty(),
-                                "coin_code" to coinName)
-                                findNavController().navigate(R.id.orderBookDetailFragment,bundle)
-
-                                /*
-                                (activity as MainActivity).loadFragment(
-                                    OrderBookDetailFragment.newInstance(
-                                        bookParameter = availableBook?.book.orEmpty(),
-                                        coinNameParameter = coinName))
-                                 */
-
-                            }
+                rvBooks.adapter = AvailableBooksAdapter(
+                    it ?: emptyList(),
+                    goToDetail = { availableBook, coinName ->
+                        val bundle = bundleOf(
+                            "book_code" to availableBook?.book.orEmpty(),
+                            "coin_code" to coinName
                         )
+                        findNavController().navigate(R.id.orderBookDetailFragment, bundle)
 
-                }
+                    }
+                )
+            }
 
-
-            availableBooksVM.error.observe(viewLifecycleOwner){
+            availableBooksVM.error.observe(viewLifecycleOwner) {
                 toast(it)
             }
         }
     }
-
 }

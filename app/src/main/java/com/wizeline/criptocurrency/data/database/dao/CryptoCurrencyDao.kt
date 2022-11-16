@@ -19,7 +19,6 @@ interface CryptoCurrencyDao {
     @Query("DELETE FROM available_book_table")
     fun deleteAllAvailableBooksDatabase()
 
-
     @Query("SELECT * FROM ticker_table WHERE book LIKE :book")
     fun getTickerFromDatabase(book: String): TickerEntity
 
@@ -32,7 +31,7 @@ interface CryptoCurrencyDao {
     @Query("DELETE FROM ticker_table WHERE book LIKE :book")
     fun deleteTickerDatabase(book: String)
 
-    //OrderBook Bids
+    // OrderBook Bids
     @Query("SELECT * FROM bids_table WHERE book LIKE :book")
     fun getAllOrderBookBidsFromDatabase(book: String): List<BidsEntity>
 
@@ -42,7 +41,7 @@ interface CryptoCurrencyDao {
     @Query("DELETE FROM bids_table WHERE book LIKE :book")
     fun deleteAllOrderBookBidsDatabase(book: String)
 
-    //OrderBook Asks
+    // OrderBook Asks
     @Query("SELECT * FROM asks_table WHERE book LIKE :book")
     fun getAllOrderBookAsksFromDatabase(book: String): List<AsksEntity>
 
@@ -52,28 +51,30 @@ interface CryptoCurrencyDao {
     @Query("DELETE FROM asks_table WHERE book LIKE :book")
     fun deleteAllOrderBookAsksDatabase(book: String)
 
-    //Order Book Open Orders
+    // Order Book Open Orders
     @Transaction
     fun getOrderBookFromDatabase(book: String): OrderBook {
         val bids = getAllOrderBookBidsFromDatabase(book)
         val asks = getAllOrderBookAsksFromDatabase(book)
         return OrderBook(
             book = book,
-            bids = bids.map {it.toBidsOpenOrderFromEntity()},
-            asks = asks.map {it.toAsksOpenOrderFromEntity()}
+            bids = bids.map { it.toBidsOpenOrderFromEntity() },
+            asks = asks.map { it.toAsksOpenOrderFromEntity() }
         )
     }
 
     @Transaction
-    fun insertOrderBookOpenOrdersFromDatabase(bidsEntityList: List<BidsEntity>, asksEntityList: List<AsksEntity>){
+    fun insertOrderBookOpenOrdersFromDatabase(
+        bidsEntityList: List<BidsEntity>,
+        asksEntityList: List<AsksEntity>
+    ) {
         insertOrderBookBidsToDatabase(bidsEntityList)
         insertOrderBookAsksToDatabase(asksEntityList)
     }
 
     @Transaction
-    fun deleteOrderBookOpenOrdersFromDatabase(book: String){
+    fun deleteOrderBookOpenOrdersFromDatabase(book: String) {
         deleteAllOrderBookBidsDatabase(book)
         deleteAllOrderBookAsksDatabase(book)
     }
-
 }

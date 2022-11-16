@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import com.wizeline.criptocurrency.domain.model.Ticker
 
 @Entity(tableName = "ticker_table")
-data class TickerEntity (
+data class TickerEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id") val id: Int = 0,
     @ColumnInfo(name = "book") var book: String? = null,

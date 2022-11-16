@@ -2,10 +2,10 @@ package com.wizeline.criptocurrency.data.remote.dto
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.wizeline.criptocurrency.common.adapters.utilities.formatAsCurrency
 import com.wizeline.criptocurrency.domain.model.Ticker
 import java.io.Serializable
 import java.util.*
-
 
 data class TickerDto(
     @SerializedName("book")
@@ -16,13 +16,13 @@ data class TickerDto(
     var volume: String? = null,
     @SerializedName("high")
     @Expose
-    var high: String? = null,
+    var high: Double? = null,
     @SerializedName("last")
     @Expose
-    var last: String? = null,
+    var last: Double? = null,
     @SerializedName("low")
     @Expose
-    var low: String? = null,
+    var low: Double? = null,
     @SerializedName("vwap")
     @Expose
     var vwap: String? = null,
@@ -41,14 +41,14 @@ data class TickerDto(
     @SerializedName("rolling_average_change")
     @Expose
     var rolling_average_change: Any? = null,
-): Serializable {
+) : Serializable {
     fun toTicker(): Ticker =
         Ticker(
             book = book,
             volume = volume,
-            high = high,
-            last = last,
-            low = low,
+            high = high?.formatAsCurrency(),
+            last = last?.formatAsCurrency(),
+            low = low?.formatAsCurrency(),
             vwap = vwap,
             ask = ask,
             bid = bid,

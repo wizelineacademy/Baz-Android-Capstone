@@ -22,28 +22,26 @@ class OrderBookDetailFragment : Fragment() {
 
     private lateinit var tickerUseCase: TickerUseCase
     private lateinit var orderBookUseCase: OrderBookUseCase
-    private var book:String=""
-    private var coinName:String=""
+    private var book: String = ""
+    private var coinName: String = ""
 
     private lateinit var localDataSource: CryptoCurrencyLocalDataSource
-    private val orderBookDetailVM by activityViewModels<OrderBookDetailViewModel>(){
-        OrderBooksDetailViewModelFactory(tickerUseCase,orderBookUseCase)
+    private val orderBookDetailVM by activityViewModels<OrderBookDetailViewModel>() {
+        OrderBooksDetailViewModelFactory(tickerUseCase, orderBookUseCase)
     }
     private lateinit var binding: FragmentBookDetailBinding
 
-
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentBookDetailBinding.inflate(layoutInflater, container, false)
-        localDataSource= CryptoCurrencyLocalDataSource(InitApplication.criptoCurrencyDB.getCriptoCurrencyDao())
-        tickerUseCase = TickerUseCase(BitsoRepositoryImp(RetrofitClient.repository(),localDataSource,requireContext()))
-        orderBookUseCase = OrderBookUseCase(BitsoRepositoryImp(RetrofitClient.repository(),localDataSource,requireContext()))
+        localDataSource = CryptoCurrencyLocalDataSource(InitApplication.criptoCurrencyDB.getCriptoCurrencyDao())
+        tickerUseCase = TickerUseCase(BitsoRepositoryImp(RetrofitClient.repository(), localDataSource, requireContext()))
+        orderBookUseCase = OrderBookUseCase(BitsoRepositoryImp(RetrofitClient.repository(), localDataSource, requireContext()))
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,17 +55,17 @@ class OrderBookDetailFragment : Fragment() {
             tvBookName.text = orderBookDetailVM.selectedCoinName.value.orEmpty()
 
             orderBookDetailVM.isLoading.observe(viewLifecycleOwner) {
-                if(it){
-                    //ShowProgress
-                }else{
-                    //HideProgress
+                if (it) {
+                    progressCircular.visibility=View.VISIBLE
+                } else {
+                    progressCircular.visibility=View.GONE
                 }
-                   }
+            }
 
             orderBookDetailVM.ticker.observe(viewLifecycleOwner) {
-                tvBookLastPrice.text = context?.getString(R.string.last,it?.last ?: "")
-                tvBookHighPrice.text =  context?.getString(R.string.high,it?.high ?: "")
-                tvBookLowPrice.text =  context?.getString(R.string.low,it?.low ?: "")
+                tvBookLastPrice.text = context?.getString(R.string.last, it?.last ?: "")
+                tvBookHighPrice.text = context?.getString(R.string.high, it?.high ?: "")
+                tvBookLowPrice.text = context?.getString(R.string.low, it?.low ?: "")
             }
 
             orderBookDetailVM.orderBook.observe(viewLifecycleOwner) {
@@ -75,7 +73,7 @@ class OrderBookDetailFragment : Fragment() {
                 rvOrderBids.adapter = OpenOrdersAdapter(it?.bids ?: emptyList())
             }
 
-            orderBookDetailVM.error.observe(viewLifecycleOwner){
+            orderBookDetailVM.error.observe(viewLifecycleOwner) {
                 toast(it)
             }
         }

@@ -2,7 +2,7 @@ package com.wizeline.criptocurrency.domain.model
 
 import java.util.*
 
-data class Ticker (
+data class Ticker(
     var book: String? = null,
     var volume: String? = null,
     var high: String? = null,

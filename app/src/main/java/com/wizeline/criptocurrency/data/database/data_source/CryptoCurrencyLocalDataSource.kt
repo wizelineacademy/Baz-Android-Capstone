@@ -24,7 +24,6 @@ class CryptoCurrencyLocalDataSource @Inject constructor(
     fun deleteAllAvailableBooksDatabase() =
         localDB.deleteAllAvailableBooksDatabase()
 
-
     /**==Tickers==**/
     fun getTickerFromDatabase(book: String): TickerEntity =
         localDB.getTickerFromDatabase(book)
@@ -39,13 +38,15 @@ class CryptoCurrencyLocalDataSource @Inject constructor(
         localDB.deleteTickerDatabase(book)
 
     /**==OrderBooks==**/
-    fun getOrderBookfromDatabase(book:String) =
+    fun getOrderBookfromDatabase(book: String) =
         localDB.getOrderBookFromDatabase(book)
 
-    fun insertOpenOrdersToDatabase(bidsEntityList: List<BidsEntity>, asksEntityList: List<AsksEntity>) =
+    fun insertOpenOrdersToDatabase(
+        bidsEntityList: List<BidsEntity>,
+        asksEntityList: List<AsksEntity>
+    ) =
         localDB.insertOrderBookOpenOrdersFromDatabase(bidsEntityList, asksEntityList)
 
     fun deleteOpenOrdersFromDatabase(book: String) =
         localDB.deleteOrderBookOpenOrdersFromDatabase(book)
-
 }

@@ -6,7 +6,6 @@ import com.wizeline.criptocurrency.data.remote.dto.response.TickerResponse
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface BitsoApi {
@@ -26,5 +25,4 @@ interface BitsoApi {
 
     @GET("available_books")
     fun getAvailableBooksRxJava(): Observable<Response<AvailableBooksResponse>>
-
 }
