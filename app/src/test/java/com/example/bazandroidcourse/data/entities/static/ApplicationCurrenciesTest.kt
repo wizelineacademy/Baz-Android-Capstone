@@ -2,14 +2,13 @@ package com.example.bazandroidcourse.data.entities.static
 
 import org.junit.Test
 
-
 /***
  * Unit tests of ApplicationCurrencies class using only junit
  */
 class ApplicationCurrenciesTest {
     @Test
     fun `find by ticker returns valid currency`() {
-        val result = ApplicationCurrencies.findByTicker("btc")
+        val result = ApplicationCurrencies.findByTicker("btc_mxn")
         assert(result == ApplicationCurrencies.Bitcoin)
     }
 
@@ -18,5 +17,4 @@ class ApplicationCurrenciesTest {
         val result = ApplicationCurrencies.findByTicker("aaa_zzzz")
         assert(result == null)
     }
-
 }

@@ -1,13 +1,13 @@
 package com.example.bazandroidcourse.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,13 +15,12 @@ import com.example.bazandroidcourse.data.entities.BookModel
 import com.example.bazandroidcourse.databinding.FragmentAllCryptosBinding
 import com.example.bazandroidcourse.ui.fragments.adapters.BooksAdapter
 import com.example.bazandroidcourse.ui.viewmodel.BooksViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AllCryptosFragment : Fragment(), AdapterView.OnItemSelectedListener {
-    private val viewModel: BooksViewModel = BooksViewModel.createInstance()
+    private val viewModel: BooksViewModel by viewModels()
     private lateinit var binding: FragmentAllCryptosBinding
-
-    //private var currentCurrency = "mxn"
-    private var currentCurrency = "mxn"
     private val adapter = BooksAdapter() {
         navigateTo(it)
     }
@@ -37,10 +36,9 @@ class AllCryptosFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getAllBooks(currentCurrency)
+        viewModel.currentCurrency.value?.let { viewModel.getAllBooks(it) }
         initVerticalList()
         initSpinner(this)
-
         addObservers()
     }
 
@@ -95,6 +93,5 @@ class AllCryptosFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
     }
-
 
 }

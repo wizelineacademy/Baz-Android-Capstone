@@ -1,5 +1,9 @@
 package com.example.bazandroidcourse.data.utils.network
 
 interface NetworkManagerInterface {
-    fun isOnline():Boolean
+    /***
+     * Allows know if the device has a internet connection.
+     * @return true if the device has a internet connection.
+     */
+    fun isOnline(): Boolean
 }

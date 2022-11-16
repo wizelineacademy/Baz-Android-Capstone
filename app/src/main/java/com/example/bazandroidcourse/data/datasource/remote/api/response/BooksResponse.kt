@@ -2,9 +2,9 @@ package com.example.bazandroidcourse.data.datasource.remote.api.response
 
 data class BooksResponse(
     var success: Boolean? = null,
-    var payload: List<BookResponse> = emptyList()
+    var payload: List<BookResponsePayload> = emptyList()
 )
 
-data class BookResponse (
+data class BookResponsePayload(
     var book: String? = null
 )

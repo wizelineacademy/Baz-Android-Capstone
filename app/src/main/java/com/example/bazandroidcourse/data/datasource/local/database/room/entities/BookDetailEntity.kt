@@ -7,9 +7,9 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "book_details")
 data class BookDetailEntity(
     @PrimaryKey @ColumnInfo(name = "book_id")
-    val book    : String = "0",
-    val volume  : String = "",
-    val high    : String = "",
-    val last    : String = "",
-    val low     : String = "",
+    val book: String = "0",
+    val volume: String = "",
+    val high: String = "",
+    val last: String = "",
+    val low: String = "",
 )

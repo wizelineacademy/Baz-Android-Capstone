@@ -1,23 +1,28 @@
 package com.example.bazandroidcourse.domain
 
-
+import com.example.bazandroidcourse.data.di.ApplicationScope
 import com.example.bazandroidcourse.data.entities.BookModel
 import com.example.bazandroidcourse.data.entities.static.ApplicationCurrencies
 import com.example.bazandroidcourse.data.repository.BooksRepositoryInterface
-
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class GetAllBooksFilteredUseCase(
+class GetAllBooksFilteredUseCase @Inject constructor(
     private val repository: BooksRepositoryInterface,
-    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
+    @ApplicationScope private val externalScope: CoroutineScope
 ) {
-    suspend operator fun invoke(currency: String): List<BookModel> =
-        withContext(defaultDispatcher) {
+    /***
+     *
+     * Returns all the currencies supported by the application, valid for making transactions.
+     * @param currentCurrency:String is the current currency  to trading operations, example:"mxn"
+     * @return List<BookModel> returns a list of BookModel entities.
+     */
+    suspend operator fun invoke(currentCurrency: String): List<BookModel> =
+        withContext(externalScope.coroutineContext) {
             repository.getAllBooks().filter {
-                it.book.endsWith("_$currency") &&
-                        ApplicationCurrencies.findByTicker((it.book)) != null
+                it.book.endsWith("_$currentCurrency")
+                        && ApplicationCurrencies.findByTicker((it.book)) != null
             }
         }
 }

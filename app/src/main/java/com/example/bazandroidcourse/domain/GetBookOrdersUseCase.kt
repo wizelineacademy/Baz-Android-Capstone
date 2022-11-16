@@ -1,16 +1,23 @@
 package com.example.bazandroidcourse.domain
 
+import com.example.bazandroidcourse.data.di.ApplicationScope
 import com.example.bazandroidcourse.data.entities.BookOrdersModel
 import com.example.bazandroidcourse.data.repository.BooksRepositoryInterface
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class GetBookOrdersUseCase(
+class GetBookOrdersUseCase @Inject constructor(
     private val repository: BooksRepositoryInterface,
-    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
+    @ApplicationScope private val externalScope: CoroutineScope
 ) {
-    suspend operator fun invoke(bookId:String): BookOrdersModel = withContext(defaultDispatcher){
-        repository.getBookOrders(bookId)
-    }
+    /***
+     * Returns a object with bids and asks information of a book of a crypto currency
+     * @param bookId:String is the book id example: "btc_mxn"
+     * @return BookOrdersModel is an object with bids and asks information
+     */
+    suspend operator fun invoke(bookId: String): BookOrdersModel =
+        withContext(externalScope.coroutineContext) {
+            repository.getBookOrders(bookId)
+        }
 }

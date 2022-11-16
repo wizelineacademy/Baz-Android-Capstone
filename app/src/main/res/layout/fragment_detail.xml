@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="@dimen/general_horizontal_margin">
@@ -243,16 +242,60 @@
 
 
     </androidx.cardview.widget.CardView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_labels"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal"
+        android:paddingVertical="@dimen/general_vertical_margin"
+        android:paddingHorizontal="@dimen/general_horizontal_margin"
+        app:layout_constraintTop_toBottomOf="@+id/card_prices"
+        app:layout_constraintBottom_toTopOf="@+id/container_recyclers"
+>
+
+        <TextView
+            android:id="@+id/lbl_asks"
+            style="@style/content_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_asks"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/lbl_bids"
+            style="@style/content_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_binds"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_recyclers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/general_horizontal_margin"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
+
+        android:paddingBottom="250dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card_prices">
+        app:layout_constraintTop_toBottomOf="@id/container_labels">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -261,54 +304,27 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
-        <TextView
-            android:id="@+id/lbl_asks"
-            style="@style/content_bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="20dp"
-            android:text="@string/detail_asks"
-            app:layout_constraintBottom_toTopOf="@+id/recycler_asks"
-            app:layout_constraintEnd_toEndOf="@+id/recycler_asks"
-            app:layout_constraintStart_toStartOf="@+id/recycler_asks"
-            app:layout_constraintTop_toTopOf="parent" />
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_asks"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:minWidth="120dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="80dp"
+            android:minWidth="130dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lbl_asks"
-            />
-
-        <TextView
-            android:id="@+id/lbl_bids"
-            style="@style/content_bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="20dp"
-            android:text="@string/detail_binds"
-            app:layout_constraintBottom_toTopOf="@+id/recycler_binds"
-            app:layout_constraintEnd_toEndOf="@+id/recycler_binds"
-            app:layout_constraintStart_toStartOf="@+id/recycler_binds"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_binds"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="120dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="match_parent"
+            android:minWidth="130dp"
+            android:layout_marginBottom="80dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@id/lbl_bids" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
