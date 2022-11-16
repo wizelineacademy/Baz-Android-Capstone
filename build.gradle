@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext.kotlin_version = "1.7.10"
-    ext.jococo_version = "0.8.8"
+    ext.jococo_version = "0.8.4"
     repositories {
         google()
         mavenCentral()
@@ -21,7 +21,6 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
     id 'androidx.navigation.safeargs' version '2.4.2' apply false
     id 'com.google.dagger.hilt.android' version '2.44' apply false
-
 }
 
 task clean(type: Delete) {

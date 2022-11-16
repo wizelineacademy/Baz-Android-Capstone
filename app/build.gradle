@@ -3,10 +3,10 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-kapt'
-//    id 'jacoco'
     id "org.jlleitschuh.gradle.ktlint" version '11.0.0'
     id 'com.google.dagger.hilt.android'
-    id 'kotlin-android-extensions'
+    id 'jacoco'
+
 }
 
 android {
@@ -21,37 +21,39 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
-    variantFilter { variant ->
-        def names = variant.flavors*.name
-        if (variant.buildType.name == 'release') {
-            if (names.contains("development")) {
-                setIgnore(true)
-            } else if (names.contains("preProduction")) {
-                setIgnore(true)
-            }
-        }
-    }
-
-    flavorDimensions "versionName"
-
-    productFlavors {
-        development {
-            versionNameSuffix "dv"
-            versionName "1.0.0"
-            buildConfigField("String", "API_PRINCIPAL_PATH", '"https://api.bitso.com/v3/"')
-            buildConfigField("String", "API_ICONS", '"https://cryptoflash-icons-api.herokuapp.com/"')
-        }
-    }
+//
+//    variantFilter { variant ->
+//        def names = variant.flavors*.name
+//        if (variant.buildType.name == 'release') {
+//            if (names.contains("development")) {
+//                setIgnore(true)
+//            } else if (names.contains("preProduction")) {
+//                setIgnore(true)
+//            }
+//        }
+//    }
+//
+//    flavorDimensions "versionName"
+//
+//    productFlavors {
+//        development {
+//            versionNameSuffix "dv"
+//            versionName "1.0.0"
+//            buildConfigField("String", "API_PRINCIPAL_PATH", '"https://api.bitso.com/v3/"')
+//            buildConfigField("String", "API_ICONS", '"https://cryptoflash-icons-api.herokuapp.com/"')
+//        }
+//    }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-//        debug{
-//            testCoverageEnabled true
-//        }
+        debug{
+            buildConfigField "String", "API_PRINCIPAL_PATH", '"https://api.bitso.com/v3/"'
+            buildConfigField "String", "API_ICONS", '"https://cryptoflash-icons-api.herokuapp.com/"'
+            testCoverageEnabled true
+        }
     }
 
     compileOptions {
@@ -68,12 +70,20 @@ android {
         enabled = true
     }
     testOptions {
-        unitTests {
-            includeAndroidResources = true
-            //        unitTests.includeAndroidResources = true
-//        unitTests.returnDefaultValues = true
+        unitTests.all {
+
+                jacoco {
+                    includeNoLocationClasses = true
+                    excludes = ['jdk.internal.*']       //This line
+                }
+
+            unitTests.returnDefaultValues = true
         }
+
+
     }
+
+
 }
 
 ktlint{
@@ -167,52 +177,92 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
 
 }
-//
-//kapt {
-//    correctErrorTypes true
-//}
-//
-//
-//jacoco {
-//    toolVersion = "$jococo_version"
-//}
-//
-//
-//tasks.withType(Test) {
-//    jacoco.includeNoLocationClasses = true
-//    jacoco.excludes = ['jdk.internal.*']
-//}
-//
-//def fileFilter = [
-//        '**/R.class',
-//        '**/R$*.class',
-//        '**/BuildConfig.*',
-//        '**/Manifest*.*',
-//        '**/*Test*.*',
-//        'android/**/*.*',
-//        '**/fragments/*',
-//        '**/adapters/*',
-//        '**/activities/*',
-//        '**/animations/*',
-//        '**/di/*',
-//        '**/common/*'
-//]
-//def debugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
-//def mainSrc = "$project.projectDir/src/main/java"
-//def variant  = "DevelopmentDebug"
-//task jacocoTestReport(type: JacocoReport) {
-//    dependsOn = ["test${variant}UnitTest", 'createCoverageReport']
-//    reports {
-//        xml.enabled = true
-//        html.enabled = true
-//    }
-//
-//    sourceDirectories.from = files([mainSrc])
+
+
+task jacocoTestReport(
+        type: JacocoReport,
+        dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']
+) {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = [
+            '**/R.class',
+            '**/R$*.class',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            '**/*Test*.*',
+            'android/**/*.*',
+            '**/fragments/*',
+            '**/adapters/*',
+            '**/activities/*',
+            '**/animations/*',
+            '**/di/*',
+            '**/common/*',
+            '**/entities/*',
+            '**/database/*',
+            '**/retrofit',
+            // data binding
+            'android/databinding/**/*.class',
+            '**/android/databinding/*Binding.class',
+            '**/android/databinding/*',
+            '**/androidx/databinding/*',
+            '**/BR.*',
+            // android
+            '**/R.class',
+            '**/R$*.class',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            '**/*Test*.*',
+            'android/**/*.*',
+            // kotlin
+            '**/*MapperImpl*.*',
+            '**/*$ViewInjector*.*',
+            '**/*$ViewBinder*.*',
+            '**/BuildConfig.*',
+            '**/*Component*.*',
+            '**/*BR*.*',
+            '**/Manifest*.*',
+            '**/*$Lambda$*.*',
+            '**/*Companion*.*',
+            '**/*Module*.*',
+            '**/*Dagger*.*',
+            '**/*Hilt*.*',
+            '**/*MembersInjector*.*',
+            '**/*_MembersInjector.class',
+            '**/*_Factory*.*',
+            '**/*_Provide*Factory*.*',
+            '**/*Extensions*.*',
+            // sealed and data classes
+            '**/*$Result.*',
+            '**/*$Result$*.*',
+            // adapters generated by moshi
+            '**/*JsonAdapter.*',
+            '**/databinding/*'
+    ]
+
+    def debugTree =   fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+            //fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories.setFrom(files([mainSrc]))
+    classDirectories.setFrom(files([debugTree]))
+    executionData.setFrom(fileTree(dir: "$buildDir", includes: [
+            "jacoco/testDebugUnitTest.exec",
+            "outputs/code-coverage/connected/*coverage.ec"
+    ]))
+//Alfred repo
+//     sourceDirectories.from = files([mainSrc])
 //    classDirectories.from = files([debugTree])
 //    executionData.from = fileTree(dir: project.buildDir, includes: [
-//            "jacoco/test${variant}UnitTest.exec",
+//            'jacoco/testDebugUnitTest.exec',
 //            'outputs/code_coverage/debugAndroidTest/connected/*.ec'
 //    ])
-//}
+}
+
+
 
 

@@ -1,19 +1,19 @@
 package com.example.bazandroidcourse.domain
 
-import com.example.bazandroidcourse.data.datasource.remote.api.retrofit.ApplicationAPIInterface
 import com.example.bazandroidcourse.data.entities.BookDetailModel
-import com.example.bazandroidcourse.data.repository.BooksRepositoryImpl
 import com.example.bazandroidcourse.data.repository.BooksRepositoryInterface
-import io.mockk.impl.annotations.RelaxedMockK
-import kotlinx.coroutines.*
+import com.google.common.truth.Truth.assertThat
+import io.mockk.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import com.google.common.truth.Truth.assertThat
-import io.mockk.*
 
 class GetBookDetailUseCaseTest {
 
