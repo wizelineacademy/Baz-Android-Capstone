@@ -1,16 +1,16 @@
 package com.example.capstone_project.domain.usescase
 
 import com.example.capstone_project.data.Resource
-import com.example.capstone_project.data.repository.CriptoRepository
 import com.example.capstone_project.data.local.entities.toDatabase
+import com.example.capstone_project.data.repository.CriptoRepository
 import com.example.capstone_project.domain.model.BidDomain
 import com.example.capstone_project.presentation.util.Util
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import java.lang.Exception
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flowOn
 
 class GetBidsUseCase @Inject constructor(private val repository: CriptoRepository) {
 

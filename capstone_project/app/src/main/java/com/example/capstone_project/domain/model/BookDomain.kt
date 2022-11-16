@@ -1,7 +1,7 @@
 package com.example.capstone_project.domain.model
 
-import com.example.capstone_project.data.network.entities.model.Book
 import com.example.capstone_project.data.local.entities.BookEntity
+import com.example.capstone_project.data.network.entities.model.Book
 
 data class BookDomain(
     val book: String,

@@ -22,4 +22,3 @@ fun TickerEntity.toDomain() = TickerDomain(
     high = high,
     low = low
 )
-

@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.capstone_project.data.network.entities.model.Ask
 import com.example.capstone_project.databinding.CriptoBidsItemBinding
 import com.example.capstone_project.domain.model.AskDomain
 

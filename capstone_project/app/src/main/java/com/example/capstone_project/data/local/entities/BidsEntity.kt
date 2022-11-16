@@ -3,7 +3,6 @@ package com.example.capstone_project.data.local.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.capstone_project.data.network.entities.model.Bid
 import com.example.capstone_project.domain.model.BidDomain
 
 @Entity(tableName = "bid")

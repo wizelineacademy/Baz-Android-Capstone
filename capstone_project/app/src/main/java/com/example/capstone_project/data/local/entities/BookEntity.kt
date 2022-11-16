@@ -3,13 +3,13 @@ package com.example.capstone_project.data.local.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.capstone_project.data.network.entities.model.Book
 import com.example.capstone_project.domain.model.BookDomain
 
 @Entity(tableName = "book")
 data class BookEntity(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "idBook") val idBook: Int = 0,
+    @ColumnInfo(name = "idBook")
+    val idBook: Int = 0,
     @ColumnInfo(name = "book")
     val book: String,
     @ColumnInfo(name = "minium_amount") val minium_amount: Double,

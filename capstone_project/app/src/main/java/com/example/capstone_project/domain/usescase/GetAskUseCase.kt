@@ -1,15 +1,15 @@
 package com.example.capstone_project.domain.usescase
 
 import com.example.capstone_project.data.Resource
-import com.example.capstone_project.data.repository.CriptoRepository
 import com.example.capstone_project.data.local.entities.toDataBase
+import com.example.capstone_project.data.repository.CriptoRepository
 import com.example.capstone_project.domain.model.AskDomain
 import com.example.capstone_project.presentation.util.Util
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
 
 class GetAskUseCase @Inject constructor(private val repository: CriptoRepository) {
 
@@ -27,4 +27,3 @@ class GetAskUseCase @Inject constructor(private val repository: CriptoRepository
             }
         }.flowOn(Dispatchers.IO)
 }
-

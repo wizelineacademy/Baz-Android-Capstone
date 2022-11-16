@@ -15,7 +15,6 @@ import com.example.capstone_project.databinding.FragmentCriptoDetailBinding
 import com.example.capstone_project.presentation.ui.adapter.AskAdapter
 import com.example.capstone_project.presentation.ui.adapter.BidsAdapter
 import com.example.capstone_project.presentation.ui.viewmodel.CriptoDetailViewModel
-import com.example.capstone_project.presentation.ui.viewmodel.MainActivityViewModel
 import com.example.capstone_project.presentation.util.Util
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -93,7 +92,7 @@ class CriptoDetailFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             criptoViewModel.getTicker(bookName)
-            criptoViewModel.tickers.collect {
+            criptoViewModel.tickerlive.observe(viewLifecycleOwner) {
                 when (it) {
                     is Resource.Error -> {
                         Toast.makeText(activity, R.string.errorToast, Toast.LENGTH_LONG).show()
