@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <!-- Component size -->
+    <dimen name="item_image_large_height">72dp</dimen>
+    <dimen name="item_image_large_width">72dp</dimen>
+    <dimen name="item_image_medium_height">64dp</dimen>
+    <dimen name="item_image_medium_width">64dp</dimen>
+    <dimen name="item_image_small_height">32dp</dimen>
+    <dimen name="item_image_small_width">32dp</dimen>
+
+
+    <!-- Margin size -->
+    <dimen name="margin_space_32dp">32dp</dimen>
+    <dimen name="margin_space_16dp">16dp</dimen>
+    <dimen name="margin_space_8dp">8dp</dimen>
+
+    <!-- Text size-->
+    <dimen name="title_large">28sp</dimen>
+    <dimen name="title_medium">24sp</dimen>
+    <dimen name="title_small">20sp</dimen>
+    <dimen name="subtitle_large">20sp</dimen>
+
+
+</resources>
