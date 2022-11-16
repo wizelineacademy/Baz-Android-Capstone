@@ -6,7 +6,6 @@ plugins {
     id "org.jlleitschuh.gradle.ktlint" version '11.0.0'
     id 'com.google.dagger.hilt.android'
     id 'jacoco'
-
 }
 
 android {
@@ -21,35 +20,13 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-//
-//    variantFilter { variant ->
-//        def names = variant.flavors*.name
-//        if (variant.buildType.name == 'release') {
-//            if (names.contains("development")) {
-//                setIgnore(true)
-//            } else if (names.contains("preProduction")) {
-//                setIgnore(true)
-//            }
-//        }
-//    }
-//
-//    flavorDimensions "versionName"
-//
-//    productFlavors {
-//        development {
-//            versionNameSuffix "dv"
-//            versionName "1.0.0"
-//            buildConfigField("String", "API_PRINCIPAL_PATH", '"https://api.bitso.com/v3/"')
-//            buildConfigField("String", "API_ICONS", '"https://cryptoflash-icons-api.herokuapp.com/"')
-//        }
-//    }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        debug{
+        debug {
             buildConfigField "String", "API_PRINCIPAL_PATH", '"https://api.bitso.com/v3/"'
             buildConfigField "String", "API_ICONS", '"https://cryptoflash-icons-api.herokuapp.com/"'
             testCoverageEnabled true
@@ -60,55 +37,50 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kapt {
         generateStubs = true
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     viewBinding {
         enabled = true
     }
+
     testOptions {
         unitTests.all {
-
-                jacoco {
-                    includeNoLocationClasses = true
-                    excludes = ['jdk.internal.*']       //This line
-                }
-
+            jacoco {
+                includeNoLocationClasses = true
+                excludes = ['jdk.internal.*']
+            }
             unitTests.returnDefaultValues = true
         }
-
-
     }
-
-
 }
 
-ktlint{
+ktlint {
     android = true
     ignoreFailures = false
     disabledRules = ["import-ordering"]
-    reporters{
+    reporters {
         reporter "plain"
         reporter "checkstyle"
         reporter "sarif"
 
     }
 }
+
 dependencies {
 
-    def retrofitVersion ="2.9.0"
+    def retrofitVersion = "2.9.0"
     def lifecycle_version = "2.5.1"
     def nav_version = "2.5.3"
     def room_version = "2.4.3"
     def okhttpVersion = "4.10.0"
-    def mockkVersion  = "1.13.2"
-    def coroutines_version = "1.6.1"
-
-    /*
-    def arch_version = "2.1.0"*/
+    def mockkVersion = "1.13.2"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -180,10 +152,9 @@ dependencies {
 
 
 task jacocoTestReport(
-        type: JacocoReport,
-        dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']
+    type: JacocoReport,
+    dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']
 ) {
-
     reports {
         xml.enabled = true
         html.enabled = true
@@ -244,8 +215,7 @@ task jacocoTestReport(
             '**/databinding/*'
     ]
 
-    def debugTree =   fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
-            //fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
+    def debugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
     def mainSrc = "${project.projectDir}/src/main/java"
 
     sourceDirectories.setFrom(files([mainSrc]))
@@ -254,13 +224,6 @@ task jacocoTestReport(
             "jacoco/testDebugUnitTest.exec",
             "outputs/code-coverage/connected/*coverage.ec"
     ]))
-//Alfred repo
-//     sourceDirectories.from = files([mainSrc])
-//    classDirectories.from = files([debugTree])
-//    executionData.from = fileTree(dir: project.buildDir, includes: [
-//            'jacoco/testDebugUnitTest.exec',
-//            'outputs/code_coverage/debugAndroidTest/connected/*.ec'
-//    ])
 }
 
 
