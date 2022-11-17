@@ -1,4 +1,4 @@
-package com.wizeline.criptocurrency.data
+package com.wizeline.criptocurrency.data.database.di
 
 import android.content.Context
 import androidx.room.Room
@@ -9,19 +9,21 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+
 @Module
 @InstallIn(SingletonComponent::class)
-object RoomModule {
-    private const val CRYPTOCURRENCY_DATABASE_NAME = "criptoCurrency_database"
+object DataBaseModule {
+
     @Singleton
     @Provides
-    fun provideRoom(@ApplicationContext context: Context) =
-        Room.databaseBuilder(context, CriptoCurrencyDB::class.java, CRYPTOCURRENCY_DATABASE_NAME)
-            .allowMainThreadQueries()
+    fun provideAppDatabase(@ApplicationContext context: Context) =
+        Room.databaseBuilder(context, CriptoCurrencyDB::class.java, "criptoCurrencyDB")
             .fallbackToDestructiveMigration()
             .build()
+
 
     @Singleton
     @Provides
     fun provideCryptoCurrencyDao(db: CriptoCurrencyDB) = db.getCriptoCurrencyDao()
+
 }

@@ -8,45 +8,45 @@ import com.wizeline.criptocurrency.data.database.entities.TickerEntity
 import javax.inject.Inject
 
 class CryptoCurrencyLocalDataSource @Inject constructor(
-    private val localDB: CryptoCurrencyDao
+    private val cryptoCurrencyDao: CryptoCurrencyDao
 ) {
 
     /**==AvailableBooks==**/
     fun getAllAvailableBooksFromDatabase(): List<AvailableBookEntity> =
-        localDB.getAllAvailableBooksFromDatabase()
+        cryptoCurrencyDao.getAllAvailableBooksFromDatabase()
 
     fun insertAvailableOrderBookToDatabase(bookList: List<AvailableBookEntity>) =
-        localDB.insertAvailableOrderBookToDatabase(bookList)
+        cryptoCurrencyDao.insertAvailableOrderBookToDatabase(bookList)
 
     fun updateAvailableOrderBookDatabase(bookList: List<AvailableBookEntity>) =
-        localDB.updateAvailableOrderBookDatabase(bookList)
+        cryptoCurrencyDao.updateAvailableOrderBookDatabase(bookList)
 
     fun deleteAllAvailableBooksDatabase() =
-        localDB.deleteAllAvailableBooksDatabase()
+        cryptoCurrencyDao.deleteAllAvailableBooksDatabase()
 
     /**==Tickers==**/
     fun getTickerFromDatabase(book: String): TickerEntity =
-        localDB.getTickerFromDatabase(book)
+        cryptoCurrencyDao.getTickerFromDatabase(book)
 
     fun insertTickerToDatabase(ticker: TickerEntity) =
-        localDB.insertTickerToDatabase(ticker)
+        cryptoCurrencyDao.insertTickerToDatabase(ticker)
 
     fun updateTickerDatabase(ticker: TickerEntity) =
-        localDB.updateTickerDatabase(ticker)
+        cryptoCurrencyDao.updateTickerDatabase(ticker)
 
     fun deleteTickerDatabase(book: String) =
-        localDB.deleteTickerDatabase(book)
+        cryptoCurrencyDao.deleteTickerDatabase(book)
 
     /**==OrderBooks==**/
     fun getOrderBookfromDatabase(book: String) =
-        localDB.getOrderBookFromDatabase(book)
+        cryptoCurrencyDao.getOrderBookFromDatabase(book)
 
     fun insertOpenOrdersToDatabase(
         bidsEntityList: List<BidsEntity>,
         asksEntityList: List<AsksEntity>
     ) =
-        localDB.insertOrderBookOpenOrdersFromDatabase(bidsEntityList, asksEntityList)
+        cryptoCurrencyDao.insertOrderBookOpenOrdersFromDatabase(bidsEntityList, asksEntityList)
 
     fun deleteOpenOrdersFromDatabase(book: String) =
-        localDB.deleteOrderBookOpenOrdersFromDatabase(book)
+        cryptoCurrencyDao.deleteOrderBookOpenOrdersFromDatabase(book)
 }

@@ -17,6 +17,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class BitsoRepositoryImp @Inject constructor(
     private val api: BitsoApi,
@@ -32,13 +33,16 @@ class BitsoRepositoryImp @Inject constructor(
             bookList
         } else {
             Log.i("LocalDataBase", "Getting availableBooks from local database.")
-            localDataSource.getAllAvailableBooksFromDatabase().toAvailableBookListFromEntity().let {
-                if (it.isNotEmpty()) it else emptyList()
-            }.toList()
+            withContext(Dispatchers.IO) {
+                localDataSource.getAllAvailableBooksFromDatabase().toAvailableBookListFromEntity().let {
+                    it.ifEmpty { emptyList() }
+                }.toList()
+            }
+
         }
 
-    fun updateAvailableOrderBookDatabase(bookList: List<AvailableBook>) {
-        CoroutineScope(Dispatchers.IO).launch {
+    suspend fun updateAvailableOrderBookDatabase(bookList: List<AvailableBook>) {
+        withContext(Dispatchers.IO) {
             localDataSource.getAllAvailableBooksFromDatabase().run {
                 if (this.isNullOrEmpty()) {
                     Log.i("LocalDataBase", "AvailableOrderBookEntity inserted.")
@@ -59,14 +63,17 @@ class BitsoRepositoryImp @Inject constructor(
             ticker
         } else {
             Log.i("LocalDataBase", "Getting ticker from local database.")
-            localDataSource.getTickerFromDatabase(book).toTickerFromEntity().let { ticker ->
-                if (ticker.book.isNullOrEmpty()) Ticker()
-                else ticker
+            withContext(Dispatchers.IO) {
+                localDataSource.getTickerFromDatabase(book).toTickerFromEntity().let { ticker ->
+                    if (ticker.book.isNullOrEmpty()) Ticker()
+                    else ticker
+                }
             }
+
         }
 
-    fun updateTickerDatabase(book: String, ticker: Ticker) {
-        CoroutineScope(Dispatchers.IO).launch {
+    private suspend fun updateTickerDatabase(book: String, ticker: Ticker) {
+        withContext(Dispatchers.IO) {
             Log.i("LocalDataBase", "TickerEntity deleted.")
             localDataSource.deleteTickerDatabase(book)
             Log.i("LocalDataBase", "TickerEntity inserted.")
@@ -81,13 +88,18 @@ class BitsoRepositoryImp @Inject constructor(
                 api.getOrderBook(book = book).payload?.toOrderBook(book = book) ?: OrderBook()
             updateOrderBookDatabase(book, orderBook)
             orderBook
-        } else localDataSource.getOrderBookfromDatabase(book).let { orderBook ->
-            if (orderBook.book.isNullOrEmpty()) OrderBook()
-            else orderBook
+        } else{
+            withContext(Dispatchers.IO){
+                localDataSource.getOrderBookfromDatabase(book).let { orderBook ->
+                    if (orderBook.book.isNullOrEmpty()) OrderBook()
+                    else orderBook
+                }
+            }
+
         }
 
-    fun updateOrderBookDatabase(book: String, orderBook: OrderBook?) {
-        CoroutineScope(Dispatchers.IO).launch {
+    suspend fun updateOrderBookDatabase(book: String, orderBook: OrderBook?) {
+        withContext(Dispatchers.IO) {
             localDataSource.deleteOpenOrdersFromDatabase(book)
             localDataSource.insertOpenOrdersToDatabase(
                 orderBook?.bids.toBidsEntityList(),

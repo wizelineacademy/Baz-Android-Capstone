@@ -10,6 +10,5 @@ import com.wizeline.criptocurrency.data.database.entities.TickerEntity
 
 @Database(entities = [AvailableBookEntity::class, TickerEntity::class, AsksEntity::class, BidsEntity::class], version = 1)
 abstract class CriptoCurrencyDB : RoomDatabase() {
-
     abstract fun getCriptoCurrencyDao(): CryptoCurrencyDao
 }

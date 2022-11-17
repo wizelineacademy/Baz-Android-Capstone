@@ -12,4 +12,4 @@ data class TickerResponse(
     @SerializedName("payload")
     @Expose
     var payload: TickerDto? = null
-) : Serializable
+)

@@ -6,29 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.wizeline.criptocurrency.R
 import com.wizeline.criptocurrency.common.adapters.OpenOrdersListAdapter
 import com.wizeline.criptocurrency.common.adapters.OrderBooksDetailViewModelFactory
-import com.wizeline.criptocurrency.common.adapters.RetrofitClient
 import com.wizeline.criptocurrency.common.adapters.utilities.toast
-import com.wizeline.criptocurrency.config.InitApplication
+import com.wizeline.criptocurrency.data.database.di.DataBaseModule
 import com.wizeline.criptocurrency.data.database.data_source.CryptoCurrencyLocalDataSource
 import com.wizeline.criptocurrency.data.repository.BitsoRepositoryImp
 import com.wizeline.criptocurrency.databinding.FragmentBookDetailBinding
 import com.wizeline.criptocurrency.domain.model.use_case.OrderBookUseCase
 import com.wizeline.criptocurrency.domain.model.use_case.TickerUseCase
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OrderBookDetailFragment : Fragment() {
 
-    private lateinit var tickerUseCase: TickerUseCase
-    private lateinit var orderBookUseCase: OrderBookUseCase
     private var book: String = ""
     private var coinName: String = ""
-
-    private lateinit var localDataSource: CryptoCurrencyLocalDataSource
-    private val orderBookDetailVM by activityViewModels<OrderBookDetailViewModel>() {
-        OrderBooksDetailViewModelFactory(tickerUseCase, orderBookUseCase)
-    }
+    private val orderBookDetailVM by viewModels<OrderBookDetailViewModel>()
     private lateinit var binding: FragmentBookDetailBinding
 
     override fun onCreateView(
@@ -37,10 +33,7 @@ class OrderBookDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentBookDetailBinding.inflate(layoutInflater, container, false)
-        localDataSource = CryptoCurrencyLocalDataSource(InitApplication.criptoCurrencyDB.getCriptoCurrencyDao())
-        tickerUseCase = TickerUseCase(BitsoRepositoryImp(RetrofitClient.repository(), localDataSource, requireContext()))
-        orderBookUseCase = OrderBookUseCase(BitsoRepositoryImp(RetrofitClient.repository(), localDataSource, requireContext()))
-        return binding.root
+       return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

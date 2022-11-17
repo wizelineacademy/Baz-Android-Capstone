@@ -36,25 +36,7 @@ class AvailableBooksViewModel @Inject constructor(
 
     private val defaultScheduler: Scheduler = Schedulers.io()
 
-    fun getAvailableBooksCoroutine() {
-        CoroutineScope(Dispatchers.Main).launch {
-            availableBooksUseCase().onEach {
-                when (it) {
-                    is RequestState.Loading -> _isLoading.value = true
-                    is RequestState.Success -> {
-                        _availableOrderBookList.value = it.data ?: emptyList()
-                        _isLoading.value = false
-                    }
-                    is RequestState.Error -> {
-                        _error.value = it.message.toString()
-                        _isLoading.value = false
-                    }
-                }
-            }
-        }
-    }
-
-    suspend fun getAvailableBooksRxJava(error: (info: String) -> Unit) = MutableLiveData<List<AvailableBook>>().apply {
+    suspend fun getAvailableBooksRxJava() = MutableLiveData<List<AvailableBook>>().apply {
         CompositeDisposable().add(
             availableBooksUseCase.availableBooksRx()
                 .subscribeOn(defaultScheduler)
@@ -62,12 +44,12 @@ class AvailableBooksViewModel @Inject constructor(
                 .subscribeBy(
                     onSuccess = {
                         with(it?.payload.toMXNAvailableBookList()) {
-                            if (this.isNullOrEmpty()) error("No stored data")
+                            if (this.isNullOrEmpty()) _error.value ="No stored data"
                             _availableOrderBookList.postValue(this)
                         }
                     },
                     onError = {
-                        error(it.message.orEmpty())
+                        _error.value =it.message.orEmpty()
                     },
                 )
         )

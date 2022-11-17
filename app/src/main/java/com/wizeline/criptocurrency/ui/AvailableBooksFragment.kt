@@ -7,25 +7,22 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.room.Room
 import com.wizeline.criptocurrency.R
 import com.wizeline.criptocurrency.common.adapters.*
 import com.wizeline.criptocurrency.common.adapters.utilities.toast
-import com.wizeline.criptocurrency.config.InitApplication.Companion.criptoCurrencyDB
-import com.wizeline.criptocurrency.data.database.CriptoCurrencyDB
+import com.wizeline.criptocurrency.data.database.di.DataBaseModule
 import com.wizeline.criptocurrency.data.database.data_source.CryptoCurrencyLocalDataSource
 import com.wizeline.criptocurrency.data.repository.BitsoRepositoryImp
 import com.wizeline.criptocurrency.databinding.FragmentAvailableBooksBinding
 import com.wizeline.criptocurrency.domain.model.use_case.AvailableBooksUseCase
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AvailableBooksFragment : Fragment() {
 
-    private lateinit var availableBooksUseCase: AvailableBooksUseCase
-    private lateinit var localDataSource: CryptoCurrencyLocalDataSource
-    private val availableBooksVM by activityViewModels<AvailableBooksViewModel>() {
-        AvailableBooksViewModelFactory(availableBooksUseCase)
-    }
+    private val availableBooksVM by viewModels <AvailableBooksViewModel>()
     private lateinit var binding: FragmentAvailableBooksBinding
 
     override fun onCreateView(
@@ -36,16 +33,6 @@ class AvailableBooksFragment : Fragment() {
         binding = FragmentAvailableBooksBinding.inflate(
             layoutInflater,
             container, false
-        )
-        criptoCurrencyDB = Room.databaseBuilder(
-            requireContext(),
-            CriptoCurrencyDB::class.java,
-            "criptoCurrencyDB"
-        ).allowMainThreadQueries()
-            .build()
-        localDataSource = CryptoCurrencyLocalDataSource(criptoCurrencyDB.getCriptoCurrencyDao())
-        availableBooksUseCase = AvailableBooksUseCase(
-            BitsoRepositoryImp(RetrofitClient.repository(), localDataSource, requireContext())
         )
         return binding.root
     }
