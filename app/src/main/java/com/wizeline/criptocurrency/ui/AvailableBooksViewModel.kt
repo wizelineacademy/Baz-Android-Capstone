@@ -35,9 +35,10 @@ class AvailableBooksViewModel @Inject constructor(
     val error: LiveData<String> get() = _error
 
     private val defaultScheduler: Scheduler = Schedulers.io()
+    private val compositeDisposable:CompositeDisposable= CompositeDisposable()
 
      fun getAvailableBooksRxJava() = MutableLiveData<List<AvailableBook>>().apply {
-        CompositeDisposable().add(
+        compositeDisposable.add(
             availableBooksUseCase.availableBooksRx()
                 .subscribeOn(defaultScheduler)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -69,5 +70,9 @@ class AvailableBooksViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    override fun onCleared() {
+        compositeDisposable.dispose()
     }
 }
