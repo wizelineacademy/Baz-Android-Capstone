@@ -5,18 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.wizeline.criptocurrency.R
 import com.wizeline.criptocurrency.common.adapters.OpenOrdersListAdapter
-import com.wizeline.criptocurrency.common.adapters.OrderBooksDetailViewModelFactory
 import com.wizeline.criptocurrency.common.adapters.utilities.toast
-import com.wizeline.criptocurrency.data.database.di.DataBaseModule
-import com.wizeline.criptocurrency.data.database.data_source.CryptoCurrencyLocalDataSource
-import com.wizeline.criptocurrency.data.repository.BitsoRepositoryImp
 import com.wizeline.criptocurrency.databinding.FragmentBookDetailBinding
-import com.wizeline.criptocurrency.domain.model.use_case.OrderBookUseCase
-import com.wizeline.criptocurrency.domain.model.use_case.TickerUseCase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,6 +19,12 @@ class OrderBookDetailFragment : Fragment() {
     private var coinName: String = ""
     private val orderBookDetailVM by viewModels<OrderBookDetailViewModel>()
     private lateinit var binding: FragmentBookDetailBinding
+    private val orderAsksAdapter: OpenOrdersListAdapter by lazy{
+        OpenOrdersListAdapter(emptyList())
+    }
+    private val orderBidsAdapter: OpenOrdersListAdapter by lazy{
+        OpenOrdersListAdapter(emptyList())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +46,9 @@ class OrderBookDetailFragment : Fragment() {
         binding.apply {
             tvBookName.text = orderBookDetailVM.selectedCoinName.value.orEmpty()
 
+            rvOrderAsks.adapter=orderAsksAdapter
+            rvOrderBids.adapter=orderBidsAdapter
+
             orderBookDetailVM.isLoading.observe(viewLifecycleOwner) {
                 if (it) {
                     progressCircular.visibility=View.VISIBLE
@@ -62,8 +64,8 @@ class OrderBookDetailFragment : Fragment() {
             }
 
             orderBookDetailVM.orderBook.observe(viewLifecycleOwner) {
-                rvOrderAsks.adapter = OpenOrdersListAdapter(it?.asks ?: emptyList())
-                rvOrderBids.adapter = OpenOrdersListAdapter(it?.bids ?: emptyList())
+                orderAsksAdapter.submitList(it?.asks ?: emptyList())
+                orderBidsAdapter.submitList(it?.bids ?: emptyList())
             }
 
             orderBookDetailVM.error.observe(viewLifecycleOwner) {

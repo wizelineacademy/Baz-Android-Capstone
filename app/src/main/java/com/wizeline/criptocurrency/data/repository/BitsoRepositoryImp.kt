@@ -14,9 +14,7 @@ import com.wizeline.criptocurrency.domain.repository.BitsoRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
 import javax.inject.Inject
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class BitsoRepositoryImp @Inject constructor(
@@ -26,14 +24,14 @@ class BitsoRepositoryImp @Inject constructor(
 ) : BitsoRepository {
 
     // ==Available Books==
-    override suspend fun getAvailableBooks(): List<AvailableBook> =
+    override suspend fun getAvailableBooks(): List<AvailableBook> = withContext(Dispatchers.IO) {
         if (isInternetAvailable(context = context)) {
             val bookList = api.getAvaliableBooks().payload?.map { it.toAvailableBook() } ?: listOf()
             updateAvailableOrderBookDatabase(bookList)
             bookList
         } else {
             Log.i("LocalDataBase", "Getting availableBooks from local database.")
-            withContext(Dispatchers.IO) {
+
                 localDataSource.getAllAvailableBooksFromDatabase().toAvailableBookListFromEntity().let {
                     it.ifEmpty { emptyList() }
                 }.toList()
@@ -56,14 +54,14 @@ class BitsoRepositoryImp @Inject constructor(
     }
 
     // ==Ticker==
-    override suspend fun getTicker(book: String): Ticker =
+    override suspend fun getTicker(book: String): Ticker =withContext(Dispatchers.IO) {
         if (isInternetAvailable(context = context)) {
             val ticker = api.getTicker(book = book).payload?.toTicker() ?: Ticker()
             updateTickerDatabase(book, ticker)
             ticker
         } else {
             Log.i("LocalDataBase", "Getting ticker from local database.")
-            withContext(Dispatchers.IO) {
+
                 localDataSource.getTickerFromDatabase(book).toTickerFromEntity().let { ticker ->
                     if (ticker.book.isNullOrEmpty()) Ticker()
                     else ticker
@@ -82,14 +80,14 @@ class BitsoRepositoryImp @Inject constructor(
     }
 
     // ==Order Book==
-    override suspend fun getOrderBook(book: String): OrderBook =
+    override suspend fun getOrderBook(book: String): OrderBook = withContext(Dispatchers.IO){
         if (isInternetAvailable(context)) {
             val orderBook =
                 api.getOrderBook(book = book).payload?.toOrderBook(book = book) ?: OrderBook()
             updateOrderBookDatabase(book, orderBook)
             orderBook
         } else{
-            withContext(Dispatchers.IO){
+
                 localDataSource.getOrderBookfromDatabase(book).let { orderBook ->
                     if (orderBook.book.isNullOrEmpty()) OrderBook()
                     else orderBook
@@ -110,13 +108,9 @@ class BitsoRepositoryImp @Inject constructor(
     }
 
     // AvailableBooks RxJava
-    override suspend fun getAvailableBooksRxJava(): Single<AvailableBooksResponse> =
+    override fun getAvailableBooksRxJava(): Single<AvailableBooksResponse> =
         if (isInternetAvailable(context))
-            api.getAvailableBooksRxJava().let {
-                Single.just(
-                    it.blockingSingle().body()
-                )
-            }
+            api.getAvailableBooksRxJava()
         else Single.just(getAllAvailableOrderBookRxJavaFromDatabase())
 
     private fun getAllAvailableOrderBookRxJavaFromDatabase(): AvailableBooksResponse =

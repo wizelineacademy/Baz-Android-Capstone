@@ -3,6 +3,8 @@ package com.wizeline.criptocurrency
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.wizeline.criptocurrency.ui.AvailableBooksFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -11,13 +13,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        loadFragment(AvailableBooksFragment())
+
     }
 
-    private fun loadFragment(fragment: Fragment) {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.add(R.id.fragment_container_view, fragment)
-        fragmentTransaction.commit()
-    }
+
 }

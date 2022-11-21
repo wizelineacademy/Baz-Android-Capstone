@@ -17,7 +17,7 @@ data class AsksEntity(
 fun AsksEntity?.toAsksOpenOrderFromEntity() = OpenOrder(book = this?.book, price = this?.price, amount = this?.amount)
 
 fun List<OpenOrder>?.toAsksEntityList() = mutableListOf<AsksEntity>().apply {
-    this@toAsksEntityList?.forEach {
+    this@toAsksEntityList?.map {
         this.add(
             AsksEntity(book = it.book, price = it.price, amount = it.amount)
         )

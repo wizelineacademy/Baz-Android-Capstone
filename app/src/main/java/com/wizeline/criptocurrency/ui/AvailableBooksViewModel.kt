@@ -26,9 +26,9 @@ class AvailableBooksViewModel @Inject constructor(
     private val availableBooksUseCase: AvailableBooksUseCase,
 ) : ViewModel() {
 
-    private var _availableOrderBookList = MutableLiveData<List<AvailableBook>>()
-    private var _isLoading = MutableLiveData<Boolean>(true)
-    private var _error = MutableLiveData<String>()
+    private val _availableOrderBookList = MutableLiveData<List<AvailableBook>>()
+    private val _isLoading = MutableLiveData<Boolean>(true)
+    private val _error = MutableLiveData<String>()
 
     val availableOrderBookList: LiveData<List<AvailableBook>> get() = _availableOrderBookList
     val isLoading: LiveData<Boolean> get() = _isLoading
@@ -36,7 +36,7 @@ class AvailableBooksViewModel @Inject constructor(
 
     private val defaultScheduler: Scheduler = Schedulers.io()
 
-    suspend fun getAvailableBooksRxJava() = MutableLiveData<List<AvailableBook>>().apply {
+     fun getAvailableBooksRxJava() = MutableLiveData<List<AvailableBook>>().apply {
         CompositeDisposable().add(
             availableBooksUseCase.availableBooksRx()
                 .subscribeOn(defaultScheduler)

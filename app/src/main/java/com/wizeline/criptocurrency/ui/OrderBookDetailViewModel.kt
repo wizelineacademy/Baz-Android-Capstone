@@ -20,13 +20,13 @@ class OrderBookDetailViewModel @Inject constructor(
     private val orderBookUseCase: OrderBookUseCase
 ) : ViewModel() {
 
-    private var _selectedOrderBookName = MutableLiveData<String>()
-    private var _selectedCoinName = MutableLiveData<String>()
+    private val _selectedOrderBookName = MutableLiveData<String>()
+    private val _selectedCoinName = MutableLiveData<String>()
 
-    private var _ticker = MutableLiveData<Ticker>()
-    private var _orderBook = MutableLiveData<OrderBook?>()
-    private var _isLoading = MutableLiveData<Boolean>(true)
-    private var _error = MutableLiveData<String>()
+    private val _ticker = MutableLiveData<Ticker>()
+    private val _orderBook = MutableLiveData<OrderBook?>()
+    private val _isLoading = MutableLiveData<Boolean>(true)
+    private val _error = MutableLiveData<String>()
 
     val selectedOrderBook: LiveData<String> get() = _selectedOrderBookName
     val selectedCoinName: LiveData<String> get() = _selectedCoinName

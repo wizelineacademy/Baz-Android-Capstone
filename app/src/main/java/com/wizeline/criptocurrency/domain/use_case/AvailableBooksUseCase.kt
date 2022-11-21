@@ -29,5 +29,5 @@ class AvailableBooksUseCase @Inject constructor(private val repository: BitsoRep
         }
     }
 
-    suspend fun availableBooksRx(): Single<AvailableBooksResponse> = repository.getAvailableBooksRxJava()
+     fun availableBooksRx(): Single<AvailableBooksResponse> = repository.getAvailableBooksRxJava()
 }

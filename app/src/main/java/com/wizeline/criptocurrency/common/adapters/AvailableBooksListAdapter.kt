@@ -45,10 +45,8 @@ class AvailableBooksListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context: Context = holder.itemView.context
-        holder.bindItem(data[position], context)
+        holder.bindItem(getItem(position), context)
     }
-
-    override fun getItemCount(): Int = data.size
 
     inner class ViewHolder(private val itemBinding: ItemAvailableBookBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {

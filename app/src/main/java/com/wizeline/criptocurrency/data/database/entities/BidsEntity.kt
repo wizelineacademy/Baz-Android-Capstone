@@ -17,7 +17,7 @@ data class BidsEntity(
 fun BidsEntity?.toBidsOpenOrderFromEntity() = OpenOrder(book = this?.book, price = this?.price, amount = this?.amount)
 
 fun List<OpenOrder>?.toBidsEntityList() = mutableListOf<BidsEntity>().apply {
-    this@toBidsEntityList?.forEach {
+    this@toBidsEntityList?.map {
         this.add(
             BidsEntity(book = it.book, price = it.price, amount = it.amount)
         )

@@ -24,6 +24,17 @@ class AvailableBooksFragment : Fragment() {
 
     private val availableBooksVM by viewModels <AvailableBooksViewModel>()
     private lateinit var binding: FragmentAvailableBooksBinding
+    private val availableBooksAdapterList: AvailableBooksListAdapter by lazy {
+        AvailableBooksListAdapter(  emptyList(),
+            goToDetail = { availableBook, coinName ->
+                val bundle = bundleOf(
+                    "book_code" to availableBook?.book.orEmpty(),
+                    "coin_code" to coinName
+                )
+                findNavController().navigate(R.id.orderBookDetailFragment, bundle)
+
+            })
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +52,12 @@ class AvailableBooksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         availableBooksVM.getAvailableBooks()
 
+
+
         binding.apply {
+
+            rvBooks.adapter = availableBooksAdapterList
+
             availableBooksVM.isLoading.observe(viewLifecycleOwner) {
                 if (it) {
                     progressCircular.visibility=View.VISIBLE
@@ -50,19 +66,10 @@ class AvailableBooksFragment : Fragment() {
                 }
             }
             availableBooksVM.availableOrderBookList.observe(viewLifecycleOwner) {
+                availableBooksAdapterList.submitList(it)
 
-                rvBooks.adapter = AvailableBooksListAdapter(
-                    it ?: emptyList(),
-                    goToDetail = { availableBook, coinName ->
-                        val bundle = bundleOf(
-                            "book_code" to availableBook?.book.orEmpty(),
-                            "coin_code" to coinName
-                        )
-                        findNavController().navigate(R.id.orderBookDetailFragment, bundle)
-
-                    }
-                )
             }
+
 
             availableBooksVM.error.observe(viewLifecycleOwner) {
                 toast(it)

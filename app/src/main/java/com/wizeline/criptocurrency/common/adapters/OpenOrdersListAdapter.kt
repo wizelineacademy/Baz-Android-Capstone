@@ -29,7 +29,7 @@ class OpenOrdersListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(data[position])
+        holder.bindItem(getItem(position))
     }
 
     inner class ViewHolder(private val itemBinding: ItemOpenOrderBinding) : RecyclerView.ViewHolder(itemBinding.root) {
@@ -39,7 +39,4 @@ class OpenOrdersListAdapter(
         }
     }
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
 }
