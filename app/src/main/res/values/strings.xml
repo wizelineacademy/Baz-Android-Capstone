@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Cryptocurrencies</string>
+    <string name="cry_minimum_amount">Monto minimo: $.003</string>
+    <string name="cry_maximum_amount">Monto maximo: $1000.00</string>
+    <string name="cry_maximum_price">Precio maximo: $1000000.00</string>
+</resources>
