@@ -34,7 +34,7 @@ class CRYAskRecyclerView(
         holder.bind(listAsk[position])
     }
 
-    fun update(list: MutableList<CRYAskOrBids>){
+    fun update(list: List<CRYAskOrBids>){
         listAsk.clear()
         listAsk.addAll(list)
         notifyDataSetChanged()

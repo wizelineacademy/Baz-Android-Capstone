@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class CRYTickerUseCase @Inject constructor(
+class CRYGetListBookWithTickerUseCase @Inject constructor(
     private val tickerRepository: CRYTickerRepository,
     private val orderBookRepository: CRYOrderBookRepository) {
 
@@ -15,14 +15,16 @@ class CRYTickerUseCase @Inject constructor(
         val ticker = tickerRepository.getTicker(book)
         val detailBook = CRYDetailBook()
 
-        ticker.payload?.let {
-            val orderBook = orderBookRepository.getOrderBook(book)
-            detailBook.apply {
-                last = ticker.payload?.last.orEmpty()
-                high = ticker.payload?.high.orEmpty()
-                low  = ticker.payload?.low.orEmpty()
-                askList = orderBook.payload?.asksList
-                bidsList = orderBook.payload?.bidsList
+        if (ticker.isSuccessful){
+            ticker.body()?.payload?.let {
+                val orderBook = orderBookRepository.getOrderBook(book)
+                detailBook.apply {
+                    last = it.last
+                    high = it.high
+                    low  = it.low
+                    askList = orderBook.body()?.payload?.asksList
+                    bidsList = orderBook.body()?.payload?.bidsList
+                }
             }
         }
         detailBook

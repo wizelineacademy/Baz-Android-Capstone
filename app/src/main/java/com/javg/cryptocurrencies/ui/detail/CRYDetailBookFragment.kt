@@ -1,16 +1,15 @@
 package com.javg.cryptocurrencies.ui.detail
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.javg.cryptocurrencies.R
 import com.javg.cryptocurrencies.data.model.CRYAskOrBids
@@ -30,11 +29,11 @@ class CRYDetailBookFragment : Fragment(){
         val TAG = CRYDetailBookFragment::class.java.canonicalName!!
 
         @JvmStatic
-        fun newInstance(book: String,@DrawableRes imageId: Int) : CRYDetailBookFragment {
+        fun newInstance(book: String,imageName: String) : CRYDetailBookFragment {
             val fragment = CRYDetailBookFragment()
             val bundle = Bundle()
             bundle.putString("BOOK",book)
-            bundle.putInt("IMAGE_ID",imageId)
+            bundle.putString("IMAGE_NAME",imageName)
             fragment.arguments = bundle
             return fragment
         }
@@ -51,15 +50,20 @@ class CRYDetailBookFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        shimmerFrameLayout = binding.idShimmer
+        shimmerFrameLayout.startShimmer()
         val book = arguments?.getString("BOOK").orEmpty()
-        val imageId = arguments?.getInt("IMAGE_ID") ?: R.drawable.ic_dai
+        val imageId = arguments?.getString("IMAGE_NAME").orEmpty()
         loadData(book, imageId)
         onClickListener()
     }
 
-    private fun loadData(book: String,@DrawableRes imageId: Int){
+    private fun loadData(book: String,imageName: String){
         shimmerFrameLayout = binding.idShimmer
-        binding.bookImage.setImageDrawable(AppCompatResources.getDrawable(requireContext(), imageId))
+        Glide.with(requireContext())
+            .load(imageName)
+            .placeholder(R.drawable.ic_default_book)
+            .into(binding.bookImage)
         binding.txtBook.text = book
         detailBookVM.tickerBook.observe(viewLifecycleOwner, tickerObserver)
         detailBookVM.listAskOrBids.observe(viewLifecycleOwner, listAskOrBids)
@@ -92,7 +96,7 @@ class CRYDetailBookFragment : Fragment(){
         binding.txtBids.background = AppCompatResources.getDrawable(requireContext(), R.drawable.background_disable)
         binding.txtAsk.setTextColor(AppCompatResources.getColorStateList(requireContext(), R.color.white))
         binding.txtBids.setTextColor(AppCompatResources.getColorStateList(requireContext(), R.color.blue))
-        detailBookVM.setUpdateList(true)
+        detailBookVM.tickerBook.value?.askList?.let { detailBookVM.sendListUpdate(it) }
     }
 
     private fun changeBids(){
@@ -100,7 +104,7 @@ class CRYDetailBookFragment : Fragment(){
         binding.txtBids.background = AppCompatResources.getDrawable(requireContext(), R.drawable.background_button)
         binding.txtBids.setTextColor(AppCompatResources.getColorStateList(requireContext(), R.color.white))
         binding.txtAsk.setTextColor(AppCompatResources.getColorStateList(requireContext(), R.color.blue))
-        detailBookVM.setUpdateList(false)
+        detailBookVM.tickerBook.value?.bidsList?.let { detailBookVM.sendListUpdate(it) }
     }
 
     private val tickerObserver = Observer<CRYDetailBook>{
@@ -114,7 +118,7 @@ class CRYDetailBookFragment : Fragment(){
         }
     }
 
-    private val listAskOrBids = Observer<MutableList<CRYAskOrBids>> {
+    private val listAskOrBids = Observer<List<CRYAskOrBids>> {
         it?.let {
             binding.idShimmer.visibility = View.GONE
             binding.rvAskBids.visibility = View.VISIBLE

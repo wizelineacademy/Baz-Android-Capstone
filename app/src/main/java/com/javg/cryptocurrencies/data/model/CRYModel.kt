@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class CRYBook(
     var book: String,
-    @DrawableRes var image: Int
+    var imageUrl: String
 )
 
 data class CRYDetailBook(

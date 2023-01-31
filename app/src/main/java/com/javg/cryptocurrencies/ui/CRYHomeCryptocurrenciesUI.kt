@@ -49,11 +49,11 @@ fun CRYCardInformation(book: CRYBook){
         elevation = 3.dp) {
 
         Row(Modifier.padding(16.dp)) {
-            Image(
+            /*Image(
                 painter = painterResource(id = book.image),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(100.dp))
+                    .size(100.dp))*/
             Spacer(Modifier.size(12.dp))
             Column{
                 Text(text = book.book,
