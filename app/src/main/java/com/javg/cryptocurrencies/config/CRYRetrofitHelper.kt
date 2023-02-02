@@ -31,7 +31,7 @@ object CRYRetrofitHelper {
         httpClient.addInterceptor(logging)
 
         return Retrofit.Builder()
-            .baseUrl(CRYConstant.BASE_URL)
+            .baseUrl(CRYApi.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(httpClient.build())
     }

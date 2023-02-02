@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/txt_price"
+        style="@style/subtitle_h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimens_12_dp"
+        android:text="@string/cry_price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ed_price"
+        style="@style/subtitle_gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimens_8_dp"
+        app:layout_constraintStart_toEndOf="@+id/txt_price"
+        app:layout_constraintTop_toTopOf="@+id/txt_price" />
+
+    <TextView
+        android:id="@+id/txt_amount"
+        style="@style/subtitle_h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cry_amount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_price" />
+
+    <TextView
+        android:id="@+id/ed_amount"
+        style="@style/subtitle_gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimens_8_dp"
+        app:layout_constraintStart_toEndOf="@+id/txt_amount"
+        app:layout_constraintTop_toTopOf="@+id/txt_amount" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimens_1_dp"
+        android:background="@color/shimer_gray"
+        android:layout_marginTop="@dimen/dimens_8_dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_amount" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
