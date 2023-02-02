@@ -1,8 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
     id 'kotlin-kapt'
-    id("com.google.dagger.hilt.android") version "2.44" apply false
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -48,17 +49,23 @@ ext{
     rx_version = "3.0.0"
     materialDesigne_version = "1.2.0-alpha02"
     hilt_version = "2.44"
+    nav_version = "2.5.3"
+    splash_version = "1.0.0"
     okhttp_version = "4.9.3"
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation "com.google.android.material:material:$materialDesigne_version"
+
+    //SPLASH SCREEN
+    implementation "androidx.core:core-splashscreen:$splash_version"
 
     //RETROFIT
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -77,11 +84,13 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
 
     //HILT
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
-    implementation "com.google.android.material:material:$materialDesigne_version"
+    //NAVIGATION
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 }
