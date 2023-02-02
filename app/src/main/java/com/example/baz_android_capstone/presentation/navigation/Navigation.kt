@@ -75,7 +75,7 @@ fun Navigation(navController: NavHostController) {
         composable(
             route = Screen.Description.route,
             arguments = listOf(
-                navArgument(DATA_ARGUMENT_KEY){
+                navArgument(DATA_ARGUMENT_KEY) {
                     type = NavType.StringType
                 }
             )

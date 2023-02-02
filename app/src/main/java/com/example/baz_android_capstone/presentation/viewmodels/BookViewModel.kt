@@ -5,12 +5,12 @@ import com.example.baz_android_capstone.data.dataOrException.DataOrException
 import com.example.baz_android_capstone.data.models.availableBook.Book
 import com.example.baz_android_capstone.data.models.orderBook.OrderBook
 import com.example.baz_android_capstone.data.models.ticker.Ticker
-import com.example.baz_android_capstone.data.repository.BookRepository
+import com.example.baz_android_capstone.data.repository.BookRepositoryInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class BookViewModel @Inject constructor(private val repository: BookRepository) : ViewModel() {
+class BookViewModel @Inject constructor(private val repository: BookRepositoryInterface) : ViewModel() {
 
     suspend fun getOrder(book: String): DataOrException<OrderBook, Boolean, Exception> {
         return repository.getOrder(book)

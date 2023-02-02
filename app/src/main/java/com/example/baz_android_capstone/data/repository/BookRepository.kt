@@ -8,12 +8,12 @@ import com.example.baz_android_capstone.data.models.ticker.Ticker
 import com.example.baz_android_capstone.data.network.BookAPI
 import javax.inject.Inject
 
-class BookRepository @Inject constructor(private val api: BookAPI) {
+class BookRepository @Inject constructor(private val api: BookAPI) : BookRepositoryInterface {
     private val booksOrException = DataOrException<Book, Boolean, Exception>()
     private val tickerOrException = DataOrException<Ticker, Boolean, Exception>()
     private val orderOrException = DataOrException<OrderBook, Boolean, Exception>()
 
-    suspend fun getAllBooks(): DataOrException<Book, Boolean, Exception> {
+    override suspend fun getAllBooks(): DataOrException<Book, Boolean, Exception> {
         try {
             booksOrException.data = api.getAllAvailableBooks()
         } catch (e: Exception) {
@@ -23,7 +23,7 @@ class BookRepository @Inject constructor(private val api: BookAPI) {
         return booksOrException
     }
 
-    suspend fun getTicker(book: String): DataOrException<Ticker, Boolean, Exception> {
+    override suspend fun getTicker(book: String): DataOrException<Ticker, Boolean, Exception> {
         try {
             tickerOrException.data = api.getTicker(book)
         } catch (e: Exception) {
@@ -33,7 +33,7 @@ class BookRepository @Inject constructor(private val api: BookAPI) {
         return tickerOrException
     }
 
-    suspend fun getOrder(book: String): DataOrException<OrderBook, Boolean, Exception> {
+    override suspend fun getOrder(book: String): DataOrException<OrderBook, Boolean, Exception> {
         try {
             orderOrException.data = api.getOrderBook(book)
         } catch (e: Exception) {

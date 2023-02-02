@@ -1,4 +1,4 @@
-package com.example.baz_android_capstone.presentation.screens
+package com.example.baz_android_capstone.presentation.screens // ktlint-disable package-name
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

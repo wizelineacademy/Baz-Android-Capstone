@@ -2,6 +2,7 @@ package com.example.baz_android_capstone.di
 
 import com.example.baz_android_capstone.data.network.BookAPI
 import com.example.baz_android_capstone.data.repository.BookRepository
+import com.example.baz_android_capstone.data.repository.BookRepositoryInterface
 import com.example.baz_android_capstone.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -16,7 +17,7 @@ import javax.inject.Singleton
 object AppModule {
     @Singleton
     @Provides
-    fun provideBookRepository(api: BookAPI) = BookRepository(api)
+    fun provideBookRepository(api: BookAPI) : BookRepositoryInterface = BookRepository(api)
 
     @Singleton
     @Provides

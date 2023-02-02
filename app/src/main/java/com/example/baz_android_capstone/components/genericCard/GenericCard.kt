@@ -76,7 +76,6 @@ fun GenericCard(
                         RequestOptions.noTransformation()
                     }
                 }
-
             )
             genericCardInterface.title?.let { Text(text = it) }
         }
