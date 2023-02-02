@@ -6,10 +6,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.navigation.NavController
+import com.example.baz_android_capstone.presentation.viewmodels.BookViewModel
 
 @Composable
 fun Principal(
-    navController: NavController
+    navController: NavController,
+    viewModel: BookViewModel
 ) {
     Box(contentAlignment = Alignment.Center) {
         Text(

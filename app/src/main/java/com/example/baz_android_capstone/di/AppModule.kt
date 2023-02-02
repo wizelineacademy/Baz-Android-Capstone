@@ -1,6 +1,7 @@
 package com.example.baz_android_capstone.di
 
 import com.example.baz_android_capstone.data.network.BookAPI
+import com.example.baz_android_capstone.data.repository.BookRepository
 import com.example.baz_android_capstone.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -13,6 +14,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+    @Singleton
+    @Provides
+    fun provideBookRepository(api: BookAPI) = BookRepository(api)
+
     @Singleton
     @Provides
     fun provideBookApi(): BookAPI {

@@ -1,18 +1,22 @@
 package com.example.baz_android_capstone.presentation.navigation
 
-import androidx.compose.animation.*
+import androidx.compose.animation.* // ktlint-disable no-wildcard-imports
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.baz_android_capstone.presentation.screens.Description
 import com.example.baz_android_capstone.presentation.screens.Principal
 import com.example.baz_android_capstone.presentation.screens.Splash
+import com.example.baz_android_capstone.presentation.viewmodels.BookViewModel
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun Navigation(navController: NavHostController) {
+    val viewModel: BookViewModel = viewModel()
+
     AnimatedNavHost(
         navController = navController,
         startDestination = Screen.Splash.route,
@@ -61,7 +65,10 @@ fun Navigation(navController: NavHostController) {
             Splash(navController = navController)
         }
         composable(route = Screen.Principal.route) {
-            Principal(navController = navController)
+            Principal(
+                navController = navController,
+                viewModel = viewModel
+            )
         }
         composable(route = Screen.Description.route) {
             Description(navController = navController)
