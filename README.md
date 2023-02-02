@@ -29,7 +29,7 @@ Estos son los requerimientos principales que evaluaremos:
 Para publicar tu trabajo, deberás seguir estos pasos:
 
 1. Crear un `pull request` con tu código, apuntando a la rama `master`
-2. Llenar este [formato](https://docs.google.com/forms/d/e/1FAIpQLSeiEq0dPXjLnni5OBHzNwGMs-NYWckzFgrn5PS18Culpojt-A/viewform)
+2. Llenar este [formato](https://forms.gle/Xhc38ydorhDZkGSy6)
 3. Mantente al pendiente de la retroalimentación.
 4. Genera los cambios conforme a los comentarios de tu mentor.
 
@@ -63,7 +63,7 @@ Con base en el material de autoestudio y las mentorías hasta este entregable, s
     - Crear una pantalla de detalle que mostrará el último precio, el más alto y el más bajo. Además, mostrar una lista de `bids` y `asks` haciendo uso del servicio `order-book`
 - Hacer uso de buenas prácticas
 
-### **Fecha de Entrega 2 de Noviembre**
+### **Fecha de Entrega 3 de Febrero**
 
 > Nota: la lista anterior de este entregable es sólo una guía para ayudarte a distribuir la carga de trabajo; puedes entregar más o menos elementos si es necesario. De igual manera, si entregas menos elementos en este punto, tendrás que cubrir los elementos restantes en el siguiente entregable.
 
@@ -78,7 +78,7 @@ Con base en el material de autoestudio y las mentorías hasta este entregable, s
 - Hacer _refactor_ de la vista, actualiza tus layouts haciendo uso de `ConstraintLayout`
 - Hacer uso de buenas prácticas
 
-### **Fecha de Entrega 9 de Noviembre**
+### **Fecha de Entrega 17 de Febrero**
 
 > Nota: la lista anterior de este entregable es sólo una guía para ayudarte a distribuir la carga de trabajo; puedes entregar más o menos elementos si es necesario. De igual manera, si entregas menos elementos en este punto, tendrás que cubrir los elementos restantes en el siguiente entregable.
 
@@ -91,7 +91,7 @@ Con base en el material de autoestudio y las mentorías hasta este entregable, s
 - Implementa RxJava2 o RxJava3, envuelve la respuesta de _Retrofit_ y crea un `observable` que vaya a ser observado o cambia la respuesta de _Retrofit_ a un `Observable`.
 - Hacer uso de buenas prácticas
 
-### **Fecha de Entrega 16 de Noviembre**
+### **Fecha de Entrega Jueves 2 de Marzo**
 
 
 > Importante: este es el último entregabble, por lo cual todos los requerimientos deben ser incluidos. Proveeremos retroalimentación de tu entregable y tendrás 3 días más para aplicar los cambios. En el tercer día, dejaremos de recibir cambios a las 11:00 a.m.
