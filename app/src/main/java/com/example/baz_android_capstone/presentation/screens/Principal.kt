@@ -45,7 +45,7 @@ fun Principal(
                     contentScale = ContentScale.Crop
                 )
             ) {
-                navController.navigate(Screen.Description.route)
+                navController.navigate(Screen.Description.passArgs(it.book))
             }
         )
         Log.d("Icon", "https://cryptoicons.org/api/icon/${it.book.substring(startIndex = 0, endIndex = it.book.length - 4)}/200")

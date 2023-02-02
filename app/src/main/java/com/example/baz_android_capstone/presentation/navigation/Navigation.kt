@@ -5,6 +5,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import com.example.baz_android_capstone.presentation.screens.Description
 import com.example.baz_android_capstone.presentation.screens.Principal
 import com.example.baz_android_capstone.presentation.screens.Splash
@@ -70,8 +72,18 @@ fun Navigation(navController: NavHostController) {
                 viewModel = viewModel
             )
         }
-        composable(route = Screen.Description.route) {
-            Description(navController = navController)
+        composable(
+            route = Screen.Description.route,
+            arguments = listOf(
+                navArgument(DATA_ARGUMENT_KEY){
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            Description(
+                navController = navController,
+                viewModel = viewModel
+            )
         }
     }
 }
