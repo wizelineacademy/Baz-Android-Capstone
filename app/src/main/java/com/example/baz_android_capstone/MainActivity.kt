@@ -14,7 +14,9 @@ import androidx.navigation.NavHostController
 import com.example.baz_android_capstone.presentation.navigation.Navigation
 import com.example.baz_android_capstone.ui.theme.BazAndroidCapstoneTheme
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
