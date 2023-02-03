@@ -11,6 +11,7 @@ import com.axiasoft.android.zerocoins.R
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.databinding.FragmentTickerBinding
 import com.axiasoft.android.zerocoins.features.coins.viewmodels.BooksScreenViewModel
+import com.axiasoft.android.zerocoins.features.coins.views.ui_states.ListOrderBookScreenState
 import com.axiasoft.android.zerocoins.features.coins.views.ui_states.TickerScreenState
 
 class TickerFragment : Fragment() {
@@ -45,12 +46,22 @@ class TickerFragment : Fragment() {
         viewModel.tickerState.observe(viewLifecycleOwner){
             when(it){
                 is TickerScreenState.TickerSuccess ->{
-                    log("z0", "here?")
                     binding.tvTicker.text = it.ticker.toString()
                 }
                 else -> {}
             }
         }
+
+        viewModel.listOrderBookScreenState.observe(viewLifecycleOwner){
+            when(it){
+                is ListOrderBookScreenState.Success ->{
+                    binding.tvProvisionalListOrderDisplay.text = "ASKs: -> \n ${it.asks}"
+                    binding.tvProvisionalListOrderBidsDisplay.text = "BIDs: -> \n ${it.bids}"
+                }
+                else -> {}
+            }
+        }
+
         viewModel.getTickerWithUseCase()
         viewModel.getListOrderBook()
     }
