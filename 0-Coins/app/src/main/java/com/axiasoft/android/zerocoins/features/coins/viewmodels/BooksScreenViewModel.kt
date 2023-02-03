@@ -5,9 +5,11 @@ import androidx.lifecycle.*
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.features.coins.domain.models.data.book.response.Book
 import kotlinx.coroutines.launch
-import com.axiasoft.android.zerocoins.features.coins.domain.repositories.BooksRepositoryImpl
+import com.axiasoft.android.zerocoins.features.coins.domain.repositories.book_order.BooksRepositoryImpl
 import com.axiasoft.android.zerocoins.features.coins.domain.use_cases.GetBooksUseCase
+import com.axiasoft.android.zerocoins.features.coins.domain.use_cases.GetTickerUseCase
 import com.axiasoft.android.zerocoins.features.coins.views.ui_states.BooksScreenState
+import com.axiasoft.android.zerocoins.features.coins.views.ui_states.TickerScreenState
 import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWrap
 import kotlinx.coroutines.Dispatchers
 
@@ -22,6 +24,8 @@ class BooksScreenViewModel: ViewModel() {
     }
 
     var selectedBookOrder = Book()
+
+    var tickerState: MutableLiveData<TickerScreenState> = MutableLiveData()
 
     fun getBooks(){
         viewModelScope.launch{
@@ -48,6 +52,21 @@ class BooksScreenViewModel: ViewModel() {
                 }
                 is BooksScreenState.BooksErrorOrEmpty -> {
                     log(message = "some error ${booksState.message}")
+                }
+            }
+        }
+    }
+
+    fun getTickerWithUseCase(){
+        viewModelScope.launch {
+            val tickerSreenState = GetTickerUseCase(booksRepository).invoke(selectedBookOrder)
+            when(tickerSreenState){
+                is TickerScreenState.TickerSuccess -> {
+                    val ticker = tickerSreenState.ticker
+                    tickerState.value = TickerScreenState.TickerSuccess(ticker)
+                }
+                is TickerScreenState.TickerError -> {
+
                 }
             }
         }

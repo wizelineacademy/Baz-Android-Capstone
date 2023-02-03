@@ -11,8 +11,6 @@ import com.axiasoft.android.zerocoins.features.coins.views.fragments.BookOrderLi
 
 class CoinsActivity : AppCompatActivity() {
 
-    private val viewModel: BooksScreenViewModel by viewModels()
-
     private lateinit var binding: ActivityCoinsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -2,6 +2,8 @@
     <string name="app_name">Zero-Coins</string>
     <string name="book_order_name_btc_mxn">Bitcoin a Peso Mexicano</string>
     <string name="book_order_name_eth_btc">Ethereum a Bitcoin</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

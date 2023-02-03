@@ -10,7 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.axiasoft.android.zerocoins.R
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.features.coins.viewmodels.BooksScreenViewModel
@@ -20,18 +23,20 @@ class BookOrderListFragment : Fragment() {
 
     private var columnCount = 1
 
-    private val viewModel: BooksScreenViewModel by viewModels()
+    //private val viewModel: BooksScreenViewModel by viewModels()
+
+    lateinit var viewModel: BooksScreenViewModel
 
     val bookOrderAdapter = BookOrderAdapter{ bookOrderSelected ->
         log("z0", "selected $bookOrderSelected")
         viewModel.selectedBookOrder = bookOrderSelected
         //TODO set data and navigate to next screen
+        navigateToDetail()
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
@@ -56,11 +61,21 @@ class BookOrderListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel = ViewModelProvider(requireActivity()).get(BooksScreenViewModel::class.java)
+
         viewModel.books.observe(viewLifecycleOwner) {
             log("z0", "Fragment ${it}" )
             bookOrderAdapter.updateBookOrders(it)
         }
         viewModel.getBooksWithUseCase()
+    }
+
+    fun navigateToDetail(){
+        val fragment = TickerFragment()
+        val fm : FragmentManager = requireActivity().supportFragmentManager
+        val ft: FragmentTransaction = fm.beginTransaction()
+        ft.replace(R.id.cl_cointainer, fragment)
+        ft.commit()
     }
 
     companion object {

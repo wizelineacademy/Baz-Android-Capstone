@@ -1,6 +1,6 @@
 package com.axiasoft.android.zerocoins.features.coins.domain.use_cases
 
-import com.axiasoft.android.zerocoins.features.coins.domain.repositories.BooksRepository
+import com.axiasoft.android.zerocoins.features.coins.domain.repositories.book_order.BooksRepository
 import com.axiasoft.android.zerocoins.features.coins.views.ui_states.BooksScreenState
 import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWrap
 
