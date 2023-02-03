@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="14dp"
+    android:layout_marginTop="7dp"
+    android:layout_marginRight="14dp"
+    android:layout_marginBottom="7dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="5dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/txtCurrencyName"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgMoney"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/ic_btc" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/minimum" />
+
+                <TextView
+                    android:id="@+id/txt_minimum_price"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/maximum" />
+
+                <TextView
+                    android:id="@+id/txt_maximum_price"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgMoneyTo"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_btc" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtCurrencyNameTo"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"/>
+
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
+
+
+
