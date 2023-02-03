@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Zero-Coins</string>
+    <string name="book_order_name_btc_mxn">Bitcoin a Peso Mexicano</string>
+    <string name="book_order_name_eth_btc">Ethereum a Bitcoin</string>
+
+
 </resources>

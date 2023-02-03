@@ -1,11 +1,12 @@
 package com.axiasoft.android.zerocoins.features.coins.domain.mappers
 
+import android.content.res.Resources
 import com.axiasoft.android.zerocoins.R
 
 enum class CoinNameAndImage(val coinName: String, val coinImage: Int, val coinKey: String) {
 
-    btc_mxn(coinName = "btc_mxn", coinImage = R.drawable.ic_btc, coinKey = "btc_mxn"),
-    eth_btc(coinName = "eth_btc", coinImage = R.drawable.ic_ethereum, coinKey = "eth_btc"),
+    btc_mxn(coinName = getStringRes(R.string.book_order_name_btc_mxn), coinImage = R.drawable.ic_btc, coinKey = "btc_mxn"),
+    eth_btc(coinName = getStringRes(R.string.book_order_name_eth_btc), coinImage = R.drawable.ic_ethereum, coinKey = "eth_btc"),
     eth_mxn(coinName = "eth_mxn", coinImage = R.drawable.ic_ethereum, coinKey = "eth_mxn"),
     xrp_btc(coinName = "xrp_btc", coinImage = R.drawable.ic_xrp, coinKey = "xrp_btc"),
     xrp_mxn(coinName = "xrp_mxn", coinImage = R.drawable.ic_xrp, coinKey = "xrp_mxn"),
@@ -33,4 +34,9 @@ enum class CoinNameAndImage(val coinName: String, val coinImage: Int, val coinKe
     eth_ars(coinName = "eth_ars", coinImage = R.drawable.ic_ethereum, coinKey = "eth_ars"),
 
     any_any("crypto", coinImage = R.drawable.ic_ldoge, coinKey = "any_any")
+}
+
+fun getStringRes(id: Int): String{
+    //val resName = Resources.getSystem().getIdentifier()
+    return "Moneda"//resName//Resources.getSystem().getString(id)
 }
