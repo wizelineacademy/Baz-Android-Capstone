@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:id="@+id/crypto_order_book"
+            style="@style/Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="@id/crypto_order_price"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/crypto_order_amount"
+            tools:text="Item Book" />
+
+        <TextView
+            android:id="@+id/crypto_order_amount"
+            style="@style/AmountTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintBottom_toTopOf="@id/crypto_order_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/crypto_order_book"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="378140" />
+
+        <TextView
+            android:id="@+id/crypto_order_price"
+            style="@style/PriceTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/crypto_order_amount"
+            app:layout_constraintTop_toBottomOf="@id/crypto_order_amount"
+            tools:text="0.02248087" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

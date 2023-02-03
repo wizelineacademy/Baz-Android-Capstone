@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">CursoWizline</string>
+
+    <string name="image">Description Image</string>
+    <string name="book">Description book</string>
+    <string name="minimum_price">Minimum price</string>
+    <string name="maximum_price">Maximun price</string>
+    <string name="minimum_value">Minimum value</string>
+    <string name="maximum_value">Maximum value</string>
+    <string name="tick_size">Ticket size</string>
+    <string name="asks">ASKS</string>
+    <string name="error_showing_crypto_not_found">Error showing crypto</string>
+    <string name="error_unknown_host_exception">There is no connection</string>
+    <string name="error_unknown">There was an error</string>
+</resources>
