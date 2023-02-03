@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Wizeline Android</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ultimo_precio">Último precio:</string>
+    <string name="precio_mas_alto">Precio más alto:</string>
+    <string name="precio_mas_bajo">Precio más bajo:</string>
+    <string name="coin">coin</string>
+    <string name="book">book:</string>
+    <string name="bids">Bids</string>
+</resources>
