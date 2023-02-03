@@ -1,6 +1,6 @@
 package com.carteagal.baz_android.di
 
-import com.carteagal.baz_android.data.service.CriptoMoneyService
+import com.carteagal.baz_android.data.service.CryptoApiClient
 import com.carteagal.baz_android.utils.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -26,7 +26,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideApiClient(retrofit: Retrofit): CriptoMoneyService =
-        retrofit.create(CriptoMoneyService::class.java)
+    fun provideApiClient(retrofit: Retrofit): CryptoApiClient =
+        retrofit.create(CryptoApiClient::class.java)
 
 }

@@ -51,6 +51,7 @@ ext{
     hilt_version = "2.44"
     nav_version = "2.5.3"
     splash_version = "1.0.0"
+    glide_version = "4.14.2"
     okhttp_version = "4.9.3"
 }
 
@@ -93,4 +94,8 @@ dependencies {
     //NAVIGATION
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    //Glide
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 }
