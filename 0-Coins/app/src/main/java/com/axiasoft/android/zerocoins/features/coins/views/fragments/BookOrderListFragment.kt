@@ -22,7 +22,11 @@ class BookOrderListFragment : Fragment() {
 
     private val viewModel: BooksScreenViewModel by viewModels()
 
-    val bookOrderAdapter = BookOrderAdapter()
+    val bookOrderAdapter = BookOrderAdapter{ bookOrderSelected ->
+        log("z0", "selected $bookOrderSelected")
+        viewModel.selectedBookOrder = bookOrderSelected
+        //TODO set data and navigate to next screen
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

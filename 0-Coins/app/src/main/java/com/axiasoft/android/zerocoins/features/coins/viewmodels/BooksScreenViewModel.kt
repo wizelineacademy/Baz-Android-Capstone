@@ -21,6 +21,8 @@ class BooksScreenViewModel: ViewModel() {
         MutableLiveData<MutableList<Book>>()
     }
 
+    var selectedBookOrder = Book()
+
     fun getBooks(){
         viewModelScope.launch{
             val response = booksRepository.getBooksFromApi()

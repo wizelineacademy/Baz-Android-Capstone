@@ -13,7 +13,7 @@ import com.axiasoft.android.zerocoins.features.coins.domain.mappers.getBookOrder
 import com.axiasoft.android.zerocoins.features.coins.domain.models.data.book.response.Book
 import com.bumptech.glide.Glide
 
-class BookOrderAdapter: RecyclerView.Adapter<BookOrderAdapter.BookOrderViewHolder>() {
+class BookOrderAdapter(private val onItemClick: (Book) -> Unit): RecyclerView.Adapter<BookOrderAdapter.BookOrderViewHolder>() {
 
     var items: MutableList<Book> = mutableListOf()
 
@@ -23,7 +23,9 @@ class BookOrderAdapter: RecyclerView.Adapter<BookOrderAdapter.BookOrderViewHolde
             R.layout.book_coin_item,
             parent,
             false)
-        return BookOrderViewHolder(binding)
+        return BookOrderViewHolder(binding){
+            onItemClick(items[it])
+        }
     }
 
     override fun onBindViewHolder(holder: BookOrderViewHolder, position: Int) {
@@ -38,7 +40,16 @@ class BookOrderAdapter: RecyclerView.Adapter<BookOrderAdapter.BookOrderViewHolde
         notifyDataSetChanged()
     }
 
-    class BookOrderViewHolder(private val binding: ViewDataBinding): RecyclerView.ViewHolder(binding.root){
+    class BookOrderViewHolder(
+        private val binding: ViewDataBinding,
+        onItemClicked: (Int) -> Unit
+    ): RecyclerView.ViewHolder(binding.root){
+
+        init {
+            itemView.setOnClickListener {
+                onItemClicked(bindingAdapterPosition)
+            }
+        }
 
         fun bind(book: Book) {
             val typeOfBookOrder = getBookOrderType(book.book ?: "") ?: CoinNameAndImage.any_any
