@@ -2,13 +2,14 @@ package com.axiasoft.android.zerocoins.features.coins.domain.mappers
 
 import android.content.res.Resources
 import com.axiasoft.android.zerocoins.R
+import com.axiasoft.android.zerocoins.application.ZeroCoinsApplication
 
 enum class CoinNameAndImage(val coinName: String, val coinImage: Int, val coinKey: String) {
 
     btc_mxn(coinName = getStringRes(R.string.book_order_name_btc_mxn), coinImage = R.drawable.ic_btc, coinKey = "btc_mxn"),
     eth_btc(coinName = getStringRes(R.string.book_order_name_eth_btc), coinImage = R.drawable.ic_ethereum, coinKey = "eth_btc"),
-    eth_mxn(coinName = "eth_mxn", coinImage = R.drawable.ic_ethereum, coinKey = "eth_mxn"),
-    xrp_btc(coinName = "xrp_btc", coinImage = R.drawable.ic_xrp, coinKey = "xrp_btc"),
+    eth_mxn(coinName = getStringRes(R.string.book_order_name_eth_mxn), coinImage = R.drawable.ic_ethereum, coinKey = "eth_mxn"),
+    xrp_btc(coinName = getStringRes(R.string.book_order_name_xrp_btc), coinImage = R.drawable.ic_xrp, coinKey = "xrp_btc"),
     xrp_mxn(coinName = "xrp_mxn", coinImage = R.drawable.ic_xrp, coinKey = "xrp_mxn"),
     ltc_btc(coinName = "ltc_btc", coinImage = R.drawable.ic_litecoin, coinKey = "ltc_btc"),
     ltc_mxn(coinName = "ltc_mxn", coinImage = R.drawable.ic_litecoin, coinKey = "ltc_mxn"),
@@ -37,6 +38,5 @@ enum class CoinNameAndImage(val coinName: String, val coinImage: Int, val coinKe
 }
 
 fun getStringRes(id: Int): String{
-    //val resName = Resources.getSystem().getIdentifier()
-    return "Moneda"//resName//Resources.getSystem().getString(id)
+    return ZeroCoinsApplication.appContext.getString(id)
 }
