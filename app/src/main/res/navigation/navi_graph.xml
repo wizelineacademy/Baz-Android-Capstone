@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navi_graph"
+    app:startDestination="@id/availableBooksFragment">
+
+    <fragment
+        android:id="@+id/availableBooksFragment"
+        android:name="com.wizeline.criptocurrency.ui.AvailableBooksFragment"
+        android:label="AvailableBooksFragment" >
+        <action
+            android:id="@+id/action_availableBooksFragment_to_orderBookDetailFragment"
+            app:destination="@id/orderBookDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderBookDetailFragment"
+        android:name="com.wizeline.criptocurrency.ui.OrderBookDetailFragment"
+        android:label="OrderBookDetailFragment" >
+        <action
+            android:id="@+id/action_orderBookDetailFragment_to_availableBooksFragment"
+            app:destination="@id/availableBooksFragment" />
+    </fragment>
+</navigation>
