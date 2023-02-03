@@ -3,20 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/bookListFragment">
+    app:startDestination="@id/book_list_fragment">
 
     <fragment
-        android:id="@+id/bookListFragment"
+        android:id="@+id/book_list_fragment"
         android:name="com.carteagal.baz_android.presentation.ui.BookListFragment"
         android:label="fragment_book_list"
         tools:layout="@layout/fragment_book_list" >
         <action
             android:id="@+id/action_bookListFragment_to_bookDetailFragment"
-            app:destination="@id/bookDetailFragment" />
+            app:destination="@id/book_detail_fragment" >
+            <argument
+                android:name="bookName"
+                app:argType="string"/>
+            <argument
+                android:name="urlBook"
+                app:argType="string"/>
+        </action>
     </fragment>
     <fragment
-        android:id="@+id/bookDetailFragment"
+        android:id="@+id/book_detail_fragment"
         android:name="com.carteagal.baz_android.presentation.ui.BookDetailFragment"
         android:label="fragment_book_detail"
-        tools:layout="@layout/fragment_book_detail" />
+        tools:layout="@layout/fragment_book_detail" >
+        <argument
+            android:name="bookName"
+            app:argType="string"/>
+        <argument
+            android:name="urlBook"
+            app:argType="string"/>
+    </fragment>
 </navigation>

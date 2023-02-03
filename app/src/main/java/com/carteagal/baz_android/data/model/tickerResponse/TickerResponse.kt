@@ -5,21 +5,21 @@ import com.google.gson.annotations.SerializedName
 
 data class TickerResponse(
     @Expose
-    @SerializedName("book") val book: String? ,
+    @SerializedName("book") val book: String? = "" ,
     @Expose
-    @SerializedName("volume") val volume: String?,
+    @SerializedName("volume") val volume: String? = "",
     @Expose
-    @SerializedName("high") val high: String?,
+    @SerializedName("high") val high: String? = "",
     @Expose
-    @SerializedName("last") val last: String? ,
+    @SerializedName("last") val last: String? = "",
     @Expose
-    @SerializedName("low") val low: String?,
+    @SerializedName("low") val low: String? = "",
     @Expose
-    @SerializedName("vwap") val vwap: String? ,
+    @SerializedName("vwap") val vwap: String? = "",
     @Expose
-    @SerializedName("ask") val ask: String?,
+    @SerializedName("ask") val ask: String? = "",
     @Expose
-    @SerializedName("bid") val bid: String? ,
+    @SerializedName("bid") val bid: String? = "",
     @Expose
-    @SerializedName("created_at") val createdAt: String?
+    @SerializedName("created_at") val createdAt: String? = ""
 )

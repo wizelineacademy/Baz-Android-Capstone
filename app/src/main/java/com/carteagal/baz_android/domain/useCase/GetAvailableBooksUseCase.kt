@@ -1,12 +1,10 @@
 package com.carteagal.baz_android.domain.useCase
 
-import android.util.Log
-import com.carteagal.baz_android.data.model.availableBook.AvailableBookResponse
 import com.carteagal.baz_android.data.model.availableBook.AvailableBookUI
 import com.carteagal.baz_android.data.network.Resources
 import com.carteagal.baz_android.data.network.Resources.Error
 import com.carteagal.baz_android.data.network.Resources.Success
-import com.carteagal.baz_android.data.repository.availableBooksRepository.AvailableBooksRepository
+import com.carteagal.baz_android.data.repository.AvailableBooksRepository
 import com.carteagal.baz_android.domain.mapper.availableMapper
 import javax.inject.Inject
 

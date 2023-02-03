@@ -32,27 +32,6 @@ open class BaseApiResponse {
         Error("Api call failed $errorMessage")
 }
 
-suspend fun <T> safeApiCall(
-        apiCall: suspend () -> Response<T>
-): Resources<T> =
-    withContext(Dispatchers.IO) {
-        try {
-            val response = apiCall.invoke()
-            Log.d("__tag response", response.body().toString())
-            if(response.isSuccessful){
-                val body = response.body() as BaseServiceResponse<*>
-                Log.d("__tag body sucess", body.success.toString())
-                Log.d("__tag body result", body.result.toString())
-                if(body.success) Success(body.result)
-                else Error("${body.error!!.code} ${body.error.message}")
-            }
-            error("${response.code()} ${response.message()}")
-        }catch (e: Exception){
-            Log.d("__tag exepton 2", e.message.toString())
-            error(e.message ?: e.toString())
-        }
-    }
-
 private fun <T>error(errorMessage: String): Resources<T> =
     Error("Api call failed $errorMessage")
 

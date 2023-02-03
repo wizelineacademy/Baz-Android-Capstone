@@ -5,4 +5,5 @@
     <dimen name="margin_tiny">8dp</dimen>
     <dimen name="margin_large">16dp</dimen>
     <dimen name="size_image_min">48dp</dimen>
+    <dimen name="size_image_max">64dp</dimen>
 </resources>

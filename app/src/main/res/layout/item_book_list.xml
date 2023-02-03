@@ -2,6 +2,7 @@
 
 <androidx.cardview.widget.CardView
     style="@style/Base.CardView"
+    android:id="@+id/card_view_info"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_constraintStart_toStartOf="parent"

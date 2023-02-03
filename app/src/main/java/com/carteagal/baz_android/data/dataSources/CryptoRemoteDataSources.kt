@@ -9,5 +9,5 @@ import com.carteagal.baz_android.data.network.Resources
 interface CryptoRemoteDataSources {
     suspend fun getAvailableBooks():  List<AvailableBookResponse>
     suspend fun getOrderBooks(book: String): List<OrderBookResponse>
-    suspend fun getTicker(book: String): BaseServiceResponse<TickerResponse>
+    suspend fun getTicker(book: String): TickerResponse
 }

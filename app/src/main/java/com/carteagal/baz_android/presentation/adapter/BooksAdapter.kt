@@ -10,7 +10,9 @@ import com.carteagal.baz_android.databinding.ItemBookListBinding
 import com.carteagal.baz_android.utils.extension.loadImage
 import com.carteagal.baz_android.utils.extension.toAmountFormat
 
-class BooksAdapter() : ListAdapter<AvailableBookUI, BooksAdapter.ViewHolder>(AvailableBookCallBack){
+class BooksAdapter(
+    private val onClickListener: (bookInfo: AvailableBookUI) -> Unit
+): ListAdapter<AvailableBookUI, BooksAdapter.ViewHolder>(AvailableBookCallBack){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         ItemBookListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,6 +27,7 @@ class BooksAdapter() : ListAdapter<AvailableBookUI, BooksAdapter.ViewHolder>(Ava
             binding.txtMaxAmount.text = book.maxPrice.toAmountFormat()
             binding.txtMinAmount.text = book.minPrice.toAmountFormat()
             binding.imgLogo.loadImage(book.imageUrl)
+            binding.cardViewInfo.setOnClickListener { onClickListener(book) }
             //binding.txtMinAmount.text = String.format("%.2f", book.minimumPrice)
         }
     }

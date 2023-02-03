@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.carteagal.baz_android.R
+import com.carteagal.baz_android.data.model.availableBook.AvailableBookUI
 import com.carteagal.baz_android.data.network.Resources
 import com.carteagal.baz_android.data.network.Resources.Success
 import com.carteagal.baz_android.databinding.FragmentBookListBinding
@@ -42,29 +44,27 @@ class BookListFragment : Fragment() {
         setUpRecyclerView()
     }
 
+    private fun loadData(){
+        cryptoViewModel.availableBooks.observe(viewLifecycleOwner) { result ->
+            when(result){
+                is Success -> {
+                    booksAdapter.submitList(result.data)
+                }
+                is Error -> {}
+                else ->{}
+            }
+        }
+    }
+
     private fun setUpRecyclerView(){
-        booksAdapter = BooksAdapter()
         binding.rvBooks.apply {
+            booksAdapter = BooksAdapter{ changeFragmentOnClick(it) }
             layoutManager = LinearLayoutManager(requireContext())
             adapter = booksAdapter
         }
     }
 
-
-    private fun loadData(){
-        cryptoViewModel.availableBooks.observe(viewLifecycleOwner) { result ->
-            when(result){
-                is Success -> {
-                    Log.d("__tag resutl", result.data.toString())
-                    booksAdapter.submitList(result.data)
-                }
-                is Error -> {
-                    Log.d("__tag error", result.message.toString())
-                }
-                else ->{
-                    Log.d("__tag error", "Desconocido")
-                }
-            }
-        }
+    private fun changeFragmentOnClick(bookInfo: AvailableBookUI){
+        findNavController().navigate(BookListFragmentDirections.actionBookListFragmentToBookDetailFragment(bookInfo.name, bookInfo.imageUrl))
     }
 }
