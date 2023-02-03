@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Baz-Android-Capstone.iml" filepath="$PROJECT_DIR$/.idea/modules/Baz-Android-Capstone.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CryptoCurrencies.iml" filepath="$PROJECT_DIR$/.idea/modules/CryptoCurrencies.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CryptoCurrencies.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CryptoCurrencies.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CryptoCurrencies.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CryptoCurrencies.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CryptoCurrencies.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CryptoCurrencies.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CryptoCurrencies.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CryptoCurrencies.app.unitTest.iml" />
     </modules>
   </component>
 </project>
