@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CriptoOne</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="last_price">Ultimo precio:</string>
+    <string name="high_price">Precio más alto:</string>
+    <string name="bids_str">Ofertas</string>
+    <string name="asks_str">Solicitudes</string>
+    <string name="down_price_str">Precio más bajo:</string>
+</resources>
