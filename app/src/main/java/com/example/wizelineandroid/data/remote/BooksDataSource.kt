@@ -13,4 +13,5 @@ class BooksDataSource(private val webService: WebService) {
     suspend fun getTickerBooks(id: String): GetTickers = webService.getTickerBooks(id)
 
     suspend fun getOrderBooks(id: String): OrderBook = webService.getOrderBooks(id)
+
 }

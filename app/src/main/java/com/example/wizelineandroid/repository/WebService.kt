@@ -12,6 +12,7 @@ import retrofit2.http.Query
 
 
 interface WebService {
+
     @GET("available_books/")
     suspend fun getAvailableBooks(): Books
 

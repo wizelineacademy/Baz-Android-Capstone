@@ -13,14 +13,10 @@ class TickerBooksViewModel(private val repo: TickerRepo): ViewModel() {
 
     fun fetchTickersBooks(id: String) = liveData(viewModelScope.coroutineContext + Dispatchers.Main){
         emit(Resource.Loading())
-        Log.d("ihvbhviybv", "fetchBooks: yes yes yes1")
         try {
             emit(Resource.Success(repo.getTickerBooks(id)))
-            Log.d("ihvbhviybv", "fetchBooks: yes yes yes2")
         }catch (e: Exception){
             emit(Resource.Failure(e))
-            Log.d("ihvbhviybv", "fetchBooks: yes yes yes3")
-
         }
     }
 }

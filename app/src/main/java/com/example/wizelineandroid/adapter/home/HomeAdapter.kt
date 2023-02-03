@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.wizelineandroid.R
 import com.example.wizelineandroid.core.BaseViewHolder
 import com.example.wizelineandroid.data.model.ModelBook
@@ -41,22 +42,10 @@ class HomeAdapter(private val booksList: List<ModelBook>, private val itemClickL
     inner class MainViewHolder(val binding : ItemRowBinding, val context: Context): BaseViewHolder<ModelBook>(binding.root){
         override fun bind(item: ModelBook){
             binding.txtn.text = item.book
+            val imgCoin = item.book.split("_")
             binding.txtPminimo.text = item.minimum_price
             binding.txtPmaximo.text = item.maximum_price
-            when(item.book){
-                "btc_mxn" -> binding.circleImageView.setImageResource(R.drawable.btc_mxn)
-                "bat_mxn" -> binding.circleImageView.setImageResource(R.drawable.bat_mxn)
-                "bch_mxn" -> binding.circleImageView.setImageResource(R.drawable.bch_mxn)
-                "dai_mxn" -> binding.circleImageView.setImageResource(R.drawable.dai_mxn)
-                "eth_mxn" -> binding.circleImageView.setImageResource(R.drawable.eth_mxn)
-                "ltc_mxn" -> binding.circleImageView.setImageResource(R.drawable.ltc_mxn)
-                "mana_mxn" -> binding.circleImageView.setImageResource(R.drawable.mana_mxn)
-                "tusd_mxn" -> binding.circleImageView.setImageResource(R.drawable.tusd_mxn)
-                "usd_mxn" -> binding.circleImageView.setImageResource(R.drawable.usd_mxn)
-                "xrp_mxn" -> binding.circleImageView.setImageResource(R.drawable.xrp_mxn)
-                else -> binding.circleImageView.setImageResource(com.google.android.material.R.drawable.navigation_empty_icon)
-            }
-
+            context.let { Glide.with(it).load("https://cryptoicons.org/api/icon/${imgCoin[0]}/200").centerCrop().into(binding.circleImageView) }
         }
     }
 }

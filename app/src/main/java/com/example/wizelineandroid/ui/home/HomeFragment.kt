@@ -35,23 +35,18 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeAdapter.onUserClickLi
             when(result){
                 is Resource.Loading -> {
                     binding.shimmerViewContainer.startShimmer()
-
                 }
                 is Resource.Success -> {
                     binding.shimmerViewContainer.stopShimmer()
                     val filteredCoins = result.data.payload.filter {
                         it.book.contains(AppConstants.TYPE)
                     }
-                    binding.rvCoins.adapter = HomeAdapter(filteredCoins,this)
+                    binding.rvCoins.adapter = HomeAdapter(result.data.payload,this)
                     binding.shimmerViewContainer.visibility = View.GONE
-
                 }
                 is Resource.Failure -> {
                     binding.shimmerViewContainer.stopShimmer()
                     binding.shimmerViewContainer.visibility = View.GONE
-                    Log.d("ihvbhviybv", "fetchBooks: yes yes yes3")
-
-
                 }
             }
         })

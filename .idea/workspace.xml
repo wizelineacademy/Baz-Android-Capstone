@@ -9,7 +9,27 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6f3ca75-be4c-4259-a263-b276afe7bb65" name="Changes" comment="-Se cambia proyecto a compose" />
+    <list default="true" id="c6f3ca75-be4c-4259-a263-b276afe7bb65" name="Changes" comment="- Se estructura proyecto&#10;- Se agregan modelos de datos&#10;- Se agrega DataSource&#10;- Se crea Web service &#10;- Se crean repositorios por servicio&#10;- Se crean ViewModel por servicio&#10;- Se crean adapters para Home y listas en Detail&#10;- Se agregan los fragments Home y Detail&#10;- Se implementa viewModel en UI&#10;- Se agrega estilo">
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/adapter/home/HomeAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/adapter/home/HomeAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/model/Books.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/model/Books.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/remote/BooksDataSource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/remote/BooksDataSource.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/presentation/OrderBooksViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/presentation/OrderBooksViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/presentation/TickerBooksViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/presentation/TickerBooksViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/presentation/booksViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/presentation/booksViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/WebService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/WebService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/ui/details/DetailsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/ui/details/DetailsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/ui/home/HomeFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/ui/home/HomeFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/utils/AppConstants.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/utils/AppConstants.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,8 +64,8 @@
         <option value="Kotlin Sealed Class" />
         <option value="Kotlin Data Class" />
         <option value="Kotlin Object" />
-        <option value="Kotlin Interface" />
         <option value="Kotlin File" />
+        <option value="Kotlin Interface" />
         <option value="Kotlin Class" />
       </list>
     </option>
@@ -67,6 +87,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="PROJECT_TRUSTED_KEY" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
@@ -170,7 +191,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674748727861</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="- Se estructura proyecto&#10;- Se agregan modelos de datos&#10;- Se agrega DataSource&#10;- Se crea Web service &#10;- Se crean repositorios por servicio&#10;- Se crean ViewModel por servicio&#10;- Se crean adapters para Home y listas en Detail&#10;- Se agregan los fragments Home y Detail&#10;- Se implementa viewModel en UI&#10;- Se agrega estilo">
+      <created>1675266597244</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1675266597244</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -197,8 +225,11 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="-Se agrega Gitignore" />
     <MESSAGE value="-Se cambia proyecto a compose" />
-    <option name="LAST_COMMIT_MESSAGE" value="-Se cambia proyecto a compose" />
+    <MESSAGE value="- Se estructura proyecto&#10;- Se agregan modelos de datos&#10;- Se agrega DataSource&#10;- Se crea Web service &#10;- Se crean repositorios por servicio&#10;- Se crean ViewModel por servicio&#10;- Se crean adapters para Home y listas en Detail&#10;- Se agregan los fragments Home y Detail&#10;- Se implementa viewModel en UI&#10;- Se agrega estilo" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Se estructura proyecto&#10;- Se agregan modelos de datos&#10;- Se agrega DataSource&#10;- Se crea Web service &#10;- Se crean repositorios por servicio&#10;- Se crean ViewModel por servicio&#10;- Se crean adapters para Home y listas en Detail&#10;- Se agregan los fragments Home y Detail&#10;- Se implementa viewModel en UI&#10;- Se agrega estilo" />
   </component>
 </project>

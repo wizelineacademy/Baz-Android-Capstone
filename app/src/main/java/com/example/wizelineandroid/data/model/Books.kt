@@ -1,5 +1,7 @@
 package com.example.wizelineandroid.data.model
 
+import android.graphics.drawable.Drawable
+
 //List available books
 data class Books(
     val payload: List<ModelBook>,
