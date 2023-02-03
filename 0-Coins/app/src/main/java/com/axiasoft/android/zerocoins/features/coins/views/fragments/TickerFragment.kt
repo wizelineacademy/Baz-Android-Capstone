@@ -52,6 +52,7 @@ class TickerFragment : Fragment() {
             }
         }
         viewModel.getTickerWithUseCase()
+        viewModel.getListOrderBook()
     }
 
     override fun onDestroyView() {

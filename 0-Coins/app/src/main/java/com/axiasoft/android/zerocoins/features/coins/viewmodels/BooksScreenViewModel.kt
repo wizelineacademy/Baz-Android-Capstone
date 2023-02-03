@@ -7,14 +7,17 @@ import com.axiasoft.android.zerocoins.features.coins.domain.models.data.book.res
 import kotlinx.coroutines.launch
 import com.axiasoft.android.zerocoins.features.coins.domain.repositories.book_order.BooksRepositoryImpl
 import com.axiasoft.android.zerocoins.features.coins.domain.use_cases.GetBooksUseCase
+import com.axiasoft.android.zerocoins.features.coins.domain.use_cases.GetListOrderBookUseCase
 import com.axiasoft.android.zerocoins.features.coins.domain.use_cases.GetTickerUseCase
 import com.axiasoft.android.zerocoins.features.coins.views.ui_states.BooksScreenState
+import com.axiasoft.android.zerocoins.features.coins.views.ui_states.ListOrderBookScreenState
 import com.axiasoft.android.zerocoins.features.coins.views.ui_states.TickerScreenState
 import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWrap
 import kotlinx.coroutines.Dispatchers
 
 class BooksScreenViewModel: ViewModel() {
 
+    //TODO screenview per screen
     private val dispatcher = Dispatchers.IO
 
     private val booksRepository by lazy { BooksRepositoryImpl() }
@@ -26,6 +29,8 @@ class BooksScreenViewModel: ViewModel() {
     var selectedBookOrder = Book()
 
     var tickerState: MutableLiveData<TickerScreenState> = MutableLiveData()
+
+    var listOrderBookScreenState: MutableLiveData<ListOrderBookScreenState> = MutableLiveData()
 
     fun getBooks(){
         viewModelScope.launch{
@@ -66,6 +71,20 @@ class BooksScreenViewModel: ViewModel() {
                     tickerState.value = TickerScreenState.TickerSuccess(ticker)
                 }
                 is TickerScreenState.TickerError -> {
+
+                }
+            }
+        }
+    }
+
+    fun getListOrderBook(){
+        viewModelScope.launch {
+            val listOrderBookState = GetListOrderBookUseCase(booksRepository).invoke(selectedBookOrder)
+            when(listOrderBookState){
+                is ListOrderBookScreenState.Success -> {
+                    listOrderBookScreenState.value = listOrderBookState
+                }
+                is ListOrderBookScreenState.ErrorOrEmpty -> {
 
                 }
             }

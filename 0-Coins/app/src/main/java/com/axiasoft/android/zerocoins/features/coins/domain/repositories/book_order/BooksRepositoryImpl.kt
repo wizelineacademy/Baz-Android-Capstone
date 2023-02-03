@@ -2,6 +2,7 @@ package com.axiasoft.android.zerocoins.features.coins.domain.repositories.book_o
 
 import com.axiasoft.android.zerocoins.features.coins.domain.apis.BooksApi
 import com.axiasoft.android.zerocoins.features.coins.domain.models.data.book.response.Book
+import com.axiasoft.android.zerocoins.features.coins.domain.models.data.order_book.response.ListOrderBookResponse
 import com.axiasoft.android.zerocoins.features.coins.domain.models.data.ticker.response.Ticker
 import com.axiasoft.android.zerocoins.features.coins.domain.repositories.book_order.BooksRepository
 import com.axiasoft.android.zerocoins.network.bitso.models.BitsoBaseResponse
@@ -22,6 +23,12 @@ class BooksRepositoryImpl: BooksRepository {
     override suspend fun getTicketsFromApi(book: String): BitsoApiResponseWrap<BitsoBaseResponse<Ticker>> {
         return BitsoApiCallWrapper.callBitsoApiWrap(dispatcher = Dispatchers.IO){
             bitsoBooksApi.getTicketsApi(book)
+        }
+    }
+
+    override suspend fun getListOrderBook(book: String): BitsoApiResponseWrap<BitsoBaseResponse<ListOrderBookResponse>> {
+        return BitsoApiCallWrapper.callBitsoApiWrap(dispatcher = Dispatchers.IO){
+            bitsoBooksApi.getListOrderBook(book)
         }
     }
 }
