@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/crypto_order_book"
+            style="@style/ItemTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitleAmount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvTitlePrice"
+            tools:text="Item Book" />
+
+        <TextView
+            android:id="@+id/tvTitlePrice"
+            style="@style/ItemSecondaryTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/price"
+            app:layout_constraintBottom_toTopOf="@id/tvTitleAmount"
+            app:layout_constraintStart_toEndOf="@id/crypto_order_book"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Price" />
+
+        <TextView
+            android:id="@+id/crypto_order_price"
+            style="@style/ItemPriceTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitlePrice"
+            app:layout_constraintStart_toEndOf="@id/tvTitlePrice"
+            app:layout_constraintTop_toTopOf="@id/tvTitlePrice"
+            tools:text="0.02248087" />
+
+        <TextView
+            android:id="@+id/tvTitleAmount"
+            style="@style/ItemSecondaryTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/amount"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvTitlePrice"
+            app:layout_constraintTop_toBottomOf="@id/tvTitlePrice"
+            tools:text="Amount" />
+
+        <TextView
+            android:id="@+id/crypto_order_amount"
+            style="@style/ItemAmountTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitleAmount"
+            app:layout_constraintStart_toEndOf="@id/tvTitleAmount"
+            app:layout_constraintTop_toTopOf="@id/tvTitleAmount"
+            tools:text="378140" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
