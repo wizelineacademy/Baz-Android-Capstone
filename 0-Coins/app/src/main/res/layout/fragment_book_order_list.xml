@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
-    android:name="com.axiasoft.android.zerocoins.features.available_books.views.fragments.BookOrderListFragment"
+    android:name="com.axiasoft.android.zerocoins.ui.features.available_books.views.fragments.BookOrderListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".features.available_books.views.fragments.BookOrderListFragment"
+    tools:context=".ui.features.available_books.views.fragments.BookOrderListFragment"
     tools:listitem="@layout/book_coin_item" />
