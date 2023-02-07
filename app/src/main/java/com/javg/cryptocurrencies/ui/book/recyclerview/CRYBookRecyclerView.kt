@@ -3,16 +3,21 @@ package com.javg.cryptocurrencies.ui.book.recyclerview
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.javg.cryptocurrencies.R
 import com.javg.cryptocurrencies.data.model.CRYBook
 import com.javg.cryptocurrencies.databinding.CryBookItemBinding
 
+//listAdapter version mejorada
 class CRYBookRecyclerView(
-    private val listBook: MutableList<CRYBook>,
     private val context: Context,
-    private val onItemClick: (String, String) -> Unit): RecyclerView.Adapter<CRYBookRecyclerView.CRYBookViewHolder>() {
+    private val onItemClick: (String, String) -> Unit):
+    ListAdapter<CRYBook, CRYBookRecyclerView.CRYBookViewHolder>(BookOrderDiffCallback()) {
+
+    //private var listBookInternal: MutableList<CRYBook> = mutableListOf()
 
     inner class CRYBookViewHolder(private val binding: CryBookItemBinding): RecyclerView.ViewHolder(binding.root){
 
@@ -30,10 +35,23 @@ class CRYBookRecyclerView(
         return CRYBookViewHolder(binding)
     }
 
-    override fun getItemCount() = listBook.size
-
     override fun onBindViewHolder(holder: CRYBookViewHolder, position: Int) {
-        holder.bind(listBook[position])
-        holder.itemView.setOnClickListener { onItemClick(listBook[position].book,listBook[position].imageUrl) }
+        holder.bind(getItem(position))
+        holder.itemView.setOnClickListener {
+            onItemClick(getItem(position).book, getItem(position).imageUrl)
+        }
     }
+
+    //buena practica remplazar datos
+    /*fun setListBook(listBook: MutableList<CRYBook>){
+        listBookInternal = listBook
+        notifyDataSetChanged()
+    }*/
+}
+
+class BookOrderDiffCallback: DiffUtil.ItemCallback<CRYBook>(){
+    override fun areItemsTheSame(oldItem: CRYBook, newItem: CRYBook) = oldItem.book == newItem.book
+
+    override fun areContentsTheSame(oldItem: CRYBook, newItem: CRYBook) = oldItem == newItem
+
 }

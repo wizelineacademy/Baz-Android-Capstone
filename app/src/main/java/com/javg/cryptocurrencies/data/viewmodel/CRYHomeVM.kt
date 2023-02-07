@@ -19,10 +19,6 @@ class CRYHomeVM @Inject constructor(
     val listBook: LiveData<MutableList<CRYBook>>
         get() = _listBook
 
-    init {
-        _listBook.value = mutableListOf()
-    }
-
     fun getBooks(){
         viewModelScope.launch {
             _listBook.value = bookUseCase.invoke()

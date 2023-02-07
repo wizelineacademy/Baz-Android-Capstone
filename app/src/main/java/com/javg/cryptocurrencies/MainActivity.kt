@@ -9,6 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_Cryptocurrencies)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.cry_activity)
 
@@ -16,5 +17,18 @@ class MainActivity : AppCompatActivity() {
         fm.replace(R.id.root_layout, CRYBookFragment())
         fm.addToBackStack(null)
         fm.commit()
+    }
+
+    override fun onBackPressed() {
+        var canBack = false
+        val fragment = supportFragmentManager.findFragmentById(R.id.root_layout)
+
+        if(fragment is CRYBookFragment)
+            canBack = true
+
+        if(canBack)
+            finish()
+        else
+            super.onBackPressed()
     }
 }

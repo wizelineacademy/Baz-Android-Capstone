@@ -15,17 +15,19 @@ class CRYGetListBookWithTickerUseCase @Inject constructor(
         val ticker = tickerRepository.getTicker(book)
         val detailBook = CRYDetailBook()
 
-        if (ticker.isSuccessful){
-            ticker.body()?.payload?.let {
+        if (ticker.success){
+            ticker.payload?.let {
                 val orderBook = orderBookRepository.getOrderBook(book)
                 detailBook.apply {
                     last = it.last
                     high = it.high
                     low  = it.low
-                    askList = orderBook.body()?.payload?.asksList
-                    bidsList = orderBook.body()?.payload?.bidsList
+                    askList = orderBook.payload?.asksList
+                    bidsList = orderBook.payload?.bidsList
                 }
             }
+        }else{
+            println("success ${ticker.success}")
         }
         detailBook
     }

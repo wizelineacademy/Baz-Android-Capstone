@@ -13,12 +13,14 @@ class CRYBookUseCase @Inject constructor(
     suspend operator fun invoke(): MutableList<CRYBook> = withContext(Dispatchers.IO){
         val books = repository.getAvailableBooks()
         val listBookAux = mutableListOf<CRYBook>()
-        if (!books?.payload.isNullOrEmpty()){
-            books?.payload?.forEach {
+
+        if (!books.payload.isNullOrEmpty()){
+            books.payload?.forEach {
                 val imageUrl = "https://cryptoicons.org/api/icon/${CRYUtils.separateStringCoin(it.book)}/200"
                 listBookAux.add(CRYBook(it.book,imageUrl))
             }
         }
         listBookAux
     }
+
 }
