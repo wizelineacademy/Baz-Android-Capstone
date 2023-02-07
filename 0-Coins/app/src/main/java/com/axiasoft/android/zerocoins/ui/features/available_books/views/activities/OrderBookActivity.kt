@@ -3,7 +3,9 @@ package com.axiasoft.android.zerocoins.ui.features.available_books.views.activit
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.axiasoft.android.zerocoins.R
+import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.databinding.ActivityCoinsBinding
+import com.axiasoft.android.zerocoins.network.app.InternetConnectionAvailableLiveData
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.fragments.BookOrderListFragment
 
 class OrderBookActivity : AppCompatActivity() {
@@ -27,5 +29,17 @@ class OrderBookActivity : AppCompatActivity() {
                 .add(R.id.cl_cointainer, BookOrderListFragment.newInstance(), BookOrderListFragment.TAG)
                 .commit()
         }
+
+        //TODO move POC
+        val internetConnectionStatus = InternetConnectionAvailableLiveData(application)
+
+        internetConnectionStatus.observe(this, { isConnected ->
+            if (isConnected) {
+                //TODO set a flag on viewmodels
+                log("z0", "impl net is $isConnected")
+            }else{
+                log("z0","Impl not connected $isConnected")
+            }
+        })
     }
 }
