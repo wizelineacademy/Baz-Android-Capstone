@@ -7,7 +7,7 @@
     <data>
         <variable
             name="book"
-            type="com.axiasoft.android.zerocoins.features.coins.domain.models.data.book.response.Book" />
+            type="com.axiasoft.android.zerocoins.features.available_books.domain.models.data.book.response.Book" />
     </data>
 
     <androidx.cardview.widget.CardView
