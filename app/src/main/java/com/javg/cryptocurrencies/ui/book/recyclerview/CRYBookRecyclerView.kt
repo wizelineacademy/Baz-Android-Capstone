@@ -10,14 +10,14 @@ import com.bumptech.glide.Glide
 import com.javg.cryptocurrencies.R
 import com.javg.cryptocurrencies.data.model.CRYBook
 import com.javg.cryptocurrencies.databinding.CryBookItemBinding
+import com.javg.cryptocurrencies.ext.separateStringCoins
+import java.util.*
 
 //listAdapter version mejorada
 class CRYBookRecyclerView(
     private val context: Context,
     private val onItemClick: (String, String) -> Unit):
     ListAdapter<CRYBook, CRYBookRecyclerView.CRYBookViewHolder>(BookOrderDiffCallback()) {
-
-    //private var listBookInternal: MutableList<CRYBook> = mutableListOf()
 
     inner class CRYBookViewHolder(private val binding: CryBookItemBinding): RecyclerView.ViewHolder(binding.root){
 
@@ -41,12 +41,6 @@ class CRYBookRecyclerView(
             onItemClick(getItem(position).book, getItem(position).imageUrl)
         }
     }
-
-    //buena practica remplazar datos
-    /*fun setListBook(listBook: MutableList<CRYBook>){
-        listBookInternal = listBook
-        notifyDataSetChanged()
-    }*/
 }
 
 class BookOrderDiffCallback: DiffUtil.ItemCallback<CRYBook>(){

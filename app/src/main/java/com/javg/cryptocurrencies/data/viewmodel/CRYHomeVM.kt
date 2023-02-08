@@ -14,9 +14,9 @@ import javax.inject.Inject
 class CRYHomeVM @Inject constructor(
     private val bookUseCase: CRYBookUseCase): ViewModel() {
 
-    private var _listBook = MutableLiveData<MutableList<CRYBook>>()
+    private var _listBook = MutableLiveData<List<CRYBook>>()
 
-    val listBook: LiveData<MutableList<CRYBook>>
+    val listBook: LiveData<List<CRYBook>>
         get() = _listBook
 
     fun getBooks(){

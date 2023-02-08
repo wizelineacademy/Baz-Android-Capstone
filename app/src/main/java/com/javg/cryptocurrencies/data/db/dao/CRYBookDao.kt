@@ -4,17 +4,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.javg.cryptocurrencies.data.db.entity.CRYBookEntity
+import com.javg.cryptocurrencies.data.db.remote.CRYAppDatabase
 import com.javg.cryptocurrencies.data.model.CRYBookResponse
 
 @Dao
 interface CRYBookDao {
-    @Query("SELECT * FROM CRYBookResponse")
-    fun getAllBook(): List<CRYBookResponse>
-
-    @Insert
-    fun insertAllBook(vararg book: CRYBookResponse)
+    @Query("SELECT * FROM ${CRYAppDatabase.BOOK_TABLE}")
+    fun getAllBook(): List<CRYBookEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     @JvmSuppressWildcards
-    fun insertAll(books: List<CRYBookResponse>)
+    fun insertAll(books: List<CRYBookEntity>)
 }

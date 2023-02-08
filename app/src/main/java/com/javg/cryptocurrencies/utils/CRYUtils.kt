@@ -6,9 +6,6 @@ import android.net.NetworkCapabilities
 import android.os.Build
 
 object CRYUtils {
-    fun separateStringCoin(book: String): String{
-        return if (book.isNotEmpty()) book.split("_")[0] else ""
-    }
 
     fun isInternetAvailable(context: Context): Boolean {
         var result = false

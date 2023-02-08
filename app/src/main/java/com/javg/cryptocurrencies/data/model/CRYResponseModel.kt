@@ -1,8 +1,5 @@
 package com.javg.cryptocurrencies.data.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -15,13 +12,11 @@ open class CRYBaseResponse<T: Any>{
     var payload: T? = null
 }
 
-@Entity
 data class CRYBookResponse(
-    @PrimaryKey
     @SerializedName("book")
-    @ColumnInfo(name = "book") var book: String,
+    var book: String,
     @SerializedName("minimum_price")
-    @ColumnInfo(name = "minimumPrice") var minimumPrice: String,
+    var minimumPrice: String,
     @SerializedName("maximum_price")
     var maximumPrice: String,
     @SerializedName("minimum_amount")

@@ -63,7 +63,7 @@ class CRYBookFragment : Fragment(){
         }
     }
 
-    private val observerBook = Observer<MutableList<CRYBook>>{
+    private val observerBook = Observer<List<CRYBook>>{
         it.let { listBooks ->
             if (listBooks.isEmpty())
                 Toast.makeText(requireContext(),"Lista vacia",Toast.LENGTH_SHORT).show()

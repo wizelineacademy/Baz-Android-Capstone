@@ -29,7 +29,9 @@ class CRYDetailBookVM @Inject constructor(
         viewModelScope.launch {
             val ticker = tickerUseCase.invoke(book)
             _tickerBook.value = ticker
-            _listAskOrBids.value = ticker.askList as MutableList<CRYAskOrBids>
+            ticker.askList?.let {
+                _listAskOrBids.value = it as MutableList<CRYAskOrBids>
+            }
         }
     }
 
