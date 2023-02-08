@@ -13,7 +13,8 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.axiasoft.android.zerocoins.R
 import com.axiasoft.android.zerocoins.common.log
-import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BooksScreenViewModel
+import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.AvailableBooksViewModel
+import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BookOrderViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.adapters.BookOrderAdapter
 
 class BookOrderListFragment : Fragment() {
@@ -21,14 +22,14 @@ class BookOrderListFragment : Fragment() {
     private var columnCount = 1
 
     //private val viewModel: BooksScreenViewModel by viewModels()
-
-    lateinit var viewModel: BooksScreenViewModel
+    lateinit var availableBooksViewModel: AvailableBooksViewModel
+    lateinit var bookOrderViewModel: BookOrderViewModel
 
     val bookOrderAdapter = BookOrderAdapter{ bookOrderSelected ->
         log("z0", "selected $bookOrderSelected")
-        viewModel.selectedBookOrder = bookOrderSelected
-        //TODO set data and navigate to next screen
-        navigateToDetail()
+        availableBooksViewModel.selectedBookOrder = bookOrderSelected
+        bookOrderViewModel.selectedBookOrder = bookOrderSelected
+        navigateToTicker()
     }
 
 
@@ -58,16 +59,27 @@ class BookOrderListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(requireActivity()).get(BooksScreenViewModel::class.java)
 
-        viewModel.books.observe(viewLifecycleOwner) {
+        //TODO convert for fragment only
+        availableBooksViewModel = ViewModelProvider(requireActivity()).get(AvailableBooksViewModel::class.java)
+        //TODO activity viewmodel shared
+        bookOrderViewModel = ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
+
+        availableBooksViewModel.books.observe(viewLifecycleOwner) {
             log("z0", "Fragment ${it}" )
             bookOrderAdapter.updateBookOrders(it)
         }
-        viewModel.getBooksWithUseCase()
+
+        if (bookOrderViewModel.isInternetAvailable){
+            availableBooksViewModel.getBooksWithUseCase()
+        } else {
+            log("z0", "TODO : Retrieve available data from db")
+            //TODO retrieve from db
+            availableBooksViewModel.getBooksWithUseCase()
+        }
     }
 
-    fun navigateToDetail(){
+    fun navigateToTicker(){
         val fragment = TickerFragment()
         val fm : FragmentManager = requireActivity().supportFragmentManager
         val ft: FragmentTransaction = fm.beginTransaction()

@@ -2,15 +2,19 @@ package com.axiasoft.android.zerocoins.ui.features.available_books.views.activit
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import com.axiasoft.android.zerocoins.R
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.databinding.ActivityCoinsBinding
 import com.axiasoft.android.zerocoins.network.app.InternetConnectionAvailableLiveData
+import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BookOrderViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.fragments.BookOrderListFragment
 
-class OrderBookActivity : AppCompatActivity() {
+class BookOrderActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCoinsBinding
+
+    val bookOrderViewModel: BookOrderViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +38,10 @@ class OrderBookActivity : AppCompatActivity() {
         val internetConnectionStatus = InternetConnectionAvailableLiveData(application)
 
         internetConnectionStatus.observe(this, { isConnected ->
+            bookOrderViewModel.isInternetAvailable = isConnected
             if (isConnected) {
                 //TODO set a flag on viewmodels
+                bookOrderViewModel.isInternetAvailable = isConnected
                 log("z0", "impl net is $isConnected")
             }else{
                 log("z0","Impl not connected $isConnected")

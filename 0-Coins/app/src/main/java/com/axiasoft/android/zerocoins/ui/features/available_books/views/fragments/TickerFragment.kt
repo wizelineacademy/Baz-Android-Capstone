@@ -7,16 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.axiasoft.android.zerocoins.databinding.FragmentTickerBinding
-import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BooksScreenViewModel
+import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.AvailableBooksViewModel
+import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BookOrderViewModel
+import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.TickerViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.ListOrderBookScreenState
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.TickerScreenState
 
 class TickerFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
 
     //private val viewModel: BooksScreenViewModel by viewModels()
-    lateinit var viewModel: BooksScreenViewModel
+    lateinit var bookOrderViewModel: BookOrderViewModel
+    lateinit var tickerViewModel: TickerViewModel
 
     private var _binding: FragmentTickerBinding? = null
     private val binding get() = _binding!!
@@ -38,9 +39,11 @@ class TickerFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(requireActivity()).get(BooksScreenViewModel::class.java)
+        tickerViewModel  = ViewModelProvider(requireActivity()).get(TickerViewModel::class.java)
 
-        viewModel.tickerState.observe(viewLifecycleOwner){
+        bookOrderViewModel  = ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
+
+        tickerViewModel.tickerState.observe(viewLifecycleOwner){
             when(it){
                 is TickerScreenState.TickerSuccess ->{
                     binding.tvTicker.text = it.ticker.toString()
@@ -49,7 +52,7 @@ class TickerFragment : Fragment() {
             }
         }
 
-        viewModel.listOrderBookScreenState.observe(viewLifecycleOwner){
+        tickerViewModel.listOrderBookScreenState.observe(viewLifecycleOwner){
             when(it){
                 is ListOrderBookScreenState.Success ->{
                     binding.tvProvisionalListOrderDisplay.text = "ASKs: -> \n ${it.asks}"
@@ -59,8 +62,10 @@ class TickerFragment : Fragment() {
             }
         }
 
-        viewModel.getTickerWithUseCase()
-        viewModel.getListOrderBook()
+        tickerViewModel.selectedBookOrder = bookOrderViewModel.selectedBookOrder
+
+        tickerViewModel.getTickerWithUseCase()
+        tickerViewModel.getListOrderBook()
     }
 
     override fun onDestroyView() {
@@ -69,17 +74,9 @@ class TickerFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TickerFragment.
-         */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance() =
             TickerFragment().apply {
                 arguments = Bundle().apply {
 
