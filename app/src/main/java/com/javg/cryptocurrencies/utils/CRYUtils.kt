@@ -7,6 +7,11 @@ import android.os.Build
 
 object CRYUtils {
 
+    /**
+     * Checks if the device is connected to a network source,
+     * be it mobile or wifi and returns a true or false
+     * depending on whether or not it has a connection
+     */
     fun isInternetAvailable(context: Context): Boolean {
         var result = false
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

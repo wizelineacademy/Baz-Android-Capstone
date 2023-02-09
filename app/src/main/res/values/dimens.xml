@@ -22,6 +22,7 @@
     <dimen name="dimens_34_dp">34dp</dimen>
     <dimen name="dimens_36_dp">36dp</dimen>
     <dimen name="dimens_38_dp">38dp</dimen>
+    <dimen name="dimens_64_dp">64dp</dimen>
     <dimen name="dimens_100_dp">100dp</dimen>
     <dimen name="dimens_150_dp">150dp</dimen>
     <dimen name="dimens_260_dp">260dp</dimen>

@@ -1,21 +1,33 @@
 package com.javg.cryptocurrencies.ui.detail.recyclerview
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.javg.cryptocurrencies.R
 import com.javg.cryptocurrencies.data.model.CRYAskOrBids
 import com.javg.cryptocurrencies.databinding.CryAskItemBinding
-import okhttp3.internal.notifyAll
 
+/**
+ * @author Juan Vera Gomez
+ * Date modified 08/02/2023
+ *
+ * Contains the necessary functions to display
+ * the ask and bids information
+ *
+ * @since 2.0
+ */
 class CRYAskRecyclerView(
-    private val listAsk: MutableList<CRYAskOrBids>,
-    private val context: Context): RecyclerView.Adapter<CRYAskRecyclerView.CRYAskViewHolder>(){
+    private val context: Context):
+    ListAdapter<CRYAskOrBids, CRYAskRecyclerView.CRYAskViewHolder>(AskAndBindDiffCallback()) {
 
     inner class CRYAskViewHolder(private val binding: CryAskItemBinding): RecyclerView.ViewHolder(binding.root){
 
+        /**
+         * Function in charge of setting the information of the ask or bids model that it receives
+         */
         fun bind(askOrBids: CRYAskOrBids){
             binding.edPrice.text = String.format(context.getString(R.string.cry_price_order), askOrBids.price)
             binding.edAmount.text = askOrBids.amount
@@ -28,15 +40,15 @@ class CRYAskRecyclerView(
         return CRYAskViewHolder(binding)
     }
 
-    override fun getItemCount() = listAsk.size
-
     override fun onBindViewHolder(holder: CRYAskViewHolder, position: Int) {
-        holder.bind(listAsk[position])
+        holder.bind(getItem(0))
     }
 
-    fun update(list: List<CRYAskOrBids>){
-        listAsk.clear()
-        listAsk.addAll(list)
-        notifyDataSetChanged()
-    }
+}
+
+class AskAndBindDiffCallback: DiffUtil.ItemCallback<CRYAskOrBids>(){
+    override fun areItemsTheSame(oldItem: CRYAskOrBids, newItem: CRYAskOrBids) = oldItem.book == newItem.book
+
+    override fun areContentsTheSame(oldItem: CRYAskOrBids, newItem: CRYAskOrBids) = oldItem == newItem
+
 }

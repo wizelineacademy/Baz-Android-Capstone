@@ -10,10 +10,19 @@ import com.bumptech.glide.Glide
 import com.javg.cryptocurrencies.R
 import com.javg.cryptocurrencies.data.model.CRYBook
 import com.javg.cryptocurrencies.databinding.CryBookItemBinding
+import com.javg.cryptocurrencies.ext.getSecondCoinsText
 import com.javg.cryptocurrencies.ext.separateStringCoins
-import java.util.*
 
-//listAdapter version mejorada
+/**
+ * @author Juan Vera Gomez
+ * Date modified 08/02/2023
+ *
+ * Contains the necessary functions for the adapter to
+ * display cryptocurrency books to work
+ *
+ * @since 2.0
+ */
+
 class CRYBookRecyclerView(
     private val context: Context,
     private val onItemClick: (String, String) -> Unit):
@@ -21,12 +30,19 @@ class CRYBookRecyclerView(
 
     inner class CRYBookViewHolder(private val binding: CryBookItemBinding): RecyclerView.ViewHolder(binding.root){
 
+        /**
+         * Function in charge of setting the information of the book model that it receives
+         */
         fun bind(book: CRYBook){
-            binding.txtBook.text = book.book
+            binding.txtBook.text = book.book.separateStringCoins().uppercase()
+            binding.txtBookEnd.text = book.book.getSecondCoinsText().uppercase()
             Glide.with(context)
                 .load(book.imageUrl)
                 .placeholder(R.drawable.ic_default_book)
                 .into(binding.imageId)
+            binding.imageMore.setOnClickListener {
+                onItemClick(book.book, book.imageUrl)
+            }
         }
     }
 
@@ -37,9 +53,6 @@ class CRYBookRecyclerView(
 
     override fun onBindViewHolder(holder: CRYBookViewHolder, position: Int) {
         holder.bind(getItem(position))
-        holder.itemView.setOnClickListener {
-            onItemClick(getItem(position).book, getItem(position).imageUrl)
-        }
     }
 }
 

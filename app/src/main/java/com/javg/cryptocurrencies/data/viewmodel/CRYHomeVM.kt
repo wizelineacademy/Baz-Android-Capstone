@@ -10,6 +10,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * @author Juan Vera Gomez
+ * Date modified 08/02/2023
+ *
+ * Contains the necessary functions to obtain the information
+ * from the cryptocurrency books
+ *
+ * @since 1.2
+ */
 @HiltViewModel
 class CRYHomeVM @Inject constructor(
     private val bookUseCase: CRYBookUseCase): ViewModel() {
@@ -19,6 +28,9 @@ class CRYHomeVM @Inject constructor(
     val listBook: LiveData<List<CRYBook>>
         get() = _listBook
 
+    /**
+     * Is responsible for requesting the list of books from the data layer
+     */
     fun getBooks(){
         viewModelScope.launch {
             _listBook.value = bookUseCase.invoke()

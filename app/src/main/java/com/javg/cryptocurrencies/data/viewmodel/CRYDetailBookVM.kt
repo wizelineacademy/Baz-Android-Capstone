@@ -11,6 +11,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * @author Juan Vera Gomez
+ *
+ * Contains the functionality to consult the specific information of each book
+ *
+ * @param tickerUseCase It is the case of use who manages
+ * the obtaining of information in the data layer
+ *
+ * @since 2.0
+ */
 @HiltViewModel
 class CRYDetailBookVM @Inject constructor(
     private val tickerUseCase: CRYGetListBookWithTickerUseCase
@@ -25,6 +35,11 @@ class CRYDetailBookVM @Inject constructor(
     val listAskOrBids: LiveData<List<CRYAskOrBids>>
         get() = _listAskOrBids
 
+    /**
+     * Consult the price information and ask list and bids of a specific book
+     *
+     * @param book is the name of the book to consult its specific information
+     */
     fun getTicker(book: String){
         viewModelScope.launch {
             val ticker = tickerUseCase.invoke(book)
@@ -35,6 +50,11 @@ class CRYDetailBookVM @Inject constructor(
         }
     }
 
+    /**
+     * Updates a list depending on the selection at view level
+     *
+     * @param listUpdate is the list that will update the view
+     */
     fun sendListUpdate(listUpdate: List<CRYAskOrBids>){
         _listAskOrBids.value = listUpdate
     }

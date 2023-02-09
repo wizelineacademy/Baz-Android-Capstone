@@ -17,6 +17,15 @@ import com.javg.cryptocurrencies.databinding.CryBookFragmentBinding
 import com.javg.cryptocurrencies.ui.book.recyclerview.CRYBookRecyclerView
 import com.javg.cryptocurrencies.ui.detail.CRYDetailBookFragment
 
+/**
+ * @author Juan Vera Gomez
+ * Date modified 08/02/2023
+ *
+ * Fragment in charge of manipulating and displaying the
+ * information corresponding to the cryptocurrency cards
+ *
+ * @since 2.0
+ */
 class CRYBookFragment : Fragment(){
 
     private lateinit var binding: CryBookFragmentBinding
@@ -24,6 +33,7 @@ class CRYBookFragment : Fragment(){
     private val bookHomeVM by activityViewModels<CRYHomeVM>()
     private lateinit var shimmerFrameLayout: ShimmerFrameLayout
 
+    //Saves the Lambda event that is executed in the adapter item
     private val onClickItem: (String, String) -> Unit = { book, image ->
         nextFragment(CRYDetailBookFragment.newInstance(book,image))
     }
@@ -49,11 +59,19 @@ class CRYBookFragment : Fragment(){
         bookHomeVM.listBook.observe(viewLifecycleOwner,observerBook)
     }
 
+    /**
+     * It is responsible for linking the visual component
+     * and starting the facebook loading effect
+     */
     private fun loadShimmer(){
         shimmerFrameLayout = binding.idShimmer
         shimmerFrameLayout.startShimmer()
     }
 
+    /**
+     * Takes care of the adapter instance and the visual
+     * configuration of the recycle view
+     */
     private fun loadAdapter(){
         adapterBook = CRYBookRecyclerView(requireContext(), onClickItem)
         binding.rvBooks.apply {
@@ -63,6 +81,10 @@ class CRYBookFragment : Fragment(){
         }
     }
 
+    /**
+     * In charge of observing when the list of cryptocurrencies
+     * changes to show the or show a message that it has no data
+     */
     private val observerBook = Observer<List<CRYBook>>{
         it.let { listBooks ->
             if (listBooks.isEmpty())
@@ -76,6 +98,9 @@ class CRYBookFragment : Fragment(){
         }
     }
 
+    /**
+     * It is in charge of configuring the passage to the next fragment of the application
+     */
     private fun nextFragment(fragment: Fragment){
         val fm = requireActivity().supportFragmentManager.beginTransaction()
         fm.replace(R.id.root_layout, fragment)
