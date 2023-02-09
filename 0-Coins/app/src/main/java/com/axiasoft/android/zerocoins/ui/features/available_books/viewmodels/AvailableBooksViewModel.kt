@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWrap
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.book.response.Book
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.book_order.BooksRepositoryImpl
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.BooksRepositoryImpl
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.use_cases.GetBooksUseCase
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.BooksScreenState
 import kotlinx.coroutines.launch
@@ -15,11 +15,11 @@ class AvailableBooksViewModel: ViewModel() {
 
     private val booksRepository by lazy { BooksRepositoryImpl() }
 
-    val books: MutableLiveData<MutableList<Book>> by lazy {
-        MutableLiveData<MutableList<Book>>()
+    val books: MutableLiveData<MutableList<ExchangeOrderBook>> by lazy {
+        MutableLiveData<MutableList<ExchangeOrderBook>>()
     }
 
-    var selectedBookOrder = Book()
+    var selectedBookOrder = ExchangeOrderBook()
 
     fun getBooks(){
         viewModelScope.launch{

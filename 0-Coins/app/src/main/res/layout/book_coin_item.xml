@@ -7,7 +7,7 @@
     <data>
         <variable
             name="book"
-            type="com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.book.response.Book" />
+            type="com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook" />
     </data>
 
     <androidx.cardview.widget.CardView

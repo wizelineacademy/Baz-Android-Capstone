@@ -10,12 +10,12 @@ import com.axiasoft.android.zerocoins.R
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.CoinNameAndImage
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.getBookOrderType
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.book.response.Book
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
 import com.bumptech.glide.Glide
 
-class BookOrderAdapter(private val onItemClick: (Book) -> Unit): RecyclerView.Adapter<BookOrderAdapter.BookOrderViewHolder>() {
+class BookOrderAdapter(private val onItemClick: (ExchangeOrderBook) -> Unit): RecyclerView.Adapter<BookOrderAdapter.BookOrderViewHolder>() {
 
-    var items: MutableList<Book> = mutableListOf()
+    var items: MutableList<ExchangeOrderBook> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookOrderViewHolder {
         val binding: ViewDataBinding = DataBindingUtil.inflate(
@@ -34,7 +34,7 @@ class BookOrderAdapter(private val onItemClick: (Book) -> Unit): RecyclerView.Ad
 
     override fun getItemCount(): Int = items.size
 
-    fun updateBookOrders(newData: List<Book>) {
+    fun updateBookOrders(newData: List<ExchangeOrderBook>) {
         items.clear()
         items.addAll(newData)
         notifyDataSetChanged()
@@ -51,7 +51,7 @@ class BookOrderAdapter(private val onItemClick: (Book) -> Unit): RecyclerView.Ad
             }
         }
 
-        fun bind(book: Book) {
+        fun bind(book: ExchangeOrderBook) {
             val typeOfBookOrder = getBookOrderType(book.book ?: "") ?: CoinNameAndImage.any_any
             log("z0", "book is ${typeOfBookOrder.coinName}")
             Glide.with(binding.root.context)

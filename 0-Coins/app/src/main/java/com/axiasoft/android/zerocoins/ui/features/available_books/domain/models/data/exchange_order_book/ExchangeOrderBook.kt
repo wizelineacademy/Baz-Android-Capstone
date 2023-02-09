@@ -1,9 +1,9 @@
-package com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.book.response
+package com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book
 
 import com.google.gson.annotations.SerializedName
 
 
-data class Book (
+data class ExchangeOrderBook (
 
   @SerializedName("book"           ) var book          : String? = null,
   @SerializedName("minimum_amount" ) var minimumAmount : String? = null,
