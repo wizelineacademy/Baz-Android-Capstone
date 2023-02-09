@@ -27,3 +27,14 @@ fun ExchangeOrderBookResponse.toDomain(): ExchangeOrderBook {
         maximumValue = maximumValue
     )
 }
+
+fun ExchangeOrderBook.toEntity(): ExchangeOrderBookEntity{
+    return ExchangeOrderBookEntity(
+        book = book ?: "",
+        minimumAmount = minimumAmount,
+        maximumAmount = maximumAmount,
+        minimumPrice = minimumPrice,
+        maximumPrice = maximumPrice,
+        minimumValue = minimumValue,
+        maximumValue = maximumValue)
+}

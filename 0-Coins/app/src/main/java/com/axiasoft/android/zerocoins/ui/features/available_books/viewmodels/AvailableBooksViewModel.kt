@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWrap
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepositoryImpl
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.RemoteOrderBooksRepositoryImpl
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.use_cases.GetBooksUseCase
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.BooksScreenState
@@ -14,6 +15,7 @@ import kotlinx.coroutines.launch
 class AvailableBooksViewModel: ViewModel() {
 
     private val booksRepository by lazy { RemoteOrderBooksRepositoryImpl() }
+    private val localOrderBookRepositoryImpl by lazy { LocalOrderBookRepositoryImpl() }
 
     val books: MutableLiveData<MutableList<ExchangeOrderBook>> by lazy {
         MutableLiveData<MutableList<ExchangeOrderBook>>()
@@ -37,7 +39,10 @@ class AvailableBooksViewModel: ViewModel() {
 
     fun getBooksWithUseCase(){
         viewModelScope.launch {
-            val booksState = GetBooksUseCase(booksRepository).invoke()
+            val booksState = GetBooksUseCase(
+                booksRepository,
+                localOrderBookRepositoryImpl
+            ).invoke()
             when(booksState){
                 is BooksScreenState.BooksSuccess ->{
                     val stuff = booksState.data
