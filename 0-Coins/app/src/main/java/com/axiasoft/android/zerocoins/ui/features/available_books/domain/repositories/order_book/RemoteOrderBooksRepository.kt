@@ -1,6 +1,6 @@
 package com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book
 
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.order_book.response.ListOrderBookResponse
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book.response.ListOrderBookResponse
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.ticker.response.Ticker
 import com.axiasoft.android.zerocoins.network.bitso.models.BitsoBaseResponse
 import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWrap
