@@ -3,15 +3,15 @@ package com.axiasoft.android.zerocoins.ui.features.available_books.domain.use_ca
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.order_book.response.Ask
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.order_book.response.Bids
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.BooksRepository
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.RemoteOrderBooksRepository
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.ListOrderBookScreenState
 import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWrap
 
 class GetListOrderBookUseCase(
-    private val booksRepository: BooksRepository
+    private val remoteOrderBooksRepository: RemoteOrderBooksRepository
     ) {
     suspend fun invoke(book: ExchangeOrderBook): ListOrderBookScreenState {
-        val listOrderBookResponse = booksRepository.getListOrderBook(book.book ?: "")
+        val listOrderBookResponse = remoteOrderBooksRepository.getListOrderBook(book.book ?: "")
         return when(listOrderBookResponse){
             is BitsoApiResponseWrap.Success -> {
                 if (listOrderBookResponse.response.payload != null && listOrderBookResponse.response.success == true){

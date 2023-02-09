@@ -9,7 +9,7 @@ import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWra
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.response.ExchangeOrderBookResponse
 import kotlinx.coroutines.Dispatchers
 
-class BooksRepositoryImpl: BooksRepository {
+class RemoteOrderBooksRepositoryImpl: RemoteOrderBooksRepository {
 
     private val bitsoOrderBooksApi: BitsoOrderBooksApi by lazy { BitsoOrderBooksApi.Builder().build() }
 

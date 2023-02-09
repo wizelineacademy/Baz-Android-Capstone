@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.BooksRepositoryImpl
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.RemoteOrderBooksRepositoryImpl
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.use_cases.GetListOrderBookUseCase
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.use_cases.GetTickerUseCase
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.ListOrderBookScreenState
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class TickerViewModel: ViewModel() {
 
-    private val booksRepository by lazy { BooksRepositoryImpl() }
+    private val booksRepository by lazy { RemoteOrderBooksRepositoryImpl() }
 
     var selectedBookOrder = ExchangeOrderBook()
 
