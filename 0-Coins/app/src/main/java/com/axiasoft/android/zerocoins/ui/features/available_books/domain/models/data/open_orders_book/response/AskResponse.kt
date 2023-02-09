@@ -2,7 +2,7 @@ package com.axiasoft.android.zerocoins.ui.features.available_books.domain.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Ask (
+data class AskResponse (
     @SerializedName("book"  ) var book          : String? = null,
     @SerializedName("price" ) var price         : String? = null,
     @SerializedName("amount") var amount        : String? = null,

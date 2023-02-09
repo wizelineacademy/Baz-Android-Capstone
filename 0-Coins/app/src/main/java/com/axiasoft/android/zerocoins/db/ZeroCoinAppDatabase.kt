@@ -10,6 +10,9 @@ import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.
 
 const val DB_NAME_Z0 = "zero_coins_db"
 const val EXCHANGE_ORDER_BOOK_TB_NAME = "exchange_order_books"
+const val ASK_TB_NAME = "ask_table"
+const val BIDS_TB_NAME = "bids_table"
+const val TICKER_TB_NAME = "ticker_table"
 
 @Database(entities = [ExchangeOrderBookEntity::class], version = 1)
 abstract class ZeroCoinAppDatabase : RoomDatabase() {

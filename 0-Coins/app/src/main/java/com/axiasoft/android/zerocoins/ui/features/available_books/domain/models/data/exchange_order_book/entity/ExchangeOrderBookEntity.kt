@@ -4,8 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.axiasoft.android.zerocoins.db.EXCHANGE_ORDER_BOOK_TB_NAME
 
-@Entity(tableName = "exchange_order_books")
+@Entity(tableName = EXCHANGE_ORDER_BOOK_TB_NAME)
 data class ExchangeOrderBookEntity (
 
     @PrimaryKey(autoGenerate = false )

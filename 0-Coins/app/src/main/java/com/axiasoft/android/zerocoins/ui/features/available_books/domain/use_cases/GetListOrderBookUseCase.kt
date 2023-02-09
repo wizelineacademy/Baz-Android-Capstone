@@ -1,8 +1,8 @@
 package com.axiasoft.android.zerocoins.ui.features.available_books.domain.use_cases
 
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book.response.Ask
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book.response.Bids
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book.Ask
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book.Bids
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.RemoteOrderBooksRepository
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.ListOrderBookScreenState
 import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWrap
