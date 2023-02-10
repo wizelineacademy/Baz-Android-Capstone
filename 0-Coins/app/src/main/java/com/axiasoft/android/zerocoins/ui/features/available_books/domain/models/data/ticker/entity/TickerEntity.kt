@@ -18,5 +18,5 @@ data class TickerEntity (
     @ColumnInfo("ask"                    ) var ask                  : String?               = null,
     @ColumnInfo("bid"                    ) var bid                  : String?               = null,
     @ColumnInfo("change_24"              ) var change24             : String?               = null,
-    @ColumnInfo("rolling_average_change" ) var rollingAverageChange : HashMap<String, String>? = null
+    //@ColumnInfo("rolling_average_change" ) var rollingAverageChange : HashMap<String, String>? = null
 )

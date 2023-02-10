@@ -1,13 +1,12 @@
 package com.axiasoft.android.zerocoins.ui.features.available_books.views.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.axiasoft.android.zerocoins.databinding.FragmentTickerBinding
-import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.AvailableBooksViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BookOrderViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.TickerViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.ListOrderBookScreenState
@@ -39,22 +38,23 @@ class TickerFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        tickerViewModel  = ViewModelProvider(requireActivity()).get(TickerViewModel::class.java)
+        tickerViewModel = ViewModelProvider(requireActivity()).get(TickerViewModel::class.java)
 
-        bookOrderViewModel  = ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
+        bookOrderViewModel =
+            ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
 
-        tickerViewModel.tickerState.observe(viewLifecycleOwner){
-            when(it){
-                is TickerScreenState.TickerSuccess ->{
+        tickerViewModel.tickerState.observe(viewLifecycleOwner) {
+            when (it) {
+                is TickerScreenState.TickerSuccess -> {
                     binding.tvTicker.text = it.ticker.toString()
                 }
                 else -> {}
             }
         }
 
-        tickerViewModel.listOrderBookScreenState.observe(viewLifecycleOwner){
-            when(it){
-                is ListOrderBookScreenState.Success ->{
+        tickerViewModel.listOrderBookScreenState.observe(viewLifecycleOwner) {
+            when (it) {
+                is ListOrderBookScreenState.Success -> {
                     binding.tvProvisionalListOrderDisplay.text = "ASKs: -> \n ${it.asks}"
                     binding.tvProvisionalListOrderBidsDisplay.text = "BIDs: -> \n ${it.bids}"
                 }
