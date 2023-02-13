@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepositoryImpl
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.RemoteOrderBooksRepositoryImpl
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.use_cases.GetListOrderBookUseCase
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.use_cases.GetTickerUseCase
@@ -15,6 +16,8 @@ class TickerViewModel: ViewModel() {
 
     private val booksRepository by lazy { RemoteOrderBooksRepositoryImpl() }
 
+    private val localOrderBookRepositoryImpl by lazy { LocalOrderBookRepositoryImpl() }
+
     var selectedBookOrder = ExchangeOrderBook()
 
     var tickerState: MutableLiveData<TickerScreenState> = MutableLiveData()
@@ -23,7 +26,10 @@ class TickerViewModel: ViewModel() {
 
     fun getTickerWithUseCase(){
         viewModelScope.launch {
-            val tickerSreenState = GetTickerUseCase(booksRepository).invoke(selectedBookOrder)
+            val tickerSreenState = GetTickerUseCase(
+                booksRepository,
+                localOrderBookRepositoryImpl
+            ).invoke(selectedBookOrder)
             when(tickerSreenState){
                 is TickerScreenState.TickerSuccess -> {
                     val ticker = tickerSreenState.ticker

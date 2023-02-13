@@ -26,12 +26,14 @@ android {
             buildConfigField "String", "BITSO_KEY", properties.getProperty("BITSO_KEY.DEV", "")
             buildConfigField "String", "BITSO_SECRET", properties.getProperty("BITSO_SECRET.DEV", "")
             buildConfigField "String", "BITSO_HOST", "\"https://api.bitso.com\""
+            buildConfigField "String", "RESTFUL_API", "\"https://api.restful-api.dev\""
 
         }
         release {
             buildConfigField "String", "BITSO_KEY", properties.getProperty("BITSO_KEY.PROD", "")
             buildConfigField "String", "BITSO_SECRET", properties.getProperty("BITSO_SECRET.PROD", "")
             buildConfigField "String", "BITSO_HOST", "\"https://api.bitso.com\""
+            buildConfigField "String", "RESTFUL_API", "\"https://restful-api.dev\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

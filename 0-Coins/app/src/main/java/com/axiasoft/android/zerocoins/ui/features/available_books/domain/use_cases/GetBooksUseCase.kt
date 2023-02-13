@@ -32,8 +32,7 @@ class GetBooksUseCase(
         }
     }
 
-    suspend fun updateDBAvailableExchangeOrderBook(availableExchangeOrderBook: ArrayList<ExchangeOrderBook>){
-        //val localOrderBookRepositoryImpl = LocalOrderBookRepositoryImpl()
+    private suspend fun updateDBAvailableExchangeOrderBook(availableExchangeOrderBook: ArrayList<ExchangeOrderBook>){
         localOrderBookRepositoryImpl.storeAvailableExchangeOrderBooks(availableExchangeOrderBook)
     }
 }

@@ -3,6 +3,7 @@ package com.axiasoft.android.zerocoins.ui.features.available_books.domain.reposi
 import com.axiasoft.android.zerocoins.db.getDatabase
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.toEntity
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.ticker.Ticker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -21,6 +22,13 @@ class LocalOrderBookRepositoryImpl: LocalOrderBookRepository {
                 val exchangeOrderBook = it.toEntity()
                 db.bookDao().insert(exchangeOrderBook)
             }
+        }
+    }
+
+    suspend fun storeTicker(ticker: Ticker){
+        val tickerEntity = ticker.toEntity()
+        withContext(Dispatchers.IO){
+            db.ticker().insert(tickerEntity)
         }
     }
 }

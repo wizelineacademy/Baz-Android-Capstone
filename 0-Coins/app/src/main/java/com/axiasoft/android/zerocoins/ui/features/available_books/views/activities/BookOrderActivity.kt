@@ -1,8 +1,10 @@
 package com.axiasoft.android.zerocoins.ui.features.available_books.views.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import com.axiasoft.android.zerocoins.MainActivity
 import com.axiasoft.android.zerocoins.R
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.databinding.ActivityCoinsBinding
@@ -34,6 +36,7 @@ class BookOrderActivity : AppCompatActivity() {
                 .commit()
         }
 
+        //startActivity(Intent(this, MainActivity::class.java))
         //TODO move POC
         val internetConnectionStatus = InternetConnectionAvailableLiveData(application)
 

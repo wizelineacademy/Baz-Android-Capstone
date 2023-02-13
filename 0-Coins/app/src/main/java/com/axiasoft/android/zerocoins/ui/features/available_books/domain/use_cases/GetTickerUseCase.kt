@@ -4,14 +4,22 @@ import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.RemoteOrderBooksRepository
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.TickerScreenState
 import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWrap
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.ticker.Ticker
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepository
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepositoryImpl
 
-class GetTickerUseCase(private val remoteOrderBooksRepository: RemoteOrderBooksRepository) {
+class GetTickerUseCase(
+    private val remoteOrderBooksRepository: RemoteOrderBooksRepository,
+    private val localOrderBookRepository: LocalOrderBookRepositoryImpl
+    ) {
     suspend fun invoke(book: ExchangeOrderBook): TickerScreenState {
         val tickerWrappedResponse = remoteOrderBooksRepository.getTicketsFromApi(book.book ?: "")
         return when(tickerWrappedResponse){
             is BitsoApiResponseWrap.Success -> {
                 if (tickerWrappedResponse.response.payload != null && tickerWrappedResponse.response.success == true){
-                    TickerScreenState.TickerSuccess(tickerWrappedResponse.response.payload)
+                    val ticker = tickerWrappedResponse.response.payload
+                    updateTicker(ticker)
+                    TickerScreenState.TickerSuccess(ticker)
                 }else {
                     TickerScreenState.TickerError(tickerWrappedResponse.response.error?.message ?: "")
                 }
@@ -19,5 +27,9 @@ class GetTickerUseCase(private val remoteOrderBooksRepository: RemoteOrderBooksR
                 TickerScreenState.TickerError()
             }
         }
+    }
+
+    private suspend fun updateTicker(ticker: Ticker){
+        localOrderBookRepository.storeTicker(ticker)
     }
 }

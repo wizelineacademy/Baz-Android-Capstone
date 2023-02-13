@@ -32,7 +32,21 @@ abstract class HttpConnectionManager<T : Any>(var coinApi: CoinApis) {
                     //.addNetworkInterceptor(GSSCHeadersInterceptorAWSS3())
                     .build()
                 ).build()
-        } else -> {
+        }
+        CoinApis.RESTFUL_API -> {
+            Retrofit.Builder()
+                .baseUrl(CoinApis.RESTFUL_API.hostUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(
+                    OkHttpClient().newBuilder()
+                        .addInterceptor(loggingInterceptor)
+                        //.addInterceptor(BitsoInterceptor())
+                        //.addNetworkInterceptor(GSSCHeadersInterceptorAWSS3())
+                        .build()
+                ).build()
+        }
+
+        else -> {
             Retrofit.Builder()
                 .baseUrl("")
                 .addConverterFactory(GsonConverterFactory.create())
