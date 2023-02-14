@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 class TickerViewModel: ViewModel() {
 
     private val booksRepository by lazy { RemoteOrderBooksRepositoryImpl() }
-
     private val localOrderBookRepositoryImpl by lazy { LocalOrderBookRepositoryImpl() }
 
     var selectedBookOrder = ExchangeOrderBook()
@@ -44,7 +43,10 @@ class TickerViewModel: ViewModel() {
 
     fun getListOrderBook(){
         viewModelScope.launch {
-            val listOrderBookState = GetListOrderBookUseCase(booksRepository).invoke(selectedBookOrder)
+            val listOrderBookState = GetListOrderBookUseCase(
+                booksRepository,
+                localOrderBookRepositoryImpl
+            ).invoke(selectedBookOrder)
             when(listOrderBookState){
                 is ListOrderBookScreenState.Success -> {
                     listOrderBookScreenState.value = listOrderBookState
