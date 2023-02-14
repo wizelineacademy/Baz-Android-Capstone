@@ -1,6 +1,11 @@
 package com.javg.cryptocurrencies.data.repository
 
+import com.javg.cryptocurrencies.data.db.dao.CRYTickerDao
+import com.javg.cryptocurrencies.data.db.entity.CRYDetailBookEntity
+import com.javg.cryptocurrencies.data.mapper.toDomain
+import com.javg.cryptocurrencies.data.mapper.toEntity
 import com.javg.cryptocurrencies.data.model.CRYBaseResponse
+import com.javg.cryptocurrencies.data.model.CRYDetailBook
 import com.javg.cryptocurrencies.data.model.CRYTicker
 import com.javg.cryptocurrencies.data.network.CRYApi
 import javax.inject.Inject
@@ -14,14 +19,30 @@ import javax.inject.Inject
  *
  * @since 2.0
  */
-class CRYTickerRepository @Inject constructor(private val cryApi: CRYApi): CRYGenericRepository(){
+class CRYTickerRepository @Inject constructor(
+    private val cryApi: CRYApi,
+    private val tickerDao: CRYTickerDao,): CRYGenericRepository(){
 
     /**
      *
      */
-    suspend fun getTicker(book: String): CRYBaseResponse<CRYTicker>{
+    suspend fun getTicker(book: String): CRYDetailBook {
+        var ticker = tickerDao.findById(book)
+
+        if (ticker == null){
+            println("Entra a consultar el api")
+            val tickerAux = getTickerFromApi(book)
+            tickerAux?.let {
+                tickerDao.insert(it)
+            }
+            ticker = tickerDao.findById(book)
+        }
+        return ticker.toDomain()
+    }
+
+    private suspend fun getTickerFromApi(book: String): CRYDetailBookEntity? {
         var response = CRYBaseResponse<CRYTicker>()
         getResponse {  response = cryApi.getTicker(book) }
-        return response
+        return response.payload?.toEntity()
     }
 }

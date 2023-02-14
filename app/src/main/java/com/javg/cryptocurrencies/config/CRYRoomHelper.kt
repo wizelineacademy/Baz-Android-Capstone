@@ -22,10 +22,15 @@ object CRYRoomHelper {
                 appContext,
                 CRYAppDatabase::class.java,
                 CRYAppDatabase.DB_NAME)
+            .fallbackToDestructiveMigration()
             .build()
     }
 
     @Singleton
     @Provides
     fun provideBookDao(db: CRYAppDatabase) = db.bookDao()
+
+    @Singleton
+    @Provides
+    fun provideTickerDao(db: CRYAppDatabase) = db.tickerDao()
 }

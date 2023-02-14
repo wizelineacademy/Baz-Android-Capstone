@@ -5,6 +5,9 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import com.google.gson.Gson
+import com.javg.cryptocurrencies.data.db.entity.CRYDetailBookEntity
+import com.javg.cryptocurrencies.data.model.CRYAskOrBids
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -76,4 +79,14 @@ object CRYUtils {
         val sharedPreference =  context.getSharedPreferences("PREFERENCE_NAME",Context.MODE_PRIVATE)
         return sharedPreference.getString("time", "") ?: ""
     }
+
+    /**
+     * Convert a list of type CRYAskOrBids to a string
+     */
+    fun convertersListToJson(askOrBids: List<CRYAskOrBids>): String = Gson().toJson(askOrBids)
+
+    /**
+     * Converts a string to a list of type CRYAskOrBids
+     */
+    fun convertersJsonToList(askOrBids: String) = Gson().fromJson(askOrBids, Array<CRYAskOrBids>::class.java).toList()
 }

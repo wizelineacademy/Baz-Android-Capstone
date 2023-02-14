@@ -9,6 +9,7 @@ import javax.inject.Inject
 
 /**
  * @author Juan Vera Gomez
+ * Date modified 13/02/2023
  *
  * Contains the functionality to query the information and make
  * a deal before returning the information to the view model
@@ -32,22 +33,11 @@ class CRYGetListBookWithTickerUseCase @Inject constructor(
      */
     suspend operator fun invoke(book: String): CRYDetailBook = withContext(Dispatchers.IO){
         val ticker = tickerRepository.getTicker(book)
-        val detailBook = CRYDetailBook()
+        var detailBook = CRYDetailBook()
 
-        if (ticker.success){
-            ticker.payload?.let {
-                val orderBook = orderBookRepository.getOrderBook(book)
-                detailBook.apply {
-                    last = it.last
-                    high = it.high
-                    low  = it.low
-                    askList = orderBook.payload?.asksList
-                    bidsList = orderBook.payload?.bidsList
-                }
-            }
-        }else{
-            println("success ${ticker.success}")
-        }
+        if (ticker != null)
+            detailBook = orderBookRepository.getOrderBook(book)
+
         detailBook
     }
 }

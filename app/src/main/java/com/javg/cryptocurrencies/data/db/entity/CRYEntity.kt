@@ -12,3 +12,14 @@ data class CRYBookEntity(
     @ColumnInfo(name = "minimumPrice") val minimumPrice: String,
     @ColumnInfo(name = "maximumPrice") val maximumPrice: String
 )
+
+@Entity(tableName = CRYAppDatabase.DETAIL_BOOK_TABLE)
+data class CRYDetailBookEntity(
+    @PrimaryKey
+    @ColumnInfo("book") val book: String,
+    @ColumnInfo("high") val high: String,
+    @ColumnInfo("last") val last: String,
+    @ColumnInfo("low") val low: String,
+    @ColumnInfo("askList") val askList: String,
+    @ColumnInfo("bidsList") val bidsList: String
+)
