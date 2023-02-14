@@ -16,7 +16,6 @@ interface TickerDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateTicker(ticker: TickerEntity)
 
-
     suspend fun upsertTicker(ticker: TickerEntity) {
         try {
             insert(ticker)

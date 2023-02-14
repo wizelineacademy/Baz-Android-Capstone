@@ -35,6 +35,6 @@ class GetListOrderBookUseCase(
     }
 
     private fun updateDB(asks: ArrayList<Ask>,bids: ArrayList<Bids>){
-
+        localOrderBookRepository.updateBidsAndAsks(asks, bids)
     }
 }

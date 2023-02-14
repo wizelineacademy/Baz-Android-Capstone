@@ -9,7 +9,6 @@ import com.axiasoft.android.zerocoins.db.BIDS_TB_NAME
 
 @Entity(tableName = BIDS_TB_NAME, primaryKeys = ["book", "price", "amount"])
 data class BidsEntity(
-
     @ColumnInfo("book" ) var book          : String = emptyString(),
     @ColumnInfo("price" ) var price         : String = emptyString(),
     @ColumnInfo("amount") var amount        : String = emptyString(),

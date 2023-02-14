@@ -59,10 +59,7 @@ class BookOrderListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        //TODO convert for fragment only
         availableBooksViewModel = ViewModelProvider(requireActivity()).get(AvailableBooksViewModel::class.java)
-        //TODO activity viewmodel shared
         bookOrderViewModel = ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
 
         availableBooksViewModel.books.observe(viewLifecycleOwner) {
