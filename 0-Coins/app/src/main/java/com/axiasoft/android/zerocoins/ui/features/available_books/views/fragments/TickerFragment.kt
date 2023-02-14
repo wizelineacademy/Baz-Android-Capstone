@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.databinding.FragmentTickerBinding
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BookOrderViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.TickerViewModel
@@ -62,10 +64,21 @@ class TickerFragment : Fragment() {
             }
         }
 
+        setupListeners()
+
         tickerViewModel.selectedBookOrder = bookOrderViewModel.selectedBookOrder
 
         tickerViewModel.getTickerWithUseCase()
         tickerViewModel.getListOrderBook()
+    }
+
+    fun setupListeners(){
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                log("z0", "back fragment")
+                requireActivity().supportFragmentManager.popBackStack()
+            }
+        })
     }
 
     override fun onDestroyView() {
@@ -74,7 +87,8 @@ class TickerFragment : Fragment() {
     }
 
     companion object {
-        // TODO: Rename and change types and number of parameters
+
+        val TAG = "TickerFragment"
         @JvmStatic
         fun newInstance() =
             TickerFragment().apply {

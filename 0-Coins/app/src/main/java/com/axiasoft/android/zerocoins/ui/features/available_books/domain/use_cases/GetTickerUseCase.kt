@@ -18,7 +18,7 @@ class GetTickerUseCase(
             is BitsoApiResponseWrap.Success -> {
                 if (tickerWrappedResponse.response.payload != null && tickerWrappedResponse.response.success == true){
                     val ticker = tickerWrappedResponse.response.payload
-                    updateTicker(ticker)
+                    updateTickerDb(ticker)
                     TickerScreenState.TickerSuccess(ticker)
                 }else {
                     TickerScreenState.TickerError(tickerWrappedResponse.response.error?.message ?: "")
@@ -29,7 +29,7 @@ class GetTickerUseCase(
         }
     }
 
-    private suspend fun updateTicker(ticker: Ticker){
-        localOrderBookRepository.storeTicker(ticker)
+    private fun updateTickerDb(ticker: Ticker){
+        localOrderBookRepository.updateTickerDBWithScope(ticker)
     }
 }

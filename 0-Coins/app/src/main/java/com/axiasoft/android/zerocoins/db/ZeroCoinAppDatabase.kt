@@ -32,7 +32,7 @@ abstract class ZeroCoinAppDatabase : RoomDatabase() {
     abstract fun bookDao(): ExchangeOrderBookDao
     abstract fun askDao(): AskDao
     abstract fun bidDao(): BidsDao
-    abstract fun ticker(): TickerDao
+    abstract fun tickerDao(): TickerDao
 }
 
 private lateinit var INSTANCE: ZeroCoinAppDatabase

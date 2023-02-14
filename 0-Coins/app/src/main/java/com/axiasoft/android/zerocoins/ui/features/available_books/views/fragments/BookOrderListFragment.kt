@@ -84,6 +84,7 @@ class BookOrderListFragment : Fragment() {
         val fm : FragmentManager = requireActivity().supportFragmentManager
         val ft: FragmentTransaction = fm.beginTransaction()
         ft.replace(R.id.cl_cointainer, fragment)
+        ft.addToBackStack(TickerFragment.TAG)
         ft.commit()
     }
 
