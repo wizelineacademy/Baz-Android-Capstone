@@ -1,4 +1,4 @@
-package com.javg.cryptocurrencies.ui.detail.recyclerview
+package com.javg.cryptocurrencies.view.detail.recyclerview
 
 import android.content.Context
 import android.view.LayoutInflater

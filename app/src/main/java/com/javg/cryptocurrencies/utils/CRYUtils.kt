@@ -1,9 +1,12 @@
 package com.javg.cryptocurrencies.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import java.text.SimpleDateFormat
+import java.util.*
 
 object CRYUtils {
 
@@ -39,5 +42,38 @@ object CRYUtils {
         }
 
         return result
+    }
+
+    /**
+     * Gets device time with mexico time zone setting and returns it
+     */
+    @SuppressLint("SimpleDateFormat")
+    fun getCurrentDay(): String {
+        val myTimeZone = TimeZone.getTimeZone("America/Mexico_City")
+        val simpleDateFormat = SimpleDateFormat("HH:mm:ss")
+        simpleDateFormat.timeZone = myTimeZone
+        return simpleDateFormat.format(Date())
+    }
+
+    /**
+     * Save a time in device preferences
+     *
+     * @param context is the context of the activity
+     */
+    fun saveTime(context: Context){
+        val sharedPreference =  context.getSharedPreferences("PREFERENCE_NAME",Context.MODE_PRIVATE)
+        val editor = sharedPreference.edit()
+        editor.putString("time", getCurrentDay())
+        editor.apply()
+    }
+
+    /**
+     * Returns the time saved in device preferences
+     *
+     * @param context is the context of the activity
+     */
+    fun getSaveTime(context: Context): String{
+        val sharedPreference =  context.getSharedPreferences("PREFERENCE_NAME",Context.MODE_PRIVATE)
+        return sharedPreference.getString("time", "") ?: ""
     }
 }

@@ -1,4 +1,4 @@
-package com.javg.cryptocurrencies.data.viewmodel
+package com.javg.cryptocurrencies.view.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

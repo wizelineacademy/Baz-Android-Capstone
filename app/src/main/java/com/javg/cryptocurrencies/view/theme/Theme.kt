@@ -1,4 +1,4 @@
-package com.javg.cryptocurrencies.ui.theme
+package com.javg.cryptocurrencies.view.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

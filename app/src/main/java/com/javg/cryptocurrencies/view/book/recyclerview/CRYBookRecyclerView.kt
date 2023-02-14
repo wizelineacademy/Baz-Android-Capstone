@@ -1,4 +1,4 @@
-package com.javg.cryptocurrencies.ui.book.recyclerview
+package com.javg.cryptocurrencies.view.book.recyclerview
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -40,6 +40,10 @@ class CRYBookRecyclerView(
                 .load(book.imageUrl)
                 .placeholder(R.drawable.ic_default_book)
                 .into(binding.imageId)
+            Glide.with(context)
+                .load(book.bookDestination)
+                .placeholder(R.drawable.ic_default_book)
+                .into(binding.imageIdEnd)
             binding.imageMore.setOnClickListener {
                 onItemClick(book.book, book.imageUrl)
             }

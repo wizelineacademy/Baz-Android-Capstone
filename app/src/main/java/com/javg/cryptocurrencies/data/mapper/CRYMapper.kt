@@ -22,5 +22,6 @@ fun CRYBookResponse.toEntity(): CRYBookEntity{
 fun CRYBookEntity.toDomain(): CRYBook{
     return CRYBook(
         book = this.book,
-        imageUrl = "")
+        imageUrl = "",
+        bookDestination = "")
 }

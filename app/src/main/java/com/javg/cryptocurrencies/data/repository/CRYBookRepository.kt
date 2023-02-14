@@ -9,11 +9,13 @@ import com.javg.cryptocurrencies.data.model.CRYBaseResponse
 import com.javg.cryptocurrencies.data.model.CRYBook
 import com.javg.cryptocurrencies.data.model.CRYBookResponse
 import com.javg.cryptocurrencies.data.network.CRYApi
+import com.javg.cryptocurrencies.utils.CRYUtils
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 /**
  * @author Juan Vera Gomez
+ * Date modified 10/02/2023
  *
  * It is in charge of the functionality to be able to obtain the information
  * from the database and in case of not having information,
@@ -21,10 +23,9 @@ import javax.inject.Inject
  *
  * @since 2.0
  */
-class CRYBookRepository  @Inject constructor(
-    @ApplicationContext private val appContext: Context,
-    private val cryApi: CRYApi,
-    private val bookDao: CRYBookDao
+class CRYBookRepository  @Inject constructor(@ApplicationContext val context: Context,
+                                             private val cryApi: CRYApi,
+                                             private val bookDao: CRYBookDao
 ): CRYGenericRepository() {
 
     /**
@@ -34,12 +35,16 @@ class CRYBookRepository  @Inject constructor(
      * Which does a transformation from entity model to a
      * general model to return to the view
      *
+     * @param onRefresh flag that will indicate to the data layer if it
+     * consults the remote information again according
+     * to the user's interaction
+     *
      * @return List of books of model general
      */
-    suspend fun getAvailableBooks(): List<CRYBook>{
+    suspend fun getAvailableBooks(onRefresh: Boolean = false): List<CRYBook>{
         var localBooks = bookDao.getAllBook()
 
-        if (localBooks.isEmpty()){
+        if (localBooks.isEmpty() || onRefresh){
             val remoteBooks = getBooksFromApi()
             bookDao.insertAll(remoteBooks)
             localBooks = bookDao.getAllBook()
@@ -60,6 +65,7 @@ class CRYBookRepository  @Inject constructor(
         val listBookEntity = mutableListOf<CRYBookEntity>()
         getResponse{ responseAux = cryApi.getListAvailableBooks() }
         responseAux.payload?.let { payload ->
+            CRYUtils.saveTime(context)
             payload.forEach {
                 listBookEntity.add(it.toEntity())
             }

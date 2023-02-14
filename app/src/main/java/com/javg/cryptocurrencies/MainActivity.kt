@@ -2,7 +2,7 @@ package com.javg.cryptocurrencies
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.javg.cryptocurrencies.ui.book.CRYBookFragment
+import com.javg.cryptocurrencies.view.book.CRYBookFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         fm.commit()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         var canBack = false
         val fragment = supportFragmentManager.findFragmentById(R.id.root_layout)

@@ -1,4 +1,4 @@
-package com.javg.cryptocurrencies.ui.detail
+package com.javg.cryptocurrencies.view.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,9 +14,10 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.javg.cryptocurrencies.R
 import com.javg.cryptocurrencies.data.model.CRYAskOrBids
 import com.javg.cryptocurrencies.data.model.CRYDetailBook
-import com.javg.cryptocurrencies.data.viewmodel.CRYDetailBookVM
+import com.javg.cryptocurrencies.view.viewmodel.CRYDetailBookVM
 import com.javg.cryptocurrencies.databinding.CryDetailBookFragmentBinding
-import com.javg.cryptocurrencies.ui.detail.recyclerview.CRYAskRecyclerView
+import com.javg.cryptocurrencies.ext.separateStringCoins
+import com.javg.cryptocurrencies.view.detail.recyclerview.CRYAskRecyclerView
 
 /**
  * @author Juan Antonio Vera
@@ -92,7 +93,7 @@ class CRYDetailBookFragment : Fragment(){
             .load(imageName)
             .placeholder(R.drawable.ic_default_book)
             .into(binding.bookImage)
-        binding.txtBook.text = book
+        binding.headerTopBar.title.text = book.separateStringCoins().uppercase()
         configureAdapter()
 
         detailBookVM.tickerBook.observe(viewLifecycleOwner, tickerObserver)
@@ -123,8 +124,11 @@ class CRYDetailBookFragment : Fragment(){
      * listens for the click events of the view when the user interacts
      */
     private fun onClickListener() = with(binding){
-        ivArrowBack.setOnClickListener {
+        headerTopBar.imageBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
+        }
+        headerTopBar.imageClose.setOnClickListener {
+            requireActivity().finish()
         }
         txtAsk.setOnClickListener { changeAsk() }
         txtBids.setOnClickListener { changeBids() }
@@ -183,7 +187,6 @@ class CRYDetailBookFragment : Fragment(){
                 txtHighestPrice.visibility = View.VISIBLE
                 txtLowMoreLow.visibility   = View.VISIBLE
                 bookImage.visibility       = View.VISIBLE
-                clContainerHeader.visibility = View.VISIBLE
             }
 
             adapterAskBids.submitList(it)

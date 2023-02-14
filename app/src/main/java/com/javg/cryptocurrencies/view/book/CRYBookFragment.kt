@@ -1,4 +1,4 @@
-package com.javg.cryptocurrencies.ui.book
+package com.javg.cryptocurrencies.view.book
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,17 +9,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.javg.cryptocurrencies.R
 import com.javg.cryptocurrencies.data.model.CRYBook
-import com.javg.cryptocurrencies.data.viewmodel.CRYHomeVM
+import com.javg.cryptocurrencies.view.viewmodel.CRYHomeVM
 import com.javg.cryptocurrencies.databinding.CryBookFragmentBinding
-import com.javg.cryptocurrencies.ui.book.recyclerview.CRYBookRecyclerView
-import com.javg.cryptocurrencies.ui.detail.CRYDetailBookFragment
+import com.javg.cryptocurrencies.view.book.recyclerview.CRYBookRecyclerView
+import com.javg.cryptocurrencies.view.detail.CRYDetailBookFragment
 
 /**
  * @author Juan Vera Gomez
- * Date modified 08/02/2023
+ * Date modified 10/02/2023
  *
  * Fragment in charge of manipulating and displaying the
  * information corresponding to the cryptocurrency cards
@@ -32,6 +33,8 @@ class CRYBookFragment : Fragment(){
     private lateinit var adapterBook: CRYBookRecyclerView
     private val bookHomeVM by activityViewModels<CRYHomeVM>()
     private lateinit var shimmerFrameLayout: ShimmerFrameLayout
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+
 
     //Saves the Lambda event that is executed in the adapter item
     private val onClickItem: (String, String) -> Unit = { book, image ->
@@ -55,8 +58,23 @@ class CRYBookFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         loadShimmer()
         loadAdapter()
+        swipeRefresh()
         bookHomeVM.getBooks()
         bookHomeVM.listBook.observe(viewLifecycleOwner,observerBook)
+        bookHomeVM.updateTime.observe(viewLifecycleOwner, observerUpdateTime)
+    }
+
+    /**
+     * Performs an update when the user interacts with
+     * the view in order to update the books in the database
+     */
+    private fun swipeRefresh(){
+        swipeRefreshLayout = binding.swipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener {
+            binding.rvBooks.visibility = View.GONE
+            loadShimmer()
+            bookHomeVM.getBooks(true)
+        }
     }
 
     /**
@@ -64,6 +82,7 @@ class CRYBookFragment : Fragment(){
      * and starting the facebook loading effect
      */
     private fun loadShimmer(){
+        binding.idShimmer.visibility = View.VISIBLE
         shimmerFrameLayout = binding.idShimmer
         shimmerFrameLayout.startShimmer()
     }
@@ -87,6 +106,8 @@ class CRYBookFragment : Fragment(){
      */
     private val observerBook = Observer<List<CRYBook>>{
         it.let { listBooks ->
+            swipeRefreshLayout.isRefreshing = false
+
             if (listBooks.isEmpty())
                 Toast.makeText(requireContext(),"Lista vacia",Toast.LENGTH_SHORT).show()
             else{
@@ -96,6 +117,15 @@ class CRYBookFragment : Fragment(){
                 adapterBook.submitList(listBooks)
             }
         }
+    }
+
+    /**
+     * Observes the time change and reflects it in the view
+     */
+    private val observerUpdateTime = Observer<String>{
+       it?.let { updateTime ->
+           binding.updateDay.text = updateTime
+       }
     }
 
     /**
