@@ -1,17 +1,21 @@
-package com.example.wizelineandroid.adapter.home
+package com.example.wizelineandroid.ui.adapter.home
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.wizelineandroid.R
 import com.example.wizelineandroid.core.BaseViewHolder
-import com.example.wizelineandroid.data.model.ModelBook
+import com.example.wizelineandroid.data.local.BookEntity
+import com.example.wizelineandroid.data.remote.model.ModelBook
 import com.example.wizelineandroid.databinding.ItemRowBinding
 
-class HomeAdapter(private val booksList: List<ModelBook>, private val itemClickListener: onUserClickListener): RecyclerView.Adapter<BaseViewHolder<*>>() {
+class HomeAdapter(private val booksList: List<ModelBook>, private val itemClickListener: onUserClickListener)
+    : RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     interface onUserClickListener{
         fun onBookClick(book: ModelBook)
@@ -37,6 +41,18 @@ class HomeAdapter(private val booksList: List<ModelBook>, private val itemClickL
         }
     }
 
+    companion object {
+        private val DiffCallback = object : DiffUtil.ItemCallback<BookEntity>() {
+            override fun areItemsTheSame(oldItem: BookEntity, newItem: BookEntity): Boolean {
+                return oldItem === newItem
+            }
+
+            override fun areContentsTheSame(oldItem: BookEntity, newItem: BookEntity): Boolean {
+                return oldItem.itemName == newItem.itemName
+            }
+        }
+    }
+
     override fun getItemCount(): Int = booksList.size
 
     inner class MainViewHolder(val binding : ItemRowBinding, val context: Context): BaseViewHolder<ModelBook>(binding.root){
@@ -46,6 +62,12 @@ class HomeAdapter(private val booksList: List<ModelBook>, private val itemClickL
             binding.txtPminimo.text = item.minimum_price
             binding.txtPmaximo.text = item.maximum_price
             context.let { Glide.with(it).load("https://cryptoicons.org/api/icon/${imgCoin[0]}/200").centerCrop().into(binding.circleImageView) }
+            /*Log.d("nuyhbjhb",
+                binding.circleImageView.transitionName.toString()
+            )*/
+
+
+
         }
     }
 }

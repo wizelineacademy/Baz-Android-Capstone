@@ -1,11 +1,11 @@
-package com.example.wizelineandroid.adapter.detail
+package com.example.wizelineandroid.ui.adapter.detail
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wizelineandroid.core.BaseViewHolder
-import com.example.wizelineandroid.data.model.Ask
+import com.example.wizelineandroid.data.remote.model.Ask
 import com.example.wizelineandroid.databinding.ItemOrderBooksBinding
 
 class AskAdapter(private val orderList: List<Ask>): RecyclerView.Adapter<BaseViewHolder<*>>()  {

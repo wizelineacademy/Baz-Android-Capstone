@@ -1,6 +1,6 @@
 package com.example.wizelineandroid.repository.available
 
-import com.example.wizelineandroid.data.model.Books
+import com.example.wizelineandroid.data.remote.model.Books
 
 interface BooksRepo {
     suspend fun getAvailableBooks(): Books

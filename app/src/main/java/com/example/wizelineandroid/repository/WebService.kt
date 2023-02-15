@@ -1,8 +1,8 @@
 package com.example.wizelineandroid.repository
 
-import com.example.wizelineandroid.data.model.Books
-import com.example.wizelineandroid.data.model.GetTickers
-import com.example.wizelineandroid.data.model.OrderBook
+import com.example.wizelineandroid.data.remote.model.Books
+import com.example.wizelineandroid.data.remote.model.GetTickers
+import com.example.wizelineandroid.data.remote.model.OrderBook
 import com.example.wizelineandroid.utils.AppConstants
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit

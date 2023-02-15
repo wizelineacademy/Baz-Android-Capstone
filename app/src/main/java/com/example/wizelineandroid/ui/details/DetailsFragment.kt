@@ -2,15 +2,17 @@ package com.example.wizelineandroid.ui.details
 
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.webkit.URLUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.wizelineandroid.R
-import com.example.wizelineandroid.adapter.detail.AskAdapter
-import com.example.wizelineandroid.adapter.detail.BidsAdapter
+import com.example.wizelineandroid.ui.adapter.detail.AskAdapter
+import com.example.wizelineandroid.ui.adapter.detail.BidsAdapter
 import com.example.wizelineandroid.core.Resource
 import com.example.wizelineandroid.data.remote.BooksDataSource
 import com.example.wizelineandroid.databinding.FragmentDetailsBinding
@@ -59,6 +61,10 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                     binding.rvAsk.adapter = AskAdapter(result.data.payload.asks)
                     binding.rvBids.adapter = BidsAdapter(result.data.payload.bids)
                     context?.let { Glide.with(it).load("https://cryptoicons.org/api/icon/${imgCoin[0]}/200").centerCrop().into(binding.imgCoin) }
+                    Log.d("nuyhbjhb",
+                        Patterns.WEB_URL.matcher("https://cryptoicons.org/api/icon/${imgCoin[0]}/200").matches()
+                            .toString()
+                    )
                 }
                 is Resource.Failure -> {
                 }
