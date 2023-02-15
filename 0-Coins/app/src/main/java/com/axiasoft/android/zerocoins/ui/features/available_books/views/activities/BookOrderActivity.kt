@@ -40,15 +40,15 @@ class BookOrderActivity : AppCompatActivity() {
         //TODO move POC
         val internetConnectionStatus = InternetConnectionAvailableLiveData(application)
 
-        internetConnectionStatus.observe(this, { isConnected ->
+        internetConnectionStatus.observe(this) { isConnected ->
             bookOrderViewModel.isInternetAvailable = isConnected
             if (isConnected) {
                 //TODO set a flag on viewmodels
                 bookOrderViewModel.isInternetAvailable = isConnected
                 log("z0", "impl net is $isConnected")
-            }else{
-                log("z0","Impl not connected $isConnected")
+            } else {
+                log("z0", "Impl not connected $isConnected")
             }
-        })
+        }
     }
 }

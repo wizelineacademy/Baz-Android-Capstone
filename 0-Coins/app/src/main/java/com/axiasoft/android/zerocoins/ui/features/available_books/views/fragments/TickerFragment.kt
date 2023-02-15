@@ -16,7 +16,6 @@ import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_state
 
 class TickerFragment : Fragment() {
 
-    //private val viewModel: BooksScreenViewModel by viewModels()
     lateinit var bookOrderViewModel: BookOrderViewModel
     lateinit var tickerViewModel: TickerViewModel
 
@@ -68,17 +67,24 @@ class TickerFragment : Fragment() {
 
         tickerViewModel.selectedBookOrder = bookOrderViewModel.selectedBookOrder
 
-        tickerViewModel.getTickerWithUseCase()
-        tickerViewModel.getListOrderBook()
+        if (bookOrderViewModel.isInternetAvailable) {
+            tickerViewModel.getRemoteTicker()
+            tickerViewModel.getListOrderBook()
+        } else {
+            tickerViewModel.getLocalTicker()
+            //tickerViewModel.getListOrderBook()
+        }
     }
 
-    fun setupListeners(){
-        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                log("z0", "back fragment")
-                requireActivity().supportFragmentManager.popBackStack()
-            }
-        })
+    private fun setupListeners() {
+        activity?.onBackPressedDispatcher?.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    log("z0", "back fragment")
+                    requireActivity().supportFragmentManager.popBackStack()
+                }
+            })
     }
 
     override fun onDestroyView() {
@@ -89,12 +95,11 @@ class TickerFragment : Fragment() {
     companion object {
 
         val TAG = "TickerFragment"
+
         @JvmStatic
         fun newInstance() =
             TickerFragment().apply {
-                arguments = Bundle().apply {
-
-                }
+                arguments = Bundle().apply {}
             }
     }
 }

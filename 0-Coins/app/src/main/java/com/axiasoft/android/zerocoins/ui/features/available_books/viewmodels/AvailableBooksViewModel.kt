@@ -12,7 +12,7 @@ import com.axiasoft.android.zerocoins.ui.features.available_books.domain.use_cas
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.BooksScreenState
 import kotlinx.coroutines.launch
 
-class AvailableBooksViewModel: ViewModel() {
+class AvailableBooksViewModel : ViewModel() {
 
     private val booksRepository by lazy { RemoteOrderBooksRepositoryImpl() }
     private val localOrderBookRepositoryImpl by lazy { LocalOrderBookRepositoryImpl() }
@@ -23,12 +23,12 @@ class AvailableBooksViewModel: ViewModel() {
 
     var selectedBookOrder = ExchangeOrderBook()
 
-    fun getBooks(){
-        viewModelScope.launch{
+    fun getBooks() {
+        viewModelScope.launch {
             val response = booksRepository.getBooksFromApi()
-            when(response){
+            when (response) {
                 is BitsoApiResponseWrap.Success -> {
-                    if(response.response.success == true){
+                    if (response.response.success == true) {
                         log(message = "Hi array of books:-> ${response.response.payload.toString()}")
                     }
                 }
@@ -37,17 +37,34 @@ class AvailableBooksViewModel: ViewModel() {
         }
     }
 
-    fun getBooksWithUseCase(){
+    fun getExchangeOrderBooks() {
         viewModelScope.launch {
             val booksState = GetBooksUseCase(
                 booksRepository,
                 localOrderBookRepositoryImpl
             ).invoke()
-            when(booksState){
-                is BooksScreenState.BooksSuccess ->{
+            when (booksState) {
+                is BooksScreenState.BooksSuccess -> {
                     val stuff = booksState.data
                     books.postValue(stuff)
                     log(message = "Success UseCase ${stuff.toString()}")
+                }
+                is BooksScreenState.BooksErrorOrEmpty -> {
+                    log(message = "some error ${booksState.message}")
+                }
+            }
+        }
+    }
+
+    fun getLocalExchangeOrderBooks() {
+        viewModelScope.launch {
+            val booksState = GetBooksUseCase(
+                booksRepository,
+                localOrderBookRepositoryImpl
+            ).retrieveExchangeOrderBook()
+            when (booksState) {
+                is BooksScreenState.BooksSuccess -> {
+                    books.postValue(booksState.data)
                 }
                 is BooksScreenState.BooksErrorOrEmpty -> {
                     log(message = "some error ${booksState.message}")

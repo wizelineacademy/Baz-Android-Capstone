@@ -1,10 +1,8 @@
 package com.axiasoft.android.zerocoins.db.bitso.dao
 
 import android.database.sqlite.SQLiteConstraintException
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Update
+import androidx.room.*
+import com.axiasoft.android.zerocoins.db.TICKER_TB_NAME
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.ticker.Ticker
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.ticker.entity.TickerEntity
 
@@ -24,4 +22,7 @@ interface TickerDao {
             updateTicker(ticker)
         }
     }
+
+    @Query("SELECT * FROM $TICKER_TB_NAME WHERE book = :book")
+    fun getBook(book: String): TickerEntity
 }

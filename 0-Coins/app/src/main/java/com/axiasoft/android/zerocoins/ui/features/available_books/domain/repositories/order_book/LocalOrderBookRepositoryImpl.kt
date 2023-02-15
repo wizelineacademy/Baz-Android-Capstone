@@ -1,6 +1,8 @@
 package com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book
 
+import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.db.getDatabase
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.toDomain
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.toEntity
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book.Ask
@@ -27,6 +29,33 @@ class LocalOrderBookRepositoryImpl: LocalOrderBookRepository {
             availableExchangeOrderBook.forEach {
                 val exchangeOrderBook = it.toEntity()
                 db.bookDao().insert(exchangeOrderBook)
+            }
+        }
+    }
+
+    suspend fun retrieveExchangeOrderBooks(): ArrayList<ExchangeOrderBook>{
+        return withContext(Dispatchers.IO){
+            try {
+                val entities = db.bookDao().getAvailableBooks() as ArrayList
+                val output = entities.map { it.toDomain() }
+                log("z0", "Read From db $output")
+                output as ArrayList
+            } catch (ex: Exception){
+                log("z0", "error on read db ${ex.message}")
+                emptyList<ExchangeOrderBook>() as ArrayList
+            }
+        }
+    }
+
+    suspend fun retrieveTicker(book: String): Ticker?{
+        return withContext(Dispatchers.IO){
+            try {
+                val tickerEntity = db.tickerDao().getBook(book)
+                log("z0", "Read Ticker from db $tickerEntity")
+                tickerEntity.toDomain()
+            } catch (ex: Exception){
+                log("z0", "error on read db ${ex.message}")
+                null
             }
         }
     }

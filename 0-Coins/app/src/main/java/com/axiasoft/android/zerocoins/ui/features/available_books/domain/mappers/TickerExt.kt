@@ -17,3 +17,19 @@ fun Ticker.toEntity(): TickerEntity{
         change24 = this.change24
     )
 }
+
+
+fun TickerEntity.toDomain(): Ticker{
+    return Ticker(
+        book = this.book,
+        high = this.high,
+        last = this.last,
+        createdAt = this.createdAt,
+        volume = this.volume,
+        vwap = this.vwap,
+        low = this.low,
+        ask = this.ask,
+        bid = this.bid,
+        change24 = this.change24
+    )
+}

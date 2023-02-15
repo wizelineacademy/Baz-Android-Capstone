@@ -68,11 +68,9 @@ class BookOrderListFragment : Fragment() {
         }
 
         if (bookOrderViewModel.isInternetAvailable){
-            availableBooksViewModel.getBooksWithUseCase()
+            availableBooksViewModel.getExchangeOrderBooks()
         } else {
-            log("z0", "TODO : Retrieve available data from db")
-            //TODO retrieve from db
-            availableBooksViewModel.getBooksWithUseCase()
+            availableBooksViewModel.getLocalExchangeOrderBooks()
         }
     }
 

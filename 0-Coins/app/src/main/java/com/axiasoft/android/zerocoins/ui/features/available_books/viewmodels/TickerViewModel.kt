@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class TickerViewModel: ViewModel() {
 
-    private val booksRepository by lazy { RemoteOrderBooksRepositoryImpl() }
+    private val remoteOrderBooksRepository by lazy { RemoteOrderBooksRepositoryImpl() }
     private val localOrderBookRepositoryImpl by lazy { LocalOrderBookRepositoryImpl() }
 
     var selectedBookOrder = ExchangeOrderBook()
@@ -23,10 +23,10 @@ class TickerViewModel: ViewModel() {
 
     var listOrderBookScreenState: MutableLiveData<ListOrderBookScreenState> = MutableLiveData()
 
-    fun getTickerWithUseCase(){
+    fun getRemoteTicker(){
         viewModelScope.launch {
             val tickerSreenState = GetTickerUseCase(
-                booksRepository,
+                remoteOrderBooksRepository,
                 localOrderBookRepositoryImpl
             ).invoke(selectedBookOrder)
             when(tickerSreenState){
@@ -41,10 +41,28 @@ class TickerViewModel: ViewModel() {
         }
     }
 
+    fun getLocalTicker(){
+        viewModelScope.launch {
+            val tickerScreenState = GetTickerUseCase(
+                remoteOrderBooksRepository,
+                localOrderBookRepositoryImpl
+            ).retrieveTicker(selectedBookOrder)
+            when(tickerScreenState){
+                is TickerScreenState.TickerSuccess -> {
+                    val ticker = tickerScreenState.ticker
+                    tickerState.value = TickerScreenState.TickerSuccess(ticker)
+                }
+                is TickerScreenState.TickerError -> {
+
+                }
+            }
+        }
+    }
+
     fun getListOrderBook(){
         viewModelScope.launch {
             val listOrderBookState = GetListOrderBookUseCase(
-                booksRepository,
+                remoteOrderBooksRepository,
                 localOrderBookRepositoryImpl
             ).invoke(selectedBookOrder)
             when(listOrderBookState){

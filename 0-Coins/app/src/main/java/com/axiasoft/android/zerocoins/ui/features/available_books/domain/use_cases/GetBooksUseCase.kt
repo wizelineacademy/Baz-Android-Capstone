@@ -11,7 +11,7 @@ class GetBooksUseCase(
     private val remoteOrderBooksRepository: RemoteOrderBooksRepository,
     private val localOrderBookRepositoryImpl: LocalOrderBookRepositoryImpl
 ) {
-    suspend operator fun invoke(): BooksScreenState /*: state*/{
+    suspend operator fun invoke(): BooksScreenState {
         val booksWrappedResponse = remoteOrderBooksRepository.getBooksFromApi()
         return when(booksWrappedResponse){
             is BitsoApiResponseWrap.Success -> {
@@ -29,6 +29,15 @@ class GetBooksUseCase(
             else -> {
                 BooksScreenState.BooksErrorOrEmpty()
             }
+        }
+    }
+
+    suspend fun retrieveExchangeOrderBook(): BooksScreenState{
+        val localExchangeOrderBooks = localOrderBookRepositoryImpl.retrieveExchangeOrderBooks()
+        return if (localExchangeOrderBooks.isNotEmpty()){
+            BooksScreenState.BooksSuccess(localExchangeOrderBooks)
+        } else {
+            BooksScreenState.BooksErrorOrEmpty()
         }
     }
 
