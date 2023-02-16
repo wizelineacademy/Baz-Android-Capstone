@@ -4,13 +4,13 @@ import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWra
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book.Ask
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book.Bids
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepositoryImpl
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepository
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.RemoteOrderBooksRepository
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.ListOrderBookScreenState
 
 class GetListOrderBookUseCase(
     private val remoteOrderBooksRepository: RemoteOrderBooksRepository,
-    private val localOrderBookRepository: LocalOrderBookRepositoryImpl
+    private val localOrderBookRepository: LocalOrderBookRepository
 
 ) {
     suspend fun invoke(book: ExchangeOrderBook): ListOrderBookScreenState {

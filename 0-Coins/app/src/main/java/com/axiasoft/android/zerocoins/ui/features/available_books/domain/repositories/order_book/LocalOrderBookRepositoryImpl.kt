@@ -19,7 +19,7 @@ class LocalOrderBookRepositoryImpl: LocalOrderBookRepository {
 
     val scope = CoroutineScope(Dispatchers.IO)
 
-    suspend fun storeAvailableExchangeOrderBooks(
+    override suspend fun storeAvailableExchangeOrderBooks(
         availableExchangeOrderBook: ArrayList<ExchangeOrderBook>
     ){
         withContext(Dispatchers.IO){
@@ -33,7 +33,7 @@ class LocalOrderBookRepositoryImpl: LocalOrderBookRepository {
         }
     }
 
-    suspend fun retrieveExchangeOrderBooks(): ArrayList<ExchangeOrderBook>{
+    override suspend fun retrieveExchangeOrderBooks(): ArrayList<ExchangeOrderBook>{
         return withContext(Dispatchers.IO){
             try {
                 val entities = db.bookDao().getAvailableBooks() as ArrayList
@@ -47,7 +47,7 @@ class LocalOrderBookRepositoryImpl: LocalOrderBookRepository {
         }
     }
 
-    fun storeTickerDBWithScope(ticker: Ticker){
+    override fun storeTickerDBWithScope(ticker: Ticker){
         scope.launch(Dispatchers.IO) {
             val tickerEntity = ticker.toEntity()
             db.tickerDao().upsertTicker(tickerEntity)
@@ -61,7 +61,7 @@ class LocalOrderBookRepositoryImpl: LocalOrderBookRepository {
         }
     }
 
-    suspend fun retrieveTicker(book: String): Ticker?{
+    override suspend fun retrieveTicker(book: String): Ticker?{
         return withContext(Dispatchers.IO){
             try {
                 val tickerEntity = db.tickerDao().getBook(book)
@@ -74,7 +74,7 @@ class LocalOrderBookRepositoryImpl: LocalOrderBookRepository {
         }
     }
 
-    fun storeBidsAndAsks(asks: List<Ask>, bids: List<Bids>){
+    override fun storeBidsAndAsks(asks: List<Ask>, bids: List<Bids>){
         scope.launch {
             val askEntities = asks.map { it.toEntity() }
             val bidsEntities = bids.map { it.toEntity() }
@@ -87,7 +87,7 @@ class LocalOrderBookRepositoryImpl: LocalOrderBookRepository {
         }
     }
 
-    suspend fun retrieveBidsAndAsks(book: String): Pair<List<Ask>, List<Bids>>{
+    override suspend fun retrieveBidsAndAsks(book: String): Pair<List<Ask>, List<Bids>>{
         return withContext(Dispatchers.IO){
             try {
                 val asksEntities = db.askDao().getAsks(book)

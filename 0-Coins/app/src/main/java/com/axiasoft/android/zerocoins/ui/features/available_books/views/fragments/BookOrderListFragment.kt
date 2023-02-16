@@ -63,11 +63,8 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
     fun initViewModels() {
         availableBooksViewModel =
             ViewModelProvider(requireActivity()).get(AvailableBooksViewModel::class.java)
-        //bookOrderViewModel = ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
 
-        bookOrderViewModel = activity?.run {
-            ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
-        } ?: throw Exception("Invalid Activity")
+        bookOrderViewModel = ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
     }
 
     fun initObservers() {

@@ -14,7 +14,7 @@
     <string name="ticker_ticker_subtitle">Información de intercambio</string>
     <string name="ticker_ticker_last_price">Último precio: </string>
     <string name="ticker_ticker_high_price">Precio más alto: </string>
-    <string name="ticker_ticker_lower_price">Precio más alto: </string>
+    <string name="ticker_ticker_lower_price">Precio más bajo: </string>
 
     <string name="ticker_ask">Asks</string>
     <string name="ticker_bid">Bids</string>

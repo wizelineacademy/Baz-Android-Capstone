@@ -5,11 +5,12 @@ import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_state
 import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWrap
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.toDomain
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepository
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepositoryImpl
 
 class GetBooksUseCase(
     private val remoteOrderBooksRepository: RemoteOrderBooksRepository,
-    private val localOrderBookRepositoryImpl: LocalOrderBookRepositoryImpl
+    private val localOrderBookRepository: LocalOrderBookRepository
 ) {
     suspend operator fun invoke(): BooksScreenState {
         val booksWrappedResponse = remoteOrderBooksRepository.getBooksFromApi()
@@ -33,7 +34,7 @@ class GetBooksUseCase(
     }
 
     suspend fun retrieveExchangeOrderBook(): BooksScreenState{
-        val localExchangeOrderBooks = localOrderBookRepositoryImpl.retrieveExchangeOrderBooks()
+        val localExchangeOrderBooks = localOrderBookRepository.retrieveExchangeOrderBooks()
         return if (localExchangeOrderBooks.isNotEmpty()){
             BooksScreenState.BooksSuccess(localExchangeOrderBooks)
         } else {
@@ -42,6 +43,6 @@ class GetBooksUseCase(
     }
 
     private suspend fun updateDBAvailableExchangeOrderBook(availableExchangeOrderBook: ArrayList<ExchangeOrderBook>){
-        localOrderBookRepositoryImpl.storeAvailableExchangeOrderBooks(availableExchangeOrderBook)
+        localOrderBookRepository.storeAvailableExchangeOrderBooks(availableExchangeOrderBook)
     }
 }

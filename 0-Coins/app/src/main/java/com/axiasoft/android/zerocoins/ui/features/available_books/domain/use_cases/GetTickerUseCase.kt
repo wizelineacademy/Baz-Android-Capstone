@@ -4,13 +4,13 @@ import com.axiasoft.android.zerocoins.common.emptyString
 import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWrap
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.ticker.Ticker
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepositoryImpl
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepository
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.RemoteOrderBooksRepository
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.TickerScreenState
 
 class GetTickerUseCase(
     private val remoteOrderBooksRepository: RemoteOrderBooksRepository,
-    private val localOrderBookRepository: LocalOrderBookRepositoryImpl
+    private val localOrderBookRepository: LocalOrderBookRepository
 ) {
     suspend fun invoke(book: ExchangeOrderBook): TickerScreenState {
         val tickerWrappedResponse = remoteOrderBooksRepository.getTicketsFromApi(book.book ?: "")
