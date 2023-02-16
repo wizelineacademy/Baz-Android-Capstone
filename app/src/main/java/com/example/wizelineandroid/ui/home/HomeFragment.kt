@@ -1,7 +1,6 @@
 package com.example.wizelineandroid.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -47,7 +46,6 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home), Hom
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
 
-
         viewModel.fetchBooks().observe(viewLifecycleOwner, Observer { result ->
             when(result){
                 is Resource.Loading -> {
@@ -56,7 +54,15 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home), Hom
                 }
                 is Resource.Success -> {
                     binding.shimmerViewContainer.stopShimmer()
-                    binding.rvCoins.adapter = HomeAdapter(result.data.payload,this)
+                    val entities = result.data.payload.map { currency ->
+                        BookEntity(
+                            itemName = currency.book,
+                            id = currency.book,
+                            maximum_price = currency.maximum_price,
+                            minimum_price = currency.minimum_price
+                        )
+                    }
+                    binding.rvCoins.adapter = HomeAdapter(entities,this)
                     binding.shimmerViewContainer.visibility = View.GONE
                     addNewItem(result.data.payload)
 
@@ -66,7 +72,7 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home), Hom
                     binding.shimmerViewContainer.stopShimmer()
                     binding.shimmerViewContainer.visibility = View.GONE
                     viewModelRoom.allBooks.observe(this.viewLifecycleOwner) { items ->
-                        //binding.rvCoins.adapter = HomeAdapter(items,this)
+                        binding.rvCoins.adapter = HomeAdapter(items,this)
                     }
 
                 }
@@ -89,10 +95,9 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home), Hom
         }
     }
 
-    override fun onBookClick(bookss: ModelBook) {
+    override fun onBookClick(book: BookEntity) {
         val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(
-            bookss.book
+            book.itemName
         )
-        findNavController().navigate(action)
-    }
+        findNavController().navigate(action)    }
 }
