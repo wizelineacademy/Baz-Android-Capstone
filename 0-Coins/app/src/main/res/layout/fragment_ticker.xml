@@ -11,22 +11,40 @@
             android:id="@+id/cl_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/tv_ticker"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_ticker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/hello_blank_fragment" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
+                <include
+                    android:id="@+id/ticker"
+                    layout="@layout/layout_ticker"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--<include
+                android:id="@+id/separator"
+                layout="@layout/label_ask_bids"
+                app:layout_constraintTop_toBottomOf="@+id/cl_ticker"
+                />-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_asks"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/tv_ticker"
+                app:layout_constraintTop_toBottomOf="@+id/cl_ticker"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/rv_bids"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.1"
+                app:layout_constraintVertical_bias="0"
                 tools:listitem="@layout/open_order_item"
                 />
 
@@ -34,11 +52,11 @@
                 android:id="@+id/rv_bids"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/tv_ticker"
+                app:layout_constraintTop_toBottomOf="@+id/cl_ticker"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/rv_asks"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.1"
+                app:layout_constraintVertical_bias="0"
                 tools:listitem="@layout/open_order_item" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>

@@ -63,7 +63,13 @@ class TickerFragment : Fragment() {
         tickerViewModel.tickerState.observe(viewLifecycleOwner) {
             when (it) {
                 is TickerScreenState.TickerSuccess -> {
-                    binding.tvTicker.text = it.ticker.toString()
+                    with(binding){
+                        ticker.tvOrderBookName.text = it.ticker.book
+                        ticker.tvOrderBookCode.text = it.ticker.book
+                        ticker.tvLastPrice.text = it.ticker.last
+                        ticker.tvHighPrice.text = it.ticker.high
+                        ticker.tvLowerPrice.text = it.ticker.low
+                    }
                 }
                 else -> {}
             }
