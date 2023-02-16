@@ -33,7 +33,6 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
         navigateToTicker()
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -45,7 +44,6 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        initViewModels()
         fragmentBinding = FragmentBookOrderListBinding.inflate(inflater, container, false)
         fragmentBinding.list.apply {
             layoutManager = LinearLayoutManager(context)
@@ -55,6 +53,7 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initViewModels()
         initObservers()
         initUIListeners()
         //TODO fix first time, observer doesnt update internet state
@@ -81,7 +80,6 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
     fun initUIListeners() {
         fragmentBinding.apply {
             fabRefresh.setOnClickListener {
-                log("z0", "click")
                 refreshData()
             }
         }

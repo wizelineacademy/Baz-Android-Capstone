@@ -53,16 +53,15 @@ class BookOrderAdapter(private val onItemClick: (ExchangeOrderBook) -> Unit): Re
 
         fun bind(book: ExchangeOrderBook) {
             val typeOfBookOrder = getBookOrderType(book.book ?: "") ?: CoinNameAndImage.any_any
-            log("z0", "book is ${typeOfBookOrder.coinName}")
             Glide.with(binding.root.context)
                 .load(typeOfBookOrder.coinImage)
                 .centerInside()
                 .into(binding.root.findViewById(R.id.iv_coin))
             binding.root.apply {
-                findViewById<TextView>(R.id.tv_coin_name).text = typeOfBookOrder.coinName
+                findViewById<TextView>(R.id.tv_order_book_code).text = typeOfBookOrder.coinKey
+                findViewById<TextView>(R.id.tv_order_book_name).text = typeOfBookOrder.coinName
                 findViewById<TextView>(R.id.tv_item_num_info).text = book.maximumPrice
             }
-            //binding.setVariable(R.id.tv_coin_name, book.book)
         }
     }
 }
