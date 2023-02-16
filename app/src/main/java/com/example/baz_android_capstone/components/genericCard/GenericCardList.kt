@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import com.example.baz_android_capstone.util.spacer24
 
 @Composable
 fun GenericCardList(
@@ -20,7 +20,7 @@ fun GenericCardList(
     ) {
         items(elements) { element ->
             GenericCard(genericCardInterface = element)
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(spacer24))
         }
     }
 }

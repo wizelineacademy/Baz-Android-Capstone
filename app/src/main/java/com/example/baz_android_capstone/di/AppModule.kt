@@ -17,7 +17,7 @@ import javax.inject.Singleton
 object AppModule {
     @Singleton
     @Provides
-    fun provideBookRepository(api: BookAPI) : BookRepositoryInterface = BookRepository(api)
+    fun provideBookRepository(api: BookAPI): BookRepositoryInterface = BookRepository(api)
 
     @Singleton
     @Provides

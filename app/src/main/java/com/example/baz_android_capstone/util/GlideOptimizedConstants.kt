@@ -1,6 +1,4 @@
-package com.example.baz_android_capstone.util
-
-const val IMAGE_SIZE = 1_000_000
+package com.example.baz_android_capstone.util // ktlint-disable package-name
 
 object SingleInstance {
     val urlList = mutableMapOf<String, Int>()

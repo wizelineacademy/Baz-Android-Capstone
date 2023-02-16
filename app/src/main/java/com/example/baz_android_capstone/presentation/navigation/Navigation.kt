@@ -11,6 +11,8 @@ import com.example.baz_android_capstone.presentation.screens.Description
 import com.example.baz_android_capstone.presentation.screens.Principal
 import com.example.baz_android_capstone.presentation.screens.Splash
 import com.example.baz_android_capstone.presentation.viewmodels.BookViewModel
+import com.example.baz_android_capstone.util.initialOffset
+import com.example.baz_android_capstone.util.transitionDuration
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 
@@ -24,42 +26,42 @@ fun Navigation(navController: NavHostController) {
         startDestination = Screen.Splash.route,
         enterTransition = {
             slideInHorizontally(
-                initialOffsetX = { 500 },
-                animationSpec = tween(1300)
+                initialOffsetX = { initialOffset },
+                animationSpec = tween(transitionDuration)
             ) +
                 fadeIn(
                     initialAlpha = 0.0f,
-                    animationSpec = tween(1300)
+                    animationSpec = tween(transitionDuration)
                 )
         },
         exitTransition = {
             slideOutHorizontally(
-                targetOffsetX = { -500 },
-                animationSpec = tween(1300)
+                targetOffsetX = { -initialOffset },
+                animationSpec = tween(transitionDuration)
             ) +
                 fadeOut(
                     targetAlpha = 0.0f,
-                    animationSpec = tween(1300)
+                    animationSpec = tween(transitionDuration)
                 )
         },
         popEnterTransition = {
             slideInHorizontally(
-                initialOffsetX = { -500 },
-                animationSpec = tween(1300)
+                initialOffsetX = { -initialOffset },
+                animationSpec = tween(transitionDuration)
             ) +
                 fadeIn(
                     initialAlpha = 0.0f,
-                    animationSpec = tween(1300)
+                    animationSpec = tween(transitionDuration)
                 )
         },
         popExitTransition = {
             slideOutHorizontally(
-                targetOffsetX = { 500 },
-                animationSpec = tween(1300)
+                targetOffsetX = { initialOffset },
+                animationSpec = tween(transitionDuration)
             ) +
                 fadeOut(
                     targetAlpha = 0.0f,
-                    animationSpec = tween(1300)
+                    animationSpec = tween(transitionDuration)
                 )
         }
     ) {
