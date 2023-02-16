@@ -47,20 +47,7 @@ class LocalOrderBookRepositoryImpl: LocalOrderBookRepository {
         }
     }
 
-    suspend fun retrieveTicker(book: String): Ticker?{
-        return withContext(Dispatchers.IO){
-            try {
-                val tickerEntity = db.tickerDao().getBook(book)
-                log("z0", "Read Ticker from db $tickerEntity")
-                tickerEntity.toDomain()
-            } catch (ex: Exception){
-                log("z0", "error on read db ${ex.message}")
-                null
-            }
-        }
-    }
-
-    fun updateTickerDBWithScope(ticker: Ticker){
+    fun storeTickerDBWithScope(ticker: Ticker){
         scope.launch(Dispatchers.IO) {
             val tickerEntity = ticker.toEntity()
             db.tickerDao().upsertTicker(tickerEntity)
@@ -74,7 +61,20 @@ class LocalOrderBookRepositoryImpl: LocalOrderBookRepository {
         }
     }
 
-    fun updateBidsAndAsks(asks: List<Ask>, bids: List<Bids>){
+    suspend fun retrieveTicker(book: String): Ticker?{
+        return withContext(Dispatchers.IO){
+            try {
+                val tickerEntity = db.tickerDao().getBook(book)
+                log("z0", "Read Ticker from db $tickerEntity")
+                tickerEntity.toDomain()
+            } catch (ex: Exception){
+                log("z0", "error on read db ${ex.message}")
+                null
+            }
+        }
+    }
+
+    fun storeBidsAndAsks(asks: List<Ask>, bids: List<Bids>){
         scope.launch {
             val askEntities = asks.map { it.toEntity() }
             val bidsEntities = bids.map { it.toEntity() }
@@ -83,6 +83,21 @@ class LocalOrderBookRepositoryImpl: LocalOrderBookRepository {
             }
             bidsEntities.forEach {
                 db.bidDao().upsertBid(it)
+            }
+        }
+    }
+
+    suspend fun retrieveBidsAndAsks(book: String): Pair<List<Ask>, List<Bids>>{
+        return withContext(Dispatchers.IO){
+            try {
+                val asksEntities = db.askDao().getAsks(book)
+                val bidsEntities = db.bidDao().getBids(book)
+
+                val asks = asksEntities.map { it.toDomain() }
+                val bids = bidsEntities.map { it.toDomain() }
+                Pair(asks, bids)
+            } catch (ex: Exception){
+                Pair(emptyList(), emptyList())
             }
         }
     }

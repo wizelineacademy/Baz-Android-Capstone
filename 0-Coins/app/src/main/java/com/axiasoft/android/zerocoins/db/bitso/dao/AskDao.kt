@@ -3,7 +3,9 @@ package com.axiasoft.android.zerocoins.db.bitso.dao
 import android.database.sqlite.SQLiteConstraintException
 import androidx.room.*
 import com.axiasoft.android.zerocoins.db.ASK_TB_NAME
+import com.axiasoft.android.zerocoins.db.TICKER_TB_NAME
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book.entity.AskEntity
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.ticker.entity.TickerEntity
 
 @Dao
 interface AskDao {
@@ -21,6 +23,9 @@ interface AskDao {
             updateAsk(askEntity)
         }
     }
+
+    @Query("SELECT * FROM $ASK_TB_NAME WHERE book = :book")
+    fun getAsks(book: String): List<AskEntity>
 
     @Query("Select * From $ASK_TB_NAME")
     fun getAllAsk(): List<AskEntity>

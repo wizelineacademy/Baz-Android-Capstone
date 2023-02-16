@@ -1,31 +1,32 @@
 package com.axiasoft.android.zerocoins.ui.features.available_books.views.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.axiasoft.android.zerocoins.R
 import com.axiasoft.android.zerocoins.common.log
+import com.axiasoft.android.zerocoins.databinding.FragmentBookOrderListBinding
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.AvailableBooksViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BookOrderViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.adapters.BookOrderAdapter
 
-class BookOrderListFragment : Fragment() {
+class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
 
     private var columnCount = 1
+
+    lateinit var fragmentBinding: FragmentBookOrderListBinding
 
     //private val viewModel: BooksScreenViewModel by viewModels()
     lateinit var availableBooksViewModel: AvailableBooksViewModel
     lateinit var bookOrderViewModel: BookOrderViewModel
 
-    val bookOrderAdapter = BookOrderAdapter{ bookOrderSelected ->
+    val bookOrderAdapter = BookOrderAdapter { bookOrderSelected ->
         log("z0", "selected $bookOrderSelected")
         availableBooksViewModel.selectedBookOrder = bookOrderSelected
         bookOrderViewModel.selectedBookOrder = bookOrderSelected
@@ -43,40 +44,61 @@ class BookOrderListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_book_order_list, container, false)
-
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = bookOrderAdapter
-            }
+    ): View {
+        initViewModels()
+        fragmentBinding = FragmentBookOrderListBinding.inflate(inflater, container, false)
+        fragmentBinding.list.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = bookOrderAdapter
         }
-        return view
+        return fragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        availableBooksViewModel = ViewModelProvider(requireActivity()).get(AvailableBooksViewModel::class.java)
-        bookOrderViewModel = ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
+        initObservers()
+        initUIListeners()
+        //TODO fix first time, observer doesnt update internet state
+        refreshData()
+    }
 
+    fun initViewModels() {
+        availableBooksViewModel =
+            ViewModelProvider(requireActivity()).get(AvailableBooksViewModel::class.java)
+        //bookOrderViewModel = ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
+
+        bookOrderViewModel = activity?.run {
+            ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
+    }
+
+    fun initObservers() {
         availableBooksViewModel.books.observe(viewLifecycleOwner) {
-            log("z0", "Fragment ${it}" )
+            log("z0", "Fragment ${it}")
             bookOrderAdapter.updateBookOrders(it)
         }
+    }
 
-        if (bookOrderViewModel.isInternetAvailable){
+    fun initUIListeners() {
+        fragmentBinding.apply {
+            fabRefresh.setOnClickListener {
+                log("z0", "click")
+                refreshData()
+            }
+        }
+    }
+
+    fun refreshData() {
+        log("z0", "Internet on first fragment? ${bookOrderViewModel.isInternetAvailable}")
+        if (bookOrderViewModel.isInternetAvailable) {
             availableBooksViewModel.getExchangeOrderBooks()
         } else {
             availableBooksViewModel.getLocalExchangeOrderBooks()
         }
     }
 
-    fun navigateToTicker(){
+    fun navigateToTicker() {
         val fragment = TickerFragment()
-        val fm : FragmentManager = requireActivity().supportFragmentManager
+        val fm: FragmentManager = requireActivity().supportFragmentManager
         val ft: FragmentTransaction = fm.beginTransaction()
         ft.replace(R.id.cl_cointainer, fragment)
         ft.addToBackStack(TickerFragment.TAG)

@@ -13,9 +13,26 @@ fun Ask.toEntity(): AskEntity{
     )
 }
 
+fun AskEntity.toDomain(): Ask{
+    return Ask(
+        book = this.book ?: "",
+        price = this.price ?: "",
+        amount = this.amount ?: ""
+    )
+}
+
 
 fun Bids.toEntity(): BidsEntity{
     return BidsEntity(
+        book = this.book ?: "",
+        price = this.price ?: "",
+        amount = this.amount ?: ""
+    )
+}
+
+
+fun BidsEntity.toDomain(): Bids{
+    return Bids(
         book = this.book ?: "",
         price = this.price ?: "",
         amount = this.amount ?: ""

@@ -69,10 +69,10 @@ class TickerFragment : Fragment() {
 
         if (bookOrderViewModel.isInternetAvailable) {
             tickerViewModel.getRemoteTicker()
-            tickerViewModel.getListOrderBook()
+            tickerViewModel.getRemoteListOrderBook()
         } else {
             tickerViewModel.getLocalTicker()
-            //tickerViewModel.getListOrderBook()
+            tickerViewModel.getLocalListOrderBook()
         }
     }
 

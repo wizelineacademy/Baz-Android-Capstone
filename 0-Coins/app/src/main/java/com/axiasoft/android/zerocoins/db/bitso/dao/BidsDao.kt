@@ -1,10 +1,10 @@
 package com.axiasoft.android.zerocoins.db.bitso.dao
 
 import android.database.sqlite.SQLiteConstraintException
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Update
+import androidx.room.*
+import com.axiasoft.android.zerocoins.db.ASK_TB_NAME
+import com.axiasoft.android.zerocoins.db.BIDS_TB_NAME
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book.entity.AskEntity
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book.entity.BidsEntity
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.ticker.entity.TickerEntity
 
@@ -13,10 +13,8 @@ interface BidsDao {
     @Insert
     fun insert(bidsEntity: BidsEntity)
 
-
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateBid(bid: BidsEntity)
-
 
     suspend fun upsertBid(bid: BidsEntity) {
         try {
@@ -26,4 +24,7 @@ interface BidsDao {
             updateBid(bid)
         }
     }
+
+    @Query("SELECT * FROM $BIDS_TB_NAME WHERE book = :book")
+    fun getBids(book: String): List<BidsEntity>
 }

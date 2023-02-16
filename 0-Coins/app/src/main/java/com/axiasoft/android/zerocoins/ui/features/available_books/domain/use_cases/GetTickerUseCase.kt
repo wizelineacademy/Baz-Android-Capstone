@@ -42,6 +42,6 @@ class GetTickerUseCase(
     }
 
     private fun updateTickerDb(ticker: Ticker) {
-        localOrderBookRepository.updateTickerDBWithScope(ticker)
+        localOrderBookRepository.storeTickerDBWithScope(ticker)
     }
 }

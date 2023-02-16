@@ -59,12 +59,29 @@ class TickerViewModel: ViewModel() {
         }
     }
 
-    fun getListOrderBook(){
+    fun getRemoteListOrderBook(){
         viewModelScope.launch {
             val listOrderBookState = GetListOrderBookUseCase(
                 remoteOrderBooksRepository,
                 localOrderBookRepositoryImpl
             ).invoke(selectedBookOrder)
+            when(listOrderBookState){
+                is ListOrderBookScreenState.Success -> {
+                    listOrderBookScreenState.value = listOrderBookState
+                }
+                is ListOrderBookScreenState.ErrorOrEmpty -> {
+
+                }
+            }
+        }
+    }
+
+    fun getLocalListOrderBook(){
+        viewModelScope.launch {
+            val listOrderBookState = GetListOrderBookUseCase(
+                remoteOrderBooksRepository,
+                localOrderBookRepositoryImpl
+            ).retrieveAskAndBids(selectedBookOrder)
             when(listOrderBookState){
                 is ListOrderBookScreenState.Success -> {
                     listOrderBookScreenState.value = listOrderBookState
