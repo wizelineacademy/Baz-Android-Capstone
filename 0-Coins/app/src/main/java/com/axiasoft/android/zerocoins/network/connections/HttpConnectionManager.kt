@@ -27,9 +27,8 @@ abstract class HttpConnectionManager<T : Any>(var coinApi: CoinApis) {
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(
                     OkHttpClient().newBuilder()
-                        .addInterceptor(loggingInterceptor)
                         .addInterceptor(BitsoInterceptor())
-                    //.addNetworkInterceptor(GSSCHeadersInterceptorAWSS3())
+                        .addInterceptor(loggingInterceptor)
                     .build()
                 ).build()
         }
