@@ -11,12 +11,6 @@ open class CRYBaseResponse<T: Any>{
     @Expose
     var payload: T? = null
 }
-data class CRYBaseResponseModel(
-    @SerializedName("success")
-    var success: Boolean,
-    @SerializedName("payload")
-    var payload: List<CRYBookResponse>
-)
 
 data class CRYBookResponse(
     @SerializedName("book")

@@ -15,11 +15,11 @@ interface CRYApi {
     }
 
     @GET(END_POINT_AVAILABLE_BOOKS)
-    suspend fun getListAvailableBooks(): Response<CRYBaseResponse<List<CRYBookResponse>>>
+    suspend fun getListAvailableBooks(): CRYBaseResponse<List<CRYBookResponse>>
 
     @GET(END_POINT_TICKER)
-    suspend fun getTicker(@Query("book") book: String): Response<CRYBaseResponse<CRYTicker>>
+    suspend fun getTicker(@Query("book") book: String): CRYBaseResponse<CRYTicker>
 
     @GET(END_POINT_ORDER_BOOK)
-    suspend fun getOrderBook(@Query("book") book: String): Response<CRYBaseResponse<CRYOrderBook>>
+    suspend fun getOrderBook(@Query("book") book: String): CRYBaseResponse<CRYOrderBook>
 }

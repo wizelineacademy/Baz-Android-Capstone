@@ -1,5 +1,6 @@
 package com.javg.cryptocurrencies.config
 
+import android.os.Build
 import com.javg.cryptocurrencies.data.network.CRYApi
 import dagger.Module
 import dagger.Provides
@@ -27,7 +28,15 @@ object CRYRetrofitHelper {
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-        val httpClient = OkHttpClient.Builder()
+        val httpClient = OkHttpClient.Builder().addInterceptor { chain ->
+        val request = chain.request()
+            .newBuilder()
+            .addHeader("User-Agent", "CryptocurrenciesApp")
+            .build()
+
+            chain.proceed(request)
+        }
+
         httpClient.addInterceptor(logging)
 
         return Retrofit.Builder()

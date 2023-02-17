@@ -1,11 +1,9 @@
 package com.javg.cryptocurrencies.data.model
 
-import androidx.annotation.DrawableRes
-import com.google.gson.annotations.SerializedName
-
 data class CRYBook(
     var book: String,
-    var imageUrl: String
+    var imageUrl: String,
+    var bookDestination: String
 )
 
 data class CRYDetailBook(
