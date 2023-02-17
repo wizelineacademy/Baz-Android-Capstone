@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWrap
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.apis.BitsoOrderBooksApi
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepositoryImpl
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.RemoteOrderBooksRepositoryImpl
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class AvailableBooksViewModel : ViewModel() {
 
-    private val booksRepository by lazy { RemoteOrderBooksRepositoryImpl() }
+    private val booksRepository by lazy { RemoteOrderBooksRepositoryImpl(BitsoOrderBooksApi.Builder().build()) }
     private val localOrderBookRepositoryImpl by lazy { LocalOrderBookRepositoryImpl() }
 
     val books: MutableLiveData<MutableList<ExchangeOrderBook>> by lazy {

@@ -3,6 +3,7 @@ package com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.apis.BitsoOrderBooksApi
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepositoryImpl
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.RemoteOrderBooksRepositoryImpl
@@ -12,9 +13,13 @@ import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_state
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.TickerScreenState
 import kotlinx.coroutines.launch
 
-class TickerViewModel: ViewModel() {
+class TickerViewModel : ViewModel() {
 
-    private val remoteOrderBooksRepository by lazy { RemoteOrderBooksRepositoryImpl() }
+    private val remoteOrderBooksRepository by lazy {
+        RemoteOrderBooksRepositoryImpl(
+            BitsoOrderBooksApi.Builder().build()
+        )
+    }
     private val localOrderBookRepositoryImpl by lazy { LocalOrderBookRepositoryImpl() }
 
     var selectedBookOrder = ExchangeOrderBook()
@@ -23,13 +28,13 @@ class TickerViewModel: ViewModel() {
 
     var listOrderBookScreenState: MutableLiveData<ListOrderBookScreenState> = MutableLiveData()
 
-    fun getRemoteTicker(){
+    fun getRemoteTicker() {
         viewModelScope.launch {
             val tickerSreenState = GetTickerUseCase(
                 remoteOrderBooksRepository,
                 localOrderBookRepositoryImpl
             ).invoke(selectedBookOrder)
-            when(tickerSreenState){
+            when (tickerSreenState) {
                 is TickerScreenState.TickerSuccess -> {
                     val ticker = tickerSreenState.ticker
                     tickerState.value = TickerScreenState.TickerSuccess(ticker)
@@ -41,13 +46,13 @@ class TickerViewModel: ViewModel() {
         }
     }
 
-    fun getLocalTicker(){
+    fun getLocalTicker() {
         viewModelScope.launch {
             val tickerScreenState = GetTickerUseCase(
                 remoteOrderBooksRepository,
                 localOrderBookRepositoryImpl
             ).retrieveTicker(selectedBookOrder)
-            when(tickerScreenState){
+            when (tickerScreenState) {
                 is TickerScreenState.TickerSuccess -> {
                     val ticker = tickerScreenState.ticker
                     tickerState.value = TickerScreenState.TickerSuccess(ticker)
@@ -59,13 +64,13 @@ class TickerViewModel: ViewModel() {
         }
     }
 
-    fun getRemoteListOrderBook(){
+    fun getRemoteListOrderBook() {
         viewModelScope.launch {
             val listOrderBookState = GetListOrderBookUseCase(
                 remoteOrderBooksRepository,
                 localOrderBookRepositoryImpl
             ).invoke(selectedBookOrder)
-            when(listOrderBookState){
+            when (listOrderBookState) {
                 is ListOrderBookScreenState.Success -> {
                     listOrderBookScreenState.value = listOrderBookState
                 }
@@ -76,13 +81,13 @@ class TickerViewModel: ViewModel() {
         }
     }
 
-    fun getLocalListOrderBook(){
+    fun getLocalListOrderBook() {
         viewModelScope.launch {
             val listOrderBookState = GetListOrderBookUseCase(
                 remoteOrderBooksRepository,
                 localOrderBookRepositoryImpl
             ).retrieveAskAndBids(selectedBookOrder)
-            when(listOrderBookState){
+            when (listOrderBookState) {
                 is ListOrderBookScreenState.Success -> {
                     listOrderBookScreenState.value = listOrderBookState
                 }

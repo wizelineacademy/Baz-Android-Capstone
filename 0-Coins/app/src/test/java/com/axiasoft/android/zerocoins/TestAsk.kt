@@ -16,7 +16,7 @@ class TestAsk {
     @Before
     fun setup(){
         //val mockResponse = viewModel.getListOrderBook()
-        ask = Ask()
+        ask = Ask("_", "", "")
     }
 
     /*@Test
@@ -27,14 +27,14 @@ class TestAsk {
 
     @Test
     fun `test multiplicate for Asks`(){
-        ask = Ask()
+        ask = Ask("", "", "")
         val multiplicate = ask.multplicateAmount(3.0, 2.0)
         assertThat(multiplicate).isEqualTo(6.0)
     }
 
     @Test
     fun `test for sum`(){
-        val ask = Ask()
+        val ask = Ask("", "", "")
         val sumA = ask.sumAmount(5,5)
         assertThat(sumA).isEqualTo(10)
     }

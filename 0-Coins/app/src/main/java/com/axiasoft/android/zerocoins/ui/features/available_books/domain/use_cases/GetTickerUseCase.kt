@@ -2,6 +2,7 @@ package com.axiasoft.android.zerocoins.ui.features.available_books.domain.use_ca
 
 import com.axiasoft.android.zerocoins.common.emptyString
 import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWrap
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.toDomain
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.ticker.Ticker
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepository
@@ -13,13 +14,14 @@ class GetTickerUseCase(
     private val localOrderBookRepository: LocalOrderBookRepository
 ) {
     suspend fun invoke(book: ExchangeOrderBook): TickerScreenState {
-        val tickerWrappedResponse = remoteOrderBooksRepository.getTicketsFromApi(book.book ?: "")
+        val tickerWrappedResponse = remoteOrderBooksRepository.getTickerFromApi(book.book ?: "")
         return when (tickerWrappedResponse) {
             is BitsoApiResponseWrap.Success -> {
                 if (tickerWrappedResponse.response.payload != null && tickerWrappedResponse.response.success == true) {
                     val ticker = tickerWrappedResponse.response.payload
-                    updateTickerDb(ticker)
-                    TickerScreenState.TickerSuccess(ticker)
+                    val tickerDomain = ticker.toDomain()
+                    updateTickerDb(tickerDomain)
+                    TickerScreenState.TickerSuccess(tickerDomain)
                 } else {
                     TickerScreenState.TickerError(
                         tickerWrappedResponse.response.error?.message ?: ""

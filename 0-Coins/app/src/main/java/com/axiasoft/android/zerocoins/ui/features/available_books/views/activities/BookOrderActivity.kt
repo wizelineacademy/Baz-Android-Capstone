@@ -1,10 +1,8 @@
 package com.axiasoft.android.zerocoins.ui.features.available_books.views.activities
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.axiasoft.android.zerocoins.MainActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.axiasoft.android.zerocoins.R
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.databinding.ActivityBookOrderBinding
