@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Baz-Android-Capstone</string>
+
+    <string name="all_markets">ALL MARKETS</string>
+    <string name="select_market">Select Market</string>
+    <string name="url">https://cryptoicons.org/api/icon/%1$s/200</string>
+    <string name="Asks">Asks</string>
+    <string name="Bids">Bids</string>
+    <string name="Last">Last: %1$s %2$s</string>
+    <string name="Low">Low: %1$s %2$s</string>
+    <string name="High">High: %1$s %2$s</string>
+    <string name="NotAvailable">Not Available</string>
+    <string name="PriceAmount">Price = %1$s\n\nAmount = %2$s</string>
+
+</resources>
