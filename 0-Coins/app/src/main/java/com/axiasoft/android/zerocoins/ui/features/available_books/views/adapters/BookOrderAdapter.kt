@@ -58,7 +58,7 @@ class BookOrderAdapter(private val onItemClick: (ExchangeOrderBook) -> Unit): Re
                 .centerInside()
                 .into(binding.root.findViewById(R.id.iv_coin))
             binding.root.apply {
-                findViewById<TextView>(R.id.tv_order_book_code).text = typeOfBookOrder.coinKey
+                findViewById<TextView>(R.id.tv_order_book_code).text = book.book
                 findViewById<TextView>(R.id.tv_order_book_name).text = typeOfBookOrder.coinName
                 findViewById<TextView>(R.id.tv_item_num_info).text = book.maximumPrice
             }

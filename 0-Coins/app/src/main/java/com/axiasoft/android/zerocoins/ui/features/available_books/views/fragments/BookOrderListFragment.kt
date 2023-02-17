@@ -4,14 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.axiasoft.android.zerocoins.R
+import com.axiasoft.android.zerocoins.application.ZeroCoinsApplication
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.databinding.FragmentBookOrderListBinding
+import com.axiasoft.android.zerocoins.network.app.InternetConnectionAvailableLiveData
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.AvailableBooksViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BookOrderViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.adapters.BookOrderAdapter
@@ -67,11 +70,21 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
         bookOrderViewModel = ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
     }
 
+    var connection = true
+
     fun initObservers() {
         availableBooksViewModel.books.observe(viewLifecycleOwner) {
-            log("z0", "Fragment ${it}")
             bookOrderAdapter.updateBookOrders(it)
         }
+        InternetConnectionAvailableLiveData(requireActivity().application)
+            .observe(viewLifecycleOwner) { isConnected ->
+                //bookOrderViewModel.isInternetAvailable = isConnected
+                connection = isConnected
+                log("z0","connection fragment isConnected $connection")
+                if (!isConnected){
+                    Toast.makeText(requireContext(),"Sin internet",Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
     fun initUIListeners() {
@@ -83,10 +96,11 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
     }
 
     fun refreshData() {
-        log("z0", "Internet on first fragment? ${bookOrderViewModel.isInternetAvailable}")
-        if (bookOrderViewModel.isInternetAvailable) {
+        if (connection){//true){//bookOrderViewModel.isInternetAvailable) {
+            log("z0", "remote")
             availableBooksViewModel.getExchangeOrderBooks()
         } else {
+            log("z0", "local")
             availableBooksViewModel.getLocalExchangeOrderBooks()
         }
     }

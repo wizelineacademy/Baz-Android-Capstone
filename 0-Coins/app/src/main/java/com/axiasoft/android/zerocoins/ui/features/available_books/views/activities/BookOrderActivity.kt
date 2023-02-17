@@ -25,7 +25,6 @@ class BookOrderActivity : AppCompatActivity() {
         internetConnectionStatus.observe(this) { isConnected ->
             bookOrderViewModel.isInternetAvailable = isConnected
             if (isConnected) {
-                bookOrderViewModel.isInternetAvailable = isConnected
                 log("z0", "impl net is $isConnected")
             } else {
                 log("z0", "Impl not connected $isConnected")

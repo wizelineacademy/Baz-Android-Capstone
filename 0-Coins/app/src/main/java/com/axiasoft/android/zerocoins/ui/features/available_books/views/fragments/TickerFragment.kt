@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.databinding.FragmentTickerBinding
+import com.axiasoft.android.zerocoins.network.app.InternetConnectionAvailableLiveData
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book.OpenOrder
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BookOrderViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.TickerViewModel
@@ -27,6 +29,8 @@ class TickerFragment : Fragment() {
 
     lateinit var asksAdapter: OpenOrdersInBookAdapter
     lateinit var bidsAdapter: OpenOrdersInBookAdapter
+
+    private var connection = true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +75,10 @@ class TickerFragment : Fragment() {
                         ticker.tvLowerPrice.text = it.ticker.low
                     }
                 }
-                else -> {}
+                else -> {
+                    //TODO manage errors
+                    Toast.makeText(requireContext(),"No hay datos ticker", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -81,15 +88,30 @@ class TickerFragment : Fragment() {
                     asksAdapter.submitList(it.asks as List<OpenOrder>?)
                     bidsAdapter.submitList(it.bids as List<OpenOrder>?)
                 }
-                else -> {}
+                else -> {
+                    //TODO manage error
+                    Toast.makeText(requireContext(),"No hay datos bids and asks", Toast.LENGTH_SHORT).show()
+                    asksAdapter.submitList(emptyList())
+                    bidsAdapter.submitList(emptyList())
+                }
             }
         }
+
+        InternetConnectionAvailableLiveData(requireActivity().application)
+            .observe(viewLifecycleOwner) { isConnected ->
+                //bookOrderViewModel.isInternetAvailable = isConnected
+                connection = isConnected
+                log("z0","connection fragment isConnected $connection")
+                if (!isConnected){
+                    Toast.makeText(requireContext(),"Sin internet", Toast.LENGTH_SHORT).show()
+                }
+            }
 
         setupListeners()
 
         tickerViewModel.selectedBookOrder = bookOrderViewModel.selectedBookOrder
 
-        if (bookOrderViewModel.isInternetAvailable) {
+        if (connection) {
             tickerViewModel.getRemoteTicker()
             tickerViewModel.getRemoteListOrderBook()
         } else {
