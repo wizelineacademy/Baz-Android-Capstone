@@ -1,4 +1,4 @@
-package com.example.baz_android_capstone.data.repository
+package com.example.baz_android_capstone.data.repository.remote
 
 import android.util.Log
 import com.example.baz_android_capstone.data.dataOrException.DataOrException

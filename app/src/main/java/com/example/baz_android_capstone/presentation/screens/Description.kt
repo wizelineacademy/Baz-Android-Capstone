@@ -26,6 +26,7 @@ import com.example.baz_android_capstone.components.genericCard.GenericCardList
 import com.example.baz_android_capstone.components.radioButton.RadioButtonGroup
 import com.example.baz_android_capstone.data.dataOrException.DataOrException
 import com.example.baz_android_capstone.data.models.orderBook.OrderBook
+import com.example.baz_android_capstone.data.models.roomModel.BookDetails
 import com.example.baz_android_capstone.data.models.ticker.Ticker
 import com.example.baz_android_capstone.presentation.navigation.DATA_ARGUMENT_KEY
 import com.example.baz_android_capstone.presentation.viewmodels.BookViewModel
@@ -39,6 +40,13 @@ fun Description(
 ) {
     val bookName = navController.currentBackStackEntry?.arguments?.getString(DATA_ARGUMENT_KEY) ?: "crypto_currency"
 
+    val books = produceState<List<BookDetails>>(
+        initialValue = emptyList()
+    ) {
+        value = viewModel.getBooks()
+    }.value
+
+    /*
     val ticker = produceState(
         initialValue = DataOrException(loading = true)
     ) {
@@ -55,7 +63,7 @@ fun Description(
         bookName = bookName,
         ticker = ticker,
         order = order
-    )
+    )*/
 }
 
 @Composable

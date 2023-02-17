@@ -1,13 +1,9 @@
 package com.example.baz_android_capstone.presentation.screens
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.produceState
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -20,8 +16,7 @@ import com.example.baz_android_capstone.components.genericCard.GenericCardInterf
 import com.example.baz_android_capstone.components.genericCard.GenericCardList
 import com.example.baz_android_capstone.components.genericCard.GenericCardPresentation
 import com.example.baz_android_capstone.components.glideOptimized.GlideModel
-import com.example.baz_android_capstone.data.dataOrException.DataOrException
-import com.example.baz_android_capstone.data.models.availableBook.Book
+import com.example.baz_android_capstone.data.models.roomModel.BookDetails
 import com.example.baz_android_capstone.presentation.navigation.Screen
 import com.example.baz_android_capstone.presentation.viewmodels.BookViewModel
 import com.example.baz_android_capstone.util.*
@@ -31,6 +26,7 @@ fun Principal(
     navController: NavController,
     viewModel: BookViewModel
 ) {
+    /*
     val book = produceState<DataOrException<Book, Boolean, Exception>>(
         initialValue = DataOrException(loading = true)
     ) {
@@ -65,6 +61,40 @@ fun Principal(
         listOfMarkets = listOfMarkets.toMutableList(),
         listOfElements = listOfElements,
         book = book
+    )*/
+    val books = produceState<List<BookDetails>>(
+        initialValue = emptyList()
+    ) {
+        value = viewModel.getBooks()
+    }.value
+
+    val listOfElements = mutableListOf<GenericCardInterface>()
+    val listOfMarkets = mutableSetOf(stringResource(id = R.string.all_markets))
+
+    books.forEach {
+        listOfElements.add(
+            GenericCardPresentation(
+                background = PaleGoldColor,
+                title = it.book,
+                glideModel = GlideModel(
+                    url = stringResource(
+                        id = R.string.url,
+                        it.book.substring(startIndex = 0, endIndex = it.book.length - 4)
+                    ),
+                    isRoundedShape = true,
+                    contentScale = ContentScale.Crop
+                )
+            ) {
+                navController.navigate(Screen.Description.passArgs(it.book))
+            }
+        )
+        listOfMarkets.add(it.book.substring(startIndex = it.book.length - 3, endIndex = it.book.length))
+    }
+
+    PrincipalContent(
+        listOfMarkets = listOfMarkets.toMutableList(),
+        listOfElements = listOfElements,
+        book = books
     )
 }
 
@@ -72,7 +102,8 @@ fun Principal(
 fun PrincipalContent(
     listOfMarkets: MutableList<String>,
     listOfElements: MutableList<GenericCardInterface>,
-    book: DataOrException<Book, Boolean, Exception>
+    // book: DataOrException<Book, Boolean, Exception>
+    book: List<BookDetails>
 ) {
     val selectedMarket = remember { mutableStateOf("") }
     Column(
@@ -98,7 +129,7 @@ fun PrincipalContent(
             selectedMarket.value = it
         }
         Spacer(modifier = Modifier.height(spacer56))
-        if (book.loading == true) {
+        if (book.isEmpty()) {
             CircularProgressIndicator(
                 modifier = Modifier.size(spacer32),
                 color = GoldColor,
