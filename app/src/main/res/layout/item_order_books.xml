@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
         android:layout_marginStart="5dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,6 +42,7 @@
 
     <TextView
         android:id="@+id/price"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
@@ -58,6 +60,7 @@
 
     <TextView
         android:id="@+id/amount"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"

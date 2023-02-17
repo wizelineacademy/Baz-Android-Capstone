@@ -15,6 +15,6 @@ interface BookDao {
     @Delete
     suspend fun delete(item: BookEntity)
 
-    @Query("SELECT * from book")
+    @Query("SELECT * from book ORDER BY name ASC")
     fun getBooks(): Flow<List<BookEntity>>
 }

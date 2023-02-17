@@ -5,6 +5,7 @@ import com.example.wizelineandroid.data.local.BookDao
 import com.example.wizelineandroid.data.local.BookEntity
 import com.example.wizelineandroid.data.remote.model.ModelBook
 import kotlinx.coroutines.launch
+import javax.inject.Singleton
 
 class BookRoomViewModel(private val bookDao: BookDao): ViewModel() {
 
@@ -29,6 +30,7 @@ class BookRoomViewModel(private val bookDao: BookDao): ViewModel() {
         return entities
     }
 
+    @Singleton
     fun addNewItem(itemName: List<ModelBook>) {
         val newItem = getNewItemEntry(itemName)
         insertItem(newItem)

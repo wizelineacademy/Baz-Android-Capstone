@@ -5,6 +5,8 @@ import com.example.wizelineandroid.data.remote.model.GetTickers
 import com.example.wizelineandroid.data.remote.model.OrderBook
 import com.example.wizelineandroid.utils.AppConstants
 import com.google.gson.GsonBuilder
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -21,13 +23,5 @@ interface WebService {
 
     @GET("order_book/")
     suspend fun getOrderBooks(@Query("book") id: String = ""): OrderBook
-}
 
-//peticion a datasource, covertir json de api a movie
-object RetrofitClient{
-    val webservice: WebService by lazy {
-        Retrofit.Builder().baseUrl(AppConstants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .build().create(WebService::class.java)
-    }
 }
