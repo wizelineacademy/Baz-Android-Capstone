@@ -9,12 +9,6 @@ interface BookDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(item: List<BookEntity>)
 
-    @Update
-    suspend fun update(item: BookEntity)
-
-    @Delete
-    suspend fun delete(item: BookEntity)
-
     @Query("SELECT * from book ORDER BY name ASC")
     fun getBooks(): Flow<List<BookEntity>>
 }

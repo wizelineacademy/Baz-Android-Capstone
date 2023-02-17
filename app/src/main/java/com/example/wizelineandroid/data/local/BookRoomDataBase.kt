@@ -15,19 +15,18 @@ abstract class BookRoomDataBase: RoomDatabase() {
         private var INSTANCE: BookRoomDataBase? = null
         fun getDatabase(context: Context): BookRoomDataBase {
 
-                return INSTANCE ?: synchronized(this) {
-                    val instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        BookRoomDataBase::class.java,
-                        "item_database"
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    BookRoomDataBase::class.java,
+                    "books_database"
                     )
-                        .fallbackToDestructiveMigration()
-                        .allowMainThreadQueries()
-                        .build()
+                    .fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
+                    .build()
                     INSTANCE = instance
                     return instance
                 }
-
         }
     }
 }
