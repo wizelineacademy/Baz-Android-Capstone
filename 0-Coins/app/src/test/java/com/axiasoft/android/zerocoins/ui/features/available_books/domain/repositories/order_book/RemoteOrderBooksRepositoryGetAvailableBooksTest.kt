@@ -66,6 +66,7 @@ class RemoteOrderBooksRepositoryGetAvailableBooksTest{
             assertTrue(response is BitsoApiResponseWrap.Success)
             response.apply {
                 assertNotNull(response)
+                //TODO test is over response mock (before) or response (after)?
                 assertTrue(successMockBookResponse.success!!)
                 assertNotNull(successMockBookResponse.payload)
                 assertTrue(successMockBookResponse.payload!!.isNotEmpty())
