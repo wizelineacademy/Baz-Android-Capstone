@@ -7,7 +7,7 @@ import com.javg.cryptocurrencies.data.db.remote.CRYAppDatabase
 @Dao
 interface CRYTickerDao {
     @Query("SELECT * FROM ${CRYAppDatabase.DETAIL_BOOK_TABLE} WHERE book = :book")
-    fun findById(book: String): CRYDetailBookEntity
+    fun findById(book: String): CRYDetailBookEntity?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(ticker: CRYDetailBookEntity)

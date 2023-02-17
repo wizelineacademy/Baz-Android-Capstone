@@ -2,7 +2,7 @@
 <resources>
 
     <style name="Theme.Cryptocurrencies" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/orange</item>
+        <item name="android:statusBarColor">@color/gray_200</item>
     </style>
 
     <style name="title">
@@ -14,6 +14,18 @@
     <style name="subtitle">
         <item name="android:textSize">@dimen/dimens_20_sp</item>
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="subtitle_blue_bold_20">
+        <item name="android:textSize">@dimen/dimens_20_sp</item>
+        <item name="android:textColor">@color/blue_100</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="subtitle_gray_regular_16">
+        <item name="android:textSize">@dimen/dimens_16_sp</item>
+        <item name="android:textColor">@color/blue_light_gray</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="subtitle_white">
@@ -31,6 +43,10 @@
     <style name="subtitle_h2">
         <item name="android:textSize">@dimen/dimens_18_sp</item>
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="subtitle_h6">
+        <item name="android:textSize">@dimen/dimens_10_sp</item>
     </style>
 
     <style name="subtitle_gray">

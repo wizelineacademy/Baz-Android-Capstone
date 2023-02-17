@@ -31,9 +31,9 @@ class CRYGetListBookWithTickerUseCase @Inject constructor(
      *
      * @return CRYDetailBook is the detail model of the consulted book
      */
-    suspend operator fun invoke(book: String): CRYDetailBook = withContext(Dispatchers.IO){
+    suspend operator fun invoke(book: String): CRYDetailBook? = withContext(Dispatchers.IO){
         val ticker = tickerRepository.getTicker(book)
-        var detailBook = CRYDetailBook()
+        var detailBook: CRYDetailBook? = null
 
         if (ticker != null)
             detailBook = orderBookRepository.getOrderBook(book)

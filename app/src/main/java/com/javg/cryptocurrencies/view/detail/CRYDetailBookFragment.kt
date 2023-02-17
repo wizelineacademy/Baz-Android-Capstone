@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.airbnb.lottie.LottieDrawable
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.javg.cryptocurrencies.R
@@ -32,6 +34,8 @@ class CRYDetailBookFragment : Fragment(){
     private val detailBookVM by activityViewModels<CRYDetailBookVM>()
     private lateinit var adapterAskBids: CRYAskRecyclerView
     private lateinit var shimmerFrameLayout: ShimmerFrameLayout
+    private val lottieAsset = "empty_data.json"
+    private var flag: Boolean = false
 
     companion object{
         val TAG = CRYDetailBookFragment::class.java.canonicalName!!
@@ -98,6 +102,8 @@ class CRYDetailBookFragment : Fragment(){
 
         detailBookVM.tickerBook.observe(viewLifecycleOwner, tickerObserver)
         detailBookVM.listAskOrBids.observe(viewLifecycleOwner, listAskOrBids)
+        detailBookVM.emptyData.observe(viewLifecycleOwner, emptyDataObserver)
+        detailBookVM.updateTime.observe(viewLifecycleOwner, observerUpdateTime)
     }
 
     /**
@@ -132,6 +138,17 @@ class CRYDetailBookFragment : Fragment(){
         }
         txtAsk.setOnClickListener { changeAsk() }
         txtBids.setOnClickListener { changeBids() }
+        ivHideShowDetail.setOnClickListener {
+            if (flag){
+                ivHideShowDetail.setImageResource(R.drawable.ic_arrow_up)
+                showContentDetail()
+                flag = false
+            }else{
+                ivHideShowDetail.setImageResource(R.drawable.ic_arrow_down)
+                hideContentDetail()
+                flag = true
+            }
+        }
     }
 
     /**
@@ -139,10 +156,8 @@ class CRYDetailBookFragment : Fragment(){
      * changing the design and color of the text and background
      */
     private fun changeAsk(){
-        binding.txtAsk.background = AppCompatResources.getDrawable(requireContext(), R.drawable.background_button)
-        binding.txtBids.background = AppCompatResources.getDrawable(requireContext(), R.drawable.background_disable)
-        binding.txtAsk.setTextColor(AppCompatResources.getColorStateList(requireContext(), R.color.white))
-        binding.txtBids.setTextColor(AppCompatResources.getColorStateList(requireContext(), R.color.blue))
+        binding.txtAsk.background = AppCompatResources.getDrawable(requireContext(), R.drawable.background_button_line)
+        binding.txtBids.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.transparent))
         detailBookVM.tickerBook.value?.askList?.let { detailBookVM.sendListUpdate(it) }
     }
 
@@ -151,11 +166,43 @@ class CRYDetailBookFragment : Fragment(){
      * changing the design and color of the text and background
      */
     private fun changeBids(){
-        binding.txtAsk.background = AppCompatResources.getDrawable(requireContext(), R.drawable.background_disable)
-        binding.txtBids.background = AppCompatResources.getDrawable(requireContext(), R.drawable.background_button)
-        binding.txtBids.setTextColor(AppCompatResources.getColorStateList(requireContext(), R.color.white))
-        binding.txtAsk.setTextColor(AppCompatResources.getColorStateList(requireContext(), R.color.blue))
+        binding.txtAsk.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.transparent))
+        binding.txtBids.background = AppCompatResources.getDrawable(requireContext(), R.drawable.background_button_line)
         detailBookVM.tickerBook.value?.bidsList?.let { detailBookVM.sendListUpdate(it) }
+    }
+
+    private fun hideContentDetail(){
+        binding.txtOne.visibility           = View.GONE
+        binding.txtTwo.visibility           = View.GONE
+        binding.txtThree.visibility         = View.GONE
+        binding.txtLastPrice.visibility     = View.GONE
+        binding.txtHighestPrice.visibility  = View.GONE
+        binding.txtLowMoreLow.visibility     = View.GONE
+    }
+
+    private fun showContentDetail(){
+        binding.txtOne.visibility           = View.VISIBLE
+        binding.txtTwo.visibility           = View.VISIBLE
+        binding.txtThree.visibility         = View.VISIBLE
+        binding.txtLastPrice.visibility     = View.VISIBLE
+        binding.txtHighestPrice.visibility  = View.VISIBLE
+        binding.txtLowMoreLow.visibility     = View.VISIBLE
+    }
+
+    private fun startAnimationNoData(){
+        shimmerFrameLayout.stopShimmer()
+        shimmerFrameLayout.visibility = View.GONE
+        binding.clNoInformation.visibility = View.VISIBLE
+        binding.laNoInformation.imageAssetsFolder = "assets"
+        binding.laNoInformation.setAnimation(lottieAsset)
+        binding.laNoInformation.repeatCount = LottieDrawable.INFINITE
+        binding.laNoInformation.playAnimation()
+    }
+
+    private fun hideContentAll(){
+        binding.clContentInformation.visibility = View.GONE
+        binding.rlButtons.visibility = View.GONE
+        binding.rvAskBids.visibility = View.GONE
     }
 
     /**
@@ -164,9 +211,9 @@ class CRYDetailBookFragment : Fragment(){
     private val tickerObserver = Observer<CRYDetailBook>{
         it?.let {
             with(binding){
-                txtLastPrice.text    = String.format(requireContext().resources.getString(R.string.cry_last_price), it.last)
-                txtHighestPrice.text = String.format(requireContext().resources.getString(R.string.cry_highest_price), it.high)
-                txtLowMoreLow.text   = String.format(requireContext().resources.getString(R.string.cry_low_more_low), it.low)
+                txtLastPrice.text    = String.format(requireContext().resources.getString(R.string.cry_format_amount), it.last)
+                txtHighestPrice.text = String.format(requireContext().resources.getString(R.string.cry_format_amount), it.high)
+                txtLowMoreLow.text   = String.format(requireContext().resources.getString(R.string.cry_format_amount), it.low)
             }
         }
     }
@@ -181,15 +228,34 @@ class CRYDetailBookFragment : Fragment(){
             with(binding){
                 idShimmer.stopShimmer()
                 idShimmer.visibility = View.GONE
+                binding.clNoInformation.visibility = View.GONE
+                binding.laNoInformation.cancelAnimation()
                 rvAskBids.visibility = View.VISIBLE
-                rlButtons.visibility = View.VISIBLE
-                txtLastPrice.visibility    = View.VISIBLE
-                txtHighestPrice.visibility = View.VISIBLE
-                txtLowMoreLow.visibility   = View.VISIBLE
-                bookImage.visibility       = View.VISIBLE
+                binding.clContentInformation.visibility = View.VISIBLE
+                binding.rlButtons.visibility = View.VISIBLE
+                binding.rvAskBids.visibility = View.VISIBLE
+
             }
 
             adapterAskBids.submitList(it)
+        }
+    }
+
+    private val emptyDataObserver = Observer<Boolean>{
+        it?.let {
+            if (it) {
+                startAnimationNoData()
+                hideContentAll()
+            }
+        }
+    }
+
+    /**
+     * Observes the time change and reflects it in the view
+     */
+    private val observerUpdateTime = Observer<String>{
+        it?.let { updateTime ->
+            binding.headerTopBar.txtLastUpdate.text = updateTime
         }
     }
 }

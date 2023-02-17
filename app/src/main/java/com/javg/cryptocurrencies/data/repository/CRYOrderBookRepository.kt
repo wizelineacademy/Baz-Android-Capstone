@@ -30,18 +30,20 @@ class CRYOrderBookRepository @Inject constructor(private val cryApi: CRYApi,
     suspend fun getOrderBook(book: String): CRYDetailBook {
         var ticker = tickerDao.findById(book)
 
-        if (ticker.askList.isEmpty() || ticker.bidsList.isEmpty()){
-            val response = getOrderBookFromApi(book)
-            response.payload?.let {
-                tickerDao.update(
-                    ask = CRYUtils.convertersListToJson(it.asksList),
-                    bids = CRYUtils.convertersListToJson(it.bidsList),
-                    book = book)
+        ticker?.let { detailBookEntity ->
+            if (detailBookEntity.askList.isEmpty() || detailBookEntity.bidsList.isEmpty()){
+                val response = getOrderBookFromApi(book)
+                response.payload?.let {
+                    tickerDao.update(
+                        ask = CRYUtils.convertersListToJson(it.asksList),
+                        bids = CRYUtils.convertersListToJson(it.bidsList),
+                        book = book)
+                }
+                ticker = tickerDao.findById(book)
             }
-            ticker = tickerDao.findById(book)
         }
 
-        return ticker.toDomainAll()
+        return ticker?.toDomainAll() ?: CRYDetailBook()
     }
 
     /**

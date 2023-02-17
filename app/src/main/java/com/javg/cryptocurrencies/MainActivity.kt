@@ -1,18 +1,17 @@
 package com.javg.cryptocurrencies
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import com.javg.cryptocurrencies.view.base.CRYBaseActivity
 import com.javg.cryptocurrencies.view.book.CRYBookFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : CRYBaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Cryptocurrencies)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.cry_activity)
-
         val fm = supportFragmentManager.beginTransaction()
         fm.replace(R.id.root_layout, CRYBookFragment())
         fm.addToBackStack(null)
@@ -32,4 +31,5 @@ class MainActivity : AppCompatActivity() {
         else
             super.onBackPressed()
     }
+
 }

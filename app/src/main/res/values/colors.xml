@@ -16,4 +16,14 @@
     <color name="orange_primary">#e28000</color>
     <color name="orange_pastel">#e2504c</color>
     <color name="orange_secondary">#ffd792</color>
+    
+    <color name="green_success">#0FD047</color>
+    <color name="red_error">#EB000B</color>
+    <!--new colors-->
+    <color name="gray_100">#075366</color>
+    <color name="gray_200">#00303c</color>
+    <color name="gray_light">#f3f3f3</color>
+    <color name="blue_light_gray">#bac7d8</color>
+    <color name="blue_100">#3db5e6</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>
