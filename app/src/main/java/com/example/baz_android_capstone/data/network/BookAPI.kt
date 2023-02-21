@@ -9,6 +9,10 @@ import javax.inject.Singleton
 
 @Singleton
 interface BookAPI {
+    companion object {
+        const val AVAILABLE_BOOK_URL = "https://api.bitso.com/v3/"
+    }
+
     @GET("available_books")
     suspend fun getAllAvailableBooks(): Book
 

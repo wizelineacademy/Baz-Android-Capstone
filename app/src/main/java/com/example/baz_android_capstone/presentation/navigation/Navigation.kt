@@ -71,7 +71,7 @@ fun Navigation(navController: NavHostController) {
         composable(route = Screen.Principal.route) {
             Principal(
                 navController = navController,
-                viewModel = viewModel
+                bookViewModel = viewModel
             )
         }
         composable(

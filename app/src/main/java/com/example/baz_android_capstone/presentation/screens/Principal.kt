@@ -1,9 +1,9 @@
-package com.example.baz_android_capstone.presentation.screens
+package com.example.baz_android_capstone.presentation.screens // ktlint-disable package-name
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.* // ktlint-disable no-wildcard-imports
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.runtime.*
+import androidx.compose.runtime.* // ktlint-disable no-wildcard-imports
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -16,85 +16,46 @@ import com.example.baz_android_capstone.components.genericCard.GenericCardInterf
 import com.example.baz_android_capstone.components.genericCard.GenericCardList
 import com.example.baz_android_capstone.components.genericCard.GenericCardPresentation
 import com.example.baz_android_capstone.components.glideOptimized.GlideModel
-import com.example.baz_android_capstone.data.models.roomModel.BookDetails
+import com.example.baz_android_capstone.data.models.availableBook.Book
 import com.example.baz_android_capstone.presentation.navigation.Screen
 import com.example.baz_android_capstone.presentation.viewmodels.BookViewModel
-import com.example.baz_android_capstone.util.*
+import com.example.baz_android_capstone.util.* // ktlint-disable no-wildcard-imports
 
 @Composable
 fun Principal(
     navController: NavController,
-    viewModel: BookViewModel
+    bookViewModel: BookViewModel
 ) {
-    /*
-    val book = produceState<DataOrException<Book, Boolean, Exception>>(
-        initialValue = DataOrException(loading = true)
-    ) {
-        value = viewModel.getAllBooks()
-    }.value
+    val books = bookViewModel.getBooks.collectAsState(initial = null)
 
     val listOfElements = mutableListOf<GenericCardInterface>()
     val listOfMarkets = mutableSetOf(stringResource(id = R.string.all_markets))
 
-    book.data?.payload?.forEach {
+    books.value?.data?.payload?.forEach { payload ->
         listOfElements.add(
             GenericCardPresentation(
                 background = PaleGoldColor,
-                title = it.book,
+                title = payload.book,
                 glideModel = GlideModel(
                     url = stringResource(
                         id = R.string.url,
-                        it.book.substring(startIndex = 0, endIndex = it.book.length - 4)
+                        payload.book.substring(startIndex = 0, endIndex = payload.book.length - 4)
                     ),
                     isRoundedShape = true,
                     contentScale = ContentScale.Crop
                 )
             ) {
-                navController.navigate(Screen.Description.passArgs(it.book))
+                bookViewModel.bookName.value = payload.book
+                navController.navigate(Screen.Description.passArgs(payload.book))
             }
         )
-        listOfMarkets.add(it.book.substring(startIndex = it.book.length - 3, endIndex = it.book.length))
-        Log.d("Icon", "https://cryptoicons.org/api/icon/${it.book.substring(startIndex = 0, endIndex = it.book.length - 4)}/200")
+        listOfMarkets.add(payload.book.substring(startIndex = payload.book.length - 3, endIndex = payload.book.length))
     }
 
     PrincipalContent(
         listOfMarkets = listOfMarkets.toMutableList(),
         listOfElements = listOfElements,
-        book = book
-    )*/
-    val books = produceState<List<BookDetails>>(
-        initialValue = emptyList()
-    ) {
-        value = viewModel.getBooks()
-    }.value
-
-    val listOfElements = mutableListOf<GenericCardInterface>()
-    val listOfMarkets = mutableSetOf(stringResource(id = R.string.all_markets))
-
-    books.forEach {
-        listOfElements.add(
-            GenericCardPresentation(
-                background = PaleGoldColor,
-                title = it.book,
-                glideModel = GlideModel(
-                    url = stringResource(
-                        id = R.string.url,
-                        it.book.substring(startIndex = 0, endIndex = it.book.length - 4)
-                    ),
-                    isRoundedShape = true,
-                    contentScale = ContentScale.Crop
-                )
-            ) {
-                navController.navigate(Screen.Description.passArgs(it.book))
-            }
-        )
-        listOfMarkets.add(it.book.substring(startIndex = it.book.length - 3, endIndex = it.book.length))
-    }
-
-    PrincipalContent(
-        listOfMarkets = listOfMarkets.toMutableList(),
-        listOfElements = listOfElements,
-        book = books
+        book = books.value
     )
 }
 
@@ -102,8 +63,7 @@ fun Principal(
 fun PrincipalContent(
     listOfMarkets: MutableList<String>,
     listOfElements: MutableList<GenericCardInterface>,
-    // book: DataOrException<Book, Boolean, Exception>
-    book: List<BookDetails>
+    book: Resource<Book>?
 ) {
     val selectedMarket = remember { mutableStateOf("") }
     Column(
@@ -129,7 +89,7 @@ fun PrincipalContent(
             selectedMarket.value = it
         }
         Spacer(modifier = Modifier.height(spacer56))
-        if (book.isEmpty()) {
+        if (book is Resource.Loading && book.data?.payload.isNullOrEmpty()) {
             CircularProgressIndicator(
                 modifier = Modifier.size(spacer32),
                 color = GoldColor,
