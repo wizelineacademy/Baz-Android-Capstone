@@ -11,10 +11,8 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.axiasoft.android.zerocoins.R
-import com.axiasoft.android.zerocoins.application.ZeroCoinsApplication
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.databinding.FragmentBookOrderListBinding
-import com.axiasoft.android.zerocoins.network.app.InternetConnectionAvailableLiveData
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.AvailableBooksViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BookOrderViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.adapters.BookOrderAdapter
@@ -64,25 +62,22 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
     }
 
     fun initViewModels() {
+        bookOrderViewModel =
+            ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
         availableBooksViewModel =
             ViewModelProvider(requireActivity()).get(AvailableBooksViewModel::class.java)
-
-        bookOrderViewModel = ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
     }
-
-    var connection = true
 
     fun initObservers() {
         availableBooksViewModel.books.observe(viewLifecycleOwner) {
             bookOrderAdapter.updateBookOrders(it)
         }
-        InternetConnectionAvailableLiveData(requireActivity().application)
+        bookOrderViewModel.internetStatus
             .observe(viewLifecycleOwner) { isConnected ->
                 //bookOrderViewModel.isInternetAvailable = isConnected
-                connection = isConnected
-                log("z0","connection fragment isConnected $connection")
-                if (!isConnected){
-                    Toast.makeText(requireContext(),"Sin internet",Toast.LENGTH_SHORT).show()
+                log("z0", "connection fragment isConnected $isConnected")
+                if (!isConnected) {
+                    Toast.makeText(requireContext(), "Sin internet", Toast.LENGTH_SHORT).show()
                 }
             }
     }
@@ -96,17 +91,17 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
     }
 
     fun refreshData() {
-        if (connection){//true){//bookOrderViewModel.isInternetAvailable) {
-            log("z0", "remote")
+        if (bookOrderViewModel.internetStatus.isNetworkAvailable) {//true){//bookOrderViewModel.isInternetAvailable) {
+            log("z0", "fetch remote")
             availableBooksViewModel.getExchangeOrderBooks()
         } else {
-            log("z0", "local")
+            log("z0", "fetch local")
             availableBooksViewModel.getLocalExchangeOrderBooks()
         }
     }
 
     fun navigateToTicker() {
-        val fragment = TickerFragment()
+        val fragment = TickerFragment.newInstance()
         val fm: FragmentManager = requireActivity().supportFragmentManager
         val ft: FragmentTransaction = fm.beginTransaction()
         ft.replace(R.id.cl_cointainer, fragment)

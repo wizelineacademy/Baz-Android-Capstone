@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.databinding.FragmentTickerBinding
-import com.axiasoft.android.zerocoins.network.app.InternetConnectionAvailableLiveData
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book.OpenOrder
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BookOrderViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.TickerViewModel
@@ -30,14 +29,10 @@ class TickerFragment : Fragment() {
     lateinit var asksAdapter: OpenOrdersInBookAdapter
     lateinit var bidsAdapter: OpenOrdersInBookAdapter
 
-    private var connection = true
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
+        arguments?.let {}
     }
 
     override fun onCreateView(
@@ -49,10 +44,11 @@ class TickerFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        tickerViewModel = ViewModelProvider(requireActivity()).get(TickerViewModel::class.java)
 
         bookOrderViewModel =
             ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
+
+        tickerViewModel = ViewModelProvider(requireActivity()).get(TickerViewModel::class.java)
 
         asksAdapter = OpenOrdersInBookAdapter()
         bidsAdapter = OpenOrdersInBookAdapter()
@@ -64,10 +60,12 @@ class TickerFragment : Fragment() {
             rvBids.adapter = bidsAdapter
         }
 
+        tickerViewModel.selectedBookOrder = bookOrderViewModel.selectedBookOrder
+
         tickerViewModel.tickerState.observe(viewLifecycleOwner) {
             when (it) {
                 is TickerScreenState.TickerSuccess -> {
-                    with(binding){
+                    with(binding) {
                         ticker.tvOrderBookName.text = it.ticker.book
                         ticker.tvOrderBookCode.text = it.ticker.book
                         ticker.tvLastPrice.text = it.ticker.last
@@ -77,7 +75,8 @@ class TickerFragment : Fragment() {
                 }
                 else -> {
                     //TODO manage errors
-                    Toast.makeText(requireContext(),"No hay datos ticker", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "No hay datos ticker", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
@@ -90,31 +89,35 @@ class TickerFragment : Fragment() {
                 }
                 else -> {
                     //TODO manage error
-                    Toast.makeText(requireContext(),"No hay datos bids and asks", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "No hay datos bids and asks",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     asksAdapter.submitList(emptyList())
                     bidsAdapter.submitList(emptyList())
                 }
             }
         }
 
-        InternetConnectionAvailableLiveData(requireActivity().application)
-            .observe(viewLifecycleOwner) { isConnected ->
-                //bookOrderViewModel.isInternetAvailable = isConnected
-                connection = isConnected
-                log("z0","connection fragment isConnected $connection")
-                if (!isConnected){
-                    Toast.makeText(requireContext(),"Sin internet", Toast.LENGTH_SHORT).show()
-                }
+        bookOrderViewModel.internetStatus.observe(viewLifecycleOwner) { isConnected ->
+            log("z0", "XXX connection $isConnected")
+            //refreshData()
+            if (!isConnected) {
+                Toast.makeText(requireContext(), "Sin internet", Toast.LENGTH_SHORT).show()
             }
-
+        }
         setupListeners()
+        refreshData()
+    }
 
-        tickerViewModel.selectedBookOrder = bookOrderViewModel.selectedBookOrder
-
-        if (connection) {
+    fun refreshData() {
+        if (bookOrderViewModel.internetStatus.isNetworkAvailable) {
+            log("z0", "fetching remote")
             tickerViewModel.getRemoteTicker()
             tickerViewModel.getRemoteListOrderBook()
         } else {
+            log("z0", "fetching local")
             tickerViewModel.getLocalTicker()
             tickerViewModel.getLocalListOrderBook()
         }
@@ -125,10 +128,15 @@ class TickerFragment : Fragment() {
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    log("z0", "back fragment")
                     requireActivity().supportFragmentManager.popBackStack()
+                    clearData()
                 }
             })
+    }
+
+    private fun clearData() {
+        asksAdapter.submitList(emptyList())
+        bidsAdapter.submitList(emptyList())
     }
 
     override fun onDestroyView() {

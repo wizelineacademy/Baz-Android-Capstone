@@ -20,7 +20,7 @@ class BookOrderActivity : AppCompatActivity() {
         binding = ActivityBookOrderBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-        val internetConnectionStatus = InternetConnectionAvailableLiveData(application)
+        /*val internetConnectionStatus = InternetConnectionAvailableLiveData(application)
 
         internetConnectionStatus.observe(this) { isConnected ->
             bookOrderViewModel.isInternetAvailable = isConnected
@@ -29,7 +29,7 @@ class BookOrderActivity : AppCompatActivity() {
             } else {
                 log("z0", "Impl not connected $isConnected")
             }
-        }
+        }*/
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()

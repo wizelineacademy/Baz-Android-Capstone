@@ -38,7 +38,6 @@ class LocalOrderBookRepositoryImpl: LocalOrderBookRepository {
             try {
                 val entities = db.bookDao().getAvailableBooks() as ArrayList
                 val output = entities.map { it.toDomain() }
-                log("z0", "Read From db $output")
                 output as ArrayList
             } catch (ex: Exception){
                 log("z0", "error on read db ${ex.message}")

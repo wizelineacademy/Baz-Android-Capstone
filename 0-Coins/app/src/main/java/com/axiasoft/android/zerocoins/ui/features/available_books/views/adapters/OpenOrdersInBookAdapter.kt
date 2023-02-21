@@ -28,6 +28,7 @@ class OpenOrdersInBookAdapter : ListAdapter<OpenOrder, OpenOrdersInBookAdapter.U
         fun bind(openOrder: OpenOrder) {
             itemView.findViewById<TextView>(R.id.tv_price).text = openOrder.price
             itemView.findViewById<TextView>(R.id.tv_amount).text = openOrder.amount
+            itemView.findViewById<TextView>(R.id.tv_code).text = openOrder.book
         }
     }
 }

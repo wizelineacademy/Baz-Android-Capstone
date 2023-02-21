@@ -15,9 +15,6 @@
         android:id="@+id/coins_cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginVertical="8dp"
         android:layout_marginHorizontal="16dp"
         app:cardCornerRadius="5dp"
@@ -81,10 +78,25 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_price"
                 app:layout_constraintStart_toEndOf="@+id/iv_amount"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_code"
                 app:layout_constraintVertical_bias="1"
                 android:textSize="12sp"
-                android:text="Cantidad: 0.22267209" />
+                android:text="Cantidad: 0.2226720923421423423423423423234234234234234234" />
+
+            <TextView
+                android:id="@+id/tv_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/iv_amount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="12sp"
+                app:layout_constraintVertical_bias="1"
+                android:text="mxn_btc" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
