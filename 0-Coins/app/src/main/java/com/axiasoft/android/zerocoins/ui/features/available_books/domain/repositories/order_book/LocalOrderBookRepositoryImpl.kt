@@ -1,6 +1,7 @@
 package com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book
 
 import com.axiasoft.android.zerocoins.common.log
+import com.axiasoft.android.zerocoins.db.ZeroCoinAppDatabase
 import com.axiasoft.android.zerocoins.db.getDatabase
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.toDomain
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.toEntity
@@ -13,9 +14,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class LocalOrderBookRepositoryImpl: LocalOrderBookRepository {
+class LocalOrderBookRepositoryImpl(
+    private val db: ZeroCoinAppDatabase
+): LocalOrderBookRepository {
 
-    private val db by lazy { getDatabase() }
+    //private val db by lazy { getDatabase() }
 
     val scope = CoroutineScope(Dispatchers.IO)
 

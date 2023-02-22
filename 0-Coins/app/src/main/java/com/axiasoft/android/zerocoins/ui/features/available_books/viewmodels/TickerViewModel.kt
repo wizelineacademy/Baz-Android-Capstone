@@ -3,24 +3,22 @@ package com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.apis.BitsoOrderBooksApi
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepositoryImpl
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.RemoteOrderBooksRepositoryImpl
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepository
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.RemoteOrderBooksRepository
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.use_cases.GetListOrderBookUseCase
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.use_cases.GetTickerUseCase
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.ListOrderBookScreenState
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.TickerScreenState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TickerViewModel : ViewModel() {
-
-    private val remoteOrderBooksRepository by lazy {
-        RemoteOrderBooksRepositoryImpl(
-            BitsoOrderBooksApi.Builder().build()
-        )
-    }
-    private val localOrderBookRepositoryImpl by lazy { LocalOrderBookRepositoryImpl() }
+@HiltViewModel
+class TickerViewModel @Inject constructor(
+    private val remoteOrderBooksRepository: RemoteOrderBooksRepository,
+    private val localOrderBookRepositoryImpl: LocalOrderBookRepository
+) : ViewModel() {
 
     var selectedBookOrder = ExchangeOrderBook()
 

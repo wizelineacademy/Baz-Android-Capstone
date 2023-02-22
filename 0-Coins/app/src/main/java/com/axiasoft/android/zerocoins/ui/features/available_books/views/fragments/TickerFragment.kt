@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -21,12 +22,15 @@ import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.Tic
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.adapters.OpenOrdersInBookAdapter
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.ListOrderBookScreenState
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.TickerScreenState
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class TickerFragment : Fragment() {
 
     lateinit var bookOrderViewModel: BookOrderViewModel
-    lateinit var tickerViewModel: TickerViewModel
+
+    val tickerViewModel by viewModels<TickerViewModel>()//= ViewModelProvider(requireActivity()).get(TickerViewModel::class.java)
 
     private var _binding: FragmentTickerBinding? = null
     private val binding get() = _binding!!
@@ -52,8 +56,6 @@ class TickerFragment : Fragment() {
 
         bookOrderViewModel =
             ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
-
-        tickerViewModel = ViewModelProvider(requireActivity()).get(TickerViewModel::class.java)
 
         asksAdapter = OpenOrdersInBookAdapter()
         bidsAdapter = OpenOrdersInBookAdapter()

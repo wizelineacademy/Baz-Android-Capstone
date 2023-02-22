@@ -5,11 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWrap
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.apis.BitsoOrderBooksApi
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepositoryImpl
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepository
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.RemoteOrderBooksRepository
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.RemoteOrderBooksRepositoryImpl
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.use_cases.GetBooksUseCase
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.BooksScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,10 +16,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AvailableBooksViewModel @Inject constructor(
-    private val remoteOrderBooksRepository: RemoteOrderBooksRepository
-): ViewModel() {
-
-    private val localOrderBookRepositoryImpl by lazy { LocalOrderBookRepositoryImpl() }
+    private val remoteOrderBooksRepository: RemoteOrderBooksRepository,
+    private val localOrderBookRepositoryImpl: LocalOrderBookRepository
+) : ViewModel() {
 
     val books: MutableLiveData<MutableList<ExchangeOrderBook>> by lazy {
         MutableLiveData<MutableList<ExchangeOrderBook>>()
@@ -53,7 +50,6 @@ class AvailableBooksViewModel @Inject constructor(
                 is BooksScreenState.BooksSuccess -> {
                     val stuff = booksState.data
                     books.postValue(stuff)
-                    log(message = "Success UseCase ${stuff.toString()}")
                 }
                 is BooksScreenState.BooksErrorOrEmpty -> {
                     log(message = "some error ${booksState.message}")
