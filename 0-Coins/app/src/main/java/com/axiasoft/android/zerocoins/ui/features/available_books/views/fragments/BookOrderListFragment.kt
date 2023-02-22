@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.axiasoft.android.zerocoins.R
 import com.axiasoft.android.zerocoins.common.log
@@ -23,11 +26,10 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
 
     lateinit var fragmentBinding: FragmentBookOrderListBinding
 
-    //private val viewModel: BooksScreenViewModel by viewModels()
     lateinit var availableBooksViewModel: AvailableBooksViewModel
     lateinit var bookOrderViewModel: BookOrderViewModel
 
-    val bookOrderAdapter = BookOrderAdapter { bookOrderSelected ->
+    private val bookOrderAdapter = BookOrderAdapter { bookOrderSelected ->
         log("z0", "selected $bookOrderSelected")
         availableBooksViewModel.selectedBookOrder = bookOrderSelected
         bookOrderViewModel.selectedBookOrder = bookOrderSelected
@@ -101,12 +103,8 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
     }
 
     fun navigateToTicker() {
-        val fragment = TickerFragment.newInstance()
-        val fm: FragmentManager = requireActivity().supportFragmentManager
-        val ft: FragmentTransaction = fm.beginTransaction()
-        ft.replace(R.id.cl_cointainer, fragment)
-        ft.addToBackStack(TickerFragment.TAG)
-        ft.commit()
+        val navController = findNavController()
+        navController.navigate(R.id.tickerFragment)
     }
 
     companion object {

@@ -30,11 +30,11 @@ class BookOrderActivity : AppCompatActivity() {
                 log("z0", "Impl not connected $isConnected")
             }
         }*/
-        if (savedInstanceState == null) {
+        /*if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
-                .add(R.id.cl_cointainer, BookOrderListFragment.newInstance(), BookOrderListFragment.TAG)
+                .add(R.id.nav_host_fragment, BookOrderListFragment.newInstance(), BookOrderListFragment.TAG)
                 .commit()
-        }
+        }*/
     }
 }

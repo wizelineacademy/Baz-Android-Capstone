@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.databinding.FragmentTickerBinding
@@ -17,6 +21,7 @@ import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.Tic
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.adapters.OpenOrdersInBookAdapter
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.ListOrderBookScreenState
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.TickerScreenState
+import kotlinx.coroutines.launch
 
 class TickerFragment : Fragment() {
 
@@ -94,8 +99,7 @@ class TickerFragment : Fragment() {
                         "No hay datos bids and asks",
                         Toast.LENGTH_SHORT
                     ).show()
-                    asksAdapter.submitList(emptyList())
-                    bidsAdapter.submitList(emptyList())
+                    clearData()
                 }
             }
         }
@@ -107,11 +111,23 @@ class TickerFragment : Fragment() {
                 Toast.makeText(requireContext(), "Sin internet", Toast.LENGTH_SHORT).show()
             }
         }
+        setupObservers()
         setupListeners()
         refreshData()
     }
 
+    fun setupObservers() {
+        //Tips migrar a flow y usar lifecycleScope
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                tickerViewModel.listOrderBookScreenState//.//collect Con Flow data
+                //TODO etc
+            }
+        }
+    }
+
     fun refreshData() {
+        bookOrderViewModel.internetStatus.connectivityManager.isDefaultNetworkActive
         if (bookOrderViewModel.internetStatus.isNetworkAvailable) {
             log("z0", "fetching remote")
             tickerViewModel.getRemoteTicker()
@@ -128,7 +144,7 @@ class TickerFragment : Fragment() {
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    requireActivity().supportFragmentManager.popBackStack()
+                    findNavController().popBackStack()
                     clearData()
                 }
             })
