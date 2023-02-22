@@ -9,7 +9,9 @@ import com.axiasoft.android.zerocoins.databinding.ActivityBookOrderBinding
 import com.axiasoft.android.zerocoins.network.app.InternetConnectionAvailableLiveData
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BookOrderViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.fragments.BookOrderListFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BookOrderActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBookOrderBinding

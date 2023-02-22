@@ -8,14 +8,19 @@ import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWra
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.apis.BitsoOrderBooksApi
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepositoryImpl
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.RemoteOrderBooksRepository
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.RemoteOrderBooksRepositoryImpl
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.use_cases.GetBooksUseCase
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.BooksScreenState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AvailableBooksViewModel : ViewModel() {
+@HiltViewModel
+class AvailableBooksViewModel @Inject constructor(
+    private val remoteOrderBooksRepository: RemoteOrderBooksRepository
+): ViewModel() {
 
-    private val booksRepository by lazy { RemoteOrderBooksRepositoryImpl(BitsoOrderBooksApi.Builder().build()) }
     private val localOrderBookRepositoryImpl by lazy { LocalOrderBookRepositoryImpl() }
 
     val books: MutableLiveData<MutableList<ExchangeOrderBook>> by lazy {
@@ -24,9 +29,9 @@ class AvailableBooksViewModel : ViewModel() {
 
     var selectedBookOrder = ExchangeOrderBook()
 
-    fun getBooks() {
+    fun getBooksWithNoUseCase() {
         viewModelScope.launch {
-            val response = booksRepository.getBooksFromApi()
+            val response = remoteOrderBooksRepository.getBooksFromApi()
             when (response) {
                 is BitsoApiResponseWrap.Success -> {
                     if (response.response.success == true) {
@@ -41,7 +46,7 @@ class AvailableBooksViewModel : ViewModel() {
     fun getExchangeOrderBooks() {
         viewModelScope.launch {
             val booksState = GetBooksUseCase(
-                booksRepository,
+                remoteOrderBooksRepository,
                 localOrderBookRepositoryImpl
             ).invoke()
             when (booksState) {
@@ -60,7 +65,7 @@ class AvailableBooksViewModel : ViewModel() {
     fun getLocalExchangeOrderBooks() {
         viewModelScope.launch {
             val booksState = GetBooksUseCase(
-                booksRepository,
+                remoteOrderBooksRepository,
                 localOrderBookRepositoryImpl
             ).retrieveExchangeOrderBook()
             when (booksState) {

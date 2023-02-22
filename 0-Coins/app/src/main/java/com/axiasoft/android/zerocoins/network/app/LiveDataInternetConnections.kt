@@ -64,7 +64,7 @@ class InternetConnectionAvailableLiveData(val connectivityManager: ConnectivityM
             .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
             .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
             .build()
-        connectivityManager.registerNetworkCallback(builder,networkCallback)
+        connectivityManager.registerNetworkCallback(builder, networkCallback)
         postValue(currentStatus)
             //ANDROID -> connectivityManager.requestNetwork(builder, networkCallback)
     }

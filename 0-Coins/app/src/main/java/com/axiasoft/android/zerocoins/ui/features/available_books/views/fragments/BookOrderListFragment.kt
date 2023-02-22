@@ -6,11 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.axiasoft.android.zerocoins.R
@@ -19,14 +16,16 @@ import com.axiasoft.android.zerocoins.databinding.FragmentBookOrderListBinding
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.AvailableBooksViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BookOrderViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.adapters.BookOrderAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
 
     private var columnCount = 1
 
     lateinit var fragmentBinding: FragmentBookOrderListBinding
 
-    lateinit var availableBooksViewModel: AvailableBooksViewModel
+    private val availableBooksViewModel by viewModels<AvailableBooksViewModel>()
     lateinit var bookOrderViewModel: BookOrderViewModel
 
     private val bookOrderAdapter = BookOrderAdapter { bookOrderSelected ->
@@ -66,8 +65,9 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
     fun initViewModels() {
         bookOrderViewModel =
             ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
-        availableBooksViewModel =
-            ViewModelProvider(requireActivity()).get(AvailableBooksViewModel::class.java)
+
+        //availableBooksViewModel
+    // = ViewModelProvider(requireActivity()).get(AvailableBooksViewModel::class.java)
     }
 
     fun initObservers() {
@@ -93,7 +93,9 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
     }
 
     fun refreshData() {
-        if (bookOrderViewModel.internetStatus.isNetworkAvailable) {//true){//bookOrderViewModel.isInternetAvailable) {
+        val net = bookOrderViewModel.internetStatus.connectivityManager.isDefaultNetworkActive
+        //TODO observe to a customvalue
+        if (net){//bookOrderViewModel.internetStatus.isNetworkAvailable) {//true){//bookOrderViewModel.isInternetAvailable) {
             log("z0", "fetch remote")
             availableBooksViewModel.getExchangeOrderBooks()
         } else {
