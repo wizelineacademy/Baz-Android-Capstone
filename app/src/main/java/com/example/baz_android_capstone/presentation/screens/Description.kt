@@ -7,7 +7,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,6 +31,9 @@ import com.example.baz_android_capstone.presentation.navigation.DATA_ARGUMENT_KE
 import com.example.baz_android_capstone.presentation.viewmodels.BookViewModel
 import com.example.baz_android_capstone.util.* // ktlint-disable no-wildcard-imports
 import com.skydoves.landscapist.glide.GlideImage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.withContext
 
 @Composable
 fun Description(
@@ -36,17 +42,26 @@ fun Description(
 ) {
     val bookName = navController.currentBackStackEntry?.arguments?.getString(DATA_ARGUMENT_KEY) ?: "crypto_currency"
     val bookNameViewModel = viewModel.bookName.value
-    Log.d("bookName", "book Name: $bookName\nbook Name View Model: $bookNameViewModel")
-    Log.d("order", "Order: ${viewModel.getOrders}")
-    // val orderBook = viewModel.getOrders.collectAsState(initial = null).value
-    // val ticker = viewModel.getTicker.collectAsState(initial = null).value
-    // val ticker = viewModel.getTicker.collectAsState(initial = null).value
 
-    /*DescriptionContent(
-        bookName = bookName2,
-        ticker = ticker,
-        order = orderBook
-    )*/
+    val ticker = remember { mutableStateOf<Resource<Ticker>?>(null) }
+    val orderBook = remember { mutableStateOf<Resource<OrderBook>?>(null) }
+    LaunchedEffect(key1 = bookName) {
+        withContext(Dispatchers.IO) {
+            viewModel.getTicker(bookNameViewModel).distinctUntilChanged().collect {
+                ticker.value = it
+            }
+            viewModel.getOrders(bookNameViewModel).distinctUntilChanged().collect {
+                orderBook.value = it
+            }
+        }
+        Log.d("ticker", "Order: $ticker")
+    }
+
+    DescriptionContent(
+        bookName = bookName,
+        ticker = ticker.value,
+        order = orderBook.value
+    )
 }
 
 @Composable
@@ -146,6 +161,7 @@ fun DescriptionContent(
             when (askOrBids.value) {
                 stringResource(id = R.string.Asks) -> {
                     val listOfAsks = mutableListOf<Pair<String, String>>()
+                    Log.d("List", "List of Asks: $listOfAsks")
                     if (order != null) {
                         order.data?.payload?.asks?.forEach {
                             listOfAsks.add(Pair(it.price, it.amount))
@@ -163,6 +179,7 @@ fun DescriptionContent(
                 }
                 stringResource(id = R.string.Bids) -> {
                     val listOfBids = mutableListOf<Pair<String, String>>()
+                    Log.d("List", "List of Bids: $listOfBids")
                     if (order != null) {
                         order.data?.payload?.bids?.forEach {
                             listOfBids.add(Pair(it.price, it.amount))

@@ -1,9 +1,12 @@
 package com.example.baz_android_capstone.presentation.screens // ktlint-disable package-name
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.* // ktlint-disable no-wildcard-imports
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.runtime.* // ktlint-disable no-wildcard-imports
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -19,14 +22,14 @@ import com.example.baz_android_capstone.components.glideOptimized.GlideModel
 import com.example.baz_android_capstone.data.models.availableBook.Book
 import com.example.baz_android_capstone.presentation.navigation.Screen
 import com.example.baz_android_capstone.presentation.viewmodels.BookViewModel
-import com.example.baz_android_capstone.util.* // ktlint-disable no-wildcard-imports
+import com.example.baz_android_capstone.util.*
 
 @Composable
 fun Principal(
     navController: NavController,
     bookViewModel: BookViewModel
 ) {
-    val books = bookViewModel.getBooks.collectAsState(initial = null)
+    val books = bookViewModel.books.collectAsState(initial = null)
 
     val listOfElements = mutableListOf<GenericCardInterface>()
     val listOfMarkets = mutableSetOf(stringResource(id = R.string.all_markets))

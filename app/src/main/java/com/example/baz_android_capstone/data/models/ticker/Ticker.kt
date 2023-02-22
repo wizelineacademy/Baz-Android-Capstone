@@ -1,4 +1,4 @@
-package com.example.baz_android_capstone.data.models.ticker
+package com.example.baz_android_capstone.data.models.ticker // ktlint-disable package-name
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

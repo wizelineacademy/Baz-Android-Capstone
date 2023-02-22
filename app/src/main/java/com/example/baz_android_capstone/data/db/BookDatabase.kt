@@ -14,15 +14,15 @@ import com.example.baz_android_capstone.data.models.ticker.TickerConverter
 
 @Database(
     entities = [Book::class, OrderBook::class, Ticker::class],
-    version = 2,
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(
     BookConverter::class,
-    OrderConverter::class,
-    TickerConverter::class,
     AskConverters::class,
-    BidConverters::class
+    BidConverters::class,
+    OrderConverter::class,
+    TickerConverter::class
 )
 abstract class BookDatabase : RoomDatabase() {
     abstract fun bookDao(): BookDao
