@@ -10,8 +10,8 @@ import com.bumptech.glide.Glide
 import com.javg.cryptocurrencies.R
 import com.javg.cryptocurrencies.data.model.CRYBook
 import com.javg.cryptocurrencies.databinding.CryBookItemBinding
-import com.javg.cryptocurrencies.ext.getSecondCoinsText
-import com.javg.cryptocurrencies.ext.separateStringCoins
+import com.javg.cryptocurrencies.utils.getSecondCoinsText
+import com.javg.cryptocurrencies.utils.separateStringCoins
 
 /**
  * @author Juan Vera Gomez

@@ -41,7 +41,7 @@ class CRYAskRecyclerView(
     }
 
     override fun onBindViewHolder(holder: CRYAskViewHolder, position: Int) {
-        holder.bind(getItem(0))
+        holder.bind(getItem(position))
     }
 
 }

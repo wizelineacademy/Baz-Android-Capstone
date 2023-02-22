@@ -153,4 +153,7 @@ dependencies {
     implementation "androidx.room:room-paging:$room_version"
 
     implementation "com.google.android.material:material:$googleMaterialVersion"
+
+    //viewPager2
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
 }

@@ -18,7 +18,7 @@ import com.javg.cryptocurrencies.data.model.CRYAskOrBids
 import com.javg.cryptocurrencies.data.model.CRYDetailBook
 import com.javg.cryptocurrencies.view.viewmodel.CRYDetailBookVM
 import com.javg.cryptocurrencies.databinding.CryDetailBookFragmentBinding
-import com.javg.cryptocurrencies.ext.separateStringCoins
+import com.javg.cryptocurrencies.utils.separateStringCoins
 import com.javg.cryptocurrencies.view.detail.recyclerview.CRYAskRecyclerView
 
 /**

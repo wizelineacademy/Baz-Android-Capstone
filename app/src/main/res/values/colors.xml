@@ -26,4 +26,6 @@
     <color name="blue_light_gray">#bac7d8</color>
     <color name="blue_100">#3db5e6</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="blue_300">#0C7A96</color>
+    <color name="green_light">#BFEB87</color>
 </resources>

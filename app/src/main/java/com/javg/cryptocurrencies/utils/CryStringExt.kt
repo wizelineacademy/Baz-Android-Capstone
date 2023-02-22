@@ -1,4 +1,4 @@
-package com.javg.cryptocurrencies.ext
+package com.javg.cryptocurrencies.utils
 
 /**
  * Function that extends a string to be able to separate the text by a '_'
