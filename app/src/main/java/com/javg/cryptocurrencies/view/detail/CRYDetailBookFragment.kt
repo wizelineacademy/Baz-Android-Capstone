@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.lottie.LottieDrawable
 import com.bumptech.glide.Glide
@@ -23,11 +24,12 @@ import com.javg.cryptocurrencies.view.detail.recyclerview.CRYAskRecyclerView
 
 /**
  * @author Juan Antonio Vera
+ * Date modified 22/02/2023
  *
  * They contain the necessary functionalities to show the detailed
  * information of a specific book visually.
  *
- * @since 2.0
+ * @since 2.1
  */
 class CRYDetailBookFragment : Fragment(){
     private lateinit var binding: CryDetailBookFragmentBinding
@@ -36,27 +38,6 @@ class CRYDetailBookFragment : Fragment(){
     private lateinit var shimmerFrameLayout: ShimmerFrameLayout
     private val lottieAsset = "empty_data.json"
     private var flag: Boolean = false
-
-    companion object{
-        val TAG = CRYDetailBookFragment::class.java.canonicalName!!
-
-        /**
-         * is responsible for generating an instance of the
-         * fragment receiving two parameters and return
-         *
-         * @param book is the name of the book to show its details
-         * @param imageName is the name of the image that will be consulted online to display
-         */
-        @JvmStatic
-        fun newInstance(book: String,imageName: String) : CRYDetailBookFragment {
-            val fragment = CRYDetailBookFragment()
-            val bundle = Bundle()
-            bundle.putString("BOOK",book)
-            bundle.putString("IMAGE_NAME",imageName)
-            fragment.arguments = bundle
-            return fragment
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -131,7 +112,7 @@ class CRYDetailBookFragment : Fragment(){
      */
     private fun onClickListener() = with(binding){
         headerTopBar.imageBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            findNavController().popBackStack()
         }
         headerTopBar.imageClose.setOnClickListener {
             requireActivity().finish()

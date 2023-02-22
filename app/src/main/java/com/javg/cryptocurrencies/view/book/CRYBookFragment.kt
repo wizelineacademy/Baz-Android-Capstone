@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -20,7 +21,6 @@ import com.javg.cryptocurrencies.data.model.CRYBook
 import com.javg.cryptocurrencies.databinding.CryBookFragmentBinding
 import com.javg.cryptocurrencies.view.book.recyclerview.CRYBookRecyclerView
 import com.javg.cryptocurrencies.view.book.recyclerview.CRYChipsHeaderRecyclerView
-import com.javg.cryptocurrencies.view.detail.CRYDetailBookFragment
 import com.javg.cryptocurrencies.view.viewmodel.CRYHomeVM
 import kotlin.math.abs
 
@@ -31,7 +31,7 @@ import kotlin.math.abs
  * Fragment in charge of manipulating and displaying the
  * information corresponding to the cryptocurrency cards
  *
- * @since 2.1
+ * @since 2.2
  */
 class CRYBookFragment : Fragment(){
 
@@ -44,11 +44,11 @@ class CRYBookFragment : Fragment(){
 
     //Saves the Lambda event that is executed in the adapter item
     private val onClickItem: (String, String) -> Unit = { book, image ->
-        nextFragment(CRYDetailBookFragment.newInstance(book,image))
-    }
-
-    companion object{
-        val TAG = CRYBookFragment::class.java.canonicalName!!
+        val args = Bundle().apply {
+            putString("BOOK",book)
+            putString("IMAGE_NAME",image)
+        }
+        findNavController().navigate(R.id.action_cry_book_fragment_to_cry_detail_book_fragment, args)
     }
 
     override fun onCreateView(
@@ -195,16 +195,6 @@ class CRYBookFragment : Fragment(){
        it?.let { updateTime ->
            binding.updateDay.text = updateTime
        }
-    }
-
-    /**
-     * It is in charge of configuring the passage to the next fragment of the application
-     */
-    private fun nextFragment(fragment: Fragment){
-        val fm = requireActivity().supportFragmentManager.beginTransaction()
-        fm.replace(R.id.root_layout, fragment)
-        fm.addToBackStack(CRYDetailBookFragment.TAG)
-        fm.commit()
     }
 
 }

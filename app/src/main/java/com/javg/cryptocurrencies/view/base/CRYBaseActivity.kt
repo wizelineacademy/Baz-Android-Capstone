@@ -35,7 +35,7 @@ open class CRYBaseActivity: AppCompatActivity() {
 
     private fun showSuccessNetwork(){
         val snack = Snackbar.make(
-            this@CRYBaseActivity.findViewById(R.id.root_layout),
+            this@CRYBaseActivity.findViewById(R.id.nav_host_main),
             resources.getString(R.string.cry_success_network),
             Snackbar.LENGTH_LONG)
         snack.setBackgroundTint(ContextCompat.getColor(this,R.color.green_success))
@@ -44,7 +44,7 @@ open class CRYBaseActivity: AppCompatActivity() {
 
     private fun showErrorNetwork(){
         val snack = Snackbar.make(
-            this@CRYBaseActivity.findViewById(R.id.root_layout),
+            this@CRYBaseActivity.findViewById(R.id.nav_host_main),
             resources.getString(R.string.cry_error_network),
             Snackbar.LENGTH_LONG)
         snack.setBackgroundTint(ContextCompat.getColor(this,R.color.red_error))
