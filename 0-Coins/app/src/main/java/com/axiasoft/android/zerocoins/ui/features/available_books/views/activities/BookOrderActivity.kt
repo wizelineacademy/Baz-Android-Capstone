@@ -1,15 +1,23 @@
 package com.axiasoft.android.zerocoins.ui.features.available_books.views.activities
 
+import android.graphics.Color
 import android.os.Bundle
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
+import androidx.lifecycle.whenCreated
 import com.axiasoft.android.zerocoins.R
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.databinding.ActivityBookOrderBinding
 import com.axiasoft.android.zerocoins.network.app.InternetConnectionAvailableLiveData
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BookOrderViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.fragments.BookOrderListFragment
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BookOrderActivity : AppCompatActivity() {
@@ -22,21 +30,39 @@ class BookOrderActivity : AppCompatActivity() {
         binding = ActivityBookOrderBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-        /*val internetConnectionStatus = InternetConnectionAvailableLiveData(application)
 
-        internetConnectionStatus.observe(this) { isConnected ->
-            bookOrderViewModel.isInternetAvailable = isConnected
-            if (isConnected) {
-                log("z0", "impl net is $isConnected")
-            } else {
-                log("z0", "Impl not connected $isConnected")
+        bookOrderViewModel.internetStatus.observe(this){ isConnected ->
+            log("z0", "internetStatus observer isConnected $isConnected")
+            if (!isConnected) {
+                showNoInternetSnackBar()
+            }
+        }
+        if (!bookOrderViewModel.internetStatus.isNetworkAvailable()){
+            showNoInternetSnackBar()
+        }
+        /*lifecycleScope.launch {
+            whenCreated {
+                bookOrderViewModel.internetStatus.observe(lifecycle){
+
+                }
             }
         }*/
-        /*if (savedInstanceState == null) {
-            supportFragmentManager
-                .beginTransaction()
-                .add(R.id.nav_host_fragment, BookOrderListFragment.newInstance(), BookOrderListFragment.TAG)
-                .commit()
-        }*/
+    }
+
+    fun showNoInternetSnackBar(){
+        val snackBar = Snackbar.make(
+            binding.root, getString(R.string.internet_status_no_internet_data_warning),
+            Snackbar.LENGTH_INDEFINITE
+        )
+        snackBar.setAction(android.R.string.ok) {
+            snackBar.dismiss()
+        }
+        snackBar.setActionTextColor(R.color.white)
+        val snackBarView = snackBar.view
+        snackBarView.setBackgroundColor(Color.RED)
+        val textView = snackBarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+        textView.setTextColor(Color.BLACK)
+        textView.maxLines = 3
+        snackBar.show()
     }
 }

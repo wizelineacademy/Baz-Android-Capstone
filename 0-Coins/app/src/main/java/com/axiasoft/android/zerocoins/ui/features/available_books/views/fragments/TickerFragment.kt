@@ -117,13 +117,6 @@ class TickerFragment : Fragment() {
                 refreshData()
             }
         }
-
-        bookOrderViewModel.internetStatus.observe(viewLifecycleOwner) { isConnected ->
-            log("z0", "XXX connection $isConnected")
-            if (!isConnected) {
-                Toast.makeText(requireContext(), "Sin internet", Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 
     fun refreshData() {

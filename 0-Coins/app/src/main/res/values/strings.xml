@@ -19,6 +19,9 @@
     <string name="ticker_ask">Asks</string>
     <string name="ticker_bid">Bids</string>
 
+    <!-- Internet status-->
+    <string name="internet_status_no_internet_data_warning">La información mostrada podría no estar actualizada. Revisa tu conexión a internet e intenta de nuevo</string>
+
 
 
 

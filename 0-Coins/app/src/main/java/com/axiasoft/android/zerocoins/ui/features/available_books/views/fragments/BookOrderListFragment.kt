@@ -72,12 +72,12 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
             bookOrderAdapter.updateBookOrders(it)
         }
 
-        bookOrderViewModel.internetStatus.observe(viewLifecycleOwner) { isConnected ->
+        /*bookOrderViewModel.internetStatus.observe(viewLifecycleOwner) { isConnected ->
             log("z0", "internetStatus observer isConnected $isConnected")
             if (!isConnected) {
                 Toast.makeText(requireContext(), "Sin internet", Toast.LENGTH_SHORT).show()
             }
-        }
+        }*/
 
         /*lifecycleScope.launch {
         Cause call twice when back from other fragment
