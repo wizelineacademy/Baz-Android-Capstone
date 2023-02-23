@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.axiasoft.android.zerocoins.R
@@ -17,6 +20,7 @@ import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.Ava
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BookOrderViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.adapters.BookOrderAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
@@ -58,30 +62,30 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
         initViewModels()
         initObservers()
         initUIListeners()
-        //TODO fix first time, observer doesnt update internet state
-        refreshData()
     }
 
     fun initViewModels() {
         bookOrderViewModel =
             ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
-
-        //availableBooksViewModel
-    // = ViewModelProvider(requireActivity()).get(AvailableBooksViewModel::class.java)
     }
 
     fun initObservers() {
         availableBooksViewModel.books.observe(viewLifecycleOwner) {
             bookOrderAdapter.updateBookOrders(it)
         }
-        bookOrderViewModel.internetStatus
-            .observe(viewLifecycleOwner) { isConnected ->
-                //bookOrderViewModel.isInternetAvailable = isConnected
-                log("z0", "connection fragment isConnected $isConnected")
-                if (!isConnected) {
-                    Toast.makeText(requireContext(), "Sin internet", Toast.LENGTH_SHORT).show()
-                }
+
+        bookOrderViewModel.internetStatus.observe(viewLifecycleOwner) { isConnected ->
+            log("z0", "internetStatus observer isConnected $isConnected")
+            if (!isConnected) {
+                Toast.makeText(requireContext(), "Sin internet", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                refreshData()
+            }
+        }
     }
 
     fun initUIListeners() {
@@ -93,13 +97,11 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
     }
 
     fun refreshData() {
-        val net = bookOrderViewModel.internetStatus.connectivityManager.isDefaultNetworkActive
-        //TODO observe to a customvalue
-        if (net){//bookOrderViewModel.internetStatus.isNetworkAvailable) {//true){//bookOrderViewModel.isInternetAvailable) {
-            log("z0", "fetch remote")
+        if (bookOrderViewModel.internetStatus.isNetworkAvailable()){
+            log("z0", "Orders books fetch remote")
             availableBooksViewModel.getExchangeOrderBooks()
         } else {
-            log("z0", "fetch local")
+            log("z0", "Orders books fetch local")
             availableBooksViewModel.getLocalExchangeOrderBooks()
         }
     }

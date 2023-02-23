@@ -105,37 +105,36 @@ class TickerFragment : Fragment() {
                 }
             }
         }
-
-        bookOrderViewModel.internetStatus.observe(viewLifecycleOwner) { isConnected ->
-            log("z0", "XXX connection $isConnected")
-            //refreshData()
-            if (!isConnected) {
-                Toast.makeText(requireContext(), "Sin internet", Toast.LENGTH_SHORT).show()
-            }
-        }
-        setupObservers()
+        initObservers()
         setupListeners()
-        refreshData()
     }
 
-    fun setupObservers() {
+    fun initObservers() {
         //Tips migrar a flow y usar lifecycleScope
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                tickerViewModel.listOrderBookScreenState//.//collect Con Flow data
+                //tickerViewModel.listOrderBookScreenState//.//collect Con Flow data
                 //TODO etc
+                refreshData()
+            }
+        }
+
+        bookOrderViewModel.internetStatus.observe(viewLifecycleOwner) { isConnected ->
+            log("z0", "XXX connection $isConnected")
+            if (!isConnected) {
+                Toast.makeText(requireContext(), "Sin internet", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     fun refreshData() {
-        bookOrderViewModel.internetStatus.connectivityManager.isDefaultNetworkActive
-        if (bookOrderViewModel.internetStatus.isNetworkAvailable) {
-            log("z0", "fetching remote")
+        if (bookOrderViewModel.internetStatus.isNetworkAvailable()) {
+            log("z0", "Ticker & orders fetching remote")
             tickerViewModel.getRemoteTicker()
+            //tickerViewModel.call()//<- RX
             tickerViewModel.getRemoteListOrderBook()
         } else {
-            log("z0", "fetching local")
+            log("z0", "Ticker & orders fetching local")
             tickerViewModel.getLocalTicker()
             tickerViewModel.getLocalListOrderBook()
         }
@@ -163,13 +162,11 @@ class TickerFragment : Fragment() {
     }
 
     companion object {
-
         val TAG = "TickerFragment"
 
         @JvmStatic
-        fun newInstance() =
-            TickerFragment().apply {
-                arguments = Bundle().apply {}
-            }
+        fun newInstance() = TickerFragment().apply {
+            arguments = Bundle().apply {}
+        }
     }
 }

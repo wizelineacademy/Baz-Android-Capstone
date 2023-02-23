@@ -20,6 +20,9 @@ interface BitsoOrderBooksApi {
     @GET(BitsoApiPaths.TICKER)
     suspend fun getTicketsApi(@Query(BOOK_PARAM_NAME) book: String): BitsoBaseResponse<TickerResponse>
 
+    @GET(BitsoApiPaths.TICKER)
+    fun getTickersApi(@Query(BOOK_PARAM_NAME) book: String): BitsoBaseResponse<TickerResponse>
+
     @GET(BitsoApiPaths.LIST_ORDER_BOOK)
     suspend fun getListOrderBook(
         @Query(BOOK_PARAM_NAME) orderBookName: String,

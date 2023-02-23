@@ -5,6 +5,7 @@ import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWra
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.response.ExchangeOrderBookResponse
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book.response.ListOrderBookResponse
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.ticker.response.TickerResponse
+import io.reactivex.Observable
 
 interface RemoteOrderBooksRepository {
     suspend fun getBooksFromApi(): BitsoApiResponseWrap<BitsoBaseResponse<ArrayList<ExchangeOrderBookResponse>>>
@@ -12,4 +13,6 @@ interface RemoteOrderBooksRepository {
     suspend fun getTickerFromApi(book: String): BitsoApiResponseWrap<BitsoBaseResponse<TickerResponse>>
 
     suspend fun getListOrderBook(book: String): BitsoApiResponseWrap<BitsoBaseResponse<ListOrderBookResponse>>
+
+    fun getTickerFromApiObservable(book: String): Observable<BitsoBaseResponse<TickerResponse>>
 }

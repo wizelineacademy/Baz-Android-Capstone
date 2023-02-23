@@ -10,21 +10,35 @@ import androidx.lifecycle.LiveData
 import com.axiasoft.android.zerocoins.application.ZeroCoinsApplication
 import com.axiasoft.android.zerocoins.common.log
 
-class InternetConnectionAvailableLiveData(val connectivityManager: ConnectivityManager): LiveData<Boolean>(){
+class InternetConnectionAvailableLiveData(val connectivityManager: ConnectivityManager) :
+    LiveData<Boolean>() {
+
     constructor(appContext: Application = ZeroCoinsApplication.appContext as Application) : this(
         appContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     )
 
-    private var currentStatus: Boolean = false
+    fun isNetworkAvailable(): Boolean {
+        val nw = connectivityManager.activeNetwork ?: return false
+        val actNw = connectivityManager.getNetworkCapabilities(nw) ?: return false
+        val internetAvailable = when {
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            //for other device how are able to connect with Ethernet
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            //for check internet over Bluetooth
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> true
+            else -> false
+        }
+        log("z0", "isNetworkAvailable? $internetAvailable")
+        return internetAvailable
+    }
 
-    var isNetworkAvailable = currentStatus//postValue(currentStatus)
 
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
 
         override fun onAvailable(network: Network) {
             super.onAvailable(network)
             log("Z0", "-> onAvailable: Network ${network} is Available")
-            currentStatus = true
             postValue(true)
         }
 
@@ -33,26 +47,24 @@ class InternetConnectionAvailableLiveData(val connectivityManager: ConnectivityM
             networkCapabilities: NetworkCapabilities
         ) {
             super.onCapabilitiesChanged(network, networkCapabilities)
-            val unmetered = networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
+            val unmetered =
+                networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
             //val metered = networkCapabilities.hasCapability(NetworkCapabilities.M)
-            val internetCapability = networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            val internetCapability =
+                networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
 
-            if (/*unmetered || */internetCapability){
+            if (/*unmetered || */internetCapability) {
                 log("Z0", "onCapabilitiesChanged: Network ${network} is true?")
-                currentStatus = true
                 postValue(true)
             } else {
                 log("Z0", "onCapabilitiesChanged: Network ${network} is false?")
-                currentStatus = false
                 postValue(false)
             }
-
         }
 
         override fun onLost(network: Network) {
             super.onLost(network)
             log("Z0", "-> onLost: Network ${network} is Unavailable")
-            currentStatus = false
             postValue(false)
         }
     }
@@ -65,8 +77,8 @@ class InternetConnectionAvailableLiveData(val connectivityManager: ConnectivityM
             .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
             .build()
         connectivityManager.registerNetworkCallback(builder, networkCallback)
-        postValue(currentStatus)
-            //ANDROID -> connectivityManager.requestNetwork(builder, networkCallback)
+        //postValue(currentStatus)
+        //ANDROID -> connectivityManager.requestNetwork(builder, networkCallback)
     }
 
     override fun onInactive() {
