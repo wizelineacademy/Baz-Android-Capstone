@@ -18,20 +18,20 @@ class LocalOrderBookRepositoryImpl(
     private val db: ZeroCoinAppDatabase
 ): LocalOrderBookRepository {
 
-    //private val db by lazy { getDatabase() }
-
     val scope = CoroutineScope(Dispatchers.IO)
 
     override suspend fun storeAvailableExchangeOrderBooks(
         availableExchangeOrderBook: ArrayList<ExchangeOrderBook>
     ){
         withContext(Dispatchers.IO){
-            //deletes
-            db.bookDao().deleteAvailableExchangeOrderBooks()
-            //then adds new data
-            availableExchangeOrderBook.forEach {
-                val exchangeOrderBook = it.toEntity()
-                db.bookDao().insert(exchangeOrderBook)
+            try {
+                db.bookDao().deleteAvailableExchangeOrderBooks()
+                availableExchangeOrderBook.forEach {
+                    val exchangeOrderBook = it.toEntity()
+                    db.bookDao().insert(exchangeOrderBook)
+                }
+            } catch (ex: Exception){
+                log("z0", "error inserting data to db ${ex.message}")
             }
         }
     }
@@ -51,15 +51,12 @@ class LocalOrderBookRepositoryImpl(
 
     override fun storeTickerDBWithScope(ticker: Ticker){
         scope.launch(Dispatchers.IO) {
-            val tickerEntity = ticker.toEntity()
-            db.tickerDao().upsertTicker(tickerEntity)
-        }
-    }
-
-    suspend fun updateTickerDB(ticker: Ticker){
-        withContext(Dispatchers.Unconfined){
-            val tickerEntity = ticker.toEntity()
-            db.tickerDao().upsertTicker(tickerEntity)
+            try {
+                val tickerEntity = ticker.toEntity()
+                db.tickerDao().upsertTicker(tickerEntity)
+            } catch (ex: Exception){
+                log("z0", "error inserting ticker data to db ${ex.message}")
+            }
         }
     }
 

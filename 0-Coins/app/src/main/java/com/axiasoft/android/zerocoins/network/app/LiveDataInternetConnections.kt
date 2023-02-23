@@ -10,7 +10,7 @@ import androidx.lifecycle.LiveData
 import com.axiasoft.android.zerocoins.application.ZeroCoinsApplication
 import com.axiasoft.android.zerocoins.common.log
 
-class InternetConnectionAvailableLiveData(val connectivityManager: ConnectivityManager) :
+class InternetConnectionAvailableLiveData(private val connectivityManager: ConnectivityManager) :
     LiveData<Boolean>() {
 
     constructor(appContext: Application = ZeroCoinsApplication.appContext as Application) : this(
@@ -20,17 +20,19 @@ class InternetConnectionAvailableLiveData(val connectivityManager: ConnectivityM
     fun isNetworkAvailable(): Boolean {
         val nw = connectivityManager.activeNetwork ?: return false
         val actNw = connectivityManager.getNetworkCapabilities(nw) ?: return false
-        val internetAvailable = when {
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-            //for other device how are able to connect with Ethernet
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-            //for check internet over Bluetooth
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> true
-            else -> false
-        }
+        val internetAvailable = validateNetworkAvailability(actNw)
         log("z0", "isNetworkAvailable? $internetAvailable")
         return internetAvailable
+    }
+
+    private fun validateNetworkAvailability(networkCapabilities: NetworkCapabilities): Boolean{
+        return when {
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> true
+            else -> false
+        }
     }
 
 
@@ -47,13 +49,9 @@ class InternetConnectionAvailableLiveData(val connectivityManager: ConnectivityM
             networkCapabilities: NetworkCapabilities
         ) {
             super.onCapabilitiesChanged(network, networkCapabilities)
-            val unmetered =
-                networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
-            //val metered = networkCapabilities.hasCapability(NetworkCapabilities.M)
-            val internetCapability =
-                networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            val internetAvailable = validateNetworkAvailability(networkCapabilities)
 
-            if (/*unmetered || */internetCapability) {
+            if (internetAvailable) {
                 log("Z0", "onCapabilitiesChanged: Network ${network} is true?")
                 postValue(true)
             } else {
@@ -77,8 +75,6 @@ class InternetConnectionAvailableLiveData(val connectivityManager: ConnectivityM
             .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
             .build()
         connectivityManager.registerNetworkCallback(builder, networkCallback)
-        //postValue(currentStatus)
-        //ANDROID -> connectivityManager.requestNetwork(builder, networkCallback)
     }
 
     override fun onInactive() {
