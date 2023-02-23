@@ -37,7 +37,6 @@ class CRYDetailBookFragment : Fragment(){
     private lateinit var adapterAskBids: CRYAskRecyclerView
     private lateinit var shimmerFrameLayout: ShimmerFrameLayout
     private val lottieAsset = "empty_data.json"
-    private var flag: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +54,6 @@ class CRYDetailBookFragment : Fragment(){
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        shimmerLoad()
         val book = arguments?.getString("BOOK").orEmpty()
         val imageId = arguments?.getString("IMAGE_NAME").orEmpty()
         loadData(book, imageId)
@@ -88,14 +86,6 @@ class CRYDetailBookFragment : Fragment(){
     }
 
     /**
-     * Instantiate the component and initialize the facebook loading effect
-     */
-    private fun shimmerLoad(){
-        shimmerFrameLayout = binding.idShimmer
-        shimmerFrameLayout.startShimmer()
-    }
-
-    /**
      * Configure and instantiate the adapter to display ask and bids
      */
     private fun configureAdapter(){
@@ -114,22 +104,8 @@ class CRYDetailBookFragment : Fragment(){
         headerTopBar.imageBack.setOnClickListener {
             findNavController().popBackStack()
         }
-        headerTopBar.imageClose.setOnClickListener {
-            requireActivity().finish()
-        }
         txtAsk.setOnClickListener { changeAsk() }
         txtBids.setOnClickListener { changeBids() }
-        ivHideShowDetail.setOnClickListener {
-            if (flag){
-                ivHideShowDetail.setImageResource(R.drawable.ic_arrow_up)
-                showContentDetail()
-                flag = false
-            }else{
-                ivHideShowDetail.setImageResource(R.drawable.ic_arrow_down)
-                hideContentDetail()
-                flag = true
-            }
-        }
     }
 
     /**
@@ -152,38 +128,27 @@ class CRYDetailBookFragment : Fragment(){
         detailBookVM.tickerBook.value?.bidsList?.let { detailBookVM.sendListUpdate(it) }
     }
 
-    private fun hideContentDetail(){
-        binding.txtOne.visibility           = View.GONE
-        binding.txtTwo.visibility           = View.GONE
-        binding.txtThree.visibility         = View.GONE
-        binding.txtLastPrice.visibility     = View.GONE
-        binding.txtHighestPrice.visibility  = View.GONE
-        binding.txtLowMoreLow.visibility     = View.GONE
-    }
-
-    private fun showContentDetail(){
-        binding.txtOne.visibility           = View.VISIBLE
-        binding.txtTwo.visibility           = View.VISIBLE
-        binding.txtThree.visibility         = View.VISIBLE
-        binding.txtLastPrice.visibility     = View.VISIBLE
-        binding.txtHighestPrice.visibility  = View.VISIBLE
-        binding.txtLowMoreLow.visibility     = View.VISIBLE
-    }
-
     private fun startAnimationNoData(){
-        shimmerFrameLayout.stopShimmer()
-        shimmerFrameLayout.visibility = View.GONE
-        binding.clNoInformation.visibility = View.VISIBLE
-        binding.laNoInformation.imageAssetsFolder = "assets"
-        binding.laNoInformation.setAnimation(lottieAsset)
-        binding.laNoInformation.repeatCount = LottieDrawable.INFINITE
-        binding.laNoInformation.playAnimation()
+        binding.clNotInformation.visibility = View.VISIBLE
+        binding.lavNotInformation.imageAssetsFolder = "assets"
+        binding.lavNotInformation.setAnimation(lottieAsset)
+        binding.lavNotInformation.repeatCount = LottieDrawable.INFINITE
+        binding.lavNotInformation.playAnimation()
     }
 
     private fun hideContentAll(){
-        binding.clContentInformation.visibility = View.GONE
-        binding.rlButtons.visibility = View.GONE
-        binding.rvAskBids.visibility = View.GONE
+        binding.bookImage.visibility      = View.GONE
+        binding.txtLastPrice.visibility   = View.GONE
+        binding.edLastPrice.visibility    = View.GONE
+        binding.clContainerAll.visibility = View.GONE
+    }
+
+    private fun showContentAll(){
+        binding.bookImage.visibility        = View.VISIBLE
+        binding.txtLastPrice.visibility     = View.VISIBLE
+        binding.edLastPrice.visibility      = View.VISIBLE
+        binding.clContainerAll.visibility   = View.VISIBLE
+        binding.clNotInformation.visibility = View.GONE
     }
 
     /**
@@ -192,9 +157,10 @@ class CRYDetailBookFragment : Fragment(){
     private val tickerObserver = Observer<CRYDetailBook>{
         it?.let {
             with(binding){
-                txtLastPrice.text    = String.format(requireContext().resources.getString(R.string.cry_format_amount), it.last)
-                txtHighestPrice.text = String.format(requireContext().resources.getString(R.string.cry_format_amount), it.high)
-                txtLowMoreLow.text   = String.format(requireContext().resources.getString(R.string.cry_format_amount), it.low)
+                edLastPrice.text                = String.format(requireContext().resources.getString(R.string.cry_format_amount), it.last)
+                inCardPrice.edHighestPrice.text = String.format(requireContext().resources.getString(R.string.cry_format_amount), it.high)
+                inCardPrice.edLowMorePrice.text = String.format(requireContext().resources.getString(R.string.cry_format_amount), it.low)
+                showContentAll()
             }
         }
     }
@@ -206,18 +172,6 @@ class CRYDetailBookFragment : Fragment(){
      */
     private val listAskOrBids = Observer<List<CRYAskOrBids>> {
         it?.let {
-            with(binding){
-                idShimmer.stopShimmer()
-                idShimmer.visibility = View.GONE
-                binding.clNoInformation.visibility = View.GONE
-                binding.laNoInformation.cancelAnimation()
-                rvAskBids.visibility = View.VISIBLE
-                binding.clContentInformation.visibility = View.VISIBLE
-                binding.rlButtons.visibility = View.VISIBLE
-                binding.rvAskBids.visibility = View.VISIBLE
-
-            }
-
             adapterAskBids.submitList(it)
         }
     }

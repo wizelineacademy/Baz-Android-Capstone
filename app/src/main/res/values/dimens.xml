@@ -35,5 +35,6 @@
     <dimen name="dimens_100_dp">100dp</dimen>
     <dimen name="dimens_150_dp">150dp</dimen>
     <dimen name="dimens_260_dp">260dp</dimen>
+    <dimen name="dimens_300_dp">300dp</dimen>
     <dimen name="dimens_400_dp">400dp</dimen>
 </resources>

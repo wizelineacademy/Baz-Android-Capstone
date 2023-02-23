@@ -5,9 +5,8 @@
         <shape
             android:shape="rectangle">
             <stroke
-
                 android:width="@dimen/dimens_4_dp"
-                android:color="@color/blue_100" />
+                android:color="@color/green_light" />
             <solid android:color="@color/transparent" />
         </shape>
     </item>

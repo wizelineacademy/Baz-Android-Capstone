@@ -17,8 +17,8 @@
     <color name="orange_pastel">#e2504c</color>
     <color name="orange_secondary">#ffd792</color>
     
-    <color name="green_success">#0FD047</color>
-    <color name="red_error">#EB000B</color>
+    <color name="green_success">#0AB10A</color>
+    <color name="red_error">#B00A0A</color>
     <!--new colors-->
     <color name="gray_100">#075366</color>
     <color name="gray_200">#00303c</color>

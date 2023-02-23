@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/transparent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimens_24_dp"
+        android:layout_marginVertical="@dimen/dimens_16_dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardElevation="@dimen/dimens_8_dp"
+        app:cardCornerRadius="@dimen/dimens_14_dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txt_price"
+                style="@style/subtitle_h1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cry_price"
+                android:textColor="@color/gray_100"
+                android:layout_marginTop="@dimen/dimens_16_dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_low_more_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimens_16_dp"
+                android:layout_marginTop="@dimen/dimens_8_dp"
+                android:text="@string/cry_low_more_low"
+                style="@style/subtitle"
+                android:textColor="@color/gray_100"
+                app:layout_constraintEnd_toStartOf="@+id/view_line"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_price" />
+
+            <TextView
+                android:id="@+id/txt_highest_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimens_8_dp"
+                android:layout_marginEnd="@dimen/dimens_16_dp"
+                android:text="@string/cry_highest_price"
+                style="@style/subtitle"
+                android:textColor="@color/gray_100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/view_line"
+                app:layout_constraintTop_toBottomOf="@id/txt_price" />
+
+            <View
+                android:id="@+id/view_line"
+                android:layout_width="@dimen/dimens_1_dp"
+                android:layout_height="@dimen/dimens_50_dp"
+                android:layout_marginTop="@dimen/dimens_8_dp"
+                android:background="@color/shimmer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_price" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/aciv_arrow_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimens_8_dp"
+                android:layout_marginTop="@dimen/dimens_8_dp"
+                android:layout_marginBottom="@dimen/dimens_16_dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_low_more_price"
+                app:srcCompat="@drawable/ic_arrow_down"
+                app:tint="@color/green_success" />
+
+            <TextView
+                android:id="@+id/ed_low_more_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/subtitle_h3"
+                android:textColor="@color/green_success"
+                android:text="$0.00001331"
+                android:layout_marginStart="@dimen/dimens_4_dp"
+                app:layout_constraintBottom_toBottomOf="@+id/aciv_arrow_down"
+                app:layout_constraintEnd_toStartOf="@+id/view_line"
+                app:layout_constraintStart_toEndOf="@+id/aciv_arrow_down"
+                app:layout_constraintTop_toTopOf="@+id/aciv_arrow_down" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/aciv_arrow_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimens_8_dp"
+                android:layout_marginStart="@dimen/dimens_8_dp"
+                app:layout_constraintStart_toEndOf="@+id/view_line"
+                app:layout_constraintTop_toBottomOf="@+id/txt_highest_price"
+                app:srcCompat="@drawable/ic_arrow_up"
+                app:tint="@color/red_error" />
+
+            <TextView
+                android:id="@+id/ed_highest_price"
+                style="@style/subtitle_h3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="$0.00001331"
+                android:layout_marginStart="@dimen/dimens_8_dp"
+                android:textColor="@color/red_error"
+                app:layout_constraintBottom_toBottomOf="@+id/aciv_arrow_up"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/aciv_arrow_up"
+                app:layout_constraintTop_toTopOf="@+id/aciv_arrow_up" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

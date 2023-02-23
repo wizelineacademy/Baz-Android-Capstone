@@ -5,18 +5,19 @@
     <string name="cry_minimum_amount">Monto minimo: $.003</string>
     <string name="cry_maximum_amount">Monto maximo: $1000.00</string>
     <string name="cry_maximum_price">Precio maximo: $1000000.00</string>
-    <string name="cry_last_price">Ultimo precio:</string>
-    <string name="cry_low_more_low">Precio más bajo:</string>
-    <string name="cry_highest_price">Precio más alto:</string>
-    <string name="cry_price">Precio:</string>
+    <string name="cry_last_price">Ultimo precio</string>
+    <string name="cry_low_more_low">Más bajo</string>
+    <string name="cry_highest_price">Más alto</string>
+    <string name="cry_price">Precio</string>
     <string name="cry_amount">Monto:</string>
     <string name="cry_txt_ask">Demanda</string>
     <string name="cry_txt_bids">Ofertas</string>
     <string name="cry_price_order">$%1$s</string>
-    <string name="cry_update_day">Ultima actualización: %1$s</string>
+    <string name="cry_update_day">Ultima actualización\n %1$s</string>
     <string name="cry_success_network">Hay conexión a internet</string>
     <string name="cry_error_network">Revisa tu conexión a internet</string>
     <string name="cry_format_amount">$%1$s</string>
     <string name="cry_detail_book">Detalle de la criptomoneda</string>
     <string name="cry_no_information">Por el momento no hay información</string>
+    <string name="cry_txt_last_price_fake">$410060.00</string>
 </resources>
