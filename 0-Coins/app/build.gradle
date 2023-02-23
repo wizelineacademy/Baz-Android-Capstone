@@ -136,4 +136,6 @@ dependencies {
 
     //reactive
     implementation 'io.reactivex.rxjava2:rxjava:2.2.10'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+
 }

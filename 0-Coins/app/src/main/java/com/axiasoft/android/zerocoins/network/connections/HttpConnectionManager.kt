@@ -7,6 +7,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 
 abstract class HttpConnectionManager<T : Any>(var coinApi: CoinApis) {
 
@@ -25,6 +26,7 @@ abstract class HttpConnectionManager<T : Any>(var coinApi: CoinApis) {
             Retrofit.Builder()
                 .baseUrl(CoinApis.BITSO.hostUrl)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(
                     OkHttpClient().newBuilder()
                         .addInterceptor(BitsoInterceptor())

@@ -10,9 +10,11 @@ import io.reactivex.Observable
 interface RemoteOrderBooksRepository {
     suspend fun getBooksFromApi(): BitsoApiResponseWrap<BitsoBaseResponse<ArrayList<ExchangeOrderBookResponse>>>
 
+    fun getAvailableOrderBookRX(): Observable<BitsoBaseResponse<ArrayList<ExchangeOrderBookResponse>>>
+
     suspend fun getTickerFromApi(book: String): BitsoApiResponseWrap<BitsoBaseResponse<TickerResponse>>
 
     suspend fun getListOrderBook(book: String): BitsoApiResponseWrap<BitsoBaseResponse<ListOrderBookResponse>>
 
-    fun getTickerFromApiObservable(book: String): Observable<BitsoBaseResponse<TickerResponse>>
+    fun getTickerRX(book: String): Observable<BitsoBaseResponse<TickerResponse>>
 }

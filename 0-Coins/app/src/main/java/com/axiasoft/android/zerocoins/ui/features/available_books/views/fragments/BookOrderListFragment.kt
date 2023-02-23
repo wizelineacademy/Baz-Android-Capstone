@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -106,7 +105,8 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
                         !availableBooksViewModel.availableBooksUpdatedFromRemote)
             ) {
                 log("z0", "Orders books fetch remote")
-                availableBooksViewModel.getExchangeOrderBooks()
+                availableBooksViewModel.getAvailableExchangeOrderBooks()
+                //availableBooksViewModel.getAvailableExchangeOrderBooksRX()
             }
         } else {
             log("z0", "Orders books fetch local")

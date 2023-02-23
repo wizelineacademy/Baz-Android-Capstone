@@ -31,21 +31,7 @@ class AvailableBooksViewModel @Inject constructor(
 
     var availableBooksUpdatedFromRemote: Boolean = false
 
-    fun getBooksWithNoUseCase() {
-        viewModelScope.launch {
-            val response = remoteOrderBooksRepository.getBooksFromApi()
-            when (response) {
-                is BitsoApiResponseWrap.Success -> {
-                    if (response.response.success == true) {
-                        log(message = "Hi array of books:-> ${response.response.payload.toString()}")
-                    }
-                }
-                else -> {}
-            }
-        }
-    }
-
-    fun getExchangeOrderBooks() {
+    fun getAvailableExchangeOrderBooks() {
         viewModelScope.launch {
             val booksState = GetBooksUseCase(
                 remoteOrderBooksRepository,
@@ -54,13 +40,29 @@ class AvailableBooksViewModel @Inject constructor(
             when (booksState) {
                 is BooksScreenState.BooksSuccess -> {
                     availableBooksUpdatedFromRemote = true
-                    val stuff = booksState.data
-                    _books.postValue(stuff)
+                    val availableExchangeOrderBooks = booksState.data
+                    _books.postValue(availableExchangeOrderBooks)
                 }
                 is BooksScreenState.BooksErrorOrEmpty -> {
                     availableBooksUpdatedFromRemote = false
                     log(message = "some error ${booksState.message}")
                 }
+            }
+        }
+    }
+
+    fun getAvailableExchangeOrderBooksRX(){
+        GetBooksUseCase(
+            remoteOrderBooksRepository,
+            localOrderBookRepositoryImpl
+        ).callAvailableOrderBooksRX { state ->
+            if (state is BooksScreenState.BooksSuccess){
+                availableBooksUpdatedFromRemote = true
+                val availableExchangeOrderBooks = state.data
+                _books.postValue(availableExchangeOrderBooks)
+            } else{
+                availableBooksUpdatedFromRemote = false
+                log(message = "some error state.message")
             }
         }
     }

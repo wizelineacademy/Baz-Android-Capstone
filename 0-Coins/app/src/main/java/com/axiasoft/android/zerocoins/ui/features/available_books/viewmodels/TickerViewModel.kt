@@ -3,9 +3,7 @@ package com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.toDomain
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.ticker.Ticker
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.LocalOrderBookRepository
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.repositories.order_book.RemoteOrderBooksRepository
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.use_cases.GetListOrderBookUseCase
@@ -13,8 +11,6 @@ import com.axiasoft.android.zerocoins.ui.features.available_books.domain.use_cas
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.ListOrderBookScreenState
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_states.TickerScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Scheduler
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -98,21 +94,5 @@ class TickerViewModel @Inject constructor(
                 }
             }
         }
-    }
-
-
-    fun call(){
-        val sch = Schedulers.newThread()
-        val x = remoteOrderBooksRepository.getTickerFromApiObservable(book = selectedBookOrder.book ?: "")
-            .subscribeOn(sch)
-            .observeOn(sch)
-            .subscribe {
-                if (it.success == true) {
-                    val ticker = it.payload?.toDomain()
-                    tickerState.value = TickerScreenState.TickerSuccess(ticker ?: Ticker())
-                } else {
-
-                }
-            }
     }
 }

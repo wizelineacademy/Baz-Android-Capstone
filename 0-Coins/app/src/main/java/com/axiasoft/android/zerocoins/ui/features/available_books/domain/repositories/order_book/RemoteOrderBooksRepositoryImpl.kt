@@ -22,6 +22,16 @@ class RemoteOrderBooksRepositoryImpl(
         }
     }
 
+    override fun getAvailableOrderBookRX(): Observable<BitsoBaseResponse<ArrayList<ExchangeOrderBookResponse>>> {
+        return try {
+            bitsoOrderBooksApi.getAvailableOrderBooksRX()
+        } catch (ex: Exception){
+            Observable.just(
+                BitsoBaseResponse(success = false, error = BitsoErrorResponse(message = ex.message?:"", 0))
+            )
+        }
+    }
+
     override suspend fun getTickerFromApi(book: String): BitsoApiResponseWrap<BitsoBaseResponse<TickerResponse>> {
         return BitsoApiCallWrapper.callBitsoApiWrap(dispatcher = Dispatchers.IO){
             bitsoOrderBooksApi.getTicketsApi(book)
@@ -34,10 +44,9 @@ class RemoteOrderBooksRepositoryImpl(
         }
     }
 
-    override fun getTickerFromApiObservable(book: String): Observable<BitsoBaseResponse<TickerResponse>> {
+    override fun getTickerRX(book: String): Observable<BitsoBaseResponse<TickerResponse>> {
         return try {
-            log("z0", "WTF")
-            Observable.just(bitsoOrderBooksApi.getTickersApi(book))
+            bitsoOrderBooksApi.getTickersRXApi(book)
         } catch (ex: Exception){
             Observable.just(
                 BitsoBaseResponse(
