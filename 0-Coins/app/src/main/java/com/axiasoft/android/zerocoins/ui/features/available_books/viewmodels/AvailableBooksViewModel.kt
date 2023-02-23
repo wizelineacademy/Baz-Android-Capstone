@@ -1,5 +1,6 @@
 package com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,11 +21,15 @@ class AvailableBooksViewModel @Inject constructor(
     private val localOrderBookRepositoryImpl: LocalOrderBookRepository
 ) : ViewModel() {
 
-    val books: MutableLiveData<MutableList<ExchangeOrderBook>> by lazy {
+    private val _books: MutableLiveData<MutableList<ExchangeOrderBook>> by lazy {
         MutableLiveData<MutableList<ExchangeOrderBook>>()
     }
+    val books: LiveData<MutableList<ExchangeOrderBook>>
+    get() = _books
 
     var selectedBookOrder = ExchangeOrderBook()
+
+    var availableBooksUpdatedFromRemote: Boolean = false
 
     fun getBooksWithNoUseCase() {
         viewModelScope.launch {
@@ -48,10 +53,12 @@ class AvailableBooksViewModel @Inject constructor(
             ).invoke()
             when (booksState) {
                 is BooksScreenState.BooksSuccess -> {
+                    availableBooksUpdatedFromRemote = true
                     val stuff = booksState.data
-                    books.postValue(stuff)
+                    _books.postValue(stuff)
                 }
                 is BooksScreenState.BooksErrorOrEmpty -> {
+                    availableBooksUpdatedFromRemote = false
                     log(message = "some error ${booksState.message}")
                 }
             }
@@ -66,9 +73,11 @@ class AvailableBooksViewModel @Inject constructor(
             ).retrieveExchangeOrderBook()
             when (booksState) {
                 is BooksScreenState.BooksSuccess -> {
-                    books.postValue(booksState.data)
+                    availableBooksUpdatedFromRemote = false
+                    _books.postValue(booksState.data)
                 }
                 is BooksScreenState.BooksErrorOrEmpty -> {
+                    availableBooksUpdatedFromRemote = false
                     log(message = "some error ${booksState.message}")
                 }
             }

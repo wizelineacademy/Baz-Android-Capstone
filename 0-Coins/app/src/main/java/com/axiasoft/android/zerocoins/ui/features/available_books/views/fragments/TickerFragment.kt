@@ -30,8 +30,7 @@ class TickerFragment : Fragment() {
 
     lateinit var bookOrderViewModel: BookOrderViewModel
 
-    val tickerViewModel by viewModels<TickerViewModel>()//= ViewModelProvider(requireActivity()).get(TickerViewModel::class.java)
-
+    val tickerViewModel by viewModels<TickerViewModel>()
     private var _binding: FragmentTickerBinding? = null
     private val binding get() = _binding!!
 

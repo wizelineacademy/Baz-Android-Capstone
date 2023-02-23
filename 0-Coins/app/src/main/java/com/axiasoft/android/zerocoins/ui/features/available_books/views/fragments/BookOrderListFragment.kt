@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.axiasoft.android.zerocoins.R
@@ -20,7 +19,6 @@ import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.Ava
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BookOrderViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.adapters.BookOrderAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
@@ -81,25 +79,35 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
             }
         }
 
-        lifecycleScope.launch {
+        /*lifecycleScope.launch {
+        Cause call twice when back from other fragment
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 refreshData()
             }
+        }*/
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            refreshData()
         }
     }
 
     fun initUIListeners() {
         fragmentBinding.apply {
             fabRefresh.setOnClickListener {
-                refreshData()
+                refreshData(forceUpdate = true)
             }
         }
     }
 
-    fun refreshData() {
-        if (bookOrderViewModel.internetStatus.isNetworkAvailable()){
-            log("z0", "Orders books fetch remote")
-            availableBooksViewModel.getExchangeOrderBooks()
+    fun refreshData(forceUpdate: Boolean = false) {
+        if (bookOrderViewModel.internetStatus.isNetworkAvailable()) {
+            if (forceUpdate ||
+                (availableBooksViewModel.books.value.isNullOrEmpty() &&
+                        !availableBooksViewModel.availableBooksUpdatedFromRemote)
+            ) {
+                log("z0", "Orders books fetch remote")
+                availableBooksViewModel.getExchangeOrderBooks()
+            }
         } else {
             log("z0", "Orders books fetch local")
             availableBooksViewModel.getLocalExchangeOrderBooks()
