@@ -6,9 +6,12 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.wizelineandroid.core.Resource
 import com.example.wizelineandroid.repository.available.BooksRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Inject
 
-class booksViewModel (
+@HiltViewModel
+class BooksViewModel @Inject constructor(
     private val repo: BooksRepo
 ): ViewModel() {
 

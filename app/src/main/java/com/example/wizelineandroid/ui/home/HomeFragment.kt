@@ -11,26 +11,28 @@ import com.example.wizelineandroid.R
 import com.example.wizelineandroid.ui.adapter.home.HomeAdapter
 import com.example.wizelineandroid.core.Resource
 import com.example.wizelineandroid.core.RetrofitClient
-import com.example.wizelineandroid.data.local.BookEntity
+import com.example.wizelineandroid.data.local.entitys.BookEntity
 import com.example.wizelineandroid.data.remote.model.ModelBook
 import com.example.wizelineandroid.data.remote.BooksDataSource
 import com.example.wizelineandroid.databinding.FragmentHomeBinding
 import com.example.wizelineandroid.presentation.BookRoomViewModel
 import com.example.wizelineandroid.presentation.BookRoomViewModelFactory
 import com.example.wizelineandroid.presentation.BooksViewModelFactory
-import com.example.wizelineandroid.presentation.booksViewModel
-import com.example.wizelineandroid.repository.RoomApplication
+import com.example.wizelineandroid.presentation.BooksViewModel
+import com.example.wizelineandroid.RoomApplication
 import com.example.wizelineandroid.repository.available.BooksRepoImpl
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment: Fragment(R.layout.fragment_home), HomeAdapter.OnUserClickListener {
-    private val viewModel by viewModels<booksViewModel> { BooksViewModelFactory(
+    private val viewModel by viewModels<BooksViewModel> { BooksViewModelFactory(
         BooksRepoImpl(BooksDataSource(RetrofitClient.webService))
     ) }
     private lateinit var binding:FragmentHomeBinding
     private val viewModelRoom: BookRoomViewModel by activityViewModels {
         BookRoomViewModelFactory(
             (activity?.application as RoomApplication).database
-                .itemDao()
+                .bookDao()
         )
     }
 
@@ -40,6 +42,7 @@ class HomeFragment: Fragment(R.layout.fragment_home), HomeAdapter.OnUserClickLis
 
         viewModel.fetchBooks().observe(viewLifecycleOwner, Observer { result ->
             when(result){
+
                 is Resource.Loading -> {
                     binding.shimmerViewContainer.startShimmer()
                 }
@@ -56,8 +59,6 @@ class HomeFragment: Fragment(R.layout.fragment_home), HomeAdapter.OnUserClickLis
                     binding.rvCoins.adapter = HomeAdapter(entities,this)
                     binding.shimmerViewContainer.visibility = View.GONE
                     addNewItem(result.data.payload)
-
-
                 }
                 is Resource.Failure -> {
                     binding.shimmerViewContainer.stopShimmer()

@@ -4,11 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.wizelineandroid.data.local.dao.BookDao
+import com.example.wizelineandroid.data.local.dao.TickerDao
+import com.example.wizelineandroid.data.local.entitys.BookEntity
+import com.example.wizelineandroid.data.local.entitys.TickerEntity
 
-@Database(entities = [BookEntity::class], version = 2, exportSchema = false)
+@Database(entities = [BookEntity::class, TickerEntity::class], version = 3, exportSchema = false)
 abstract class BookRoomDataBase: RoomDatabase() {
 
-    abstract fun itemDao(): BookDao
+    abstract fun bookDao(): BookDao
+    abstract fun tickerDao(): TickerDao
+
 
     companion object {
         @Volatile

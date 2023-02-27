@@ -9,7 +9,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6f3ca75-be4c-4259-a263-b276afe7bb65" name="Changes" comment="- Uso de HttpLoggingInterceptor&#10;- Implementacion de User-Agent&#10;- Se reemplazan algunos deprecate&#10;- Imagen por defecto en monedas">
+    <list default="true" id="c6f3ca75-be4c-4259-a263-b276afe7bb65" name="Changes" comment="- Cambio de diseño en detalle de fragmento&#10;- Eliminacion de funciones&#10;- Cambio de nombre de BD">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/local/TickerEntity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/di/AppModule.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/presentation/TickerRoomViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" afterDir="false" />
@@ -17,11 +21,30 @@
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/Wizeline_Android.app.unitTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/Wizeline_Android.app.unitTest.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/core/RetrofitClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/core/RetrofitClient.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/local/BookDao.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/local/BookDao.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/local/BookEntity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/local/BookEntity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/local/BookRoomDataBase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/local/BookRoomDataBase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/remote/BooksDataSource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/remote/BooksDataSource.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/presentation/BookRoomViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/presentation/BookRoomViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/presentation/booksViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/presentation/BooksViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/RoomApplication.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/RoomApplication.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/available/BooksRepoImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/available/BooksRepoImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/ui/adapter/home/HomeAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/ui/adapter/home/HomeAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/ui/details/DetailsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/ui/details/DetailsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/ui/home/HomeFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/ui/home/HomeFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_details.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_details.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_order_books.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_order_books.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_row.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,10 +79,11 @@
       <list>
         <option value="Kotlin Sealed Class" />
         <option value="Kotlin File" />
-        <option value="Kotlin Data Class" />
         <option value="Kotlin Interface" />
-        <option value="Kotlin Class" />
         <option value="Kotlin Object" />
+        <option value="Class" />
+        <option value="Kotlin Data Class" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -101,6 +125,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.example.wizelineandroid" />
       <recent name="com.example.wizelineandroid.data.local.model" />
     </key>
   </component>
@@ -236,7 +261,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676650503257</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="- Cambio de diseño en detalle de fragmento&#10;- Eliminacion de funciones&#10;- Cambio de nombre de BD">
+      <created>1676653907270</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1676653907270</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -272,6 +304,7 @@
     <MESSAGE value="- Se configura room&#10;- Se realiza la conexion de room&#10;- Se almacenan los datos en la BD" />
     <MESSAGE value="- Se utiliza room para la persistencia de datos&#10;- Mostrar datos desde la BD" />
     <MESSAGE value="- Uso de HttpLoggingInterceptor&#10;- Implementacion de User-Agent&#10;- Se reemplazan algunos deprecate&#10;- Imagen por defecto en monedas" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Uso de HttpLoggingInterceptor&#10;- Implementacion de User-Agent&#10;- Se reemplazan algunos deprecate&#10;- Imagen por defecto en monedas" />
+    <MESSAGE value="- Cambio de diseño en detalle de fragmento&#10;- Eliminacion de funciones&#10;- Cambio de nombre de BD" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Cambio de diseño en detalle de fragmento&#10;- Eliminacion de funciones&#10;- Cambio de nombre de BD" />
   </component>
 </project>

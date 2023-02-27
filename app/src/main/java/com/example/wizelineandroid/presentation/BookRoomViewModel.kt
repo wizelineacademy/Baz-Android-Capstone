@@ -1,8 +1,8 @@
 package com.example.wizelineandroid.presentation
 
 import androidx.lifecycle.*
-import com.example.wizelineandroid.data.local.BookDao
-import com.example.wizelineandroid.data.local.BookEntity
+import com.example.wizelineandroid.data.local.dao.BookDao
+import com.example.wizelineandroid.data.local.entitys.BookEntity
 import com.example.wizelineandroid.data.remote.model.ModelBook
 import kotlinx.coroutines.launch
 import javax.inject.Singleton
@@ -10,7 +10,6 @@ import javax.inject.Singleton
 class BookRoomViewModel(private val bookDao: BookDao): ViewModel() {
 
     val allBooks: LiveData<List<BookEntity>> = bookDao.getBooks().asLiveData()
-
 
     private fun insertItem(bookEntity: List<BookEntity>) {
         viewModelScope.launch {

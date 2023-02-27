@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Wizeline Android</string>
+    <string name="app_name">Criptomonedas</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ultimo_precio">Último precio</string>
@@ -8,4 +8,11 @@
     <string name="coin">coin</string>
     <string name="book">book:</string>
     <string name="bids">Bids</string>
+    <string name="precio_minimo">Precio minimo:</string>
+    <string name="nombre">Nombre</string>
+    <string name="precio_maximo">Precio maximo:</string>
+    <string name="precio">precio:</string>
+    <string name="cantidad">cantidad:</string>
+    <string name="libro">libro:</string>
+    <string name="ask">Ask</string>
 </resources>

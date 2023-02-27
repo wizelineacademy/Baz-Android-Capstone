@@ -1,4 +1,4 @@
-package com.example.wizelineandroid.data.local
+package com.example.wizelineandroid.data.local.entitys
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -15,3 +15,5 @@ data class BookEntity(
     @ColumnInfo(name = "maximum price")
     val maximum_price: String = ""
 )
+
+
