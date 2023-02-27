@@ -11,7 +11,7 @@ import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_state
 
 class GetTickerUseCase(
     private val remoteOrderBooksRepository: RemoteOrderBooksRepository,
-    private val localOrderBookRepository: LocalOrderBookRepository,
+    private val localOrderBookRepository: LocalOrderBookRepository
 ) {
     suspend fun invoke(book: ExchangeOrderBook): TickerScreenState {
         val tickerWrappedResponse = remoteOrderBooksRepository.getTickerFromApi(book.book ?: "")
@@ -24,7 +24,7 @@ class GetTickerUseCase(
                     TickerScreenState.TickerSuccess(tickerDomain)
                 } else {
                     TickerScreenState.TickerError(
-                        tickerWrappedResponse.response.error?.message ?: "",
+                        tickerWrappedResponse.response.error?.message ?: ""
                     )
                 }
             }

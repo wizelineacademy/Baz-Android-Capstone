@@ -8,7 +8,7 @@ import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.
 interface LocalOrderBookRepository {
 
     suspend fun storeAvailableExchangeOrderBooks(
-        availableExchangeOrderBook: ArrayList<ExchangeOrderBook>,
+        availableExchangeOrderBook: ArrayList<ExchangeOrderBook>
     )
 
     suspend fun retrieveExchangeOrderBooks(): ArrayList<ExchangeOrderBook>

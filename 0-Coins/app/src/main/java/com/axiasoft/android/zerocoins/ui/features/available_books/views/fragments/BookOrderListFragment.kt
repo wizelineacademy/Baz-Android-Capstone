@@ -45,7 +45,7 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         fragmentBinding = FragmentBookOrderListBinding.inflate(inflater, container, false)
         fragmentBinding.list.apply {

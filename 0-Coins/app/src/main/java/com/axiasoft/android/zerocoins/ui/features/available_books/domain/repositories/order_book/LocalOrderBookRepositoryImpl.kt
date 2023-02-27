@@ -14,13 +14,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class LocalOrderBookRepositoryImpl(
-    private val db: ZeroCoinAppDatabase,
+    private val db: ZeroCoinAppDatabase
 ) : LocalOrderBookRepository {
 
     val scope = CoroutineScope(Dispatchers.IO)
 
     override suspend fun storeAvailableExchangeOrderBooks(
-        availableExchangeOrderBook: ArrayList<ExchangeOrderBook>,
+        availableExchangeOrderBook: ArrayList<ExchangeOrderBook>
     ) {
         withContext(Dispatchers.IO) {
             try {

@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
             object : Callback<List<Device>> {
                 override fun onResponse(
                     call: Call<List<Device>>,
-                    response: Response<List<Device>>,
+                    response: Response<List<Device>>
                 ) {
                     log("z0", response.body().toString())
                 }
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<List<Device>>, t: Throwable) {
                     log("z0", "meh")
                 }
-            },
+            }
         )
 
        /*runOnUiThread {

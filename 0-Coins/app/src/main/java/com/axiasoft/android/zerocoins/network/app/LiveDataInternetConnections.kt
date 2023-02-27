@@ -14,7 +14,7 @@ class InternetConnectionAvailableLiveData(private val connectivityManager: Conne
     LiveData<Boolean>() {
 
     constructor(appContext: Application = ZeroCoinsApplication.appContext as Application) : this(
-        appContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager,
+        appContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     )
 
     fun isNetworkAvailable(): Boolean {
@@ -45,7 +45,7 @@ class InternetConnectionAvailableLiveData(private val connectivityManager: Conne
 
         override fun onCapabilitiesChanged(
             network: Network,
-            networkCapabilities: NetworkCapabilities,
+            networkCapabilities: NetworkCapabilities
         ) {
             super.onCapabilitiesChanged(network, networkCapabilities)
             val internetAvailable = validateNetworkAvailability(networkCapabilities)

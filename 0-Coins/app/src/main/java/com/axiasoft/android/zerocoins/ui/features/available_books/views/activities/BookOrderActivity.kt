@@ -49,7 +49,7 @@ class BookOrderActivity : AppCompatActivity() {
         val snackBar = Snackbar.make(
             binding.root,
             getString(R.string.internet_status_no_internet_data_warning),
-            Snackbar.LENGTH_INDEFINITE,
+            Snackbar.LENGTH_INDEFINITE
         )
         snackBar.setAction(android.R.string.ok) {
             snackBar.dismiss()

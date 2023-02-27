@@ -45,7 +45,7 @@ class TickerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTickerBinding.inflate(inflater, container, false)
         return binding.root
@@ -97,7 +97,7 @@ class TickerFragment : Fragment() {
                     Toast.makeText(
                         requireContext(),
                         "No hay datos bids and asks",
-                        Toast.LENGTH_SHORT,
+                        Toast.LENGTH_SHORT
                     ).show()
                     clearData()
                 }
@@ -139,7 +139,7 @@ class TickerFragment : Fragment() {
                     findNavController().popBackStack()
                     clearData()
                 }
-            },
+            }
         )
     }
 

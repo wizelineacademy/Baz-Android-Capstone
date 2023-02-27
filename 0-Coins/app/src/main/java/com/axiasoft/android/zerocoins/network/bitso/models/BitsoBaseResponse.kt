@@ -5,8 +5,11 @@ import com.google.gson.annotations.SerializedName
 
 data class BitsoBaseResponse<T> (
     // Response OK
-    @SerializedName("success") @Expose val success: Boolean?,
-    @SerializedName("payload") @Expose val payload: T? = null,
+    @SerializedName("success") @Expose
+    val success: Boolean?,
+    @SerializedName("payload") @Expose
+    val payload: T? = null,
     // Response Error
-    @SerializedName("error") @Expose val error: BitsoErrorResponse? = null,
+    @SerializedName("error") @Expose
+    val error: BitsoErrorResponse? = null
 )

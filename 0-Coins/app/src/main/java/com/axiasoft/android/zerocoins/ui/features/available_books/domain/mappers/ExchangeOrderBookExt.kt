@@ -12,7 +12,7 @@ fun ExchangeOrderBookEntity.toDomain(): ExchangeOrderBook {
         minimumPrice = minimumPrice,
         maximumPrice = maximumPrice,
         minimumValue = minimumValue,
-        maximumValue = maximumValue,
+        maximumValue = maximumValue
     )
 }
 
@@ -24,7 +24,7 @@ fun ExchangeOrderBookResponse.toDomain(): ExchangeOrderBook {
         minimumPrice = minimumPrice,
         maximumPrice = maximumPrice,
         minimumValue = minimumValue,
-        maximumValue = maximumValue,
+        maximumValue = maximumValue
     )
 }
 
@@ -36,6 +36,6 @@ fun ExchangeOrderBook.toEntity(): ExchangeOrderBookEntity {
         minimumPrice = minimumPrice,
         maximumPrice = maximumPrice,
         minimumValue = minimumValue,
-        maximumValue = maximumValue,
+        maximumValue = maximumValue
     )
 }

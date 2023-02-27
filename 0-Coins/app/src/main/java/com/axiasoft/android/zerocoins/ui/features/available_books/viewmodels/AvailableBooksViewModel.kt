@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AvailableBooksViewModel @Inject constructor(
     private val remoteOrderBooksRepository: RemoteOrderBooksRepository,
-    private val localOrderBookRepositoryImpl: LocalOrderBookRepository,
+    private val localOrderBookRepositoryImpl: LocalOrderBookRepository
 ) : ViewModel() {
 
     private val _books: MutableLiveData<MutableList<ExchangeOrderBook>> by lazy {
@@ -34,7 +34,7 @@ class AvailableBooksViewModel @Inject constructor(
         viewModelScope.launch {
             val booksState = GetBooksUseCase(
                 remoteOrderBooksRepository,
-                localOrderBookRepositoryImpl,
+                localOrderBookRepositoryImpl
             ).invoke()
             when (booksState) {
                 is BooksScreenState.BooksSuccess -> {
@@ -53,7 +53,7 @@ class AvailableBooksViewModel @Inject constructor(
     fun getAvailableExchangeOrderBooksRX() {
         GetBooksUseCase(
             remoteOrderBooksRepository,
-            localOrderBookRepositoryImpl,
+            localOrderBookRepositoryImpl
         ).callAvailableOrderBooksRX { state ->
             if (state is BooksScreenState.BooksSuccess) {
                 availableBooksUpdatedFromRemote = true
@@ -70,7 +70,7 @@ class AvailableBooksViewModel @Inject constructor(
         viewModelScope.launch {
             val booksState = GetBooksUseCase(
                 remoteOrderBooksRepository,
-                localOrderBookRepositoryImpl,
+                localOrderBookRepositoryImpl
             ).retrieveExchangeOrderBook()
             when (booksState) {
                 is BooksScreenState.BooksSuccess -> {

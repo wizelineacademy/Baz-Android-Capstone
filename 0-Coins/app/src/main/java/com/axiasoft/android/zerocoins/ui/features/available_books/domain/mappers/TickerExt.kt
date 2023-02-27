@@ -15,7 +15,7 @@ fun TickerResponse.toDomain(): Ticker {
         low = this.low,
         ask = this.ask,
         bid = this.bid,
-        change24 = this.change24,
+        change24 = this.change24
     )
 }
 
@@ -30,7 +30,7 @@ fun Ticker.toEntity(): TickerEntity {
         low = this.low,
         ask = this.ask,
         bid = this.bid,
-        change24 = this.change24,
+        change24 = this.change24
     )
 }
 
@@ -45,6 +45,6 @@ fun TickerEntity.toDomain(): Ticker {
         low = this.low,
         ask = this.ask,
         bid = this.bid,
-        change24 = this.change24,
+        change24 = this.change24
     )
 }

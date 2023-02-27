@@ -11,5 +11,5 @@ data class NetworkError(
 
     @SerializedName("error_body")
     @Expose
-    var errorBody: String? = null,
+    var errorBody: String? = null
 )

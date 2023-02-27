@@ -3,5 +3,5 @@ package com.axiasoft.android.zerocoins.ui.features.available_books.domain.models
 data class Bids(
     override var book: String?,
     override var price: String?,
-    override var amount: String?,
+    override var amount: String?
 ) : OpenOrder

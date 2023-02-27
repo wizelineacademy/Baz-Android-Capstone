@@ -18,6 +18,6 @@ data class TickerEntity(
     @ColumnInfo("low") var low: String? = null,
     @ColumnInfo("ask") var ask: String? = null,
     @ColumnInfo("bid") var bid: String? = null,
-    @ColumnInfo("change_24") var change24: String? = null,
+    @ColumnInfo("change_24") var change24: String? = null
     // @ColumnInfo("rolling_average_change" ) var rollingAverageChange : HashMap<String, String>? = null
 )

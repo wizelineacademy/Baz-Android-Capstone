@@ -8,5 +8,5 @@ import com.axiasoft.android.zerocoins.db.ASK_TB_NAME
 data class AskEntity(
     @ColumnInfo("book") var book: String = "",
     @ColumnInfo("price") var price: String = "",
-    @ColumnInfo("amount") var amount: String = "",
+    @ColumnInfo("amount") var amount: String = ""
 )
