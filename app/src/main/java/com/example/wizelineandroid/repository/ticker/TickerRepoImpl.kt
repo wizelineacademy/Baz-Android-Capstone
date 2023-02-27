@@ -1,6 +1,6 @@
 package com.example.wizelineandroid.repository.ticker
 
-import com.example.wizelineandroid.data.model.GetTickers
+import com.example.wizelineandroid.data.remote.model.GetTickers
 import com.example.wizelineandroid.data.remote.BooksDataSource
 
 class TickerRepoImpl(private val dataSource: BooksDataSource): TickerRepo {

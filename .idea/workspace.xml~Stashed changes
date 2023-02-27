@@ -9,7 +9,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6f3ca75-be4c-4259-a263-b276afe7bb65" name="Changes" comment="- Uso de HttpLoggingInterceptor&#10;- Implementacion de User-Agent&#10;- Se reemplazan algunos deprecate&#10;- Imagen por defecto en monedas">
+    <list default="true" id="c6f3ca75-be4c-4259-a263-b276afe7bb65" name="Changes" comment="Actualizacion primer entregable&#10;- Se agregan imagenes de forma dinamica&#10;- Se eliminan LOGS&#10;- se eliminan archivos png">
+      <change afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/local/BookDao.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/local/BookEntity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/local/BookRoomDataBase.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/presentation/BookRoomViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/RoomApplication.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" afterDir="false" />
@@ -17,11 +24,28 @@
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/local/BookDao.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/local/BookDao.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/local/BookRoomDataBase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/local/BookRoomDataBase.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_details.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_details.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/adapter/detail/AskAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/ui/adapter/detail/AskAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/adapter/detail/BidsAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/ui/adapter/detail/BidsAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/adapter/home/HomeAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/ui/adapter/home/HomeAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/model/Books.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/remote/model/Books.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/remote/BooksDataSource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/data/remote/BooksDataSource.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/presentation/booksViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/presentation/booksViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/WebService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/WebService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/available/BooksRepo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/available/BooksRepo.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/available/BooksRepoImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/available/BooksRepoImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/order/OrderBookRepo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/order/OrderBookRepo.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/order/OrderBookRepoImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/order/OrderBookRepoImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/ticker/TickerRepo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/ticker/TickerRepo.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/ticker/TickerRepoImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/repository/ticker/TickerRepoImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/ui/details/DetailsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/ui/details/DetailsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/ui/home/HomeFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wizelineandroid/ui/home/HomeFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,11 +79,11 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin Sealed Class" />
+        <option value="Kotlin Object" />
         <option value="Kotlin File" />
         <option value="Kotlin Data Class" />
         <option value="Kotlin Interface" />
         <option value="Kotlin Class" />
-        <option value="Kotlin Object" />
       </list>
     </option>
   </component>
@@ -78,9 +102,6 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
-  </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/app/build.gradle" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -215,28 +236,7 @@
       <option name="project" value="LOCAL" />
       <updated>1675446028940</updated>
     </task>
-    <task id="LOCAL-00005" summary="- Se configura room&#10;- Se realiza la conexion de room&#10;- Se almacenan los datos en la BD">
-      <created>1676503405603</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1676503405603</updated>
-    </task>
-    <task id="LOCAL-00006" summary="- Se utiliza room para la persistencia de datos&#10;- Mostrar datos desde la BD">
-      <created>1676569477636</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1676569477636</updated>
-    </task>
-    <task id="LOCAL-00007" summary="- Uso de HttpLoggingInterceptor&#10;- Implementacion de User-Agent&#10;- Se reemplazan algunos deprecate&#10;- Imagen por defecto en monedas">
-      <created>1676650503257</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1676650503257</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -269,9 +269,6 @@
     <MESSAGE value="-Se cambia proyecto a compose" />
     <MESSAGE value="- Se estructura proyecto&#10;- Se agregan modelos de datos&#10;- Se agrega DataSource&#10;- Se crea Web service &#10;- Se crean repositorios por servicio&#10;- Se crean ViewModel por servicio&#10;- Se crean adapters para Home y listas en Detail&#10;- Se agregan los fragments Home y Detail&#10;- Se implementa viewModel en UI&#10;- Se agrega estilo" />
     <MESSAGE value="Actualizacion primer entregable&#10;- Se agregan imagenes de forma dinamica&#10;- Se eliminan LOGS&#10;- se eliminan archivos png" />
-    <MESSAGE value="- Se configura room&#10;- Se realiza la conexion de room&#10;- Se almacenan los datos en la BD" />
-    <MESSAGE value="- Se utiliza room para la persistencia de datos&#10;- Mostrar datos desde la BD" />
-    <MESSAGE value="- Uso de HttpLoggingInterceptor&#10;- Implementacion de User-Agent&#10;- Se reemplazan algunos deprecate&#10;- Imagen por defecto en monedas" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Uso de HttpLoggingInterceptor&#10;- Implementacion de User-Agent&#10;- Se reemplazan algunos deprecate&#10;- Imagen por defecto en monedas" />
+    <option name="LAST_COMMIT_MESSAGE" value="Actualizacion primer entregable&#10;- Se agregan imagenes de forma dinamica&#10;- Se eliminan LOGS&#10;- se eliminan archivos png" />
   </component>
 </project>

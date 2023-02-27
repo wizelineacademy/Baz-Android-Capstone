@@ -1,4 +1,4 @@
-package com.example.wizelineandroid.data.model
+package com.example.wizelineandroid.data.remote.model
 
 import android.graphics.drawable.Drawable
 

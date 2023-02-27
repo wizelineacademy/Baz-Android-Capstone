@@ -1,5 +1,6 @@
-package com.example.wizelineandroid.adapter.home
+package com.example.wizelineandroid.ui.adapter.home
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,27 +9,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.wizelineandroid.R
 import com.example.wizelineandroid.core.BaseViewHolder
-import com.example.wizelineandroid.data.model.ModelBook
+import com.example.wizelineandroid.data.local.BookEntity
 import com.example.wizelineandroid.databinding.ItemRowBinding
 
-class HomeAdapter(private val booksList: List<ModelBook>, private val itemClickListener: onUserClickListener): RecyclerView.Adapter<BaseViewHolder<*>>() {
+class HomeAdapter(private val booksList: List<BookEntity>, private val itemClickListener: OnUserClickListener)
+    : RecyclerView.Adapter<BaseViewHolder<*>>() {
 
-    interface onUserClickListener{
-        fun onBookClick(book: ModelBook)
+    interface OnUserClickListener{
+        fun onBookClick(book: BookEntity)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         val itembinding = ItemRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val holder = MainViewHolder(itembinding, parent.context)
 
-        // el click para cada pelicula
         itembinding.root.setOnClickListener {
-            val position = holder.adapterPosition.takeIf { it != DiffUtil.DiffResult.NO_POSITION }
+            val position = holder.bindingAdapterPosition.takeIf { it != DiffUtil.DiffResult.NO_POSITION }
                 ?:return@setOnClickListener
             itemClickListener.onBookClick(booksList[position])
         }
         return holder
-
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
@@ -39,13 +39,16 @@ class HomeAdapter(private val booksList: List<ModelBook>, private val itemClickL
 
     override fun getItemCount(): Int = booksList.size
 
-    inner class MainViewHolder(val binding : ItemRowBinding, val context: Context): BaseViewHolder<ModelBook>(binding.root){
-        override fun bind(item: ModelBook){
-            binding.txtn.text = item.book
-            val imgCoin = item.book.split("_")
+    inner class MainViewHolder(val binding : ItemRowBinding, val context: Context): BaseViewHolder<BookEntity>(binding.root){
+        @SuppressLint("SetTextI18n")
+        override fun bind(item: BookEntity){
+            val imgCoin = item.itemName.split("_")
+            binding.txtn.text = "${imgCoin[0].uppercase()} - ${imgCoin[1].uppercase()}"
             binding.txtPminimo.text = item.minimum_price
             binding.txtPmaximo.text = item.maximum_price
-            context.let { Glide.with(it).load("https://cryptoicons.org/api/icon/${imgCoin[0]}/200").centerCrop().into(binding.circleImageView) }
+            context.let { Glide.with(it).load("https://cryptoicons.org/api/icon/${imgCoin[0]}/200").error(
+                R.drawable.ic_baseline_image_24) .centerCrop().into(binding.circleImageView) }
+
         }
     }
 }
