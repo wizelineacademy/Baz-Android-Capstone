@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.axiasoft.android.zerocoins.R
@@ -44,8 +43,9 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         fragmentBinding = FragmentBookOrderListBinding.inflate(inflater, container, false)
         fragmentBinding.list.apply {
@@ -101,12 +101,14 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
     fun refreshData(forceUpdate: Boolean = false) {
         if (bookOrderViewModel.internetStatus.isNetworkAvailable()) {
             if (forceUpdate ||
-                (availableBooksViewModel.books.value.isNullOrEmpty() &&
-                        !availableBooksViewModel.availableBooksUpdatedFromRemote)
+                (
+                    availableBooksViewModel.books.value.isNullOrEmpty() &&
+                        !availableBooksViewModel.availableBooksUpdatedFromRemote
+                    )
             ) {
                 log("z0", "Orders books fetch remote")
-                availableBooksViewModel.getAvailableExchangeOrderBooks()
-                //availableBooksViewModel.getAvailableExchangeOrderBooksRX()
+                // availableBooksViewModel.getAvailableExchangeOrderBooks()
+                availableBooksViewModel.getAvailableExchangeOrderBooksRX()
             }
         } else {
             log("z0", "Orders books fetch local")

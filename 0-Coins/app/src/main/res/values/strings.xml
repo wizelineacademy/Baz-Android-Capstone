@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">Zero-Coins</string>
+    <string name="app_name">0-Coins</string>
     <string name="book_order_name_btc_mxn">Bitcoin a MXN</string>
     <string name="book_order_name_eth_btc">Ethereum a Bitcoin</string>
     <string name="book_order_name_eth_mxn">Ethereum a MXN</string>
     <string name="book_order_name_xrp_btc">Ripple a Bitcoin</string>
+    <string name="book_order_name_any_any">Cambio sin nombre definido</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

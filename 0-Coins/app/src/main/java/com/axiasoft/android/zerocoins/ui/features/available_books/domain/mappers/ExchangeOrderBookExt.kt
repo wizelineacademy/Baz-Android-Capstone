@@ -1,7 +1,7 @@
 package com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers
 
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.entity.ExchangeOrderBookEntity
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.entity.ExchangeOrderBookEntity
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.response.ExchangeOrderBookResponse
 
 fun ExchangeOrderBookEntity.toDomain(): ExchangeOrderBook {
@@ -12,7 +12,7 @@ fun ExchangeOrderBookEntity.toDomain(): ExchangeOrderBook {
         minimumPrice = minimumPrice,
         maximumPrice = maximumPrice,
         minimumValue = minimumValue,
-        maximumValue = maximumValue
+        maximumValue = maximumValue,
     )
 }
 
@@ -24,11 +24,11 @@ fun ExchangeOrderBookResponse.toDomain(): ExchangeOrderBook {
         minimumPrice = minimumPrice,
         maximumPrice = maximumPrice,
         minimumValue = minimumValue,
-        maximumValue = maximumValue
+        maximumValue = maximumValue,
     )
 }
 
-fun ExchangeOrderBook.toEntity(): ExchangeOrderBookEntity{
+fun ExchangeOrderBook.toEntity(): ExchangeOrderBookEntity {
     return ExchangeOrderBookEntity(
         book = book ?: "",
         minimumAmount = minimumAmount,
@@ -36,5 +36,6 @@ fun ExchangeOrderBook.toEntity(): ExchangeOrderBookEntity{
         minimumPrice = minimumPrice,
         maximumPrice = maximumPrice,
         minimumValue = minimumValue,
-        maximumValue = maximumValue)
+        maximumValue = maximumValue,
+    )
 }

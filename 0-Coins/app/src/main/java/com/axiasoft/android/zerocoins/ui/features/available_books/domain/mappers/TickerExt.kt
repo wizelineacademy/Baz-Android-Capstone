@@ -4,7 +4,7 @@ import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.ticker.entity.TickerEntity
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.ticker.response.TickerResponse
 
-fun TickerResponse.toDomain(): Ticker{
+fun TickerResponse.toDomain(): Ticker {
     return Ticker(
         book = this.book ?: "",
         high = this.high,
@@ -15,11 +15,11 @@ fun TickerResponse.toDomain(): Ticker{
         low = this.low,
         ask = this.ask,
         bid = this.bid,
-        change24 = this.change24
+        change24 = this.change24,
     )
 }
 
-fun Ticker.toEntity(): TickerEntity{
+fun Ticker.toEntity(): TickerEntity {
     return TickerEntity(
         book = this.book ?: "",
         high = this.high,
@@ -30,12 +30,11 @@ fun Ticker.toEntity(): TickerEntity{
         low = this.low,
         ask = this.ask,
         bid = this.bid,
-        change24 = this.change24
+        change24 = this.change24,
     )
 }
 
-
-fun TickerEntity.toDomain(): Ticker{
+fun TickerEntity.toDomain(): Ticker {
     return Ticker(
         book = this.book,
         high = this.high,
@@ -46,6 +45,6 @@ fun TickerEntity.toDomain(): Ticker{
         low = this.low,
         ask = this.ask,
         bid = this.bid,
-        change24 = this.change24
+        change24 = this.change24,
     )
 }

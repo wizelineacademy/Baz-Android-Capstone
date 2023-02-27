@@ -4,10 +4,10 @@ import com.axiasoft.android.zerocoins.BuildConfig
 import com.axiasoft.android.zerocoins.network.apis.CoinApis
 import com.axiasoft.android.zerocoins.network.bitso.security.BitsoInterceptor
 import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 abstract class HttpConnectionManager<T : Any>(var coinApi: CoinApis) {
 
@@ -21,7 +21,7 @@ abstract class HttpConnectionManager<T : Any>(var coinApi: CoinApis) {
         }
     }
 
-    val httpClient = when(coinApi){
+    val httpClient = when (coinApi) {
         CoinApis.BITSO -> {
             Retrofit.Builder()
                 .baseUrl(CoinApis.BITSO.hostUrl)
@@ -31,7 +31,7 @@ abstract class HttpConnectionManager<T : Any>(var coinApi: CoinApis) {
                     OkHttpClient().newBuilder()
                         .addInterceptor(BitsoInterceptor())
                         .addInterceptor(loggingInterceptor)
-                    .build()
+                        .build(),
                 ).build()
         }
         CoinApis.RESTFUL_API -> {
@@ -41,9 +41,9 @@ abstract class HttpConnectionManager<T : Any>(var coinApi: CoinApis) {
                 .client(
                     OkHttpClient().newBuilder()
                         .addInterceptor(loggingInterceptor)
-                        //.addInterceptor(BitsoInterceptor())
-                        //.addNetworkInterceptor(GSSCHeadersInterceptorAWSS3())
-                        .build()
+                        // .addInterceptor(BitsoInterceptor())
+                        // .addNetworkInterceptor(GSSCHeadersInterceptorAWSS3())
+                        .build(),
                 ).build()
         }
 
@@ -53,9 +53,6 @@ abstract class HttpConnectionManager<T : Any>(var coinApi: CoinApis) {
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(OkHttpClient().newBuilder().build())
                 .build()
-
         }
     }
-
-
 }

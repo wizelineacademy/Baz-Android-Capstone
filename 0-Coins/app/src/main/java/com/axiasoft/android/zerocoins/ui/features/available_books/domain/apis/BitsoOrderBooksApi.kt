@@ -33,7 +33,6 @@ interface BitsoOrderBooksApi {
         @Query(AGGREGATE_PARAM_NAME) aggregate: Boolean = true,
     ): BitsoBaseResponse<ListOrderBookResponse>
 
-
     class Builder : HttpConnectionManager<BitsoOrderBooksApi>(CoinApis.BITSO) {
         override fun build(): BitsoOrderBooksApi {
             return httpClient.create(BitsoOrderBooksApi::class.java)

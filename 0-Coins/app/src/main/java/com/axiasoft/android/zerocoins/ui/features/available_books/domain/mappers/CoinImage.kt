@@ -27,15 +27,14 @@ enum class CoinNameAndImage(val coinName: String, val coinImage: Int, val coinKe
     bat_mxn(coinName = "bat_mxn", coinImage = R.drawable.ic_cryptocurrency, coinKey = "bat_mxn"),
     btc_ars(coinName = "btc_ars", coinImage = R.drawable.ic_btc, coinKey = "btc_ars"),
 
-
     eth_usd(coinName = "eth_usd", coinImage = R.drawable.ic_ethereum, coinKey = "eth_usd"),
     dai_ars(coinName = "dai_ars", coinImage = R.drawable.ic_btc, coinKey = "dai_ars"),
     btc_brl(coinName = "btc_brl", coinImage = R.drawable.ic_btc, coinKey = "btc_brl"),
     eth_ars(coinName = "eth_ars", coinImage = R.drawable.ic_ethereum, coinKey = "eth_ars"),
 
-    any_any("crypto", coinImage = R.drawable.ic_ldoge, coinKey = "any_any")
+    any_any("crypto", coinImage = R.drawable.ic_ldoge, coinKey = "any_any"),
 }
 
-fun getStringRes(id: Int): String{
+fun getStringRes(id: Int): String {
     return ZeroCoinsApplication.appContext.getString(id)
 }

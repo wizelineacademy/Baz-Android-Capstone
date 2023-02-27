@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 
 class GetBooksUseCase(
     private val remoteOrderBooksRepository: RemoteOrderBooksRepository,
-    private val localOrderBookRepository: LocalOrderBookRepository
+    private val localOrderBookRepository: LocalOrderBookRepository,
 ) {
     suspend operator fun invoke(): BooksScreenState {
         val booksWrappedResponse = remoteOrderBooksRepository.getBooksFromApi()
@@ -29,7 +29,7 @@ class GetBooksUseCase(
                     BooksScreenState.BooksErrorOrEmpty()
                 } else {
                     val availableExchangeOrderBooks = ArrayList(
-                        booksArray.map { it.toDomain() }
+                        booksArray.map { it.toDomain() },
                     )
                     updateDBAvailableExchangeOrderBook(availableExchangeOrderBooks)
                     BooksScreenState.BooksSuccess(availableExchangeOrderBooks)

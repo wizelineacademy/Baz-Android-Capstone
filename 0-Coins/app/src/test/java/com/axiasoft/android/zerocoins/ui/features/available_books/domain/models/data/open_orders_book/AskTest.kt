@@ -1,10 +1,9 @@
 package com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book
 
 import org.junit.Assert.*
-
 import org.junit.Test
 
-//Using generate
+// Using generate
 class AskTest {
 
     @Test

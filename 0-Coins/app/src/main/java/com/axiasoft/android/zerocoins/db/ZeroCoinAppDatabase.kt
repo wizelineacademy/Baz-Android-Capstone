@@ -25,8 +25,9 @@ const val TICKER_TB_NAME = "ticker_table"
         ExchangeOrderBookEntity::class,
         AskEntity::class,
         BidsEntity::class,
-        TickerEntity::class
-    ], version = 1
+        TickerEntity::class,
+    ],
+    version = 1,
 )
 abstract class ZeroCoinAppDatabase : RoomDatabase() {
     abstract fun bookDao(): ExchangeOrderBookDao
@@ -38,14 +39,14 @@ abstract class ZeroCoinAppDatabase : RoomDatabase() {
 private lateinit var INSTANCE: ZeroCoinAppDatabase
 
 fun getDatabase(
-    context: Context = ZeroCoinsApplication.appContext
+    context: Context = ZeroCoinsApplication.appContext,
 ): ZeroCoinAppDatabase {
     synchronized(ZeroCoinAppDatabase::class.java) {
         if (!::INSTANCE.isInitialized) {
             INSTANCE = Room.databaseBuilder(
                 context.applicationContext,
                 ZeroCoinAppDatabase::class.java,
-                DB_NAME_Z0
+                DB_NAME_Z0,
             ).build()
         }
     }

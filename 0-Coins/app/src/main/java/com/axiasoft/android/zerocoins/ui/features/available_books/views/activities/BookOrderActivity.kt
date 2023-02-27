@@ -3,21 +3,15 @@ package com.axiasoft.android.zerocoins.ui.features.available_books.views.activit
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
-import androidx.lifecycle.whenCreated
 import com.axiasoft.android.zerocoins.R
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.databinding.ActivityBookOrderBinding
-import com.axiasoft.android.zerocoins.network.app.InternetConnectionAvailableLiveData
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BookOrderViewModel
-import com.axiasoft.android.zerocoins.ui.features.available_books.views.fragments.BookOrderListFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BookOrderActivity : AppCompatActivity() {
@@ -29,15 +23,17 @@ class BookOrderActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityBookOrderBinding.inflate(layoutInflater)
 
+        supportActionBar?.title = "My Activity title"
+
         setContentView(binding.root)
 
-        bookOrderViewModel.internetStatus.observe(this){ isConnected ->
+        bookOrderViewModel.internetStatus.observe(this) { isConnected ->
             log("z0", "internetStatus observer isConnected $isConnected")
             if (!isConnected) {
                 showNoInternetSnackBar()
             }
         }
-        if (!bookOrderViewModel.internetStatus.isNetworkAvailable()){
+        if (!bookOrderViewModel.internetStatus.isNetworkAvailable()) {
             showNoInternetSnackBar()
         }
         /*lifecycleScope.launch {
@@ -49,10 +45,11 @@ class BookOrderActivity : AppCompatActivity() {
         }*/
     }
 
-    fun showNoInternetSnackBar(){
+    fun showNoInternetSnackBar() {
         val snackBar = Snackbar.make(
-            binding.root, getString(R.string.internet_status_no_internet_data_warning),
-            Snackbar.LENGTH_INDEFINITE
+            binding.root,
+            getString(R.string.internet_status_no_internet_data_warning),
+            Snackbar.LENGTH_INDEFINITE,
         )
         snackBar.setAction(android.R.string.ok) {
             snackBar.dismiss()

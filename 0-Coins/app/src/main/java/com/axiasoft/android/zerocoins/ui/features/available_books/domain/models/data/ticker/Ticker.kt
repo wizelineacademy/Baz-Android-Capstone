@@ -1,6 +1,5 @@
 package com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.ticker
 
-
 data class Ticker(
     var book: String? = null,
     var high: String? = null,
@@ -12,5 +11,5 @@ data class Ticker(
     var ask: String? = null,
     var bid: String? = null,
     var change24: String? = null,
-    var rollingAverageChange: HashMap<String, String>? = null
+    var rollingAverageChange: HashMap<String, String>? = null,
 )

@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TickerViewModel @Inject constructor(
     private val remoteOrderBooksRepository: RemoteOrderBooksRepository,
-    private val localOrderBookRepositoryImpl: LocalOrderBookRepository
+    private val localOrderBookRepositoryImpl: LocalOrderBookRepository,
 ) : ViewModel() {
 
     var selectedBookOrder = ExchangeOrderBook()
@@ -30,7 +30,7 @@ class TickerViewModel @Inject constructor(
         viewModelScope.launch {
             val tickerSreenState = GetTickerUseCase(
                 remoteOrderBooksRepository,
-                localOrderBookRepositoryImpl
+                localOrderBookRepositoryImpl,
             ).invoke(selectedBookOrder)
             when (tickerSreenState) {
                 is TickerScreenState.TickerSuccess -> {
@@ -38,7 +38,6 @@ class TickerViewModel @Inject constructor(
                     tickerState.value = TickerScreenState.TickerSuccess(ticker)
                 }
                 is TickerScreenState.TickerError -> {
-
                 }
             }
         }
@@ -48,7 +47,7 @@ class TickerViewModel @Inject constructor(
         viewModelScope.launch {
             val tickerScreenState = GetTickerUseCase(
                 remoteOrderBooksRepository,
-                localOrderBookRepositoryImpl
+                localOrderBookRepositoryImpl,
             ).retrieveTicker(selectedBookOrder)
             when (tickerScreenState) {
                 is TickerScreenState.TickerSuccess -> {
@@ -56,7 +55,6 @@ class TickerViewModel @Inject constructor(
                     tickerState.value = TickerScreenState.TickerSuccess(ticker)
                 }
                 is TickerScreenState.TickerError -> {
-
                 }
             }
         }
@@ -66,14 +64,13 @@ class TickerViewModel @Inject constructor(
         viewModelScope.launch {
             val listOrderBookState = GetListOrderBookUseCase(
                 remoteOrderBooksRepository,
-                localOrderBookRepositoryImpl
+                localOrderBookRepositoryImpl,
             ).invoke(selectedBookOrder)
             when (listOrderBookState) {
                 is ListOrderBookScreenState.Success -> {
                     listOrderBookScreenState.value = listOrderBookState
                 }
                 is ListOrderBookScreenState.ErrorOrEmpty -> {
-
                 }
             }
         }
@@ -83,14 +80,13 @@ class TickerViewModel @Inject constructor(
         viewModelScope.launch {
             val listOrderBookState = GetListOrderBookUseCase(
                 remoteOrderBooksRepository,
-                localOrderBookRepositoryImpl
+                localOrderBookRepositoryImpl,
             ).retrieveAskAndBids(selectedBookOrder)
             when (listOrderBookState) {
                 is ListOrderBookScreenState.Success -> {
                     listOrderBookScreenState.value = listOrderBookState
                 }
                 is ListOrderBookScreenState.ErrorOrEmpty -> {
-
                 }
             }
         }

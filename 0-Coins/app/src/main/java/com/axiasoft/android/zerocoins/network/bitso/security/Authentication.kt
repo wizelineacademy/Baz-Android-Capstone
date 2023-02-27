@@ -12,11 +12,11 @@ object BitsoKeys {
     const val API_SECRET = BuildConfig.BITSO_SECRET
 }
 
-object BitsoAuthentication{
+object BitsoAuthentication {
     var nonce: Long = Long.MIN_VALUE
         set(value) { field = System.currentTimeMillis() / 1000 }
 
-    private fun genSignature(method: String, path: String, json: String): String{
+    private fun genSignature(method: String, path: String, json: String): String {
         nonce = 0
         val buffer = StringBuffer().apply {
             append(nonce)
@@ -26,7 +26,7 @@ object BitsoAuthentication{
         }
         return hMacCypher(msg = buffer.toString(), key = API_SECRET)
     }
-    fun genAuthHeader(method: String, path: String, json: String = String()): String{
+    fun genAuthHeader(method: String, path: String, json: String = String()): String {
         val signature = genSignature(method, path, json)
         return "Bitso $API_KEY:$nonce:$signature"
     }
@@ -39,7 +39,7 @@ object BitsoAuthentication{
         return format(bytes)
     }
 
-    //TODO verify format required
+    // TODO verify format required
     private fun format(bytes: ByteArray): String {
         val formatter = Formatter()
         bytes.forEach { formatter.format("%02x", it) }

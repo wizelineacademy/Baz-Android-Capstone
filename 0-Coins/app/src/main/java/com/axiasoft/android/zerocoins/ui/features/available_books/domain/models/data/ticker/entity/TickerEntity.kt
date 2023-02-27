@@ -8,7 +8,8 @@ import com.axiasoft.android.zerocoins.db.TICKER_TB_NAME
 @Entity(tableName = TICKER_TB_NAME)
 data class TickerEntity(
     @PrimaryKey(autoGenerate = false)
-    @ColumnInfo("book") var book: String,
+    @ColumnInfo("book")
+    var book: String,
     @ColumnInfo("high") var high: String? = null,
     @ColumnInfo("last") var last: String? = null,
     @ColumnInfo("created_at") var createdAt: String? = null,
@@ -18,5 +19,5 @@ data class TickerEntity(
     @ColumnInfo("ask") var ask: String? = null,
     @ColumnInfo("bid") var bid: String? = null,
     @ColumnInfo("change_24") var change24: String? = null,
-    //@ColumnInfo("rolling_average_change" ) var rollingAverageChange : HashMap<String, String>? = null
+    // @ColumnInfo("rolling_average_change" ) var rollingAverageChange : HashMap<String, String>? = null
 )

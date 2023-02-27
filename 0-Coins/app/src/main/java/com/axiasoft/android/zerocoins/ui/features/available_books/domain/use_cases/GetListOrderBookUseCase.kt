@@ -10,7 +10,7 @@ import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_state
 
 class GetListOrderBookUseCase(
     private val remoteOrderBooksRepository: RemoteOrderBooksRepository,
-    private val localOrderBookRepository: LocalOrderBookRepository
+    private val localOrderBookRepository: LocalOrderBookRepository,
 
 ) {
     suspend fun invoke(book: ExchangeOrderBook): ListOrderBookScreenState {
@@ -18,18 +18,22 @@ class GetListOrderBookUseCase(
         return when (listOrderBookResponse) {
             is BitsoApiResponseWrap.Success -> {
                 if (listOrderBookResponse.response.payload != null && listOrderBookResponse.response.success == true) {
-                    val asks = (listOrderBookResponse.response.payload.asks
-                        ?: emptyList()) as ArrayList<Ask>
-                    val bids = (listOrderBookResponse.response.payload.bids
-                        ?: emptyList()) as ArrayList<Bids>
+                    val asks = (
+                        listOrderBookResponse.response.payload.asks
+                            ?: emptyList()
+                        ) as ArrayList<Ask>
+                    val bids = (
+                        listOrderBookResponse.response.payload.bids
+                            ?: emptyList()
+                        ) as ArrayList<Bids>
                     updateDB(asks, bids)
                     ListOrderBookScreenState.Success(
                         asks = asks,
-                        bids = bids
+                        bids = bids,
                     )
                 } else {
                     ListOrderBookScreenState.ErrorOrEmpty(
-                        listOrderBookResponse.response.error?.message ?: ""
+                        listOrderBookResponse.response.error?.message ?: "",
                     )
                 }
             }
@@ -46,7 +50,7 @@ class GetListOrderBookUseCase(
         return if (asks.isNotEmpty() && bids.isNotEmpty()) {
             ListOrderBookScreenState.Success(
                 asks = asks,
-                bids = bids
+                bids = bids,
             )
         } else {
             ListOrderBookScreenState.ErrorOrEmpty("no data")

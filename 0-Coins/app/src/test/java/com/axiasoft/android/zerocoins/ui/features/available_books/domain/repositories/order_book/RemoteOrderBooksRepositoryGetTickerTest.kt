@@ -24,8 +24,8 @@ class RemoteOrderBooksRepositoryGetTickerTest {
             book = "mana_btc",
             high = "70000",
             low = "1000",
-            last = "69999"
-        )
+            last = "69999",
+        ),
     )
 
     @Mock
@@ -41,7 +41,7 @@ class RemoteOrderBooksRepositoryGetTickerTest {
     fun `test remote repository getTickerFromApi success`() {
         runBlocking {
             whenever(bitsoOrderBooksApi.getTicketsApi(mockSelectedBookKey)).thenReturn(
-                successMockTickerResponse
+                successMockTickerResponse,
             )
             val response = remoteOrderBooksRepositoryImpl.getTickerFromApi(mockSelectedBookKey)
             assertThat(response).isNotNull()
@@ -53,11 +53,11 @@ class RemoteOrderBooksRepositoryGetTickerTest {
                     assertThat(unwrapped.payload).isNotNull()
                     assertThat(unwrapped.payload).isInstanceOf(TickerResponse::class.java)
                     assertThat(
-                        unwrapped.payload!!.book == successMockTickerResponse.payload!!.book
+                        unwrapped.payload!!.book == successMockTickerResponse.payload!!.book,
                     ).isTrue()
                 }
-                //assertThat(response).isTrue()
-                //assertTrue(this. == true)
+                // assertThat(response).isTrue()
+                // assertTrue(this. == true)
             }
         }
     }

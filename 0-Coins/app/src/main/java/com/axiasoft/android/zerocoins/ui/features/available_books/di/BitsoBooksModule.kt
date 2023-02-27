@@ -19,25 +19,25 @@ object BitsoBooksModule {
 
     @Provides
     @Singleton
-    fun provideRemoteOrderBookRepository(bitsoOrderBooksApi: BitsoOrderBooksApi): RemoteOrderBooksRepository{
+    fun provideRemoteOrderBookRepository(bitsoOrderBooksApi: BitsoOrderBooksApi): RemoteOrderBooksRepository {
         return RemoteOrderBooksRepositoryImpl(bitsoOrderBooksApi)
     }
 
     @Provides
     @Singleton
-    fun provideBitsoOrderBooksApi(): BitsoOrderBooksApi{
+    fun provideBitsoOrderBooksApi(): BitsoOrderBooksApi {
         return BitsoOrderBooksApi.Builder().build()
     }
 
     @Provides
     @Singleton
-    fun provideLocalOrderBookRepository(db: ZeroCoinAppDatabase): LocalOrderBookRepository{
+    fun provideLocalOrderBookRepository(db: ZeroCoinAppDatabase): LocalOrderBookRepository {
         return LocalOrderBookRepositoryImpl(db)
     }
 
     @Provides
     @Singleton
-    fun providesBitsoBooksDB(): ZeroCoinAppDatabase{
+    fun providesBitsoBooksDB(): ZeroCoinAppDatabase {
         return getDatabase()
     }
 }

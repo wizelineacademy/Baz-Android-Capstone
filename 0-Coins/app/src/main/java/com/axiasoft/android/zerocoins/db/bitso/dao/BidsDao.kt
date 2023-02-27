@@ -2,11 +2,8 @@ package com.axiasoft.android.zerocoins.db.bitso.dao
 
 import android.database.sqlite.SQLiteConstraintException
 import androidx.room.*
-import com.axiasoft.android.zerocoins.db.ASK_TB_NAME
 import com.axiasoft.android.zerocoins.db.BIDS_TB_NAME
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book.entity.AskEntity
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book.entity.BidsEntity
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.ticker.entity.TickerEntity
 
 @Dao
 interface BidsDao {
@@ -19,8 +16,7 @@ interface BidsDao {
     suspend fun upsertBid(bid: BidsEntity) {
         try {
             insert(bid)
-        }
-        catch (e: SQLiteConstraintException) {
+        } catch (e: SQLiteConstraintException) {
             updateBid(bid)
         }
     }

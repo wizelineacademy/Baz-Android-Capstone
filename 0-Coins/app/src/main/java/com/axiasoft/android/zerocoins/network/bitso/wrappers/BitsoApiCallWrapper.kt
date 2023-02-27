@@ -8,16 +8,16 @@ object BitsoApiCallWrapper {
 
     suspend fun <T> callBitsoApiWrap(
         dispatcher: CoroutineDispatcher,
-        apiCall: suspend () -> T
+        apiCall: suspend () -> T,
     ): BitsoApiResponseWrap<T> {
         return withContext(dispatcher) {
             try {
                 BitsoApiResponseWrap.Success(apiCall.invoke())
             } catch (throwable: Throwable) {
-                if (throwable is HttpException){
-                    //TODO build error Object?
+                if (throwable is HttpException) {
+                    // TODO build error Object?
                     BitsoApiResponseWrap.NetworkError()
-                }else {
+                } else {
                     BitsoApiResponseWrap.NetworkError()
                 }
             }

@@ -3,7 +3,7 @@ package com.axiasoft.android.zerocoins.network.bitso.models
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class NetworkError (
+data class NetworkError(
 
     @SerializedName("code")
     @Expose
@@ -11,5 +11,5 @@ data class NetworkError (
 
     @SerializedName("error_body")
     @Expose
-    var errorBody: String? = null
+    var errorBody: String? = null,
 )

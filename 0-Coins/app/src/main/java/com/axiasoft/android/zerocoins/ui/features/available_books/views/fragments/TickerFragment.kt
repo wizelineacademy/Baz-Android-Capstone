@@ -37,22 +37,21 @@ class TickerFragment : Fragment() {
     lateinit var asksAdapter: OpenOrdersInBookAdapter
     lateinit var bidsAdapter: OpenOrdersInBookAdapter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {}
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentTickerBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         bookOrderViewModel =
             ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
 
@@ -80,7 +79,7 @@ class TickerFragment : Fragment() {
                     }
                 }
                 else -> {
-                    //TODO manage errors
+                    // TODO manage errors
                     Toast.makeText(requireContext(), "No hay datos ticker", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -94,11 +93,11 @@ class TickerFragment : Fragment() {
                     bidsAdapter.submitList(it.bids as List<OpenOrder>?)
                 }
                 else -> {
-                    //TODO manage error
+                    // TODO manage error
                     Toast.makeText(
                         requireContext(),
                         "No hay datos bids and asks",
-                        Toast.LENGTH_SHORT
+                        Toast.LENGTH_SHORT,
                     ).show()
                     clearData()
                 }
@@ -109,11 +108,11 @@ class TickerFragment : Fragment() {
     }
 
     fun initObservers() {
-        //Tips migrar a flow y usar lifecycleScope
+        // Tips migrar a flow y usar lifecycleScope
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                //tickerViewModel.listOrderBookScreenState//.//collect Con Flow data
-                //TODO etc
+                // tickerViewModel.listOrderBookScreenState//.//collect Con Flow data
+                // TODO etc
                 refreshData()
             }
         }
@@ -123,7 +122,7 @@ class TickerFragment : Fragment() {
         if (bookOrderViewModel.internetStatus.isNetworkAvailable()) {
             log("z0", "Ticker & orders fetching remote")
             tickerViewModel.getRemoteTicker()
-            //tickerViewModel.call()//<- RX
+            // tickerViewModel.call()//<- RX
             tickerViewModel.getRemoteListOrderBook()
         } else {
             log("z0", "Ticker & orders fetching local")
@@ -140,7 +139,8 @@ class TickerFragment : Fragment() {
                     findNavController().popBackStack()
                     clearData()
                 }
-            })
+            },
+        )
     }
 
     private fun clearData() {

@@ -14,7 +14,7 @@ class InternetConnectionAvailableLiveData(private val connectivityManager: Conne
     LiveData<Boolean>() {
 
     constructor(appContext: Application = ZeroCoinsApplication.appContext as Application) : this(
-        appContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        appContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager,
     )
 
     fun isNetworkAvailable(): Boolean {
@@ -25,7 +25,7 @@ class InternetConnectionAvailableLiveData(private val connectivityManager: Conne
         return internetAvailable
     }
 
-    private fun validateNetworkAvailability(networkCapabilities: NetworkCapabilities): Boolean{
+    private fun validateNetworkAvailability(networkCapabilities: NetworkCapabilities): Boolean {
         return when {
             networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
             networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
@@ -35,34 +35,33 @@ class InternetConnectionAvailableLiveData(private val connectivityManager: Conne
         }
     }
 
-
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
 
         override fun onAvailable(network: Network) {
             super.onAvailable(network)
-            log("Z0", "-> onAvailable: Network ${network} is Available")
+            log("Z0", "-> onAvailable: Network $network is Available")
             postValue(true)
         }
 
         override fun onCapabilitiesChanged(
             network: Network,
-            networkCapabilities: NetworkCapabilities
+            networkCapabilities: NetworkCapabilities,
         ) {
             super.onCapabilitiesChanged(network, networkCapabilities)
             val internetAvailable = validateNetworkAvailability(networkCapabilities)
 
             if (internetAvailable) {
-                log("Z0", "onCapabilitiesChanged: Network ${network} is true?")
+                log("Z0", "onCapabilitiesChanged: Network $network is true?")
                 postValue(true)
             } else {
-                log("Z0", "onCapabilitiesChanged: Network ${network} is false?")
+                log("Z0", "onCapabilitiesChanged: Network $network is false?")
                 postValue(false)
             }
         }
 
         override fun onLost(network: Network) {
             super.onLost(network)
-            log("Z0", "-> onLost: Network ${network} is Unavailable")
+            log("Z0", "-> onLost: Network $network is Unavailable")
             postValue(false)
         }
     }

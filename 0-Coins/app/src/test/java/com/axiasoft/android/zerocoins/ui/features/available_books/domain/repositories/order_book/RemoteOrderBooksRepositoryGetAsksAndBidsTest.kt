@@ -14,7 +14,6 @@ import org.mockito.Mock
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
-
 class RemoteOrderBooksRepositoryGetAsksAndBidsTest {
 
     private lateinit var remoteOrderBooksRepositoryImpl: RemoteOrderBooksRepositoryImpl
@@ -32,7 +31,7 @@ class RemoteOrderBooksRepositoryGetAsksAndBidsTest {
                 Ask(book = "mana_btc", price = "0.01222", "33"),
                 Ask(book = "mana_btc", price = "0.01222", "33"),
                 Ask(book = "mana_btc", price = "0.01222", "33"),
-                ),
+            ),
             bids = arrayListOf(
                 Bids(book = "mana_btc", price = "0.01222", "33"),
                 Bids(book = "mana_btc", price = "0.01222", "33"),
@@ -41,21 +40,21 @@ class RemoteOrderBooksRepositoryGetAsksAndBidsTest {
                 Bids(book = "mana_btc", price = "0.01222", "33"),
                 Bids(book = "mana_btc", price = "0.01222", "33"),
                 Bids(book = "mana_btc", price = "0.01222", "33"),
-            )
-        )
+            ),
+        ),
     )
 
     @Mock
     private lateinit var bitsoOrderBooksApi: BitsoOrderBooksApi
 
     @Before
-    fun setup(){
+    fun setup() {
         bitsoOrderBooksApi = mock()
         remoteOrderBooksRepositoryImpl = RemoteOrderBooksRepositoryImpl(bitsoOrderBooksApi)
     }
 
     @Test
-    fun `test remote repository get open orders success`(){
+    fun `test remote repository get open orders success`() {
         runBlocking {
             whenever(bitsoOrderBooksApi.getListOrderBook(mockSelectedBookKey))
                 .thenReturn(successOpenOrderBook)
@@ -77,11 +76,11 @@ class RemoteOrderBooksRepositoryGetAsksAndBidsTest {
                     assertThat(unwrapped.payload!!.bids).isNotEmpty()
                     assertThat(
                         unwrapped.payload!!.asks!!.first().book ==
-                                successOpenOrderBook.payload!!.asks!!.first().book
+                            successOpenOrderBook.payload!!.asks!!.first().book,
                     ).isTrue()
                     assertThat(
                         unwrapped.payload!!.bids!!.first().book ==
-                                successOpenOrderBook.payload!!.bids!!.first().book
+                            successOpenOrderBook.payload!!.bids!!.first().book,
                     ).isTrue()
                 }
             }

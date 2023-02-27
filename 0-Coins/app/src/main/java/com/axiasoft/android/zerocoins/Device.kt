@@ -2,9 +2,9 @@ package com.axiasoft.android.zerocoins
 
 data class Device(
     val name: String,
-    val data: Data
+    val data: Data,
 )
 
 data class Data(
-    val color: String
+    val color: String,
 )

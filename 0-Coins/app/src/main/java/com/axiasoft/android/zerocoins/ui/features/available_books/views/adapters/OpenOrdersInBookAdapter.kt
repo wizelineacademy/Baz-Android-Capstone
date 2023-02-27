@@ -36,13 +36,13 @@ class OpenOrdersInBookAdapter : ListAdapter<OpenOrder, OpenOrdersInBookAdapter.U
 object UserComparator : DiffUtil.ItemCallback<OpenOrder>() {
     override fun areItemsTheSame(oldItem: OpenOrder, newItem: OpenOrder): Boolean {
         return (oldItem.book == newItem.book) &&
-                (oldItem.price == newItem.price) &&
-                (oldItem.amount == newItem.amount)
+            (oldItem.price == newItem.price) &&
+            (oldItem.amount == newItem.amount)
     }
 
     override fun areContentsTheSame(oldItem: OpenOrder, newItem: OpenOrder): Boolean {
         return (oldItem.book == newItem.book) &&
-                (oldItem.price == newItem.price) &&
-                (oldItem.amount == newItem.amount)
+            (oldItem.price == newItem.price) &&
+            (oldItem.amount == newItem.amount)
     }
 }

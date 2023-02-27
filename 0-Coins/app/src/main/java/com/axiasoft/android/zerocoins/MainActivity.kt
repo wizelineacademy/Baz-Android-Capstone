@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.axiasoft.android.zerocoins.common.log
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,10 +17,10 @@ class MainActivity : AppCompatActivity() {
         val api = RestfulApi.Builder().build()
 
         api.getAllDevices().enqueue(
-            object: Callback<List<Device>> {
+            object : Callback<List<Device>> {
                 override fun onResponse(
                     call: Call<List<Device>>,
-                    response: Response<List<Device>>
+                    response: Response<List<Device>>,
                 ) {
                     log("z0", response.body().toString())
                 }
@@ -29,22 +28,18 @@ class MainActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<List<Device>>, t: Throwable) {
                     log("z0", "meh")
                 }
-
-            }
+            },
         )
 
        /*runOnUiThread {
            call(api)
         }*/
-        //call()
+        // call()
     }
 
-    suspend fun call(api: RestfulApi){
-
-        withContext(Dispatchers.IO){
+    suspend fun call(api: RestfulApi) {
+        withContext(Dispatchers.IO) {
             val response = api.getAllDevicesOnNaked()
-
         }
-
     }
 }

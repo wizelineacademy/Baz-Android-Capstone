@@ -7,13 +7,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.axiasoft.android.zerocoins.R
-import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.CoinNameAndImage
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.getBookOrderType
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
 import com.bumptech.glide.Glide
 
-class BookOrderAdapter(private val onItemClick: (ExchangeOrderBook) -> Unit): RecyclerView.Adapter<BookOrderAdapter.BookOrderViewHolder>() {
+class BookOrderAdapter(private val onItemClick: (ExchangeOrderBook) -> Unit) : RecyclerView.Adapter<BookOrderAdapter.BookOrderViewHolder>() {
 
     var items: MutableList<ExchangeOrderBook> = mutableListOf()
 
@@ -22,8 +21,9 @@ class BookOrderAdapter(private val onItemClick: (ExchangeOrderBook) -> Unit): Re
             LayoutInflater.from(parent.context),
             R.layout.book_coin_item,
             parent,
-            false)
-        return BookOrderViewHolder(binding){
+            false,
+        )
+        return BookOrderViewHolder(binding) {
             onItemClick(items[it])
         }
     }
@@ -42,8 +42,8 @@ class BookOrderAdapter(private val onItemClick: (ExchangeOrderBook) -> Unit): Re
 
     class BookOrderViewHolder(
         private val binding: ViewDataBinding,
-        onItemClicked: (Int) -> Unit
-    ): RecyclerView.ViewHolder(binding.root){
+        onItemClicked: (Int) -> Unit,
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             itemView.setOnClickListener {
