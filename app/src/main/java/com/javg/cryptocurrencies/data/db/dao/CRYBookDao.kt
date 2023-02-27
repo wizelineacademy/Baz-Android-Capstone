@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.javg.cryptocurrencies.data.db.entity.CRYBookEntity
 import com.javg.cryptocurrencies.data.db.remote.CRYAppDatabase
+import kotlinx.coroutines.flow.Flow
 
 /**
  * @author Juan Vera Gomez
@@ -23,6 +24,9 @@ interface CRYBookDao {
      */
     @Query("SELECT * FROM ${CRYAppDatabase.BOOK_TABLE}")
     fun getAllBook(): List<CRYBookEntity>
+
+    @Query("SELECT * FROM ${CRYAppDatabase.BOOK_TABLE}")
+    fun getAllBookV2(): Flow<List<CRYBookEntity>>
 
     /**
      * It is in charge of saving the entire list of books obtained remotely from the api

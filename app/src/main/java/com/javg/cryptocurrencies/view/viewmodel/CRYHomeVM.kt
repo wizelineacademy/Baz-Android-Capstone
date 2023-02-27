@@ -7,6 +7,10 @@ import com.javg.cryptocurrencies.data.domain.CRYBookUseCase
 import com.javg.cryptocurrencies.data.model.CRYBook
 import com.javg.cryptocurrencies.utils.CRYUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -40,6 +44,7 @@ class CRYHomeVM @Inject constructor(application: Application,
 
     init {
         _updateTime.value = getTimeUpdate()
+        queryBookFlow()
     }
 
     /**
@@ -56,11 +61,6 @@ class CRYHomeVM @Inject constructor(application: Application,
              * List with all books
              */
             _books.value = bookUseCase.invoke(onRefresh)
-            _books.value?.let {
-                _chipsTitles.value = bookUseCase.createListBookTitles(it)
-                _booksMap.value    = bookUseCase.createUniqueMap(it)
-                _equalBooks.value  = _booksMap.value?.get(_chipsTitles.value?.firstOrNull()?.singleBook)
-            }
 
             if (onRefresh && _books.value?.isNotEmpty()!!)
                 _updateTime.value = getTimeUpdate()
@@ -84,4 +84,17 @@ class CRYHomeVM @Inject constructor(application: Application,
      * Returns a composite legend with the updated time of the remote service query
      */
     private fun getTimeUpdate(): String = String.format(getApplication<Application>().applicationContext.getString(R.string.cry_update_day), CRYUtils.getSaveTime(getApplication<Application>().applicationContext))
+
+    private fun queryBookFlow(){
+        viewModelScope.launch {
+            bookUseCase.queryBooks().collect{
+                if (it.isNotEmpty()){
+                    _books.value       = bookUseCase.transformBooks(it)
+                    _chipsTitles.value = bookUseCase.createListBookTitles(it)
+                    _booksMap.value    = bookUseCase.createUniqueMap(it)
+                    _equalBooks.value  = _booksMap.value?.get(_chipsTitles.value?.firstOrNull()?.singleBook)
+                }
+            }
+        }
+    }
 }

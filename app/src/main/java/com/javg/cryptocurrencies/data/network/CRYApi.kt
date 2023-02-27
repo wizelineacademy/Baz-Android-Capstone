@@ -1,7 +1,6 @@
 package com.javg.cryptocurrencies.data.network
 
 import com.javg.cryptocurrencies.data.model.*
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 

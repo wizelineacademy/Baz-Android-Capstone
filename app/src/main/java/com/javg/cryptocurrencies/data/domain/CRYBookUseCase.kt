@@ -5,6 +5,7 @@ import com.javg.cryptocurrencies.data.repository.CRYBookRepository
 import com.javg.cryptocurrencies.utils.getSecondCoinsText
 import com.javg.cryptocurrencies.utils.separateStringCoins
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -50,7 +51,7 @@ class CRYBookUseCase @Inject constructor(
      * @param books is the list a list of books
      * @return a transformed list
      */
-    private fun transformBooks(books: List<CRYBook>): List<CRYBook>{
+    fun transformBooks(books: List<CRYBook>): List<CRYBook>{
         books.map {
             it.singleBook      = it.book.separateStringCoins()
             it.imageUrl        = "https://cryptoicons.org/api/icon/${it.book.separateStringCoins()}/200"
@@ -95,4 +96,5 @@ class CRYBookUseCase @Inject constructor(
             .sortedBy { it.singleBook }
     }
 
+    fun queryBooks(): Flow<List<CRYBook>> = repository.queryBooks()
 }

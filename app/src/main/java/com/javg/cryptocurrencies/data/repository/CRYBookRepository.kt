@@ -11,6 +11,9 @@ import com.javg.cryptocurrencies.data.model.CRYBookResponse
 import com.javg.cryptocurrencies.data.network.CRYApi
 import com.javg.cryptocurrencies.utils.CRYUtils
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 /**
@@ -71,6 +74,10 @@ class CRYBookRepository  @Inject constructor(@ApplicationContext val context: Co
             }
         }
         return listBookEntity
+    }
+
+    fun queryBooks(): Flow<List<CRYBook>> = bookDao.getAllBookV2().map { books ->
+        books.map { it.toDomain() }
     }
 
 }
