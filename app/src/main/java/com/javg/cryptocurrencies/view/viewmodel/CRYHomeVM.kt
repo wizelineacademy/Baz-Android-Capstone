@@ -7,10 +7,6 @@ import com.javg.cryptocurrencies.data.domain.CRYBookUseCase
 import com.javg.cryptocurrencies.data.model.CRYBook
 import com.javg.cryptocurrencies.utils.CRYUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -90,8 +86,8 @@ class CRYHomeVM @Inject constructor(application: Application,
             bookUseCase.queryBooks().collect{
                 if (it.isNotEmpty()){
                     _books.value       = bookUseCase.transformBooks(it)
-                    _chipsTitles.value = bookUseCase.createListBookTitles(it)
-                    _booksMap.value    = bookUseCase.createUniqueMap(it)
+                    _chipsTitles.value = bookUseCase.createListBookTitles(_books.value!!)
+                    _booksMap.value    = bookUseCase.createUniqueMap(_books.value!!)
                     _equalBooks.value  = _booksMap.value?.get(_chipsTitles.value?.firstOrNull()?.singleBook)
                 }
             }
