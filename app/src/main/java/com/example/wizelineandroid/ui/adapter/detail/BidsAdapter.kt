@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wizelineandroid.core.BaseViewHolder
+import com.example.wizelineandroid.data.local.entitys.BidsEntity
 import com.example.wizelineandroid.data.remote.model.Ask
 import com.example.wizelineandroid.data.remote.model.Bids
 import com.example.wizelineandroid.databinding.ItemOrderBooksBinding
 
-class BidsAdapter(private val orderList: List<Bids>): RecyclerView.Adapter<BaseViewHolder<*>>()  {
+class BidsAdapter(private val orderList: List<BidsEntity>): RecyclerView.Adapter<BaseViewHolder<*>>()  {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         val itemBinding = ItemOrderBooksBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return OrderViewHolder(itemBinding)
@@ -23,8 +24,8 @@ class BidsAdapter(private val orderList: List<Bids>): RecyclerView.Adapter<BaseV
 
     override fun getItemCount(): Int = orderList.size
 
-    inner class OrderViewHolder(val binding : ItemOrderBooksBinding): BaseViewHolder<Bids>(binding.root){
-        override fun bind(item: Bids){
+    inner class OrderViewHolder(val binding : ItemOrderBooksBinding): BaseViewHolder<BidsEntity>(binding.root){
+        override fun bind(item: BidsEntity){
             binding.book.text = item.book
             binding.price.text = item.price
             binding.amount.text = item.amount

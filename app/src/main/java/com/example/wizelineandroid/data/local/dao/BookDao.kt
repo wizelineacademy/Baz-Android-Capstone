@@ -12,7 +12,7 @@ interface BookDao {
     fun insert(item: List<BookEntity>)
 
     @Query("SELECT * from book")
-    fun getBooks(): Flow<List<BookEntity>>
+    fun getBooks(): List<BookEntity>
 
 
 }

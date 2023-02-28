@@ -7,6 +7,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.example.wizelineandroid.R
 import com.example.wizelineandroid.ui.adapter.home.HomeAdapter
 import com.example.wizelineandroid.core.Resource
@@ -15,30 +16,33 @@ import com.example.wizelineandroid.data.local.entitys.BookEntity
 import com.example.wizelineandroid.data.remote.model.ModelBook
 import com.example.wizelineandroid.data.remote.BooksDataSource
 import com.example.wizelineandroid.databinding.FragmentHomeBinding
-import com.example.wizelineandroid.presentation.BookRoomViewModel
-import com.example.wizelineandroid.presentation.BookRoomViewModelFactory
-import com.example.wizelineandroid.presentation.BooksViewModelFactory
-import com.example.wizelineandroid.presentation.BooksViewModel
 import com.example.wizelineandroid.RoomApplication
+import com.example.wizelineandroid.presentation.books.BookRoomViewModel
+import com.example.wizelineandroid.presentation.books.BookRoomViewModelFactory
+import com.example.wizelineandroid.presentation.books.BooksViewModel
+import com.example.wizelineandroid.presentation.books.BooksViewModelFactory
+import com.example.wizelineandroid.repository.available.BookRoomRepoImpl
 import com.example.wizelineandroid.repository.available.BooksRepoImpl
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment: Fragment(R.layout.fragment_home), HomeAdapter.OnUserClickListener {
+class HomeFragment: Fragment(R.layout.fragment_home){
     private val viewModel by viewModels<BooksViewModel> { BooksViewModelFactory(
         BooksRepoImpl(BooksDataSource(RetrofitClient.webService))
     ) }
     private lateinit var binding:FragmentHomeBinding
+    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var adapterAvBooks: HomeAdapter
     private val viewModelRoom: BookRoomViewModel by activityViewModels {
-        BookRoomViewModelFactory(
+        BookRoomViewModelFactory(BookRoomRepoImpl(
             (activity?.application as RoomApplication).database
-                .bookDao()
-        )
+                .bookDao()))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
+        configAdapter()
 
         viewModel.fetchBooks().observe(viewLifecycleOwner, Observer { result ->
             when(result){
@@ -56,16 +60,22 @@ class HomeFragment: Fragment(R.layout.fragment_home), HomeAdapter.OnUserClickLis
                             minimum_price = currency.minimum_price
                         )
                     }
-                    binding.rvCoins.adapter = HomeAdapter(entities,this)
+                    adapterAvBooks.submitList(entities)
                     binding.shimmerViewContainer.visibility = View.GONE
                     addNewItem(result.data.payload)
                 }
                 is Resource.Failure -> {
                     binding.shimmerViewContainer.stopShimmer()
                     binding.shimmerViewContainer.visibility = View.GONE
-                    viewModelRoom.allBooks.observe(this.viewLifecycleOwner) { items ->
-                        binding.rvCoins.adapter = HomeAdapter(items,this)
-                    }
+                    viewModelRoom.getBooks().observe(viewLifecycleOwner, Observer{result ->
+                        when(result){
+                            is Resource.Success -> {
+                                adapterAvBooks.submitList(result.data)
+                            }
+                            else -> {}
+                        }
+                    })
+
 
                 }
             }
@@ -86,10 +96,13 @@ class HomeFragment: Fragment(R.layout.fragment_home), HomeAdapter.OnUserClickLis
 
         }
     }
-
-    override fun onBookClick(book: BookEntity) {
-        val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(
-            book.itemName
-        )
-        findNavController().navigate(action)    }
+    private fun configAdapter() {
+        mRecyclerView = binding.rvCoins
+        adapterAvBooks = HomeAdapter {
+            val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(it.itemName)
+            findNavController().navigate(action)
+        }
+        mRecyclerView.adapter = adapterAvBooks
+        adapterAvBooks.submitList(emptyList())
+    }
 }
