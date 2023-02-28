@@ -4,9 +4,16 @@
     <string name="book_order_name_eth_btc">Ethereum a Bitcoin</string>
     <string name="book_order_name_eth_mxn">Ethereum a MXN</string>
     <string name="book_order_name_xrp_btc">Ripple a Bitcoin</string>
+    <string name="book_order_name_xrp_mxn">Ripple a MXN</string>
+    <string name="book_order_name_ltc_btc">Litecoin a Bitcoin</string>
+    <string name="book_order_name_ltc_mxn">Litecoin a MXN</string>
+    <string name="book_order_name_bch_mxn">Bitcoin Cash a MXN</string>
+    <string name="book_order_name_tusd_btc">TrueUSD a Bitcoin</string>
+    <string name="book_order_name_mana_btc">MANA a Bitcoin</string>
+    <string name="book_order_name_mana_mxn">MANA a MXN</string>
+
     <string name="book_order_name_any_any">Cambio sin nombre definido</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
@@ -22,12 +29,5 @@
 
     <!-- Internet status-->
     <string name="internet_status_no_internet_data_warning">La información mostrada podría no estar actualizada. Revisa tu conexión a internet e intenta de nuevo</string>
-
-
-
-
-
-
-
 
 </resources>
