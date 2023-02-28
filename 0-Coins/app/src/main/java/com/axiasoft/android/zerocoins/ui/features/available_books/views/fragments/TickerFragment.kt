@@ -30,7 +30,7 @@ class TickerFragment : Fragment() {
 
     lateinit var bookOrderViewModel: BookOrderViewModel
 
-    val tickerViewModel by viewModels<TickerViewModel>()
+    private val tickerViewModel by viewModels<TickerViewModel>()
     private var _binding: FragmentTickerBinding? = null
     private val binding get() = _binding!!
 
@@ -107,7 +107,7 @@ class TickerFragment : Fragment() {
         setupListeners()
     }
 
-    fun initObservers() {
+    private fun initObservers() {
         // Tips migrar a flow y usar lifecycleScope
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -118,7 +118,7 @@ class TickerFragment : Fragment() {
         }
     }
 
-    fun refreshData() {
+    private fun refreshData() {
         if (bookOrderViewModel.internetStatus.isNetworkAvailable()) {
             log("z0", "Ticker & orders fetching remote")
             tickerViewModel.getRemoteTicker()
@@ -151,14 +151,5 @@ class TickerFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        val TAG = "TickerFragment"
-
-        @JvmStatic
-        fun newInstance() = TickerFragment().apply {
-            arguments = Bundle().apply {}
-        }
     }
 }

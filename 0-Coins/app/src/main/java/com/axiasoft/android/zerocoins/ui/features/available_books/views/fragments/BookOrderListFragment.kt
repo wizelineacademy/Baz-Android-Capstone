@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -13,9 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.axiasoft.android.zerocoins.R
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.databinding.FragmentBookOrderListBinding
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.AvailableBooksViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BookOrderViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.adapters.BookOrderAdapter
+import com.axiasoft.android.zerocoins.ui.features.available_books.views.compose.ExchangeOrderBookList
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +26,10 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
 
     private var columnCount = 1
 
-    lateinit var fragmentBinding: FragmentBookOrderListBinding
+    private val useCompose = true
+    private val useRX = true
+
+    private lateinit var fragmentBinding: FragmentBookOrderListBinding
 
     private val availableBooksViewModel by viewModels<AvailableBooksViewModel>()
     lateinit var bookOrderViewModel: BookOrderViewModel
@@ -34,6 +40,14 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
         bookOrderViewModel.selectedBookOrder = bookOrderSelected
         navigateToTicker()
     }
+
+    private val onAvailableExchangeOrderBookClick: (ExchangeOrderBook) -> Unit =
+        { bookOrderSelected ->
+            log("z0", "selected $bookOrderSelected")
+            availableBooksViewModel.selectedBookOrder = bookOrderSelected
+            bookOrderViewModel.selectedBookOrder = bookOrderSelected
+            navigateToTicker()
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +66,19 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
             layoutManager = LinearLayoutManager(context)
             adapter = bookOrderAdapter
         }
+
+        if (useCompose) {
+            fragmentBinding.list.visibility = View.GONE
+            fragmentBinding.composeList.apply {
+                setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                setContent {
+                    ExchangeOrderBookList(
+                        availableExchangeOrderBooks = availableBooksViewModel.booksResultForCompose,
+                        onClickItem = onAvailableExchangeOrderBookClick
+                    )
+                }
+            }
+        }
         return fragmentBinding.root
     }
 
@@ -61,36 +88,22 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
         initUIListeners()
     }
 
-    fun initViewModels() {
+    private fun initViewModels() {
         bookOrderViewModel =
             ViewModelProvider(requireActivity()).get(BookOrderViewModel::class.java)
     }
 
-    fun initObservers() {
+    private fun initObservers() {
         availableBooksViewModel.books.observe(viewLifecycleOwner) {
             bookOrderAdapter.updateBookOrders(it)
+            availableBooksViewModel.booksResultForCompose = it
         }
-
-        /*bookOrderViewModel.internetStatus.observe(viewLifecycleOwner) { isConnected ->
-            log("z0", "internetStatus observer isConnected $isConnected")
-            if (!isConnected) {
-                Toast.makeText(requireContext(), "Sin internet", Toast.LENGTH_SHORT).show()
-            }
-        }*/
-
-        /*lifecycleScope.launch {
-        Cause call twice when back from other fragment
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                refreshData()
-            }
-        }*/
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             refreshData()
         }
     }
 
-    fun initUIListeners() {
+    private fun initUIListeners() {
         fragmentBinding.apply {
             fabRefresh.setOnClickListener {
                 refreshData(forceUpdate = true)
@@ -98,7 +111,7 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
         }
     }
 
-    fun refreshData(forceUpdate: Boolean = false) {
+    private fun refreshData(forceUpdate: Boolean = false) {
         if (bookOrderViewModel.internetStatus.isNetworkAvailable()) {
             if (forceUpdate ||
                 (
@@ -107,8 +120,11 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
                     )
             ) {
                 log("z0", "Orders books fetch remote")
-                // availableBooksViewModel.getAvailableExchangeOrderBooks()
-                availableBooksViewModel.getAvailableExchangeOrderBooksRX()
+                if (useRX) {
+                    availableBooksViewModel.getAvailableExchangeOrderBooksRX()
+                } else {
+                    availableBooksViewModel.getAvailableExchangeOrderBooks()
+                }
             }
         } else {
             log("z0", "Orders books fetch local")
@@ -116,21 +132,12 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
         }
     }
 
-    fun navigateToTicker() {
+    private fun navigateToTicker() {
         val navController = findNavController()
         navController.navigate(R.id.tickerFragment)
     }
 
     companion object {
         const val ARG_COLUMN_COUNT = "column-count"
-        const val TAG = "BookOrderListFragment"
-
-        @JvmStatic
-        fun newInstance(columnCount: Int = 1) =
-            BookOrderListFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
     }
 }

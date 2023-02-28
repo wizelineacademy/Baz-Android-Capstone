@@ -1,5 +1,8 @@
 package com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,6 +28,8 @@ class AvailableBooksViewModel @Inject constructor(
     }
     val books: LiveData<MutableList<ExchangeOrderBook>>
         get() = _books
+
+    var booksResultForCompose: List<ExchangeOrderBook> by mutableStateOf(listOf())
 
     var selectedBookOrder = ExchangeOrderBook()
 
