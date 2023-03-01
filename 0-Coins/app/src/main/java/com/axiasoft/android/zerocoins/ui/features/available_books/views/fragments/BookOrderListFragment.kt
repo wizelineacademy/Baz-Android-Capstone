@@ -97,10 +97,20 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
         availableBooksViewModel.books.observe(viewLifecycleOwner) {
             bookOrderAdapter.updateBookOrders(it)
             availableBooksViewModel.booksResultForCompose = it
+
+            if (it.isNotEmpty()) {
+                 showEmptyData(false)
+             } else {
+                 showEmptyData(true)
+             }
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             refreshData()
         }
+    }
+
+    private fun showEmptyData(show: Boolean) {
+        fragmentBinding.layoutNoData.root.visibility = if (show) { View.VISIBLE } else { View.GONE }
     }
 
     private fun initUIListeners() {

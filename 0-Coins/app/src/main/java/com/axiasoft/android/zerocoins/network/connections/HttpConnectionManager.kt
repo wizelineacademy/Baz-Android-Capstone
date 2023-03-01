@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-abstract class HttpConnectionManager<T : Any>(var coinApi: CoinApis) {
+abstract class HttpConnectionManager<T : Any>(coinApi: CoinApis) {
 
     abstract fun build(): T
 
