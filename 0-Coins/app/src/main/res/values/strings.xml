@@ -15,6 +15,7 @@
     <string name="book_order_name_any_any">Cambio sin nombre definido</string>
 
     <string name="available_exchange_book_order">No hay datos que mostrar. Revisa tu conexión a Internet e intenta de nuevo por favor.</string>
+    <string name="available_exchange_book_order_toolbar_title">Reto de Criptomonedas</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -25,6 +26,10 @@
     <string name="ticker_ticker_last_price">Último precio: </string>
     <string name="ticker_ticker_high_price">Precio más alto: </string>
     <string name="ticker_ticker_lower_price">Precio más bajo: </string>
+
+    <string name="ticker_error_fetching_data">Ha habido un error al traer los datos. Intenta de nuevo por favor.</string>
+    <string name="ticker_error_fetching_data_exit">Salir</string>
+
 
     <string name="ticker_ask">Asks</string>
     <string name="ticker_bid">Bids</string>

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.observe
 import com.axiasoft.android.zerocoins.R
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.databinding.ActivityBookOrderBinding
@@ -17,13 +16,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class BookOrderActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBookOrderBinding
-    val bookOrderViewModel: BookOrderViewModel by viewModels()
+    private val bookOrderViewModel: BookOrderViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBookOrderBinding.inflate(layoutInflater)
 
-        supportActionBar?.title = "My Activity title"
+        supportActionBar?.title = getString(R.string.available_exchange_book_order_toolbar_title)
 
         setContentView(binding.root)
 
@@ -36,16 +35,9 @@ class BookOrderActivity : AppCompatActivity() {
         if (!bookOrderViewModel.internetStatus.isNetworkAvailable()) {
             showNoInternetSnackBar()
         }
-        /*lifecycleScope.launch {
-            whenCreated {
-                bookOrderViewModel.internetStatus.observe(lifecycle){
-
-                }
-            }
-        }*/
     }
 
-    fun showNoInternetSnackBar() {
+    private fun showNoInternetSnackBar() {
         val snackBar = Snackbar.make(
             binding.root,
             getString(R.string.internet_status_no_internet_data_warning),

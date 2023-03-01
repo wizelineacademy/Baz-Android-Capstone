@@ -1,10 +1,10 @@
 package com.axiasoft.android.zerocoins.ui.features.available_books.views.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.axiasoft.android.zerocoins.R
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.databinding.FragmentTickerBinding
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book.OpenOrder
@@ -79,9 +80,7 @@ class TickerFragment : Fragment() {
                     }
                 }
                 else -> {
-                    // TODO manage errors
-                    Toast.makeText(requireContext(), "No hay datos ticker", Toast.LENGTH_SHORT)
-                        .show()
+                    showErrorDialog()
                 }
             }
         }
@@ -93,12 +92,6 @@ class TickerFragment : Fragment() {
                     bidsAdapter.submitList(it.bids as List<OpenOrder>?)
                 }
                 else -> {
-                    // TODO manage error
-                    Toast.makeText(
-                        requireContext(),
-                        "No hay datos bids and asks",
-                        Toast.LENGTH_SHORT
-                    ).show()
                     clearData()
                 }
             }
@@ -108,11 +101,8 @@ class TickerFragment : Fragment() {
     }
 
     private fun initObservers() {
-        // Tips migrar a flow y usar lifecycleScope
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                // tickerViewModel.listOrderBookScreenState//.//collect Con Flow data
-                // TODO etc
                 refreshData()
             }
         }
@@ -122,7 +112,6 @@ class TickerFragment : Fragment() {
         if (bookOrderViewModel.internetStatus.isNetworkAvailable()) {
             log("z0", "Ticker & orders fetching remote")
             tickerViewModel.getRemoteTicker()
-            // tickerViewModel.call()//<- RX
             tickerViewModel.getRemoteListOrderBook()
         } else {
             log("z0", "Ticker & orders fetching local")
@@ -146,6 +135,18 @@ class TickerFragment : Fragment() {
     private fun clearData() {
         asksAdapter.submitList(emptyList())
         bidsAdapter.submitList(emptyList())
+    }
+
+    private fun showErrorDialog() {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        dialogBuilder.setMessage(getString(R.string.ticker_error_fetching_data))
+            .setCancelable(false)
+            .setPositiveButton(getString(R.string.ticker_error_fetching_data_exit)) { _, _ ->
+                findNavController().popBackStack()
+            }
+        val alert = dialogBuilder.create()
+        alert.setTitle("AlertDialogExample")
+        alert.show()
     }
 
     override fun onDestroyView() {
