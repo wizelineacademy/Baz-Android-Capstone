@@ -40,6 +40,17 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_order_book_name"
             tools:text="mxn_btc" />
 
+        <include
+            android:id="@+id/layout_exchange_coins"
+            layout="@layout/layout_exchange_coins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_order_book_name"
+            app:layout_constraintHorizontal_bias="1">
+        </include>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_last_prices"
             android:layout_width="match_parent"

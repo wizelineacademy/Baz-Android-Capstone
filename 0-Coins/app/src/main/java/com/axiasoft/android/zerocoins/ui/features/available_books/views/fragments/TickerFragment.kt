@@ -17,7 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.axiasoft.android.zerocoins.R
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.databinding.FragmentTickerBinding
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.CoinNameAndImage
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.CryptoCoinUI
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.genExchangeBookOrder
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.getCryptoCoinUI
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.open_orders_book.OpenOrder
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.ticker.Ticker
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.BookOrderViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.viewmodels.TickerViewModel
 import com.axiasoft.android.zerocoins.ui.features.available_books.views.adapters.OpenOrdersInBookAdapter
@@ -76,13 +81,7 @@ class TickerFragment : Fragment() {
         tickerViewModel.tickerState.observe(viewLifecycleOwner) {
             when (it) {
                 is TickerScreenState.TickerSuccess -> {
-                    with(binding) {
-                        ticker.tvOrderBookName.text = it.ticker.book
-                        ticker.tvOrderBookCode.text = it.ticker.book
-                        ticker.tvLastPrice.text = it.ticker.last
-                        ticker.tvHighPrice.text = it.ticker.high
-                        ticker.tvLowerPrice.text = it.ticker.low
-                    }
+                    setupTickerView(it.ticker)
                 }
                 else -> {
                     showErrorDialog()
@@ -118,6 +117,37 @@ class TickerFragment : Fragment() {
             log("z0", "Ticker & orders fetching local")
             tickerViewModel.getLocalTicker()
             tickerViewModel.getLocalListOrderBook()
+        }
+    }
+
+    private fun setupTickerView(ticker: Ticker) {
+        with(binding.ticker) {
+            val bookKey = ticker.book ?: CoinNameAndImage.any_any.coinKey
+            val cryptoCoinsKeys = bookKey.split("_")
+
+            val buyerCryptoCoinKey =
+                if (cryptoCoinsKeys.isEmpty()) CryptoCoinUI.crypto.coinKey else cryptoCoinsKeys[0]
+            val sellerCryptoCoinKey =
+                if (cryptoCoinsKeys.size == 2) cryptoCoinsKeys[1] else CryptoCoinUI.crypto.coinKey
+
+            val buyerCryptoCoinUI = getCryptoCoinUI(buyerCryptoCoinKey) ?: CryptoCoinUI.crypto
+            val sellerCryptoCoinUI = getCryptoCoinUI(sellerCryptoCoinKey) ?: CryptoCoinUI.crypto
+
+            val exchangerOrderBookName = genExchangeBookOrder(
+                buyerCryptoCoinUI,
+                buyerCryptoCoinKey,
+                sellerCryptoCoinUI,
+                sellerCryptoCoinKey
+            )
+
+            tvOrderBookName.text = exchangerOrderBookName
+            tvOrderBookCode.text = ticker.book
+            tvLastPrice.text = ticker.last
+            tvHighPrice.text = ticker.high
+            tvLowerPrice.text = ticker.low
+
+            layoutExchangeCoins.ivCoinOrigin.setImageResource(buyerCryptoCoinUI.coinImage)
+            layoutExchangeCoins.ivCoinTarget.setImageResource(sellerCryptoCoinUI.coinImage)
         }
     }
 
