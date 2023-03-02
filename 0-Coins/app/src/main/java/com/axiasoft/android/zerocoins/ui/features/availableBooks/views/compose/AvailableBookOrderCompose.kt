@@ -15,7 +15,7 @@ import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.mappers.
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.mappers.CryptoCoinUI
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.mappers.genExchangeBookOrder
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.mappers.getCryptoCoinUI
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.exchange_order_book.ExchangeOrderBook
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.exchangeOrderBook.ExchangeOrderBook
 
 @Composable
 fun ExchangeOrderBookList(

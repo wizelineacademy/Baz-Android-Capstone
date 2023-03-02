@@ -1,11 +1,11 @@
-package com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.order_book
+package com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.orderBook
 
 import com.axiasoft.android.zerocoins.network.bitso.models.BitsoBaseResponse
 import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWrap
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.apis.BitsoOrderBooksApi
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.open_orders_book.Ask
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.open_orders_book.Bids
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.open_orders_book.response.ListOrderBookResponse
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.openOrdersBook.Ask
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.openOrdersBook.Bids
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.openOrdersBook.response.ListOrderBookResponse
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
 import org.junit.Before

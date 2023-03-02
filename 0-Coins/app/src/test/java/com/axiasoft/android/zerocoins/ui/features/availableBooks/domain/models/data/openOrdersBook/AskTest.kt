@@ -1,4 +1,4 @@
-package com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.open_orders_book
+package com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.openOrdersBook
 
 import org.junit.Test
 

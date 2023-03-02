@@ -9,9 +9,9 @@ import com.axiasoft.android.zerocoins.db.bitso.dao.AskDao
 import com.axiasoft.android.zerocoins.db.bitso.dao.BidsDao
 import com.axiasoft.android.zerocoins.db.bitso.dao.ExchangeOrderBookDao
 import com.axiasoft.android.zerocoins.db.bitso.dao.TickerDao
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.exchange_order_book.entity.ExchangeOrderBookEntity
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.open_orders_book.entity.AskEntity
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.open_orders_book.entity.BidsEntity
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.exchangeOrderBook.entity.ExchangeOrderBookEntity
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.openOrdersBook.entity.AskEntity
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.openOrdersBook.entity.BidsEntity
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.ticker.entity.TickerEntity
 
 const val DB_NAME_Z0 = "zero_coins_db"

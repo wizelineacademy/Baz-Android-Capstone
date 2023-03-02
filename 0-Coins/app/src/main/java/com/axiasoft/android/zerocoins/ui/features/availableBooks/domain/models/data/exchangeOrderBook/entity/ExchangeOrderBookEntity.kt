@@ -1,4 +1,4 @@
-package com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.exchange_order_book.entity
+package com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.exchangeOrderBook.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

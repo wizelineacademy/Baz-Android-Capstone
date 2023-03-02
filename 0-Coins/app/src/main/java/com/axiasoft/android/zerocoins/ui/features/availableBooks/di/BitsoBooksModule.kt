@@ -3,10 +3,10 @@ package com.axiasoft.android.zerocoins.ui.features.availableBooks.di
 import com.axiasoft.android.zerocoins.db.ZeroCoinAppDatabase
 import com.axiasoft.android.zerocoins.db.getDatabase
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.apis.BitsoOrderBooksApi
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.order_book.LocalOrderBookRepository
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.order_book.LocalOrderBookRepositoryImpl
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.order_book.RemoteOrderBooksRepository
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.order_book.RemoteOrderBooksRepositoryImpl
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.orderBook.LocalOrderBookRepository
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.orderBook.LocalOrderBookRepositoryImpl
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.orderBook.RemoteOrderBooksRepository
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.orderBook.RemoteOrderBooksRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

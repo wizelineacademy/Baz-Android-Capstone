@@ -1,9 +1,9 @@
 package com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.mappers
 
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.open_orders_book.Ask
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.open_orders_book.Bids
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.open_orders_book.entity.AskEntity
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.open_orders_book.entity.BidsEntity
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.openOrdersBook.Ask
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.openOrdersBook.Bids
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.openOrdersBook.entity.AskEntity
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.openOrdersBook.entity.BidsEntity
 
 fun Ask.toEntity(): AskEntity {
     return AskEntity(
@@ -15,9 +15,9 @@ fun Ask.toEntity(): AskEntity {
 
 fun AskEntity.toDomain(): Ask {
     return Ask(
-        book = this.book ?: "",
-        price = this.price ?: "",
-        amount = this.amount ?: "",
+        book = this.book,
+        price = this.price,
+        amount = this.amount,
     )
 }
 
@@ -31,8 +31,8 @@ fun Bids.toEntity(): BidsEntity {
 
 fun BidsEntity.toDomain(): Bids {
     return Bids(
-        book = this.book ?: "",
-        price = this.price ?: "",
-        amount = this.amount ?: "",
+        book = this.book,
+        price = this.price,
+        amount = this.amount,
     )
 }

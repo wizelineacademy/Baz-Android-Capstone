@@ -1,9 +1,9 @@
-package com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.order_book
+package com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.orderBook
 
 import com.axiasoft.android.zerocoins.network.bitso.models.BitsoBaseResponse
 import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWrap
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.exchange_order_book.response.ExchangeOrderBookResponse
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.open_orders_book.response.ListOrderBookResponse
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.exchangeOrderBook.response.ExchangeOrderBookResponse
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.openOrdersBook.response.ListOrderBookResponse
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.ticker.response.TickerResponse
 import io.reactivex.Observable
 

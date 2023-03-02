@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.axiasoft.android.zerocoins.R
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.open_orders_book.OpenOrder
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.openOrdersBook.OpenOrder
 
 class OpenOrdersInBookAdapter : ListAdapter<OpenOrder, OpenOrdersInBookAdapter.UserViewHolder>(UserComparator) {
 

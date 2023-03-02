@@ -4,10 +4,10 @@ import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.network.bitso.models.BitsoBaseResponse
 import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWrap
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.mappers.toDomain
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.exchange_order_book.ExchangeOrderBook
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.exchange_order_book.response.ExchangeOrderBookResponse
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.order_book.LocalOrderBookRepository
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.order_book.RemoteOrderBooksRepository
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.exchangeOrderBook.ExchangeOrderBook
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.exchangeOrderBook.response.ExchangeOrderBookResponse
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.orderBook.LocalOrderBookRepository
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.orderBook.RemoteOrderBooksRepository
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.views.uiStates.BooksScreenState
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable

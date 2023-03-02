@@ -21,7 +21,7 @@ import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.mappers.
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.mappers.CryptoCoinUI
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.mappers.genExchangeBookOrder
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.mappers.getCryptoCoinUI
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.open_orders_book.OpenOrder
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.openOrdersBook.OpenOrder
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.ticker.Ticker
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.viewmodels.BookOrderViewModel
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.viewmodels.TickerViewModel

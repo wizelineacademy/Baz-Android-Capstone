@@ -1,4 +1,4 @@
-package com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.order_book
+package com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.orderBook
 
 import com.axiasoft.android.zerocoins.network.bitso.models.BitsoBaseResponse
 import com.axiasoft.android.zerocoins.network.bitso.wrappers.BitsoApiResponseWrap

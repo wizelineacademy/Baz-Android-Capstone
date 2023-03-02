@@ -1,6 +1,6 @@
 package com.axiasoft.android.zerocoins
 
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.open_orders_book.Ask
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.openOrdersBook.Ask
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.viewmodels.TickerViewModel
 import com.google.common.truth.Truth.assertThat
 import org.junit.After

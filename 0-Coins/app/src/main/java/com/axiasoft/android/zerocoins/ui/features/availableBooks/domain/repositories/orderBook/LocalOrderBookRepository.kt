@@ -1,8 +1,8 @@
-package com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.order_book
+package com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.orderBook
 
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.exchange_order_book.ExchangeOrderBook
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.open_orders_book.Ask
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.open_orders_book.Bids
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.exchangeOrderBook.ExchangeOrderBook
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.openOrdersBook.Ask
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.openOrdersBook.Bids
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.ticker.Ticker
 
 interface LocalOrderBookRepository {

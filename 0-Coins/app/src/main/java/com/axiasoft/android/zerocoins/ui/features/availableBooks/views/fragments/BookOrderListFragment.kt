@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.axiasoft.android.zerocoins.R
 import com.axiasoft.android.zerocoins.common.log
 import com.axiasoft.android.zerocoins.databinding.FragmentBookOrderListBinding
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.exchange_order_book.ExchangeOrderBook
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.exchangeOrderBook.ExchangeOrderBook
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.viewmodels.AvailableBooksViewModel
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.viewmodels.BookOrderViewModel
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.views.adapters.BookOrderAdapter

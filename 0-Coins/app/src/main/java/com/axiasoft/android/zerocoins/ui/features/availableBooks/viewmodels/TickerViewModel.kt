@@ -3,9 +3,9 @@ package com.axiasoft.android.zerocoins.ui.features.availableBooks.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.exchange_order_book.ExchangeOrderBook
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.order_book.LocalOrderBookRepository
-import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.order_book.RemoteOrderBooksRepository
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.exchangeOrderBook.ExchangeOrderBook
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.orderBook.LocalOrderBookRepository
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.repositories.orderBook.RemoteOrderBooksRepository
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.useCases.GetListOrderBookUseCase
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.useCases.GetTickerUseCase
 import com.axiasoft.android.zerocoins.ui.features.availableBooks.views.uiStates.ListOrderBookScreenState
