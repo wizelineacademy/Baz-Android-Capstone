@@ -12,9 +12,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidViewBinding
 import com.axiasoft.android.zerocoins.databinding.BookCoinItemBinding
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.CoinNameAndImage
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.getBookOrderType
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.CryptoCoinUI
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.genExchangeBookOrder
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.getCryptoCoinUI
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
-import com.bumptech.glide.Glide
 
 @Composable
 fun ExchangeOrderBookList(
@@ -28,17 +29,31 @@ fun ExchangeOrderBookList(
         itemsIndexed(availableExchangeOrderBooks) { index, item ->
             Spacer(modifier = Modifier.height(12.dp))
             AndroidViewBinding(BookCoinItemBinding::inflate) {
-                val typeOfBookOrder = getBookOrderType(item.book ?: "") ?: CoinNameAndImage.any_any
-                Glide.with(context)
-                    .load(typeOfBookOrder.coinImage)
-                    .centerInside()
-                    .into(this.ivCoin)
+                val bookKey = item.book ?: CoinNameAndImage.any_any.coinKey
+                val cryptoCoinsKeys = bookKey.split("_")
+
+                val buyerCryptoCoinKey =
+                    if (cryptoCoinsKeys.isEmpty()) CryptoCoinUI.crypto.coinKey else cryptoCoinsKeys[0]
+                val sellerCryptoCoinKey =
+                    if (cryptoCoinsKeys.size == 2) cryptoCoinsKeys[1] else CryptoCoinUI.crypto.coinKey
+
+                val buyerCryptoCoinUI = getCryptoCoinUI(buyerCryptoCoinKey) ?: CryptoCoinUI.crypto
+                val sellerCryptoCoinUI = getCryptoCoinUI(sellerCryptoCoinKey) ?: CryptoCoinUI.crypto
+
+                val exchangerOrderBookName = genExchangeBookOrder(
+                    buyerCryptoCoinUI,
+                    buyerCryptoCoinKey,
+                    sellerCryptoCoinUI,
+                    sellerCryptoCoinKey
+                )
                 this.apply {
                     coinsCv.setOnClickListener {
                         onClickItem(item)
                     }
+                    layoutExchangeCoins.ivCoinOrigin.setImageResource(buyerCryptoCoinUI.coinImage)
+                    layoutExchangeCoins.ivCoinTarget.setImageResource(sellerCryptoCoinUI.coinImage)
                     tvOrderBookCode.text = item.book
-                    tvOrderBookName.text = typeOfBookOrder.coinName
+                    tvOrderBookName.text = exchangerOrderBookName
                     tvItemNumInfo.text = item.maximumPrice
                 }
             }

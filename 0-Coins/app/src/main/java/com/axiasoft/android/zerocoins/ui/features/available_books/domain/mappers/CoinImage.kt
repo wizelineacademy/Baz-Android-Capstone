@@ -2,6 +2,7 @@ package com.axiasoft.android.zerocoins.ui.features.available_books.domain.mapper
 
 import com.axiasoft.android.zerocoins.R
 import com.axiasoft.android.zerocoins.application.ZeroCoinsApplication
+import java.util.*
 
 enum class CoinNameAndImage(val coinName: String, val coinImage: Int, val coinKey: String) {
 
@@ -33,6 +34,23 @@ enum class CoinNameAndImage(val coinName: String, val coinImage: Int, val coinKe
     eth_ars(coinName = "eth_ars", coinImage = R.drawable.ic_ethereum, coinKey = "eth_ars"),
 
     any_any("crypto", coinImage = R.drawable.ic_ldoge, coinKey = "any_any"),
+}
+
+fun genExchangeBookOrder(
+    buyerCryptoCoinUI: CryptoCoinUI,
+    buyerCryptoCoinKey: String,
+    sellerCryptoCoinUI: CryptoCoinUI,
+    sellerCryptoCoinKey: String
+) : String {
+    val buyer = if (buyerCryptoCoinUI == CryptoCoinUI.crypto) buyerCryptoCoinKey.uppercase(
+        Locale.ENGLISH
+    ) else buyerCryptoCoinUI.coinName
+
+    val seller = if (sellerCryptoCoinUI == CryptoCoinUI.crypto) sellerCryptoCoinKey.uppercase(
+        Locale.ENGLISH
+    ) else sellerCryptoCoinUI.coinName
+
+    return "$buyer \u2022 $seller"
 }
 
 fun getStringRes(id: Int): String {

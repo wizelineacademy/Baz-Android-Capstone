@@ -14,6 +14,29 @@
 
     <string name="book_order_name_any_any">Cambio sin nombre definido</string>
 
+    <!-- By coin -->
+    <string name="btc">Bitcoin</string>
+    <string name="eth">Ethereum</string>
+    <string name="mxn">Peso Méxicano</string>
+    <string name="xrp">Ripple</string>
+    <string name="ltc">Litecoin</string>
+    <string name="bch">Bitcoin Cash</string>
+    <string name="tusd">TrueUSD</string>
+    <string name="mana">MANA</string>
+    <string name="bat">Basic Attention Token</string>
+    <string name="usd">Dolar</string>
+    <string name="dai">Dai</string>
+    <string name="ars">Peso Argentino</string>
+    <string name="brl">Real Brasileño</string>
+    <string name="comp">Compound</string>
+    <string name="gala">GALA</string>
+    <string name="doge">DOGE Coin</string>
+    <string name="eur">Euro</string>
+    <string name="sol">Solana</string>
+    <string name="shib">Shiba Inu</string>
+    <string name="omg">OMG Network</string>
+
+
     <string name="available_exchange_book_order">No hay datos que mostrar. Revisa tu conexión a Internet e intenta de nuevo por favor.</string>
     <string name="available_exchange_book_order_toolbar_title">Reto de Criptomonedas</string>
 

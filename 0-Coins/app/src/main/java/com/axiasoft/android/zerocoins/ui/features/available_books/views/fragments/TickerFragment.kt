@@ -68,6 +68,11 @@ class TickerFragment : Fragment() {
 
         tickerViewModel.selectedBookOrder = bookOrderViewModel.selectedBookOrder
 
+        initObservers()
+        setupListeners()
+    }
+
+    private fun initObservers() {
         tickerViewModel.tickerState.observe(viewLifecycleOwner) {
             when (it) {
                 is TickerScreenState.TickerSuccess -> {
@@ -96,11 +101,7 @@ class TickerFragment : Fragment() {
                 }
             }
         }
-        initObservers()
-        setupListeners()
-    }
 
-    private fun initObservers() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 refreshData()

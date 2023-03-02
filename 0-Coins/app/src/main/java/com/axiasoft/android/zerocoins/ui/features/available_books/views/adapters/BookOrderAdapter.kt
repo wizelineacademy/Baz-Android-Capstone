@@ -2,17 +2,20 @@ package com.axiasoft.android.zerocoins.ui.features.available_books.views.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.axiasoft.android.zerocoins.R
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.CoinNameAndImage
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.getBookOrderType
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.CryptoCoinUI
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.genExchangeBookOrder
+import com.axiasoft.android.zerocoins.ui.features.available_books.domain.mappers.getCryptoCoinUI
 import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.exchange_order_book.ExchangeOrderBook
-import com.bumptech.glide.Glide
 
-class BookOrderAdapter(private val onItemClick: (ExchangeOrderBook) -> Unit) : RecyclerView.Adapter<BookOrderAdapter.BookOrderViewHolder>() {
+class BookOrderAdapter(private val onItemClick: (ExchangeOrderBook) -> Unit) :
+    RecyclerView.Adapter<BookOrderAdapter.BookOrderViewHolder>() {
 
     var items: MutableList<ExchangeOrderBook> = mutableListOf()
 
@@ -52,14 +55,29 @@ class BookOrderAdapter(private val onItemClick: (ExchangeOrderBook) -> Unit) : R
         }
 
         fun bind(book: ExchangeOrderBook) {
-            val typeOfBookOrder = getBookOrderType(book.book ?: "") ?: CoinNameAndImage.any_any
-            Glide.with(binding.root.context)
-                .load(typeOfBookOrder.coinImage)
-                .centerInside()
-                .into(binding.root.findViewById(R.id.iv_coin))
+            val bookKey = book.book ?: CoinNameAndImage.any_any.coinKey
+            val cryptoCoinsKeys = bookKey.split("_")
+
+            val buyerCryptoCoinKey =
+                if (cryptoCoinsKeys.isEmpty()) CryptoCoinUI.crypto.coinKey else cryptoCoinsKeys[0]
+            val sellerCryptoCoinKey =
+                if (cryptoCoinsKeys.size == 2) cryptoCoinsKeys[1] else CryptoCoinUI.crypto.coinKey
+
+            val buyerCryptoCoinUI = getCryptoCoinUI(buyerCryptoCoinKey) ?: CryptoCoinUI.crypto
+            val sellerCryptoCoinUI = getCryptoCoinUI(sellerCryptoCoinKey) ?: CryptoCoinUI.crypto
+
+            val exchangerOrderBookName = genExchangeBookOrder(
+                buyerCryptoCoinUI,
+                buyerCryptoCoinKey,
+                sellerCryptoCoinUI,
+                sellerCryptoCoinKey
+            )
+
             binding.root.apply {
+                findViewById<ImageView>(R.id.iv_coin_origin).setImageResource(buyerCryptoCoinUI.coinImage)
+                findViewById<ImageView>(R.id.iv_coin_target).setImageResource(sellerCryptoCoinUI.coinImage)
                 findViewById<TextView>(R.id.tv_order_book_code).text = book.book
-                findViewById<TextView>(R.id.tv_order_book_name).text = typeOfBookOrder.coinName
+                findViewById<TextView>(R.id.tv_order_book_name).text = exchangerOrderBookName
                 findViewById<TextView>(R.id.tv_item_num_info).text = book.maximumPrice
             }
         }
