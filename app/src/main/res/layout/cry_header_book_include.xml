@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_rounded_corner"
+    android:elevation="@dimen/dimens_40_dp"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimens_100_dp">
+
+    <TextView
+        android:id="@+id/txt_last_update"
+        style="@style/subtitle_h6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/cry_update_day"
+        android:layout_marginTop="@dimen/dimens_8_dp"
+        android:layout_marginHorizontal="@dimen/dimens_24_dp"
+        android:textAlignment="textEnd"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_chips"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_marginVertical="@dimen/dimens_8_dp"
+        android:layout_marginHorizontal="@dimen/dimens_24_dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_last_update" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
