@@ -9,7 +9,7 @@ import com.javg.cryptocurrencies.data.db.entity.CRYDetailBookEntity
 
 @Database(entities = [CRYBookEntity::class, CRYDetailBookEntity::class], version = 4)
 abstract class CRYAppDatabase : RoomDatabase() {
-    companion object{
+    companion object {
         const val DB_NAME = "database_crypto_book"
         const val BOOK_TABLE = "book_table"
         const val DETAIL_BOOK_TABLE = "detail_book_table"
@@ -17,5 +17,4 @@ abstract class CRYAppDatabase : RoomDatabase() {
     abstract fun bookDao(): CRYBookDao
 
     abstract fun tickerDao(): CRYTickerDao
-
 }

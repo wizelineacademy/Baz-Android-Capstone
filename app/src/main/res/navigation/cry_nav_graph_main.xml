@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cry_nav_graph_main"
+    app:startDestination="@id/cry_book_fragment">
+
+    <fragment
+        android:id="@+id/cry_book_fragment"
+        android:name="com.javg.cryptocurrencies.view.book.CRYBookFragment"
+        android:label="BookFragment"
+        tools:layout="@layout/cry_book_fragment">
+
+        <action
+            android:id="@+id/action_cry_book_fragment_to_cry_detail_book_fragment"
+            app:destination="@id/cry_detail_book_fragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/cry_detail_book_fragment"
+        android:name="com.javg.cryptocurrencies.view.detail.CRYDetailBookFragment"
+        android:label="DetailBookFragment"
+        tools:layout="@layout/cry_detail_book_fragment">
+
+    </fragment>
+
+</navigation>

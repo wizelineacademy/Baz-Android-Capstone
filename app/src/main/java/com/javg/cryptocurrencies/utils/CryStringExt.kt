@@ -1,4 +1,4 @@
-package com.javg.cryptocurrencies.ext
+package com.javg.cryptocurrencies.utils
 
 /**
  * Function that extends a string to be able to separate the text by a '_'
@@ -10,7 +10,7 @@ fun String.separateStringCoins() = this.split("_")[0]
  * function that extends a string to get the
  * second element separated by the '_' symbol
  */
-fun String.getSecondCoinsText(): String{
+fun String.getSecondCoinsText(): String {
     val list = this.split("_")
     return if (list.size >= 2) list[1] else this
 }

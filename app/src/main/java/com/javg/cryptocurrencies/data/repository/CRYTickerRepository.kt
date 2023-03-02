@@ -23,9 +23,11 @@ import javax.inject.Inject
  *
  * @since 2.0
  */
-class CRYTickerRepository @Inject constructor(@ApplicationContext val context: Context,
-                                              private val cryApi: CRYApi,
-                                              private val tickerDao: CRYTickerDao,): CRYGenericRepository(){
+class CRYTickerRepository @Inject constructor(
+    @ApplicationContext val context: Context,
+    private val cryApi: CRYApi,
+    private val tickerDao: CRYTickerDao,
+) : CRYGenericRepository() {
 
     /**
      *
@@ -33,21 +35,20 @@ class CRYTickerRepository @Inject constructor(@ApplicationContext val context: C
     suspend fun getTicker(book: String): CRYDetailBook? {
         var ticker = tickerDao.findById(book)
 
-        if (ticker == null){
+        if (ticker == null) {
             val tickerAux = getTickerFromApi(book)
             tickerAux?.let {
                 CRYUtils.saveTime(context)
                 tickerDao.insert(it)
             }
             ticker = tickerDao.findById(book)
-
         }
         return ticker?.toDomain()
     }
 
     private suspend fun getTickerFromApi(book: String): CRYDetailBookEntity? {
         var response = CRYBaseResponse<CRYTicker>()
-        getResponse {  response = cryApi.getTicker(book) }
+        getResponse { response = cryApi.getTicker(book) }
         return response.payload?.toEntity()
     }
 }

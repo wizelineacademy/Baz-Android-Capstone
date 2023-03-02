@@ -1,16 +1,19 @@
 package com.javg.cryptocurrencies.data.repository
 
 import android.content.Context
+import android.util.Log
 import com.javg.cryptocurrencies.data.db.dao.CRYBookDao
-import com.javg.cryptocurrencies.data.db.entity.CRYBookEntity
 import com.javg.cryptocurrencies.data.mapper.toDomain
 import com.javg.cryptocurrencies.data.mapper.toEntity
-import com.javg.cryptocurrencies.data.model.CRYBaseResponse
 import com.javg.cryptocurrencies.data.model.CRYBook
-import com.javg.cryptocurrencies.data.model.CRYBookResponse
 import com.javg.cryptocurrencies.data.network.CRYApi
 import com.javg.cryptocurrencies.utils.CRYUtils
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import rx.Observable
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -23,54 +26,50 @@ import javax.inject.Inject
  *
  * @since 2.0
  */
-class CRYBookRepository  @Inject constructor(@ApplicationContext val context: Context,
-                                             private val cryApi: CRYApi,
-                                             private val bookDao: CRYBookDao
-): CRYGenericRepository() {
+class CRYBookRepository @Inject constructor(
+    @ApplicationContext val context: Context,
+    private val cryApi: CRYApi,
+    private val bookDao: CRYBookDao,
+) : CRYGenericRepository() {
 
     /**
-     * Returns a list of books retrieved from the database
-     * or remotely from a service
+     * Observe through a flow the list of books stored in the database every time it changes
      *
-     * Which does a transformation from entity model to a
-     * general model to return to the view
-     *
-     * @param onRefresh flag that will indicate to the data layer if it
-     * consults the remote information again according
-     * to the user's interaction
-     *
-     * @return List of books of model general
+     * @return a book list type flow
      */
-    suspend fun getAvailableBooks(onRefresh: Boolean = false): List<CRYBook>{
-        var localBooks = bookDao.getAllBook()
-
-        if (localBooks.isEmpty() || onRefresh){
-            val remoteBooks = getBooksFromApi()
-            bookDao.insertAll(remoteBooks)
-            localBooks = bookDao.getAllBook()
-        }
-
-        return localBooks.map { it.toDomain() }
+    fun queryBooks(): Flow<List<CRYBook>> = bookDao.getAllBookV2().map { books ->
+        books.map { it.toDomain() }
     }
 
     /**
-     * Returns a list of entity-type books to be stored
-     * in the device's database, which was obtained from
-     * the consumption of a remote information service.
-     *
-     * @return List of books entity
+     * It is in charge of consuming the remote api to be able
+     * to obtain the list of books and later store them in the database
      */
-    private suspend fun getBooksFromApi(): List<CRYBookEntity>{
-        var responseAux = CRYBaseResponse<List<CRYBookResponse>>()
-        val listBookEntity = mutableListOf<CRYBookEntity>()
-        getResponse{ responseAux = cryApi.getListAvailableBooks() }
-        responseAux.payload?.let { payload ->
-            CRYUtils.saveTime(context)
-            payload.forEach {
-                listBookEntity.add(it.toEntity())
+    fun getAvailableBooksRx(): Boolean {
+        var result = false
+        cryApi.getListAvailableBooksRX()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ response ->
+                result = if (response.payload.isNullOrEmpty()) {
+                    false
+                } else {
+                    CRYUtils.saveTime(context)
+                    response?.payload?.let { payload ->
+                        val booksEntity = payload.map { it.toEntity() }
+
+                        Observable.just(bookDao)
+                            .subscribeOn(Schedulers.io())
+                            .subscribe {
+                                it.insertAll(booksEntity)
+                            }
+                    }
+                    true
+                }
+            }) { throwable ->
+                Log.e("CRYBookRepository", "Error $throwable")
+                result = false
             }
-        }
-        return listBookEntity
+        return result
     }
-
 }

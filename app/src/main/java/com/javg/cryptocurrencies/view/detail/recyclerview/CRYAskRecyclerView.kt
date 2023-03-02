@@ -20,19 +20,19 @@ import com.javg.cryptocurrencies.databinding.CryAskItemBinding
  * @since 2.0
  */
 class CRYAskRecyclerView(
-    private val context: Context):
+    private val context: Context,
+) :
     ListAdapter<CRYAskOrBids, CRYAskRecyclerView.CRYAskViewHolder>(AskAndBindDiffCallback()) {
 
-    inner class CRYAskViewHolder(private val binding: CryAskItemBinding): RecyclerView.ViewHolder(binding.root){
+    inner class CRYAskViewHolder(private val binding: CryAskItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         /**
          * Function in charge of setting the information of the ask or bids model that it receives
          */
-        fun bind(askOrBids: CRYAskOrBids){
+        fun bind(askOrBids: CRYAskOrBids) {
             binding.edPrice.text = String.format(context.getString(R.string.cry_price_order), askOrBids.price)
             binding.edAmount.text = askOrBids.amount
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CRYAskViewHolder {
@@ -41,14 +41,12 @@ class CRYAskRecyclerView(
     }
 
     override fun onBindViewHolder(holder: CRYAskViewHolder, position: Int) {
-        holder.bind(getItem(0))
+        holder.bind(getItem(position))
     }
-
 }
 
-class AskAndBindDiffCallback: DiffUtil.ItemCallback<CRYAskOrBids>(){
+class AskAndBindDiffCallback : DiffUtil.ItemCallback<CRYAskOrBids>() {
     override fun areItemsTheSame(oldItem: CRYAskOrBids, newItem: CRYAskOrBids) = oldItem.book == newItem.book
 
     override fun areContentsTheSame(oldItem: CRYAskOrBids, newItem: CRYAskOrBids) = oldItem == newItem
-
 }

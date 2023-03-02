@@ -18,8 +18,10 @@ import javax.inject.Inject
  *
  * @since 2.0
  */
-class CRYOrderBookRepository @Inject constructor(private val cryApi: CRYApi,
-                                                 private val tickerDao: CRYTickerDao) {
+class CRYOrderBookRepository @Inject constructor(
+    private val cryApi: CRYApi,
+    private val tickerDao: CRYTickerDao,
+) {
 
     /**
      * Returns a book detail model obtaining the information from the database or,
@@ -31,13 +33,14 @@ class CRYOrderBookRepository @Inject constructor(private val cryApi: CRYApi,
         var ticker = tickerDao.findById(book)
 
         ticker?.let { detailBookEntity ->
-            if (detailBookEntity.askList.isEmpty() || detailBookEntity.bidsList.isEmpty()){
+            if (detailBookEntity.askList.isEmpty() || detailBookEntity.bidsList.isEmpty()) {
                 val response = getOrderBookFromApi(book)
                 response.payload?.let {
                     tickerDao.update(
                         ask = CRYUtils.convertersListToJson(it.asksList),
                         bids = CRYUtils.convertersListToJson(it.bidsList),
-                        book = book)
+                        book = book,
+                    )
                 }
                 ticker = tickerDao.findById(book)
             }

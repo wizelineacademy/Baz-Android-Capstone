@@ -3,7 +3,7 @@ package com.javg.cryptocurrencies.data.domain
 import com.javg.cryptocurrencies.data.model.CRYDetailBook
 import com.javg.cryptocurrencies.data.repository.CRYOrderBookRepository
 import com.javg.cryptocurrencies.data.repository.CRYTickerRepository
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -21,7 +21,9 @@ import javax.inject.Inject
  */
 class CRYGetListBookWithTickerUseCase @Inject constructor(
     private val tickerRepository: CRYTickerRepository,
-    private val orderBookRepository: CRYOrderBookRepository) {
+    private val orderBookRepository: CRYOrderBookRepository,
+    private val dispatcher: CoroutineDispatcher,
+) {
 
     /**
      * Returns a detail type model of a specific book,
@@ -31,12 +33,13 @@ class CRYGetListBookWithTickerUseCase @Inject constructor(
      *
      * @return CRYDetailBook is the detail model of the consulted book
      */
-    suspend operator fun invoke(book: String): CRYDetailBook? = withContext(Dispatchers.IO){
+    suspend operator fun invoke(book: String): CRYDetailBook? = withContext(dispatcher) {
         val ticker = tickerRepository.getTicker(book)
         var detailBook: CRYDetailBook? = null
 
-        if (ticker != null)
+        if (ticker != null) {
             detailBook = orderBookRepository.getOrderBook(book)
+        }
 
         detailBook
     }
