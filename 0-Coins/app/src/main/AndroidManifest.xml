@@ -19,7 +19,7 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".ui.features.available_books.views.activities.BookOrderActivity"
+            android:name=".ui.features.availableBooks.views.activities.BookOrderActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>

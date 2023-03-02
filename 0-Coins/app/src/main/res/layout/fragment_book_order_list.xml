@@ -22,7 +22,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
-            android:name="com.axiasoft.android.zerocoins.ui.features.available_books.views.fragments.BookOrderListFragment"
+            android:name="com.axiasoft.android.zerocoins.ui.features.availableBooks.views.fragments.BookOrderListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="16dp"
@@ -32,7 +32,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layoutManager="LinearLayoutManager"
-            tools:context=".ui.features.available_books.views.fragments.BookOrderListFragment"
+            tools:context=".ui.features.availableBooks.views.fragments.BookOrderListFragment"
             tools:listitem="@layout/book_coin_item" />
 
         <include

@@ -3,7 +3,7 @@ package com.axiasoft.android.zerocoins.db.bitso.dao
 import android.database.sqlite.SQLiteConstraintException
 import androidx.room.*
 import com.axiasoft.android.zerocoins.db.TICKER_TB_NAME
-import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.data.ticker.entity.TickerEntity
+import com.axiasoft.android.zerocoins.ui.features.availableBooks.domain.models.data.ticker.entity.TickerEntity
 
 @Dao
 interface TickerDao {

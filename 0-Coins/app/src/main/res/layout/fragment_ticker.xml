@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="4dp"
-        tools:context=".ui.features.available_books.views.fragments.TickerFragment">
+        tools:context=".ui.features.availableBooks.views.fragments.TickerFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_container"

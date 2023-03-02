@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/bookOrderListFragment"
-        android:name="com.axiasoft.android.zerocoins.ui.features.available_books.views.fragments.BookOrderListFragment"
+        android:name="com.axiasoft.android.zerocoins.ui.features.availableBooks.views.fragments.BookOrderListFragment"
         android:label="BookOrderListFragment"
         tools:layout="@layout/fragment_book_order_list">
         <action
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/tickerFragment"
-        android:name="com.axiasoft.android.zerocoins.ui.features.available_books.views.fragments.TickerFragment"
+        android:name="com.axiasoft.android.zerocoins.ui.features.availableBooks.views.fragments.TickerFragment"
         android:label="TickerFragment"
         tools:layout="@layout/fragment_ticker"
     />
