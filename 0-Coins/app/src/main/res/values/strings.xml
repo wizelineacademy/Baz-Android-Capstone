@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">0-Coins</string>
+    <string name="book_order_name_btc_mxn">Bitcoin a MXN</string>
+    <string name="book_order_name_eth_btc">Ethereum a Bitcoin</string>
+    <string name="book_order_name_eth_mxn">Ethereum a MXN</string>
+    <string name="book_order_name_xrp_btc">Ripple a Bitcoin</string>
+    <string name="book_order_name_xrp_mxn">Ripple a MXN</string>
+    <string name="book_order_name_ltc_btc">Litecoin a Bitcoin</string>
+    <string name="book_order_name_ltc_mxn">Litecoin a MXN</string>
+    <string name="book_order_name_bch_mxn">Bitcoin Cash a MXN</string>
+    <string name="book_order_name_tusd_btc">TrueUSD a Bitcoin</string>
+    <string name="book_order_name_mana_btc">MANA a Bitcoin</string>
+    <string name="book_order_name_mana_mxn">MANA a MXN</string>
+
+    <string name="book_order_name_any_any">Cambio sin nombre definido</string>
+
+    <!-- By coin -->
+    <string name="btc">Bitcoin</string>
+    <string name="eth">Ethereum</string>
+    <string name="mxn">Peso Méxicano</string>
+    <string name="xrp">Ripple</string>
+    <string name="ltc">Litecoin</string>
+    <string name="bch">Bitcoin Cash</string>
+    <string name="tusd">TrueUSD</string>
+    <string name="mana">MANA</string>
+    <string name="bat">Basic Attention Token</string>
+    <string name="usd">Dolar</string>
+    <string name="dai">Dai</string>
+    <string name="ars">Peso Argentino</string>
+    <string name="brl">Real Brasileño</string>
+    <string name="comp">Compound</string>
+    <string name="gala">GALA</string>
+    <string name="doge">DOGE Coin</string>
+    <string name="eur">Euro</string>
+    <string name="sol">Solana</string>
+    <string name="shib">Shiba Inu</string>
+    <string name="omg">OMG Network</string>
+
+
+    <string name="available_exchange_book_order">No hay datos que mostrar. Revisa tu conexión a Internet e intenta de nuevo por favor.</string>
+    <string name="available_exchange_book_order_toolbar_title">Reto de Criptomonedas</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- Ticker -->
+    <string name="ticker_ticker_title">Ticker</string>
+    <string name="ticker_ticker_subtitle">Información de intercambio</string>
+    <string name="ticker_ticker_last_price">Último precio: </string>
+    <string name="ticker_ticker_high_price">Precio más alto: </string>
+    <string name="ticker_ticker_lower_price">Precio más bajo: </string>
+
+    <string name="ticker_error_fetching_data">Ha habido un error al traer los datos. Intenta de nuevo por favor.</string>
+    <string name="ticker_error_fetching_data_exit">Salir</string>
+
+
+    <string name="ticker_ask">Asks</string>
+    <string name="ticker_bid">Bids</string>
+
+    <!-- Internet status-->
+    <string name="internet_status_no_internet_data_warning">La información mostrada podría no estar actualizada. Revisa tu conexión a internet e intenta de nuevo</string>
+
+</resources>
