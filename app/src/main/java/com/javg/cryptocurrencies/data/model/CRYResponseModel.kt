@@ -3,10 +3,11 @@ package com.javg.cryptocurrencies.data.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-open class CRYBaseResponse<T: Any>{
+open class CRYBaseResponse<T : Any> {
     @SerializedName("success")
     @Expose
     var success: Boolean = false
+
     @SerializedName("payload")
     @Expose
     var payload: T? = null
@@ -30,7 +31,7 @@ data class CRYBookResponse(
     @SerializedName("tick_size")
     var tickSize: String,
     @SerializedName("default_chart")
-    var defaultChart: String
+    var defaultChart: String,
 )
 
 data class CRYTicker(
@@ -49,14 +50,14 @@ data class CRYTicker(
     @SerializedName("ask")
     var ask: String,
     @SerializedName("bid")
-    var bid: String
+    var bid: String,
 )
 
 data class CRYOrderBook(
     @SerializedName("bids")
     var bidsList: List<CRYAskOrBids>,
     @SerializedName("asks")
-    var asksList:  List<CRYAskOrBids>
+    var asksList: List<CRYAskOrBids>,
 )
 
 data class CRYAskOrBids(
@@ -65,5 +66,5 @@ data class CRYAskOrBids(
     @SerializedName("price")
     var price: String,
     @SerializedName("amount")
-    var amount: String
+    var amount: String,
 )

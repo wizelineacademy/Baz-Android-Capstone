@@ -9,7 +9,6 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.util.Log
 import com.google.gson.Gson
-import com.javg.cryptocurrencies.data.db.entity.CRYDetailBookEntity
 import com.javg.cryptocurrencies.data.model.CRYAskOrBids
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,22 +36,22 @@ object CRYUtils {
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                connectivityManager.registerDefaultNetworkCallback(object: ConnectivityManager.NetworkCallback(){
-                    override fun onAvailable(network : Network) {
+                connectivityManager.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback() {
+                    override fun onAvailable(network: Network) {
                         onChangeState.invoke(true)
                         Log.e(TAG, "====================== The default network is now: " + network)
                     }
 
-                    override fun onLost(network : Network) {
+                    override fun onLost(network: Network) {
                         onChangeState.invoke(false)
                         Log.e(TAG, "====================== The application no longer has a default network. The last default network was " + network)
                     }
 
-                    override fun onCapabilitiesChanged(network : Network, networkCapabilities : NetworkCapabilities) {
+                    override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
                         Log.e(TAG, "====================== The default network changed capabilities: " + networkCapabilities)
                     }
 
-                    override fun onLinkPropertiesChanged(network : Network, linkProperties : LinkProperties) {
+                    override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) {
                         Log.e(TAG, "====================== The default network changed link properties: " + linkProperties)
                     }
                 })
@@ -89,8 +88,8 @@ object CRYUtils {
      *
      * @param context is the context of the activity
      */
-    fun saveTime(context: Context){
-        val sharedPreference =  context.getSharedPreferences("PREFERENCE_NAME",Context.MODE_PRIVATE)
+    fun saveTime(context: Context) {
+        val sharedPreference = context.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
         val editor = sharedPreference.edit()
         editor.putString("time", getCurrentDay())
         editor.apply()
@@ -101,8 +100,8 @@ object CRYUtils {
      *
      * @param context is the context of the activity
      */
-    fun getSaveTime(context: Context): String{
-        val sharedPreference =  context.getSharedPreferences("PREFERENCE_NAME",Context.MODE_PRIVATE)
+    fun getSaveTime(context: Context): String {
+        val sharedPreference = context.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
         return sharedPreference.getString("time", "") ?: ""
     }
 

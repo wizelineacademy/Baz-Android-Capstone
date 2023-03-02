@@ -21,7 +21,8 @@ import javax.inject.Inject
  * @since 2.1
  */
 class CRYBookUseCase @Inject constructor(
-    private val repository: CRYBookRepository){
+    private val repository: CRYBookRepository,
+) {
 
     /**
      * Is responsible for obtaining the list of books
@@ -33,13 +34,14 @@ class CRYBookUseCase @Inject constructor(
      * to the user's interaction
      *
      */
-    suspend operator fun invoke(onRefresh: Boolean): List<CRYBook> = withContext(Dispatchers.IO){
+    suspend operator fun invoke(onRefresh: Boolean): List<CRYBook> = withContext(Dispatchers.IO) {
         var books = repository.getAvailableBooks(onRefresh)
 
-        if (books.isEmpty())
+        if (books.isEmpty()) {
             listOf<CRYBook>()
-        else
+        } else {
             books = transformBooks(books)
+        }
 
         books
     }
@@ -51,10 +53,10 @@ class CRYBookUseCase @Inject constructor(
      * @param books is the list a list of books
      * @return a transformed list
      */
-    fun transformBooks(books: List<CRYBook>): List<CRYBook>{
+    fun transformBooks(books: List<CRYBook>): List<CRYBook> {
         books.map {
-            it.singleBook      = it.book.separateStringCoins()
-            it.imageUrl        = "https://cryptoicons.org/api/icon/${it.book.separateStringCoins()}/200"
+            it.singleBook = it.book.separateStringCoins()
+            it.imageUrl = "https://cryptoicons.org/api/icon/${it.book.separateStringCoins()}/200"
             it.bookDestination = "https://cryptoicons.org/api/icon/${it.book.getSecondCoinsText()}/200"
         }
         return books
@@ -69,14 +71,14 @@ class CRYBookUseCase @Inject constructor(
      * @return a hashmap with the name of the coin as the key and the
      * list of all matches as the value
      */
-    fun createUniqueMap(books: List<CRYBook>): HashMap<String, List<CRYBook>>{
+    fun createUniqueMap(books: List<CRYBook>): HashMap<String, List<CRYBook>> {
         val mapBooks = HashMap<String, List<CRYBook>>()
         val uniqueBooks: List<CRYBook> = books
             .distinctBy { it.singleBook }
             .sortedBy { it.singleBook }
 
         uniqueBooks.forEach { uniqueBook ->
-            val booksGroup = books.filter { it.singleBook ==  uniqueBook.singleBook }
+            val booksGroup = books.filter { it.singleBook == uniqueBook.singleBook }
             mapBooks[uniqueBook.singleBook] = booksGroup
         }
 

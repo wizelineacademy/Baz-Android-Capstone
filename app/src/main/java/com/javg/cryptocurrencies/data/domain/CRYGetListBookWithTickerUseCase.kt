@@ -22,7 +22,8 @@ import javax.inject.Inject
 class CRYGetListBookWithTickerUseCase @Inject constructor(
     private val tickerRepository: CRYTickerRepository,
     private val orderBookRepository: CRYOrderBookRepository,
-    private val dispatcher: CoroutineDispatcher) {
+    private val dispatcher: CoroutineDispatcher,
+) {
 
     /**
      * Returns a detail type model of a specific book,
@@ -32,12 +33,13 @@ class CRYGetListBookWithTickerUseCase @Inject constructor(
      *
      * @return CRYDetailBook is the detail model of the consulted book
      */
-    suspend operator fun invoke(book: String): CRYDetailBook? = withContext(dispatcher){
+    suspend operator fun invoke(book: String): CRYDetailBook? = withContext(dispatcher) {
         val ticker = tickerRepository.getTicker(book)
         var detailBook: CRYDetailBook? = null
 
-        if (ticker != null)
+        if (ticker != null) {
             detailBook = orderBookRepository.getOrderBook(book)
+        }
 
         detailBook
     }

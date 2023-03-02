@@ -21,7 +21,8 @@ object CRYRoomHelper {
             .databaseBuilder(
                 appContext,
                 CRYAppDatabase::class.java,
-                CRYAppDatabase.DB_NAME)
+                CRYAppDatabase.DB_NAME,
+            )
             .fallbackToDestructiveMigration()
             .build()
     }

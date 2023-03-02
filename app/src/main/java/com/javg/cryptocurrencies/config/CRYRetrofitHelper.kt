@@ -1,6 +1,5 @@
 package com.javg.cryptocurrencies.config
 
-import android.os.Build
 import com.javg.cryptocurrencies.data.network.CRYApi
 import dagger.Module
 import dagger.Provides
@@ -18,21 +17,21 @@ object CRYRetrofitHelper {
 
     @Provides
     @Singleton
-    fun providerApi(builder: Retrofit.Builder): CRYApi{
+    fun providerApi(builder: Retrofit.Builder): CRYApi {
         return builder.build().create(CRYApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun providerRetrofit(): Retrofit.Builder{
+    fun providerRetrofit(): Retrofit.Builder {
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         val httpClient = OkHttpClient.Builder().addInterceptor { chain ->
-        val request = chain.request()
-            .newBuilder()
-            .addHeader("User-Agent", "CryptocurrenciesApp")
-            .build()
+            val request = chain.request()
+                .newBuilder()
+                .addHeader("User-Agent", "CryptocurrenciesApp")
+                .build()
 
             chain.proceed(request)
         }
@@ -44,4 +43,5 @@ object CRYRetrofitHelper {
             .addConverterFactory(GsonConverterFactory.create())
             .client(httpClient.build())
     }
+
 }

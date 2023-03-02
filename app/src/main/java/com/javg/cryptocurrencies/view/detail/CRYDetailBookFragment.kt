@@ -17,10 +17,10 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.javg.cryptocurrencies.R
 import com.javg.cryptocurrencies.data.model.CRYAskOrBids
 import com.javg.cryptocurrencies.data.model.CRYDetailBook
-import com.javg.cryptocurrencies.view.viewmodel.CRYDetailBookVM
 import com.javg.cryptocurrencies.databinding.CryDetailBookFragmentBinding
 import com.javg.cryptocurrencies.utils.separateStringCoins
 import com.javg.cryptocurrencies.view.detail.recyclerview.CRYAskRecyclerView
+import com.javg.cryptocurrencies.view.viewmodel.CRYDetailBookVM
 
 /**
  * @author Juan Antonio Vera
@@ -31,7 +31,7 @@ import com.javg.cryptocurrencies.view.detail.recyclerview.CRYAskRecyclerView
  *
  * @since 2.1
  */
-class CRYDetailBookFragment : Fragment(){
+class CRYDetailBookFragment : Fragment() {
     private lateinit var binding: CryDetailBookFragmentBinding
     private val detailBookVM by activityViewModels<CRYDetailBookVM>()
     private lateinit var adapterAskBids: CRYAskRecyclerView
@@ -41,9 +41,9 @@ class CRYDetailBookFragment : Fragment(){
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
-        binding = CryDetailBookFragmentBinding.inflate(inflater,container,false)
+        binding = CryDetailBookFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -68,9 +68,10 @@ class CRYDetailBookFragment : Fragment(){
      * @param book is the name of the book to show its details
      * @param imageName is the name of the image that will be consulted online to display
      */
-    private fun loadData(book: String,imageName: String){
-        if (book.isNotEmpty())
+    private fun loadData(book: String, imageName: String) {
+        if (book.isNotEmpty()) {
             detailBookVM.getTicker(book)
+        }
 
         Glide.with(requireContext())
             .load(imageName)
@@ -88,7 +89,7 @@ class CRYDetailBookFragment : Fragment(){
     /**
      * Configure and instantiate the adapter to display ask and bids
      */
-    private fun configureAdapter(){
+    private fun configureAdapter() {
         adapterAskBids = CRYAskRecyclerView(requireContext())
         binding.rvAskBids.apply {
             setHasFixedSize(false)
@@ -100,7 +101,7 @@ class CRYDetailBookFragment : Fragment(){
     /**
      * listens for the click events of the view when the user interacts
      */
-    private fun onClickListener() = with(binding){
+    private fun onClickListener() = with(binding) {
         headerTopBar.imageBack.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -112,9 +113,9 @@ class CRYDetailBookFragment : Fragment(){
      * Control the visual configuration when selecting ask,
      * changing the design and color of the text and background
      */
-    private fun changeAsk(){
+    private fun changeAsk() {
         binding.txtAsk.background = AppCompatResources.getDrawable(requireContext(), R.drawable.background_button_line)
-        binding.txtBids.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.transparent))
+        binding.txtBids.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.transparent))
         detailBookVM.tickerBook.value?.askList?.let { detailBookVM.sendListUpdate(it) }
     }
 
@@ -122,13 +123,13 @@ class CRYDetailBookFragment : Fragment(){
      * Control the visual configuration when selecting bids,
      * changing the design and color of the text and background
      */
-    private fun changeBids(){
-        binding.txtAsk.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.transparent))
+    private fun changeBids() {
+        binding.txtAsk.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.transparent))
         binding.txtBids.background = AppCompatResources.getDrawable(requireContext(), R.drawable.background_button_line)
         detailBookVM.tickerBook.value?.bidsList?.let { detailBookVM.sendListUpdate(it) }
     }
 
-    private fun startAnimationNoData(){
+    private fun startAnimationNoData() {
         binding.clNotInformation.visibility = View.VISIBLE
         binding.lavNotInformation.imageAssetsFolder = "assets"
         binding.lavNotInformation.setAnimation(lottieAsset)
@@ -136,28 +137,28 @@ class CRYDetailBookFragment : Fragment(){
         binding.lavNotInformation.playAnimation()
     }
 
-    private fun hideContentAll(){
-        binding.bookImage.visibility      = View.GONE
-        binding.txtLastPrice.visibility   = View.GONE
-        binding.edLastPrice.visibility    = View.GONE
+    private fun hideContentAll() {
+        binding.bookImage.visibility = View.GONE
+        binding.txtLastPrice.visibility = View.GONE
+        binding.edLastPrice.visibility = View.GONE
         binding.clContainerAll.visibility = View.GONE
     }
 
-    private fun showContentAll(){
-        binding.bookImage.visibility        = View.VISIBLE
-        binding.txtLastPrice.visibility     = View.VISIBLE
-        binding.edLastPrice.visibility      = View.VISIBLE
-        binding.clContainerAll.visibility   = View.VISIBLE
+    private fun showContentAll() {
+        binding.bookImage.visibility = View.VISIBLE
+        binding.txtLastPrice.visibility = View.VISIBLE
+        binding.edLastPrice.visibility = View.VISIBLE
+        binding.clContainerAll.visibility = View.VISIBLE
         binding.clNotInformation.visibility = View.GONE
     }
 
     /**
      * Observe when the data of the prices of the specific book changes
      */
-    private val tickerObserver = Observer<CRYDetailBook>{
+    private val tickerObserver = Observer<CRYDetailBook> {
         it?.let {
-            with(binding){
-                edLastPrice.text                = String.format(requireContext().resources.getString(R.string.cry_format_amount), it.last)
+            with(binding) {
+                edLastPrice.text = String.format(requireContext().resources.getString(R.string.cry_format_amount), it.last)
                 inCardPrice.edHighestPrice.text = String.format(requireContext().resources.getString(R.string.cry_format_amount), it.high)
                 inCardPrice.edLowMorePrice.text = String.format(requireContext().resources.getString(R.string.cry_format_amount), it.low)
                 showContentAll()
@@ -176,7 +177,7 @@ class CRYDetailBookFragment : Fragment(){
         }
     }
 
-    private val emptyDataObserver = Observer<Boolean>{
+    private val emptyDataObserver = Observer<Boolean> {
         it?.let {
             if (it) {
                 startAnimationNoData()
@@ -188,7 +189,7 @@ class CRYDetailBookFragment : Fragment(){
     /**
      * Observes the time change and reflects it in the view
      */
-    private val observerUpdateTime = Observer<String>{
+    private val observerUpdateTime = Observer<String> {
         it?.let { updateTime ->
             binding.headerTopBar.txtLastUpdate.text = updateTime
         }

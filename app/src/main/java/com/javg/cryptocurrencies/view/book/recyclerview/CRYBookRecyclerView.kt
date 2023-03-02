@@ -25,15 +25,16 @@ import com.javg.cryptocurrencies.utils.separateStringCoins
 
 class CRYBookRecyclerView(
     private val context: Context,
-    private val onItemClick: (String, String) -> Unit):
+    private val onItemClick: (String, String) -> Unit,
+) :
     ListAdapter<CRYBook, CRYBookRecyclerView.CRYBookViewHolder>(BookOrderDiffCallback()) {
 
-    inner class CRYBookViewHolder(private val binding: CryBookItemBinding): RecyclerView.ViewHolder(binding.root){
+    inner class CRYBookViewHolder(private val binding: CryBookItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         /**
          * Function in charge of setting the information of the book model that it receives
          */
-        fun bind(book: CRYBook){
+        fun bind(book: CRYBook) {
             binding.txtBook.text = book.book.separateStringCoins().uppercase()
             binding.txtBookEnd.text = book.book.getSecondCoinsText().uppercase()
             Glide.with(context)
@@ -60,9 +61,8 @@ class CRYBookRecyclerView(
     }
 }
 
-class BookOrderDiffCallback: DiffUtil.ItemCallback<CRYBook>(){
+class BookOrderDiffCallback : DiffUtil.ItemCallback<CRYBook>() {
     override fun areItemsTheSame(oldItem: CRYBook, newItem: CRYBook) = oldItem.book == newItem.book
 
     override fun areContentsTheSame(oldItem: CRYBook, newItem: CRYBook) = oldItem == newItem
-
 }

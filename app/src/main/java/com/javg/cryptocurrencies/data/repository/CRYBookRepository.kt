@@ -12,7 +12,6 @@ import com.javg.cryptocurrencies.data.network.CRYApi
 import com.javg.cryptocurrencies.utils.CRYUtils
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -26,10 +25,11 @@ import javax.inject.Inject
  *
  * @since 2.0
  */
-class CRYBookRepository  @Inject constructor(@ApplicationContext val context: Context,
-                                             private val cryApi: CRYApi,
-                                             private val bookDao: CRYBookDao
-): CRYGenericRepository() {
+class CRYBookRepository @Inject constructor(
+    @ApplicationContext val context: Context,
+    private val cryApi: CRYApi,
+    private val bookDao: CRYBookDao,
+) : CRYGenericRepository() {
 
     /**
      * Returns a list of books retrieved from the database
@@ -44,10 +44,10 @@ class CRYBookRepository  @Inject constructor(@ApplicationContext val context: Co
      *
      * @return List of books of model general
      */
-    suspend fun getAvailableBooks(onRefresh: Boolean = false): List<CRYBook>{
+    suspend fun getAvailableBooks(onRefresh: Boolean = false): List<CRYBook> {
         var localBooks = bookDao.getAllBook()
 
-        if (localBooks.isEmpty() || onRefresh){
+        if (localBooks.isEmpty() || onRefresh) {
             val remoteBooks = getBooksFromApi()
             bookDao.insertAll(remoteBooks)
             localBooks = bookDao.getAllBook()
@@ -63,10 +63,10 @@ class CRYBookRepository  @Inject constructor(@ApplicationContext val context: Co
      *
      * @return List of books entity
      */
-    private suspend fun getBooksFromApi(): List<CRYBookEntity>{
+    private suspend fun getBooksFromApi(): List<CRYBookEntity> {
         var responseAux = CRYBaseResponse<List<CRYBookResponse>>()
         val listBookEntity = mutableListOf<CRYBookEntity>()
-        getResponse{ responseAux = cryApi.getListAvailableBooks() }
+        getResponse { responseAux = cryApi.getListAvailableBooks() }
         responseAux.payload?.let { payload ->
             CRYUtils.saveTime(context)
             payload.forEach {
@@ -79,5 +79,4 @@ class CRYBookRepository  @Inject constructor(@ApplicationContext val context: Co
     fun queryBooks(): Flow<List<CRYBook>> = bookDao.getAllBookV2().map { books ->
         books.map { it.toDomain() }
     }
-
 }

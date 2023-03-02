@@ -13,13 +13,14 @@ import com.javg.cryptocurrencies.data.model.CRYBook
 import com.javg.cryptocurrencies.databinding.CryChipsItemBinding
 import com.javg.cryptocurrencies.utils.separateStringCoins
 
-class CRYChipsHeaderRecyclerView(private val context: Context):
-    ListAdapter<CRYBook, CRYChipsHeaderRecyclerView.CRyChipsViewHolder>(ChipsDiffCallback()){
+class CRYChipsHeaderRecyclerView(private val context: Context) :
+    ListAdapter<CRYBook, CRYChipsHeaderRecyclerView.CRyChipsViewHolder>(ChipsDiffCallback()) {
 
-    inner class CRyChipsViewHolder(private val binding: CryChipsItemBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(book: CRYBook, position: Int){
-            if (position != 0)
-                binding.clContainer.setBackgroundColor(ContextCompat.getColor(context,R.color.transparent))
+    inner class CRyChipsViewHolder(private val binding: CryChipsItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(book: CRYBook, position: Int) {
+            if (position != 0) {
+                binding.clContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.transparent))
+            }
 
             binding.txtTitleBook.text = book.book.separateStringCoins().uppercase()
             Glide.with(context)
@@ -28,10 +29,11 @@ class CRYChipsHeaderRecyclerView(private val context: Context):
                 .into(binding.ivBook)
 
             binding.clContainer.setOnClickListener {
-                if (position == absoluteAdapterPosition)
+                if (position == absoluteAdapterPosition) {
                     binding.clContainer.background = ContextCompat.getDrawable(context, R.drawable.background_button_oval)
-                else
-                    binding.clContainer.setBackgroundColor(ContextCompat.getColor(context,R.color.transparent))
+                } else {
+                    binding.clContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.transparent))
+                }
             }
         }
     }
@@ -46,9 +48,8 @@ class CRYChipsHeaderRecyclerView(private val context: Context):
     }
 }
 
-class ChipsDiffCallback: DiffUtil.ItemCallback<CRYBook>(){
+class ChipsDiffCallback : DiffUtil.ItemCallback<CRYBook>() {
     override fun areItemsTheSame(oldItem: CRYBook, newItem: CRYBook) = oldItem.book == newItem.book
 
     override fun areContentsTheSame(oldItem: CRYBook, newItem: CRYBook) = oldItem == newItem
-
 }

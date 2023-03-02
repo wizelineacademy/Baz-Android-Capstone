@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : CRYBaseActivity() {
 
     private lateinit var navController: NavController
-    private lateinit var navHostFragment : NavHostFragment
+    private lateinit var navHostFragment: NavHostFragment
     private lateinit var navGraph: NavGraph
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,11 +30,10 @@ class MainActivity : CRYBaseActivity() {
         setUpNavHost()
     }
 
-    private fun setUpNavHost(){
+    private fun setUpNavHost() {
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_main) as NavHostFragment
         navGraph = navHostFragment.navController.navInflater.inflate(R.navigation.cry_nav_graph_main)
         navController = navHostFragment.navController
         navController.graph = navGraph
     }
-
 }

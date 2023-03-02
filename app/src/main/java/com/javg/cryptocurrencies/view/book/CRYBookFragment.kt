@@ -33,7 +33,7 @@ import kotlin.math.abs
  *
  * @since 2.2
  */
-class CRYBookFragment : Fragment(){
+class CRYBookFragment : Fragment() {
 
     private lateinit var binding: CryBookFragmentBinding
     private lateinit var adapterBook: CRYBookRecyclerView
@@ -42,11 +42,11 @@ class CRYBookFragment : Fragment(){
     private lateinit var shimmerFrameLayout: ShimmerFrameLayout
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
-    //Saves the Lambda event that is executed in the adapter item
+    // Saves the Lambda event that is executed in the adapter item
     private val onClickItem: (String, String) -> Unit = { book, image ->
         val args = Bundle().apply {
-            putString("BOOK",book)
-            putString("IMAGE_NAME",image)
+            putString("BOOK", book)
+            putString("IMAGE_NAME", image)
         }
         findNavController().navigate(R.id.action_cry_book_fragment_to_cry_detail_book_fragment, args)
     }
@@ -54,9 +54,9 @@ class CRYBookFragment : Fragment(){
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
-        binding = CryBookFragmentBinding.inflate(inflater,container, false)
+        binding = CryBookFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -76,7 +76,7 @@ class CRYBookFragment : Fragment(){
      * Performs an update when the user interacts with
      * the view in order to update the books in the database
      */
-    private fun swipeRefresh(){
+    private fun swipeRefresh() {
         swipeRefreshLayout = binding.swipeRefreshLayout
         swipeRefreshLayout.setOnRefreshListener {
             binding.rvBooks.visibility = View.GONE
@@ -89,7 +89,7 @@ class CRYBookFragment : Fragment(){
      * It is responsible for linking the visual component
      * and starting the facebook loading effect
      */
-    private fun loadShimmer(){
+    private fun loadShimmer() {
         binding.idShimmer.visibility = View.VISIBLE
         shimmerFrameLayout = binding.idShimmer
         shimmerFrameLayout.startShimmer()
@@ -99,19 +99,19 @@ class CRYBookFragment : Fragment(){
      * Takes care of the adapter instance and the visual
      * configuration of the recycle view
      */
-    private fun loadAdapter(){
+    private fun loadAdapter() {
         adapterBook = CRYBookRecyclerView(requireContext(), onClickItem)
         binding.rvBooks.apply {
             setHasFixedSize(false)
             layoutManager = LinearLayoutManager(context)
-            adapter       = adapterBook
+            adapter = adapterBook
         }
     }
 
     /**
      * Start the general configuration of the viewPager of the view
      */
-    private fun loadViewPagerChips(){
+    private fun loadViewPagerChips() {
         adapterChips = CRYChipsHeaderRecyclerView(requireContext())
         binding.includeChips.vpChips.adapter = adapterChips
         setupViewPager()
@@ -121,8 +121,8 @@ class CRYBookFragment : Fragment(){
     /**
      * Configure the viewPager to transform the size of the card that is selected
      */
-    private fun setupViewPager(){
-        with(binding){
+    private fun setupViewPager() {
+        with(binding) {
             includeChips.vpChips.clipToPadding = false
             includeChips.vpChips.clipChildren = false
             includeChips.vpChips.offscreenPageLimit = 3
@@ -137,7 +137,7 @@ class CRYBookFragment : Fragment(){
                 }
             }
             includeChips.vpChips.setPageTransformer(compositePageTransformer)
-            //redireccionar a posicion especifica
+            // redireccionar a posicion especifica
             /*includeChips.vpChips.post {
                 includeChips.vpChips.setCurrentItem(5,false)
             }*/
@@ -148,8 +148,8 @@ class CRYBookFragment : Fragment(){
      * Contains the functionality to be able to detect when the user
      * has changed the page in the view
      */
-    private fun onPagerListenerChips(){
-        binding.includeChips.vpChips.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+    private fun onPagerListenerChips() {
+        binding.includeChips.vpChips.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 println("onPageSelected -> $position")
@@ -162,16 +162,16 @@ class CRYBookFragment : Fragment(){
      * It is in charge of observing the list that contains the same
      * books of the page of selection of the view
      */
-    private val observerEqualsBooks = Observer<List<CRYBook>>{ equalsBooks ->
+    private val observerEqualsBooks = Observer<List<CRYBook>> { equalsBooks ->
         equalsBooks?.let {
             swipeRefreshLayout.isRefreshing = false
 
-            if (equalsBooks.isEmpty())
-                Toast.makeText(requireContext(),"Lista vacia",Toast.LENGTH_SHORT).show()
-            else{
+            if (equalsBooks.isEmpty()) {
+                Toast.makeText(requireContext(), "Lista vacia", Toast.LENGTH_SHORT).show()
+            } else {
                 shimmerFrameLayout.stopShimmer()
                 binding.idShimmer.visibility = View.GONE
-                binding.rvBooks.visibility   = View.VISIBLE
+                binding.rvBooks.visibility = View.VISIBLE
                 adapterBook.submitList(equalsBooks)
             }
         }
@@ -182,7 +182,7 @@ class CRYBookFragment : Fragment(){
      * be able to show the selection options
      *
      */
-    private val observerBooksChips = Observer<List<CRYBook>> {listBooks ->
+    private val observerBooksChips = Observer<List<CRYBook>> { listBooks ->
         listBooks?.let {
             adapterChips.submitList(listBooks)
         }
@@ -191,10 +191,9 @@ class CRYBookFragment : Fragment(){
     /**
      * Observes the time change and reflects it in the view
      */
-    private val observerUpdateTime = Observer<String>{
-       it?.let { updateTime ->
-           binding.updateDay.text = updateTime
-       }
+    private val observerUpdateTime = Observer<String> {
+        it?.let { updateTime ->
+            binding.updateDay.text = updateTime
+        }
     }
-
 }
