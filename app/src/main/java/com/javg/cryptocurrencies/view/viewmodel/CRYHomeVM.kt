@@ -33,6 +33,7 @@ class CRYHomeVM @Inject constructor(
     private var _updateTime = MutableLiveData<String>()
     private var _chipsTitles = MutableLiveData<List<CRYBook>>()
     private var _equalBooks = MutableLiveData<List<CRYBook>>()
+    private var _result = MutableLiveData<Boolean>()
 
     val updateTime: LiveData<String>
         get() = _updateTime
@@ -43,6 +44,9 @@ class CRYHomeVM @Inject constructor(
     val equalBooks: LiveData<List<CRYBook>>
         get() = _equalBooks
 
+    val result: LiveData<Boolean>
+        get() = _result
+
     init {
         _updateTime.value = getTimeUpdate()
         queryBookFlow()
@@ -52,23 +56,10 @@ class CRYHomeVM @Inject constructor(
      * It is responsible for requesting the list of books from the data
      * layer which can be called with user interaction.
      *
-     * @param onRefresh flag that will indicate to the data layer
-     * if it consults the remote information again
-     *
      */
-    fun getBooks(onRefresh: Boolean = false) {
-        viewModelScope.launch {
-            /**
-             * List with all books
-             */
-            _books.value = bookUseCase.invoke(onRefresh)
-
-            if (onRefresh && _books.value?.isNotEmpty()!!) {
-                _updateTime.value = getTimeUpdate()
-            } else {
-                _updateTime.value = getTimeUpdate()
-            }
-        }
+    fun getBooks() {
+        val result = bookUseCase.getAvailableBooksRx()
+        _result.postValue(result)
     }
 
     /**
@@ -87,6 +78,11 @@ class CRYHomeVM @Inject constructor(
      */
     private fun getTimeUpdate(): String = String.format(getApplication<Application>().applicationContext.getString(R.string.cry_update_day), CRYUtils.getSaveTime(getApplication<Application>().applicationContext))
 
+    /**
+     * It is in charge of observing the changes of the list of books
+     * in the database and in case it has changed, it refreshes the view
+     * with the new information stored in it.
+     */
     private fun queryBookFlow() {
         viewModelScope.launch {
             bookUseCase.queryBooks().collect {

@@ -6,6 +6,7 @@ import com.javg.cryptocurrencies.data.model.CRYOrderBook
 import com.javg.cryptocurrencies.data.model.CRYTicker
 import retrofit2.http.GET
 import retrofit2.http.Query
+import rx.Observable
 
 interface CRYApi {
 
@@ -18,6 +19,9 @@ interface CRYApi {
 
     @GET(END_POINT_AVAILABLE_BOOKS)
     suspend fun getListAvailableBooks(): CRYBaseResponse<List<CRYBookResponse>>
+
+    @GET(END_POINT_AVAILABLE_BOOKS)
+    fun getListAvailableBooksRX(): Observable<CRYBaseResponse<List<CRYBookResponse>>>
 
     @GET(END_POINT_TICKER)
     suspend fun getTicker(@Query("book") book: String): CRYBaseResponse<CRYTicker>

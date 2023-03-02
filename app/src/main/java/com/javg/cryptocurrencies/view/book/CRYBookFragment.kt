@@ -70,6 +70,7 @@ class CRYBookFragment : Fragment() {
         bookHomeVM.updateTime.observe(viewLifecycleOwner, observerUpdateTime)
         bookHomeVM.chipsTitles.observe(viewLifecycleOwner, observerBooksChips)
         bookHomeVM.equalBooks.observe(viewLifecycleOwner, observerEqualsBooks)
+        bookHomeVM.result.observe(viewLifecycleOwner, observerResult)
     }
 
     /**
@@ -81,7 +82,7 @@ class CRYBookFragment : Fragment() {
         swipeRefreshLayout.setOnRefreshListener {
             binding.rvBooks.visibility = View.GONE
             loadShimmer()
-            bookHomeVM.getBooks(true)
+            bookHomeVM.getBooks()
         }
     }
 
@@ -194,6 +195,16 @@ class CRYBookFragment : Fragment() {
     private val observerUpdateTime = Observer<String> {
         it?.let { updateTime ->
             binding.updateDay.text = updateTime
+        }
+    }
+
+    private val observerResult = Observer<Boolean> { result ->
+        result?.let {
+            if (it) {
+                println("success")
+            } else {
+                println("error")
+            }
         }
     }
 }

@@ -80,6 +80,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$interceptor_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava:$retrofit_version"
 
     //Dagger HILT
     implementation "com.google.dagger:hilt-android:$hilt_version"
@@ -160,4 +161,10 @@ dependencies {
     //navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_fragment_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_fragment_version"
+
+    //rxjava
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava2_java_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxjava2_android_version"
+    implementation "io.reactivex:rxandroid:$rx_android_version"
+    implementation "io.reactivex:rxjava:$rx_java_version"
 }

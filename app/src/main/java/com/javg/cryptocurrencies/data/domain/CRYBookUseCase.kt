@@ -4,9 +4,7 @@ import com.javg.cryptocurrencies.data.model.CRYBook
 import com.javg.cryptocurrencies.data.repository.CRYBookRepository
 import com.javg.cryptocurrencies.utils.getSecondCoinsText
 import com.javg.cryptocurrencies.utils.separateStringCoins
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -23,29 +21,6 @@ import javax.inject.Inject
 class CRYBookUseCase @Inject constructor(
     private val repository: CRYBookRepository,
 ) {
-
-    /**
-     * Is responsible for obtaining the list of books
-     * delivered by the repository and at the same time
-     * altering it to add the url of the image
-     *
-     * @param onRefresh flag that will indicate to the data layer if it
-     * consults the remote information again according
-     * to the user's interaction
-     *
-     */
-    suspend operator fun invoke(onRefresh: Boolean): List<CRYBook> = withContext(Dispatchers.IO) {
-        var books = repository.getAvailableBooks(onRefresh)
-
-        if (books.isEmpty()) {
-            listOf<CRYBook>()
-        } else {
-            books = transformBooks(books)
-        }
-
-        books
-    }
-
     /**
      * Transform the list to assign the name of the simple book and add
      * the corresponding images to the main moment and the one to be converted
@@ -98,5 +73,13 @@ class CRYBookUseCase @Inject constructor(
             .sortedBy { it.singleBook }
     }
 
+    /**
+     * Gets the list of books that are stored in the database
+     */
     fun queryBooks(): Flow<List<CRYBook>> = repository.queryBooks()
+
+    /**
+     * Query the api to get the books remotely
+     */
+    fun getAvailableBooksRx(): Boolean = repository.getAvailableBooksRx()
 }
