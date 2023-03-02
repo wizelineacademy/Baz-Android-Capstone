@@ -38,7 +38,9 @@ fun DropDownTextMenu(
 
     Column() {
         OutlinedTextFieldMenu(
-            modifier = Modifier.onGloballyPositioned { textFieldSize.value = it.size.toSize() },
+            modifier = Modifier.onGloballyPositioned {
+                textFieldSize.value = it.size.toSize()
+            },
             valor = selectedItem.value,
             onValueChange = { selectedItem.value = it },
             readOnly = true,
@@ -46,15 +48,13 @@ fun DropDownTextMenu(
             expand = expanded,
             label = label
         )
-
         DropdownMenu(
             expanded = expanded.value,
             onDismissRequest = {
                 expanded.value = false
                 focusManager.clearFocus()
             },
-            modifier = Modifier
-                .width(with(LocalDensity.current) { textFieldSize.value.width.toDp() })
+            modifier = Modifier.width(with(LocalDensity.current) { textFieldSize.value.width.toDp() })
         ) {
             listMarkets.forEach {
                 DropdownMenuItem(onClick = {

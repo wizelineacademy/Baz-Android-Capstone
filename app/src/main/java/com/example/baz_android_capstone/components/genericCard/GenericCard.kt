@@ -22,12 +22,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.request.RequestOptions
-import com.example.baz_android_capstone.util.*
+import com.example.baz_android_capstone.util.* // ktlint-disable no-wildcard-imports
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun GenericCard(genericCardInterface: GenericCardInterface) {
     val borderWidth = with(LocalDensity.current) { spacer16.toPx() }
+
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -36,7 +37,6 @@ fun GenericCard(genericCardInterface: GenericCardInterface) {
                     genericCardInterface.onClick.invoke()
                 }
             },
-        color = genericCardInterface.background,
         border = if (genericCardInterface is GenericCardPresentation) {
             BorderStroke(width = borderStroke4, color = GoldColor)
         } else {
@@ -62,7 +62,7 @@ fun GenericCard(genericCardInterface: GenericCardInterface) {
                         )
                     }
                 }
-                .padding(vertical = spacer16, horizontal = spacer32),
+                .background(color = PaleGoldColor),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -79,6 +79,7 @@ fun GenericCard(genericCardInterface: GenericCardInterface) {
                 GlideImage(
                     modifier = Modifier
                         .spinning()
+                        .padding(vertical = 16.dp, horizontal = 24.dp)
                         .clip(shape = CircleShape)
                         .size(spacer40)
                         .background(Color.LightGray),
@@ -97,7 +98,6 @@ fun GenericCard(genericCardInterface: GenericCardInterface) {
                     }
 
                 )
-                Spacer(modifier = Modifier.width(24.dp))
             }
             genericCardInterface.title?.let {
                 Text(
