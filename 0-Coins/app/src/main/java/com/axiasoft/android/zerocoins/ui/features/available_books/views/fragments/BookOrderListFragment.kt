@@ -59,7 +59,7 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         fragmentBinding = FragmentBookOrderListBinding.inflate(inflater, container, false)
         fragmentBinding.list.apply {
@@ -74,7 +74,7 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
                 setContent {
                     ExchangeOrderBookList(
                         availableExchangeOrderBooks = availableBooksViewModel.booksResultForCompose,
-                        onClickItem = onAvailableExchangeOrderBookClick
+                        onClickItem = onAvailableExchangeOrderBookClick,
                     )
                 }
             }
@@ -99,10 +99,10 @@ class BookOrderListFragment : Fragment(R.layout.fragment_book_order_list) {
             availableBooksViewModel.booksResultForCompose = it
 
             if (it.isNotEmpty()) {
-                 showEmptyData(false)
-             } else {
-                 showEmptyData(true)
-             }
+                showEmptyData(false)
+            } else {
+                showEmptyData(true)
+            }
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             refreshData()

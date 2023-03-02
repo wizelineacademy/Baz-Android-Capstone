@@ -27,8 +27,8 @@ fun ErrorDialog(onDismiss: () -> Unit, onExit: () -> Unit) {
         onDismissRequest = { onDismiss() },
         properties = DialogProperties(
             dismissOnBackPress = false,
-            dismissOnClickOutside = false
-        )
+            dismissOnClickOutside = false,
+        ),
     ) {
         Card(
             // shape = MaterialTheme.shapes.medium,
@@ -37,12 +37,12 @@ fun ErrorDialog(onDismiss: () -> Unit, onExit: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
-            elevation = 8.dp
+            elevation = 8.dp,
         ) {
             Column(
                 Modifier
                     .fillMaxWidth()
-                    .background(Color.White)
+                    .background(Color.White),
             ) {
                 Row(
                     modifier = Modifier
@@ -50,25 +50,25 @@ fun ErrorDialog(onDismiss: () -> Unit, onExit: () -> Unit) {
                         .height(100.dp)
                         .background(Color.Red.copy(alpha = 0.8F)),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
+                    horizontalArrangement = Arrangement.Center,
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_ldoge),
                         contentDescription = "Exit app",
                         modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.FillWidth
+                        contentScale = ContentScale.FillWidth,
                     )
                 }
 
                 Text(
                     text = "Lorem Ipsum is simply dummy text",
                     modifier = Modifier.padding(8.dp),
-                    fontSize = 20.sp
+                    fontSize = 20.sp,
                 )
 
                 Text(
                     text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(8.dp),
                 )
 
                 Row(Modifier.padding(top = 10.dp)) {
@@ -77,7 +77,7 @@ fun ErrorDialog(onDismiss: () -> Unit, onExit: () -> Unit) {
                         Modifier
                             .fillMaxWidth()
                             .padding(8.dp)
-                            .weight(1F)
+                            .weight(1F),
                     ) {
                         Text(text = "Cancel")
                     }
@@ -87,7 +87,7 @@ fun ErrorDialog(onDismiss: () -> Unit, onExit: () -> Unit) {
                         Modifier
                             .fillMaxWidth()
                             .padding(8.dp)
-                            .weight(1F)
+                            .weight(1F),
                     ) {
                         Text(text = "Exit")
                     }
@@ -98,7 +98,7 @@ fun ErrorDialog(onDismiss: () -> Unit, onExit: () -> Unit) {
 }
 
 @Composable
-fun ErrorDialogHandler(show: Boolean){
+fun ErrorDialogHandler(show: Boolean) {
     val context = LocalContext.current
     var showCustomDialog by remember {
         mutableStateOf(false)
@@ -108,7 +108,6 @@ fun ErrorDialogHandler(show: Boolean){
         ErrorDialog({
             showCustomDialog = !showCustomDialog
         }, {
-
         })
     }
 }

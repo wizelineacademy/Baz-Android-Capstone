@@ -24,7 +24,7 @@ class BookOrderAdapter(private val onItemClick: (ExchangeOrderBook) -> Unit) :
             LayoutInflater.from(parent.context),
             R.layout.book_coin_item,
             parent,
-            false
+            false,
         )
         return BookOrderViewHolder(binding) {
             onItemClick(items[it])
@@ -45,7 +45,7 @@ class BookOrderAdapter(private val onItemClick: (ExchangeOrderBook) -> Unit) :
 
     class BookOrderViewHolder(
         private val binding: ViewDataBinding,
-        onItemClicked: (Int) -> Unit
+        onItemClicked: (Int) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -70,7 +70,7 @@ class BookOrderAdapter(private val onItemClick: (ExchangeOrderBook) -> Unit) :
                 buyerCryptoCoinUI,
                 buyerCryptoCoinKey,
                 sellerCryptoCoinUI,
-                sellerCryptoCoinKey
+                sellerCryptoCoinKey,
             )
 
             binding.root.apply {

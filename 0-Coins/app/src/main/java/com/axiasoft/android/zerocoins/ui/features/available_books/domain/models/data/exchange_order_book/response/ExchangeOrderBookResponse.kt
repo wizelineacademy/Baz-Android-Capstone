@@ -10,5 +10,5 @@ data class ExchangeOrderBookResponse(
     @SerializedName("minimum_price") var minimumPrice: String? = null,
     @SerializedName("maximum_price") var maximumPrice: String? = null,
     @SerializedName("minimum_value") var minimumValue: String? = null,
-    @SerializedName("maximum_value") var maximumValue: String? = null
+    @SerializedName("maximum_value") var maximumValue: String? = null,
 )

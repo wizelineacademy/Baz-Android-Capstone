@@ -14,5 +14,5 @@ data class TickerResponse(
     @SerializedName("ask") var ask: String? = null,
     @SerializedName("bid") var bid: String? = null,
     @SerializedName("change_24") var change24: String? = null,
-    @SerializedName("rolling_average_change") var rollingAverageChange: HashMap<String, String>? = null
+    @SerializedName("rolling_average_change") var rollingAverageChange: HashMap<String, String>? = null,
 )

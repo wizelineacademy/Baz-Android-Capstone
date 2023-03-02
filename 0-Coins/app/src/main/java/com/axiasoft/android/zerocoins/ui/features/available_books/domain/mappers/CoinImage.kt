@@ -40,15 +40,23 @@ fun genExchangeBookOrder(
     buyerCryptoCoinUI: CryptoCoinUI,
     buyerCryptoCoinKey: String,
     sellerCryptoCoinUI: CryptoCoinUI,
-    sellerCryptoCoinKey: String
-) : String {
-    val buyer = if (buyerCryptoCoinUI == CryptoCoinUI.crypto) buyerCryptoCoinKey.uppercase(
-        Locale.ENGLISH
-    ) else buyerCryptoCoinUI.coinName
+    sellerCryptoCoinKey: String,
+): String {
+    val buyer = if (buyerCryptoCoinUI == CryptoCoinUI.crypto) {
+        buyerCryptoCoinKey.uppercase(
+            Locale.ENGLISH,
+        )
+    } else {
+        buyerCryptoCoinUI.coinName
+    }
 
-    val seller = if (sellerCryptoCoinUI == CryptoCoinUI.crypto) sellerCryptoCoinKey.uppercase(
-        Locale.ENGLISH
-    ) else sellerCryptoCoinUI.coinName
+    val seller = if (sellerCryptoCoinUI == CryptoCoinUI.crypto) {
+        sellerCryptoCoinKey.uppercase(
+            Locale.ENGLISH,
+        )
+    } else {
+        sellerCryptoCoinUI.coinName
+    }
 
     return "$buyer \u2022 $seller"
 }

@@ -30,7 +30,7 @@ interface BitsoOrderBooksApi {
     @GET(BitsoApiPaths.LIST_ORDER_BOOK)
     suspend fun getListOrderBook(
         @Query(BOOK_PARAM_NAME) orderBookName: String,
-        @Query(AGGREGATE_PARAM_NAME) aggregate: Boolean = true
+        @Query(AGGREGATE_PARAM_NAME) aggregate: Boolean = true,
     ): BitsoBaseResponse<ListOrderBookResponse>
 
     class Builder : HttpConnectionManager<BitsoOrderBooksApi>(CoinApis.BITSO) {

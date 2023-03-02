@@ -11,5 +11,5 @@ data class BitsoBaseResponse<T> (
     val payload: T? = null,
     // Response Error
     @SerializedName("error") @Expose
-    val error: BitsoErrorResponse? = null
+    val error: BitsoErrorResponse? = null,
 )

@@ -9,5 +9,5 @@ import com.axiasoft.android.zerocoins.db.BIDS_TB_NAME
 data class BidsEntity(
     @ColumnInfo("book") var book: String = emptyString(),
     @ColumnInfo("price") var price: String = emptyString(),
-    @ColumnInfo("amount") var amount: String = emptyString()
+    @ColumnInfo("amount") var amount: String = emptyString(),
 )

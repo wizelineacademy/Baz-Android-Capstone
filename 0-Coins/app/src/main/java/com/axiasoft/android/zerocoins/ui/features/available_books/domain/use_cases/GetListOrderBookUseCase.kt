@@ -10,7 +10,7 @@ import com.axiasoft.android.zerocoins.ui.features.available_books.views.ui_state
 
 class GetListOrderBookUseCase(
     private val remoteOrderBooksRepository: RemoteOrderBooksRepository,
-    private val localOrderBookRepository: LocalOrderBookRepository
+    private val localOrderBookRepository: LocalOrderBookRepository,
 
 ) {
     suspend fun invoke(book: ExchangeOrderBook): ListOrderBookScreenState {
@@ -29,11 +29,11 @@ class GetListOrderBookUseCase(
                     updateDB(asks, bids)
                     ListOrderBookScreenState.Success(
                         asks = asks,
-                        bids = bids
+                        bids = bids,
                     )
                 } else {
                     ListOrderBookScreenState.ErrorOrEmpty(
-                        listOrderBookResponse.response.error?.message ?: ""
+                        listOrderBookResponse.response.error?.message ?: "",
                     )
                 }
             }
@@ -50,7 +50,7 @@ class GetListOrderBookUseCase(
         return if (asks.isNotEmpty() && bids.isNotEmpty()) {
             ListOrderBookScreenState.Success(
                 asks = asks,
-                bids = bids
+                bids = bids,
             )
         } else {
             ListOrderBookScreenState.ErrorOrEmpty("no data")

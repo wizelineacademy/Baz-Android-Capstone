@@ -20,7 +20,7 @@ import com.axiasoft.android.zerocoins.ui.features.available_books.domain.models.
 @Composable
 fun ExchangeOrderBookList(
     availableExchangeOrderBooks: List<ExchangeOrderBook>,
-    onClickItem: (ExchangeOrderBook) -> Unit
+    onClickItem: (ExchangeOrderBook) -> Unit,
 ) {
     val context = LocalContext.current
     val listState = rememberLazyListState()
@@ -44,7 +44,7 @@ fun ExchangeOrderBookList(
                     buyerCryptoCoinUI,
                     buyerCryptoCoinKey,
                     sellerCryptoCoinUI,
-                    sellerCryptoCoinKey
+                    sellerCryptoCoinKey,
                 )
                 this.apply {
                     coinsCv.setOnClickListener {

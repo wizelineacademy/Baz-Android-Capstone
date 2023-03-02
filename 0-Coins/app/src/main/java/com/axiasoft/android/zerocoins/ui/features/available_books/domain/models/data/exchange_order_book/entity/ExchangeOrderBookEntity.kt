@@ -16,5 +16,5 @@ data class ExchangeOrderBookEntity(
     @ColumnInfo("minimum_price") var minimumPrice: String? = null,
     @ColumnInfo("maximum_price") var maximumPrice: String? = null,
     @ColumnInfo("minimum_value") var minimumValue: String? = null,
-    @ColumnInfo("maximum_value") var maximumValue: String? = null
+    @ColumnInfo("maximum_value") var maximumValue: String? = null,
 )

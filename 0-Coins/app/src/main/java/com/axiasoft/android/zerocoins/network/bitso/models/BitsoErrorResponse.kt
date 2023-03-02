@@ -7,5 +7,5 @@ data class BitsoErrorResponse(
     @SerializedName("message") @Expose
     val message: String?,
     @SerializedName("code") @Expose
-    val code: Int?
+    val code: Int?,
 )

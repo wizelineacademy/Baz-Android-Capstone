@@ -31,7 +31,7 @@ abstract class HttpConnectionManager<T : Any>(coinApi: CoinApis) {
                     OkHttpClient().newBuilder()
                         .addInterceptor(BitsoInterceptor())
                         .addInterceptor(loggingInterceptor)
-                        .build()
+                        .build(),
                 ).build()
         }
         CoinApis.RESTFUL_API -> {
@@ -43,7 +43,7 @@ abstract class HttpConnectionManager<T : Any>(coinApi: CoinApis) {
                         .addInterceptor(loggingInterceptor)
                         // .addInterceptor(BitsoInterceptor())
                         // .addNetworkInterceptor(GSSCHeadersInterceptorAWSS3())
-                        .build()
+                        .build(),
                 ).build()
         }
 

@@ -51,7 +51,7 @@ class TickerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentTickerBinding.inflate(inflater, container, false)
         return binding.root
@@ -137,7 +137,7 @@ class TickerFragment : Fragment() {
                 buyerCryptoCoinUI,
                 buyerCryptoCoinKey,
                 sellerCryptoCoinUI,
-                sellerCryptoCoinKey
+                sellerCryptoCoinKey,
             )
 
             tvOrderBookName.text = exchangerOrderBookName
@@ -159,7 +159,7 @@ class TickerFragment : Fragment() {
                     findNavController().popBackStack()
                     clearData()
                 }
-            }
+            },
         )
     }
 

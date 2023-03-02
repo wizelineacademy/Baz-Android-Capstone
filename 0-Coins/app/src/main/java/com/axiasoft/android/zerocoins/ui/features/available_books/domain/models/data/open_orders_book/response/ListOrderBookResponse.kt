@@ -6,5 +6,5 @@ import com.google.gson.annotations.SerializedName
 
 data class ListOrderBookResponse(
     @SerializedName("asks") var asks: ArrayList<Ask>? = null,
-    @SerializedName("bids") var bids: ArrayList<Bids>? = null
+    @SerializedName("bids") var bids: ArrayList<Bids>? = null,
 )

@@ -8,7 +8,7 @@ object BitsoApiCallWrapper {
 
     suspend fun <T> callBitsoApiWrap(
         dispatcher: CoroutineDispatcher,
-        apiCall: suspend () -> T
+        apiCall: suspend () -> T,
     ): BitsoApiResponseWrap<T> {
         return withContext(dispatcher) {
             try {

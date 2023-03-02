@@ -12,7 +12,7 @@ import io.reactivex.Observable
 import kotlinx.coroutines.Dispatchers
 
 class RemoteOrderBooksRepositoryImpl(
-    private val bitsoOrderBooksApi: BitsoOrderBooksApi
+    private val bitsoOrderBooksApi: BitsoOrderBooksApi,
 ) : RemoteOrderBooksRepository {
 
     override suspend fun getBooksFromApi(): BitsoApiResponseWrap<BitsoBaseResponse<ArrayList<ExchangeOrderBookResponse>>> {
@@ -26,7 +26,7 @@ class RemoteOrderBooksRepositoryImpl(
             bitsoOrderBooksApi.getAvailableOrderBooksRX()
         } catch (ex: Exception) {
             Observable.just(
-                BitsoBaseResponse(success = false, error = BitsoErrorResponse(message = ex.message ?: "", 0))
+                BitsoBaseResponse(success = false, error = BitsoErrorResponse(message = ex.message ?: "", 0)),
             )
         }
     }
@@ -50,8 +50,8 @@ class RemoteOrderBooksRepositoryImpl(
             Observable.just(
                 BitsoBaseResponse(
                     success = false,
-                    error = BitsoErrorResponse(message = ex.message ?: "", 0)
-                )
+                    error = BitsoErrorResponse(message = ex.message ?: "", 0),
+                ),
             )
         }
     }
