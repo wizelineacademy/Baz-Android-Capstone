@@ -50,11 +50,14 @@ fun Description(
             viewModel.getTicker(bookNameViewModel).distinctUntilChanged().collect {
                 ticker.value = it
             }
+        }
+    }
+    LaunchedEffect(key1 = bookName) {
+        withContext(Dispatchers.IO) {
             viewModel.getOrders(bookNameViewModel).distinctUntilChanged().collect {
                 orderBook.value = it
             }
         }
-        Log.d("ticker", "Order: $ticker")
     }
 
     DescriptionContent(

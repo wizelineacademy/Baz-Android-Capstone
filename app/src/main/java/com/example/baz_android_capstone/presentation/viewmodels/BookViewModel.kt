@@ -19,8 +19,6 @@ class BookViewModel @Inject constructor(private val repository: Repository) : Vi
 
     val bookName = mutableStateOf("")
 
-    // val getBooks = repository.getBooks()
-
     private val _books = MutableStateFlow<Resource<Book>>(Resource.Loading(null))
     val books = _books.asStateFlow()
 
