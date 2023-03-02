@@ -11,6 +11,9 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object CRYDispatcherModule {
 
+    /**
+     * Provides the trigger where the task will be executed
+     */
     @Provides
     @Singleton
     fun providerDispatcher() = Dispatchers.IO
