@@ -28,9 +28,10 @@ class TickerRoomViewModel(private val tickerRoom: TickerRoomRepo) : ViewModel() 
         viewModelScope.launch { tickerRoom.insertTicket(tickerEntity) }
     }
 
-    private fun getNewItemEntry(ticker: GetTicker, id: String): TickerEntity {
+    private fun getNewItemEntry(ticker: GetTicker, id: String, fecha: String): TickerEntity {
         return TickerEntity(
             id = id,
+            fecha = fecha,
             high = ticker.high,
             last = ticker.last,
             low = ticker.low
@@ -38,8 +39,8 @@ class TickerRoomViewModel(private val tickerRoom: TickerRoomRepo) : ViewModel() 
     }
 
     @Singleton
-    fun addNewItem(ticker: GetTicker, id: String) {
-        val newItem = getNewItemEntry(ticker, id)
+    fun addNewItem(ticker: GetTicker, id: String, fecha: String) {
+        val newItem = getNewItemEntry(ticker, id, fecha)
         insertItemTicker(newItem)
     }
 

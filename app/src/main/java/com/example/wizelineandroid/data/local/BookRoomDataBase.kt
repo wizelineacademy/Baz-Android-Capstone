@@ -14,7 +14,7 @@ import com.example.wizelineandroid.data.local.entitys.TickerEntity
 
 @Database(
     entities = [BookEntity::class, TickerEntity::class, AskEntity::class, BidsEntity::class],
-    version = 6,
+    version = 7,
     exportSchema = false
 )
 abstract class BookRoomDataBase : RoomDatabase() {

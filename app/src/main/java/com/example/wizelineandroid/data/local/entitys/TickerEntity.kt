@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class TickerEntity(
     @PrimaryKey()
     val id: String = "",
+    val fecha: String = "",
     val high: String = "",
     val last: String = "",
     val low: String = ""

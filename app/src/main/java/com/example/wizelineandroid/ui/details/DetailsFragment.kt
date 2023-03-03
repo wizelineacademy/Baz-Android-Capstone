@@ -2,6 +2,7 @@ package com.example.wizelineandroid.ui.details
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -18,7 +19,6 @@ import com.example.wizelineandroid.data.local.entitys.BidsEntity
 import com.example.wizelineandroid.data.remote.BooksDataSource
 import com.example.wizelineandroid.data.remote.model.*
 import com.example.wizelineandroid.databinding.FragmentDetailsBinding
-import com.example.wizelineandroid.presentation.*
 import com.example.wizelineandroid.presentation.order.AskRoomViewModelFactory
 import com.example.wizelineandroid.presentation.order.OrderBooksViewModel
 import com.example.wizelineandroid.presentation.order.OrderRoomViewModel
@@ -33,6 +33,9 @@ import com.example.wizelineandroid.repository.ticker.TickerRepoImpl
 import com.example.wizelineandroid.repository.ticker.TickerRoomRepoImpl
 import com.example.wizelineandroid.ui.adapter.detail.AskAdapter
 import com.example.wizelineandroid.ui.adapter.detail.BidsAdapter
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
     private val args by navArgs<DetailsFragmentArgs>()
@@ -64,13 +67,19 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         )
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDetailsBinding.bind(view)
         val imgCoin = args.book.split("_")
         binding.nameCoin.text = "${imgCoin[0].uppercase()} - ${imgCoin[1].uppercase()}"
         configAdapter()
+        val ahora = System.currentTimeMillis()
+        val fecha = Date(ahora)
+        val df: DateFormat = SimpleDateFormat("'Ultima actualizacion:' dd 'de' MMMM 'del' yyyy 'a las' HH:mm:ss")
+        val salida: String = df.format(fecha)
+
+
         context?.let {
             Glide.with(it).load("https://cryptoicons.org/api/icon/${imgCoin[0]}/200")
                 .error(R.drawable.ic_baseline_image_24)
@@ -84,7 +93,9 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                     binding.priceLast.text = result.data.payload.last
                     binding.priceHigh.text = result.data.payload.high
                     binding.priceLow.text = result.data.payload.low
-                    addNewItem(result.data.payload, args.book)
+                    binding.ultimaActualizacion.text = salida
+                    addNewItem(result.data.payload, args.book,salida)
+
                 }
                 is Resource.Failure -> {
                     viewModelRoomTicker.allTicker(args.book).observe(viewLifecycleOwner) { ticker ->
@@ -93,6 +104,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                                 binding.priceLast.text = ticker.data.last
                                 binding.priceHigh.text = ticker.data.high
                                 binding.priceLow.text = ticker.data.low
+                                binding.ultimaActualizacion.text = ticker.data.fecha
                             }
                             else -> {}
                         }
@@ -150,8 +162,8 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         return viewModelRoomTicker.isEntryValid(ticker.toString())
     }
 
-    private fun addNewItem(ticker: GetTicker, id: String) {
-        if (isEntryValid(ticker)) viewModelRoomTicker.addNewItem(ticker, id)
+    private fun addNewItem(ticker: GetTicker, id: String,fecha: String) {
+        if (isEntryValid(ticker)) viewModelRoomTicker.addNewItem(ticker, id, fecha)
     }
     private fun isEntryValid(list: List<*>): Boolean {
         return viewModelRoomOlder.isEntryValidAsk(list.toString())
