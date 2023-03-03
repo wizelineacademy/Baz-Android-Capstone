@@ -10,40 +10,36 @@ import com.example.wizelineandroid.data.local.entitys.BidsEntity
 import com.example.wizelineandroid.data.remote.model.Ask
 import com.example.wizelineandroid.data.remote.model.Bids
 import com.example.wizelineandroid.repository.order.OrderRoomRepo
+import javax.inject.Singleton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Singleton
 
-class OrderRoomViewModel(private val orderDao: OrderRoomRepo): ViewModel() {
+class OrderRoomViewModel(private val orderDao: OrderRoomRepo) : ViewModel() {
 
-    fun getAsk(id: String) = liveData(viewModelScope.coroutineContext + Dispatchers.Main){
+    fun getAsk(id: String) = liveData(viewModelScope.coroutineContext + Dispatchers.Main) {
         emit(Resource.Loading())
         try {
             emit(Resource.Success(orderDao.getAsk(id)))
-        }catch (e: Exception){
+        } catch (e: Exception) {
             emit(Resource.Failure(e))
         }
     }
 
-    fun getBids(id: String) = liveData(viewModelScope.coroutineContext + Dispatchers.Main){
+    fun getBids(id: String) = liveData(viewModelScope.coroutineContext + Dispatchers.Main) {
         emit(Resource.Loading())
         try {
             emit(Resource.Success(orderDao.getBids(id)))
-        }catch (e: Exception){
+        } catch (e: Exception) {
             emit(Resource.Failure(e))
         }
     }
 
     private fun insertAsk(orderEntity: List<AskEntity>) {
-        viewModelScope.launch {
-            orderDao.insertAsk(orderEntity)
-        }
+        viewModelScope.launch { orderDao.insertAsk(orderEntity) }
     }
 
     private fun insertBids(orderEntity: List<BidsEntity>) {
-        viewModelScope.launch {
-            orderDao.insertBids(orderEntity)
-        }
+        viewModelScope.launch { orderDao.insertBids(orderEntity) }
     }
 
     private fun getNewAskEntry(itemName: List<Ask>): List<AskEntity> {
@@ -82,13 +78,9 @@ class OrderRoomViewModel(private val orderDao: OrderRoomRepo): ViewModel() {
         insertBids(newItem)
     }
 
-    fun isEntryValidAsk(itemName: String): Boolean {
-        if (itemName.isBlank()) {
-            return false
-        }
-        return true
+    fun isEntryValidAsk(ticker: String): Boolean {
+        return ticker.isNotBlank()
     }
-
 }
 
 class AskRoomViewModelFactory(private val bookDao: OrderRoomRepo) : ViewModelProvider.Factory {

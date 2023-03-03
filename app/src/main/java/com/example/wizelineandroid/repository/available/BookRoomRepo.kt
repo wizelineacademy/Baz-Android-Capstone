@@ -7,5 +7,4 @@ interface BookRoomRepo {
     suspend fun insertBooks(item: List<BookEntity>)
 
     suspend fun getBooks(): List<BookEntity>
-
 }

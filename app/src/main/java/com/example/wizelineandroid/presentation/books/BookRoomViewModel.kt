@@ -2,29 +2,28 @@ package com.example.wizelineandroid.presentation.books
 
 import androidx.lifecycle.*
 import com.example.wizelineandroid.core.Resource
-import com.example.wizelineandroid.data.local.dao.BookDao
 import com.example.wizelineandroid.data.local.entitys.BookEntity
 import com.example.wizelineandroid.data.remote.model.ModelBook
 import com.example.wizelineandroid.repository.available.BookRoomRepo
+import io.reactivex.rxjava3.kotlin.subscribeBy
+import io.reactivex.rxjava3.kotlin.toObservable
+import javax.inject.Singleton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Singleton
 
-class BookRoomViewModel(private val bookDao: BookRoomRepo): ViewModel() {
+class BookRoomViewModel(private val bookDao: BookRoomRepo) : ViewModel() {
 
-    fun getBooks() = liveData(viewModelScope.coroutineContext + Dispatchers.Main){
+    fun getBooks() = liveData(viewModelScope.coroutineContext + Dispatchers.Main) {
         emit(Resource.Loading())
         try {
             emit(Resource.Success(bookDao.getBooks()))
-        }catch (e: Exception){
+        } catch (e: Exception) {
             emit(Resource.Failure(e))
         }
     }
 
     private fun insertItem(bookEntity: List<BookEntity>) {
-        viewModelScope.launch {
-            bookDao.insertBooks(bookEntity)
-        }
+        viewModelScope.launch { bookDao.insertBooks(bookEntity) }
     }
 
     private fun getNewItemEntry(itemName: List<ModelBook>): List<BookEntity> {
@@ -41,17 +40,20 @@ class BookRoomViewModel(private val bookDao: BookRoomRepo): ViewModel() {
 
     @Singleton
     fun addNewItem(itemName: List<ModelBook>) {
-        val newItem = getNewItemEntry(itemName)
-        insertItem(newItem)
+        itemName.toObservable().subscribeBy( // named arguments for lambda Subscribers
+            onNext = { println(it) },
+            onError = { it.printStackTrace() },
+            onComplete = {
+                val newItem = getNewItemEntry(itemName)
+                insertItem(newItem)
+                println("Done!")
+            }
+        )
     }
 
-    fun isEntryValid(itemName: String): Boolean {
-        if (itemName.isBlank()) {
-            return false
-        }
-        return true
+    fun isEntryValid(ticker: String): Boolean {
+        return ticker.isNotBlank()
     }
-
 }
 
 class BookRoomViewModelFactory(private val bookDao: BookRoomRepo) : ViewModelProvider.Factory {

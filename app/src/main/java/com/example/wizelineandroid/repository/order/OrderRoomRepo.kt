@@ -2,7 +2,6 @@ package com.example.wizelineandroid.repository.order
 
 import com.example.wizelineandroid.data.local.entitys.AskEntity
 import com.example.wizelineandroid.data.local.entitys.BidsEntity
-import com.example.wizelineandroid.data.local.entitys.BookEntity
 
 interface OrderRoomRepo {
 
@@ -12,6 +11,5 @@ interface OrderRoomRepo {
 
     suspend fun insertBids(item: List<BidsEntity>)
 
-    suspend fun getBids(id:String): List<BidsEntity>
-
+    suspend fun getBids(id: String): List<BidsEntity>
 }

@@ -6,7 +6,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.wizelineandroid.data.local.entitys.AskEntity
 import com.example.wizelineandroid.data.local.entitys.BidsEntity
-import com.example.wizelineandroid.data.local.entitys.BookEntity
 
 @Dao
 interface OrderDao {
@@ -15,11 +14,11 @@ interface OrderDao {
     fun insertAsk(item: List<AskEntity>)
 
     @Query("SELECT * from ask where id = :id")
-    fun getAsk(id:String): List<AskEntity>
+    fun getAsk(id: String): List<AskEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertBids(item: List<BidsEntity>)
 
     @Query("SELECT * from bids where id = :id")
-    fun getBids(id:String): List<BidsEntity>
+    fun getBids(id: String): List<BidsEntity>
 }

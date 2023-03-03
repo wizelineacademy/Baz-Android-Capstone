@@ -1,8 +1,8 @@
 package com.example.wizelineandroid.data.remote.model
 
-//List order book
+// List order book
 data class OrderBook(
-    val payload: AsksBids,
+    val payload: AsksBids
 )
 
 data class AsksBids(

@@ -1,6 +1,6 @@
 package com.example.wizelineandroid.data.remote.model
 
-//List available books
+// List available books
 data class Books(
     val payload: List<ModelBook>,
     val success: Boolean
@@ -10,5 +10,3 @@ data class ModelBook(
     val minimum_price: String,
     val maximum_price: String
 )
-
-

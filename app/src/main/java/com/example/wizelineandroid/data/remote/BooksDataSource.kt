@@ -8,11 +8,10 @@ import javax.inject.Inject
 
 class BooksDataSource @Inject constructor(private val webService: WebService) {
 
-    //Llamada al servidor
+    // Llamada al servidor
     suspend fun getAvailablesbooks(): Books = webService.getAvailableBooks()
 
     suspend fun getTickerBooks(id: String): GetTickers = webService.getTickerBooks(id)
 
     suspend fun getOrderBooks(id: String): OrderBook = webService.getOrderBooks(id)
-
 }

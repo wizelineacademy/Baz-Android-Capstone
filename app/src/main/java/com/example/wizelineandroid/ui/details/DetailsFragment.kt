@@ -39,17 +39,29 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var adapterAvBooks: AskAdapter
     private lateinit var binding: FragmentDetailsBinding
-    private val viewModel by viewModels<TickerBooksViewModel> { TickerViewModelFactory(TickerRepoImpl(
-        BooksDataSource(RetrofitClient.webService)
-    )) }
-    private val viewModelOrder by viewModels<OrderBooksViewModel> { OrderViewModelFactory(OrderBookRepoImpl(
-        BooksDataSource(RetrofitClient.webService)
-    )) }
-    private val viewModelRoomTicker: TickerRoomViewModel by activityViewModels { TickerRoomViewModelFactory(
-        TickerRoomRepoImpl((activity?.application as RoomApplication).database.tickerDao()))
+    private val viewModel by viewModels<TickerBooksViewModel> {
+        TickerViewModelFactory(
+            TickerRepoImpl(
+                BooksDataSource(RetrofitClient.webService)
+            )
+        )
     }
-    private val viewModelRoomOlder: OrderRoomViewModel by activityViewModels { AskRoomViewModelFactory(
-        OrderRoomRepoImpl((activity?.application as RoomApplication).database.orderDao()))
+    private val viewModelOrder by viewModels<OrderBooksViewModel> {
+        OrderViewModelFactory(
+            OrderBookRepoImpl(
+                BooksDataSource(RetrofitClient.webService)
+            )
+        )
+    }
+    private val viewModelRoomTicker: TickerRoomViewModel by activityViewModels {
+        TickerRoomViewModelFactory(
+            TickerRoomRepoImpl((activity?.application as RoomApplication).database.tickerDao())
+        )
+    }
+    private val viewModelRoomOlder: OrderRoomViewModel by activityViewModels {
+        AskRoomViewModelFactory(
+            OrderRoomRepoImpl((activity?.application as RoomApplication).database.orderDao())
+        )
     }
 
     @SuppressLint("SetTextI18n")
@@ -66,17 +78,17 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         }
 
         viewModel.fetchTickersBooks(args.book).observe(viewLifecycleOwner) { result ->
-            when(result){
+            when (result) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {
                     binding.priceLast.text = result.data.payload.last
                     binding.priceHigh.text = result.data.payload.high
                     binding.priceLow.text = result.data.payload.low
-                    addNewItem(result.data.payload,args.book)
+                    addNewItem(result.data.payload, args.book)
                 }
                 is Resource.Failure -> {
                     viewModelRoomTicker.allTicker(args.book).observe(viewLifecycleOwner) { ticker ->
-                        when(ticker){
+                        when (ticker) {
                             is Resource.Success -> {
                                 binding.priceLast.text = ticker.data.last
                                 binding.priceHigh.text = ticker.data.high
@@ -85,13 +97,12 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                             else -> {}
                         }
                     }
-
                 }
             }
         }
 
-        viewModelOrder.fetchOrder(args.book).observe(viewLifecycleOwner){ result ->
-            when(result){
+        viewModelOrder.fetchOrder(args.book).observe(viewLifecycleOwner) { result ->
+            when (result) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {
                     val entitiesAsk = result.data.payload.asks.map { currency ->
@@ -99,14 +110,16 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                             id = currency.book,
                             book = currency.book,
                             amount = currency.amount,
-                            price = currency.price                                    )
+                            price = currency.price
+                        )
                     }
                     val entitiesBids = result.data.payload.asks.map { currency ->
                         BidsEntity(
                             id = currency.book,
                             book = currency.book,
                             amount = currency.amount,
-                            price = currency.price                                    )
+                            price = currency.price
+                        )
                     }
                     adapterAvBooks.submitList(entitiesAsk)
                     binding.rvBids.adapter = BidsAdapter(entitiesBids)
@@ -115,22 +128,19 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                     addNewItemBids(result.data.payload.bids)
                 }
                 is Resource.Failure -> {
-
-                    viewModelRoomOlder.getAsk(args.book).observe(viewLifecycleOwner){ ask ->
-                        when(ask){
+                    viewModelRoomOlder.getAsk(args.book).observe(viewLifecycleOwner) { ask ->
+                        when (ask) {
                             is Resource.Success -> adapterAvBooks.submitList(ask.data)
                             else -> {}
                         }
                     }
 
-                    viewModelRoomOlder.getBids(args.book).observe(viewLifecycleOwner){ bids ->
-                        when(bids){
+                    viewModelRoomOlder.getBids(args.book).observe(viewLifecycleOwner) { bids ->
+                        when (bids) {
                             is Resource.Success -> binding.rvBids.adapter = BidsAdapter(bids.data)
                             else -> {}
                         }
-
                     }
-
                 }
             }
         }
@@ -140,8 +150,8 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         return viewModelRoomTicker.isEntryValid(ticker.toString())
     }
 
-    private fun addNewItem(ticker: GetTicker,id: String) {
-        if (isEntryValid(ticker)) viewModelRoomTicker.addNewItem(ticker,id)
+    private fun addNewItem(ticker: GetTicker, id: String) {
+        if (isEntryValid(ticker)) viewModelRoomTicker.addNewItem(ticker, id)
     }
     private fun isEntryValid(list: List<*>): Boolean {
         return viewModelRoomOlder.isEntryValidAsk(list.toString())
@@ -160,5 +170,4 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         mRecyclerView.adapter = adapterAvBooks
         adapterAvBooks.submitList(emptyList())
     }
-
 }

@@ -1,13 +1,9 @@
 package com.example.wizelineandroid.di
 
-import android.app.Application
 import android.content.Context
-import com.example.wizelineandroid.data.remote.BooksDataSource
 import com.example.wizelineandroid.repository.WebService
 import com.example.wizelineandroid.repository.available.BooksRepo
 import com.example.wizelineandroid.repository.available.BooksRepoImpl
-import com.example.wizelineandroid.repository.ticker.TickerRepo
-import com.example.wizelineandroid.repository.ticker.TickerRepoImpl
 import com.example.wizelineandroid.utils.AppConstants
 import dagger.Binds
 import dagger.Module
@@ -34,7 +30,13 @@ abstract class AppModule {
         @Provides
         fun providesOkHttpClient(@ApplicationContext context: Context): OkHttpClient =
             OkHttpClient.Builder()
-                .addInterceptor(HttpLoggingInterceptor().also { it.setLevel(HttpLoggingInterceptor.Level.HEADERS) })
+                .addInterceptor(
+                    HttpLoggingInterceptor().also {
+                        it.setLevel(
+                            HttpLoggingInterceptor.Level.HEADERS
+                        )
+                    }
+                )
                 .build()
 
         @Provides

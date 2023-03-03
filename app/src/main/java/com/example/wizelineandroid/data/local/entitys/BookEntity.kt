@@ -15,5 +15,3 @@ data class BookEntity(
     @ColumnInfo(name = "maximum price")
     val maximum_price: String = ""
 )
-
-

@@ -2,8 +2,6 @@ package com.example.wizelineandroid.data.local.dao
 
 import androidx.room.*
 import com.example.wizelineandroid.data.local.entitys.BookEntity
-import com.example.wizelineandroid.data.local.entitys.TickerEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BookDao {
@@ -13,6 +11,4 @@ interface BookDao {
 
     @Query("SELECT * from book")
     fun getBooks(): List<BookEntity>
-
-
 }

@@ -12,8 +12,12 @@ import com.example.wizelineandroid.data.local.entitys.BidsEntity
 import com.example.wizelineandroid.data.local.entitys.BookEntity
 import com.example.wizelineandroid.data.local.entitys.TickerEntity
 
-@Database(entities = [BookEntity::class, TickerEntity::class, AskEntity::class, BidsEntity::class], version = 6, exportSchema = false)
-abstract class BookRoomDataBase: RoomDatabase() {
+@Database(
+    entities = [BookEntity::class, TickerEntity::class, AskEntity::class, BidsEntity::class],
+    version = 6,
+    exportSchema = false
+)
+abstract class BookRoomDataBase : RoomDatabase() {
 
     abstract fun bookDao(): BookDao
     abstract fun tickerDao(): TickerDao
@@ -23,19 +27,18 @@ abstract class BookRoomDataBase: RoomDatabase() {
         @Volatile
         private var INSTANCE: BookRoomDataBase? = null
         fun getDatabase(context: Context): BookRoomDataBase {
-
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     BookRoomDataBase::class.java,
                     "books_database"
-                    )
+                )
                     .fallbackToDestructiveMigration()
                     .allowMainThreadQueries()
                     .build()
-                    INSTANCE = instance
-                    return instance
-                }
+                INSTANCE = instance
+                return instance
+            }
         }
     }
 }

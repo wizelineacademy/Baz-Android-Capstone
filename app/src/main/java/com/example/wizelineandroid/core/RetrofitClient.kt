@@ -9,8 +9,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-//peticion a datasource, covertir json de api a movie
-object RetrofitClient{
+// peticion a datasource, covertir json de api a book
+object RetrofitClient {
 
     private val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         this.level = HttpLoggingInterceptor.Level.BASIC
@@ -18,7 +18,7 @@ object RetrofitClient{
 
     private const val userAgent = ""
 
-    private val client : OkHttpClient = OkHttpClient.Builder().apply {
+    private val client: OkHttpClient = OkHttpClient.Builder().apply {
         this.addInterceptor(interceptor).addNetworkInterceptor { chain ->
             chain.proceed(
                 chain.request()

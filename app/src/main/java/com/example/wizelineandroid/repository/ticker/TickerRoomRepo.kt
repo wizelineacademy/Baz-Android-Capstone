@@ -6,5 +6,4 @@ interface TickerRoomRepo {
     suspend fun getTicker(id: String): TickerEntity
 
     suspend fun insertTicket(item: TickerEntity)
-
 }
