@@ -24,8 +24,3 @@ class BooksViewModel @Inject constructor(private val repo: BooksRepo) : ViewMode
     }
 }
 
-class BooksViewModelFactory(private val repo: BooksRepo) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return modelClass.getConstructor(BooksRepo::class.java).newInstance(repo)
-    }
-}

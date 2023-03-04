@@ -4,9 +4,12 @@ import androidx.lifecycle.*
 import com.example.wizelineandroid.core.Resource
 import com.example.wizelineandroid.data.remote.model.GetTickers
 import com.example.wizelineandroid.repository.ticker.TickerRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Inject
 
-class TickerBooksViewModel(private val repo: TickerRepo) : ViewModel() {
+@HiltViewModel
+class TickerBooksViewModel @Inject constructor(private val repo: TickerRepo) : ViewModel() {
 
     private val _detail_books = MutableLiveData<GetTickers>()
     val detailBooks = _detail_books
@@ -22,8 +25,3 @@ class TickerBooksViewModel(private val repo: TickerRepo) : ViewModel() {
     }
 }
 
-class TickerViewModelFactory(private val repo: TickerRepo) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return modelClass.getConstructor(TickerRepo::class.java).newInstance(repo)
-    }
-}

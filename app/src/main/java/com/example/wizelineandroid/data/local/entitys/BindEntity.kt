@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "bids")
 data class BidsEntity(
-    @PrimaryKey()
-    val id: String = "",
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     val book: String = "",
     val amount: String = "",
     val price: String = ""

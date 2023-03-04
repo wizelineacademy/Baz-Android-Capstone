@@ -45,7 +45,6 @@ class OrderRoomViewModel(private val orderDao: OrderRoomRepo) : ViewModel() {
     private fun getNewAskEntry(itemName: List<Ask>): List<AskEntity> {
         val entities = itemName.map { currency ->
             AskEntity(
-                id = currency.book,
                 book = currency.book,
                 amount = currency.amount,
                 price = currency.price
@@ -57,7 +56,6 @@ class OrderRoomViewModel(private val orderDao: OrderRoomRepo) : ViewModel() {
     private fun getNewBidsEntry(itemName: List<Bids>): List<BidsEntity> {
         val entities = itemName.map { currency ->
             BidsEntity(
-                id = currency.book,
                 book = currency.book,
                 amount = currency.amount,
                 price = currency.price

@@ -11,7 +11,7 @@ import javax.inject.Singleton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class BookRoomViewModel(private val bookDao: BookRoomRepo) : ViewModel() {
+class BookRoomViewModel (private val bookDao: BookRoomRepo) : ViewModel() {
 
     fun getBooks() = liveData(viewModelScope.coroutineContext + Dispatchers.Main) {
         emit(Resource.Loading())

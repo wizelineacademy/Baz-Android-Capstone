@@ -1,6 +1,12 @@
 package com.example.wizelineandroid.ui.home
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Color
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -8,44 +14,46 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.wizelineandroid.R
+import com.example.wizelineandroid.MainActivity
 import com.example.wizelineandroid.RoomApplication
 import com.example.wizelineandroid.core.Resource
-import com.example.wizelineandroid.core.RetrofitClient
 import com.example.wizelineandroid.data.local.entitys.BookEntity
-import com.example.wizelineandroid.data.remote.BooksDataSource
 import com.example.wizelineandroid.data.remote.model.ModelBook
 import com.example.wizelineandroid.databinding.FragmentHomeBinding
 import com.example.wizelineandroid.presentation.books.BookRoomViewModel
 import com.example.wizelineandroid.presentation.books.BookRoomViewModelFactory
 import com.example.wizelineandroid.presentation.books.BooksViewModel
-import com.example.wizelineandroid.presentation.books.BooksViewModelFactory
 import com.example.wizelineandroid.repository.available.BookRoomRepoImpl
-import com.example.wizelineandroid.repository.available.BooksRepoImpl
 import com.example.wizelineandroid.ui.adapter.home.HomeAdapter
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home) {
-    private val viewModel by viewModels<BooksViewModel> {
-        BooksViewModelFactory(
-            BooksRepoImpl(
-                BooksDataSource(RetrofitClient.webService)
-            )
-        )
-    }
+class HomeFragment : Fragment(com.example.wizelineandroid.R.layout.fragment_home) {
+
+    private val viewModel: BooksViewModel by viewModels()
     private lateinit var binding: FragmentHomeBinding
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var adapterAvBooks: HomeAdapter
+
+
     private val viewModelRoom: BookRoomViewModel by activityViewModels {
         BookRoomViewModelFactory(
             BookRoomRepoImpl((activity?.application as RoomApplication).database.bookDao())
         )
     }
 
+    @SuppressLint("ShowToast")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
+        val mySnackbar = Snackbar.make(view, "No hay conexion a internet", Snackbar.LENGTH_LONG)
+        var mainActivity = MainActivity()
+        if (context?.let { mainActivity.isInternetAvailable(it) } == false){
+            mySnackbar.show()
+        }
+
         configAdapter()
 
         viewModel.fetchBooks().observe(
@@ -71,6 +79,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     is Resource.Failure -> {
                         binding.shimmerViewContainer.stopShimmer()
                         binding.shimmerViewContainer.visibility = View.GONE
+
                         viewModelRoom.getBooks().observe(
                             viewLifecycleOwner,
                             Observer { room ->
@@ -102,4 +111,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         mRecyclerView.adapter = adapterAvBooks
         adapterAvBooks.submitList(emptyList())
     }
+
+
 }

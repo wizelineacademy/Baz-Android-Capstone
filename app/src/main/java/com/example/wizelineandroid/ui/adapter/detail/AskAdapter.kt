@@ -42,7 +42,7 @@ class AskAdapter : ListAdapter<AskEntity, AskAdapter.ViewHolder>(DiffUtilCallbac
 
 object DiffUtilCallback : DiffUtil.ItemCallback<AskEntity>() {
     override fun areItemsTheSame(oldItem: AskEntity, newItem: AskEntity): Boolean {
-        return oldItem.book == newItem.book
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: AskEntity, newItem: AskEntity): Boolean {

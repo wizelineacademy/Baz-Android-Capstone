@@ -1,9 +1,16 @@
 package com.example.wizelineandroid.di
 
+import android.app.Application
 import android.content.Context
+import com.example.wizelineandroid.data.local.BookRoomDataBase
+import com.example.wizelineandroid.data.local.dao.BookDao
 import com.example.wizelineandroid.repository.WebService
 import com.example.wizelineandroid.repository.available.BooksRepo
 import com.example.wizelineandroid.repository.available.BooksRepoImpl
+import com.example.wizelineandroid.repository.order.OrderBookRepo
+import com.example.wizelineandroid.repository.order.OrderBookRepoImpl
+import com.example.wizelineandroid.repository.ticker.TickerRepo
+import com.example.wizelineandroid.repository.ticker.TickerRepoImpl
 import com.example.wizelineandroid.utils.AppConstants
 import dagger.Binds
 import dagger.Module
@@ -17,13 +24,20 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class AppModule {
 
     @Binds
-    abstract fun providesRepository(repositoryImpl: BooksRepoImpl): BooksRepo
+    abstract fun providesBookRepository(repositoryImpl: BooksRepoImpl): BooksRepo
+
+    @Binds
+    abstract fun providesOrderRepository(repositoryOrderImpl: OrderBookRepoImpl): OrderBookRepo
+
+    @Binds
+    abstract fun providesTickerRepository(repositoryTickerImpl: TickerRepoImpl): TickerRepo
 
     companion object {
 
@@ -51,5 +65,16 @@ abstract class AppModule {
 
         @Provides
         fun providesCurrencyService(retrofit: Retrofit) = retrofit.create<WebService>()
+
+        @Provides
+        fun getAppDB(context: Application): BookRoomDataBase {
+            return BookRoomDataBase.getDatabase(context)
+        }
+
+        @Provides
+        fun getDao(appDao: BookRoomDataBase): BookDao {
+            return appDao.bookDao()
+        }
+
     }
 }

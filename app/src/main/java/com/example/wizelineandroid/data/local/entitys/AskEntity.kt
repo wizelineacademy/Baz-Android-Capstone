@@ -5,9 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "ask")
 data class AskEntity(
-    @PrimaryKey()
-    val id: String = "",
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     val book: String = "",
-    val amount: String = "",
-    val price: String = ""
+    val price: String = "",
+    val amount: String = ""
 )

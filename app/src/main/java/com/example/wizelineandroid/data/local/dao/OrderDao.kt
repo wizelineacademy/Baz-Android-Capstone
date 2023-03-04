@@ -13,12 +13,12 @@ interface OrderDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAsk(item: List<AskEntity>)
 
-    @Query("SELECT * from ask where id = :id")
+    @Query("SELECT * from ask where book = :id")
     fun getAsk(id: String): List<AskEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertBids(item: List<BidsEntity>)
 
-    @Query("SELECT * from bids where id = :id")
+    @Query("SELECT * from bids where book = :id")
     fun getBids(id: String): List<BidsEntity>
 }
