@@ -1,4 +1,9 @@
 buildscript {
+    dependencies {
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:10.2.0"
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
     ext {
         compose_ui_version = '1.2.0'
         room_version = '2.5.0'
@@ -34,4 +39,5 @@ plugins {
     id 'com.android.library' version '7.4.0' apply false
     id 'org.jetbrains.kotlin.android' version '1.7.0' apply false
     id 'com.google.dagger.hilt.android' version '2.42' apply false
+    //id 'org.jlleitschuh.gradle:ktlint-gradle' version '10.2.0' apply false
 }

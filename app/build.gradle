@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'dagger.hilt.android.plugin'
+    id 'org.jlleitschuh.gradle.ktlint'
 }
 
 apply plugin: 'kotlin-kapt'
@@ -167,4 +168,9 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rxjava2_android_version"
     implementation "io.reactivex:rxandroid:$rx_android_version"
     implementation "io.reactivex:rxjava:$rx_java_version"
+}
+
+ktlint {
+    android = true
+    disabledRules = ["no-wildcard-imports"]
 }
