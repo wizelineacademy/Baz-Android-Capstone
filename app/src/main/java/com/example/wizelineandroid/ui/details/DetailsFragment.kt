@@ -2,29 +2,24 @@ package com.example.wizelineandroid.ui.details
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.wizelineandroid.MainActivity
 import com.example.wizelineandroid.R
-import com.example.wizelineandroid.RoomApplication
 import com.example.wizelineandroid.core.Resource
 import com.example.wizelineandroid.data.local.entitys.AskEntity
 import com.example.wizelineandroid.data.local.entitys.BidsEntity
 import com.example.wizelineandroid.data.remote.model.*
 import com.example.wizelineandroid.databinding.FragmentDetailsBinding
-import com.example.wizelineandroid.presentation.order.AskRoomViewModelFactory
 import com.example.wizelineandroid.presentation.order.OrderBooksViewModel
 import com.example.wizelineandroid.presentation.order.OrderRoomViewModel
 import com.example.wizelineandroid.presentation.ticker.TickerBooksViewModel
 import com.example.wizelineandroid.presentation.ticker.TickerRoomViewModel
-import com.example.wizelineandroid.presentation.ticker.TickerRoomViewModelFactory
-import com.example.wizelineandroid.repository.order.OrderRoomRepoImpl
-import com.example.wizelineandroid.repository.ticker.TickerRoomRepoImpl
 import com.example.wizelineandroid.ui.adapter.detail.AskAdapter
 import com.example.wizelineandroid.ui.adapter.detail.BidsAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -41,17 +36,8 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private lateinit var binding: FragmentDetailsBinding
     private val viewModel: TickerBooksViewModel by viewModels()
     private val viewModelOrder: OrderBooksViewModel by viewModels()
-
-    private val viewModelRoomTicker: TickerRoomViewModel by activityViewModels {
-        TickerRoomViewModelFactory(
-            TickerRoomRepoImpl((activity?.application as RoomApplication).database.tickerDao())
-        )
-    }
-    private val viewModelRoomOlder: OrderRoomViewModel by activityViewModels {
-        AskRoomViewModelFactory(
-            OrderRoomRepoImpl((activity?.application as RoomApplication).database.orderDao())
-        )
-    }
+    private val viewModelRoomOlder: OrderRoomViewModel by viewModels()
+    private val viewModelRoomTicker: TickerRoomViewModel by viewModels()
 
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,13 +57,6 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         val df: DateFormat = SimpleDateFormat("'Ultima actualizacion:' dd 'de' MMMM 'del' yyyy 'a las' HH:mm:ss")
         val salida: String = df.format(fecha)
 
-
-        context?.let {
-            Glide.with(it).load("https://cryptoicons.org/api/icon/${imgCoin[0]}/200")
-                .error(R.drawable.ic_baseline_image_24)
-                .centerCrop().into(binding.imgCoin).request
-        }
-
         viewModel.fetchTickersBooks(args.book).observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Resource.Loading -> {}
@@ -87,6 +66,11 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                     binding.priceLow.text = result.data.payload.low
                     binding.ultimaActualizacion.text = salida
                     addNewItem(result.data.payload, args.book,salida)
+                    context?.let {
+                        Glide.with(it).load("https://cryptoicons.org/api/icon/${imgCoin[0]}/200")
+                            .error(R.drawable.ic_baseline_image_24)
+                            .centerCrop().into(binding.imgCoin).request
+                    }
 
                 }
                 is Resource.Failure -> {
@@ -97,6 +81,16 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                                 binding.priceHigh.text = ticker.data.high
                                 binding.priceLow.text = ticker.data.low
                                 binding.ultimaActualizacion.text = ticker.data.fecha
+                                context?.let {
+                                    Glide.with(it).load("https://cryptoicons.org/api/icon/${imgCoin[0]}/200")
+                                        .error(R.drawable.ic_baseline_image_24)
+                                        .centerCrop().into(binding.imgCoin).request
+                                }
+                                if (ticker.data.id == "1"){
+                                    binding.dataB.visibility = View.GONE
+                                    binding.emptyS.visibility = View.VISIBLE
+                                }
+
                             }
                             else -> {}
                         }

@@ -13,8 +13,6 @@
           <stringArguments>
             <stringArg name="classpath">
               <args>
-                <arg>$MODULE_DIR$/../../../app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debugAndroidTest/R.jar</arg>
-                <arg>$MODULE_DIR$/../../../app/build/intermediates/compile_app_classes_jar/debug/classes.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/1dbded909ea4dd1411f38fb98785099a/transformed/hilt-android-testing-2.45-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/bf94c5c3682981173f5c0c2a671347e9/transformed/espresso-core-3.5.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/8b9535e7ea213bb345f48be337e9cc1c/transformed/junit-1.1.5-api.jar</arg>

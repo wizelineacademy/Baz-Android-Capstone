@@ -5,13 +5,16 @@ import com.example.wizelineandroid.core.Resource
 import com.example.wizelineandroid.data.local.entitys.BookEntity
 import com.example.wizelineandroid.data.remote.model.ModelBook
 import com.example.wizelineandroid.repository.available.BookRoomRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.kotlin.toObservable
 import javax.inject.Singleton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class BookRoomViewModel (private val bookDao: BookRoomRepo) : ViewModel() {
+@HiltViewModel
+class BookRoomViewModel @Inject constructor(private val bookDao: BookRoomRepo) : ViewModel() {
 
     fun getBooks() = liveData(viewModelScope.coroutineContext + Dispatchers.Main) {
         emit(Resource.Loading())
@@ -53,15 +56,5 @@ class BookRoomViewModel (private val bookDao: BookRoomRepo) : ViewModel() {
 
     fun isEntryValid(ticker: String): Boolean {
         return ticker.isNotBlank()
-    }
-}
-
-class BookRoomViewModelFactory(private val bookDao: BookRoomRepo) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(BookRoomViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return BookRoomViewModel(bookDao) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

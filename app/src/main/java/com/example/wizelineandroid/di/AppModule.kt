@@ -1,16 +1,24 @@
 package com.example.wizelineandroid.di
 
-import android.app.Application
 import android.content.Context
+import androidx.room.Room
 import com.example.wizelineandroid.data.local.BookRoomDataBase
 import com.example.wizelineandroid.data.local.dao.BookDao
+import com.example.wizelineandroid.data.local.dao.OrderDao
+import com.example.wizelineandroid.data.local.dao.TickerDao
 import com.example.wizelineandroid.repository.WebService
+import com.example.wizelineandroid.repository.available.BookRoomRepo
+import com.example.wizelineandroid.repository.available.BookRoomRepoImpl
 import com.example.wizelineandroid.repository.available.BooksRepo
 import com.example.wizelineandroid.repository.available.BooksRepoImpl
 import com.example.wizelineandroid.repository.order.OrderBookRepo
 import com.example.wizelineandroid.repository.order.OrderBookRepoImpl
+import com.example.wizelineandroid.repository.order.OrderRoomRepo
+import com.example.wizelineandroid.repository.order.OrderRoomRepoImpl
 import com.example.wizelineandroid.repository.ticker.TickerRepo
 import com.example.wizelineandroid.repository.ticker.TickerRepoImpl
+import com.example.wizelineandroid.repository.ticker.TickerRoomRepo
+import com.example.wizelineandroid.repository.ticker.TickerRoomRepoImpl
 import com.example.wizelineandroid.utils.AppConstants
 import dagger.Binds
 import dagger.Module
@@ -38,6 +46,15 @@ abstract class AppModule {
 
     @Binds
     abstract fun providesTickerRepository(repositoryTickerImpl: TickerRepoImpl): TickerRepo
+
+    @Binds
+    abstract fun providesBookRoomRepository(repositoryImplRoom: BookRoomRepoImpl): BookRoomRepo
+
+    @Binds
+    abstract fun providesOrderRoomRepository(repositoryImplOrder: OrderRoomRepoImpl): OrderRoomRepo
+
+    @Binds
+    abstract fun providesTickerRoomRepository(repositoryImplTicker: TickerRoomRepoImpl): TickerRoomRepo
 
     companion object {
 
@@ -67,13 +84,27 @@ abstract class AppModule {
         fun providesCurrencyService(retrofit: Retrofit) = retrofit.create<WebService>()
 
         @Provides
-        fun getAppDB(context: Application): BookRoomDataBase {
-            return BookRoomDataBase.getDatabase(context)
+        fun provideBookRoomDao(appDatabase: BookRoomDataBase): BookDao {
+            return appDatabase.bookDao()
+        }
+        @Provides
+        fun provideOrderRoomDao(appDatabase: BookRoomDataBase): OrderDao {
+            return appDatabase.orderDao()
+        }
+        @Provides
+        fun provideTickerRoomDao(appDatabase: BookRoomDataBase): TickerDao {
+            return appDatabase.tickerDao()
         }
 
         @Provides
-        fun getDao(appDao: BookRoomDataBase): BookDao {
-            return appDao.bookDao()
+        @Singleton
+        fun provideDatabase (@ApplicationContext context: Context) : BookRoomDataBase {
+            return Room.databaseBuilder(
+                context.applicationContext,
+                BookRoomDataBase::class.java,
+                "books_database"
+            ).fallbackToDestructiveMigration()
+                .allowMainThreadQueries().build()
         }
 
     }

@@ -10,11 +10,14 @@ import com.example.wizelineandroid.data.local.entitys.BidsEntity
 import com.example.wizelineandroid.data.remote.model.Ask
 import com.example.wizelineandroid.data.remote.model.Bids
 import com.example.wizelineandroid.repository.order.OrderRoomRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Singleton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class OrderRoomViewModel(private val orderDao: OrderRoomRepo) : ViewModel() {
+@HiltViewModel
+class OrderRoomViewModel @Inject constructor(private val orderDao: OrderRoomRepo) : ViewModel() {
 
     fun getAsk(id: String) = liveData(viewModelScope.coroutineContext + Dispatchers.Main) {
         emit(Resource.Loading())
@@ -81,12 +84,3 @@ class OrderRoomViewModel(private val orderDao: OrderRoomRepo) : ViewModel() {
     }
 }
 
-class AskRoomViewModelFactory(private val bookDao: OrderRoomRepo) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(OrderRoomViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return OrderRoomViewModel(bookDao) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}

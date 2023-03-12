@@ -5,11 +5,14 @@ import com.example.wizelineandroid.core.Resource
 import com.example.wizelineandroid.data.local.entitys.TickerEntity
 import com.example.wizelineandroid.data.remote.model.GetTicker
 import com.example.wizelineandroid.repository.ticker.TickerRoomRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Singleton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TickerRoomViewModel(private val tickerRoom: TickerRoomRepo) : ViewModel() {
+@HiltViewModel
+class TickerRoomViewModel @Inject constructor(private val tickerRoom: TickerRoomRepo) : ViewModel() {
 
     private val _detail_books = MutableLiveData<TickerEntity>()
     val detailBooks = _detail_books
@@ -46,16 +49,5 @@ class TickerRoomViewModel(private val tickerRoom: TickerRoomRepo) : ViewModel() 
 
     fun isEntryValid(ticker: String): Boolean {
         return ticker.isNotBlank()
-    }
-}
-
-class TickerRoomViewModelFactory(private val tickerRoom: TickerRoomRepo) :
-    ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(TickerRoomViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return TickerRoomViewModel(tickerRoom) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

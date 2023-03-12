@@ -2,7 +2,7 @@ package com.example.wizelineandroid.data.remote.model
 
 // List available books
 data class Books(
-    val payload: List<ModelBook>,
+    val payload: MutableList<ModelBook>,
     val success: Boolean
 )
 data class ModelBook(

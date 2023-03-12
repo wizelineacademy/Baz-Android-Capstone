@@ -1,8 +1,6 @@
 package com.example.wizelineandroid.data.local
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.wizelineandroid.data.local.dao.BookDao
 import com.example.wizelineandroid.data.local.dao.OrderDao
@@ -23,22 +21,4 @@ abstract class BookRoomDataBase : RoomDatabase() {
     abstract fun tickerDao(): TickerDao
     abstract fun orderDao(): OrderDao
 
-    companion object {
-        @Volatile
-        private var INSTANCE: BookRoomDataBase? = null
-        fun getDatabase(context: Context): BookRoomDataBase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    BookRoomDataBase::class.java,
-                    "books_database"
-                )
-                    .fallbackToDestructiveMigration()
-                    .allowMainThreadQueries()
-                    .build()
-                INSTANCE = instance
-                return instance
-            }
-        }
-    }
 }

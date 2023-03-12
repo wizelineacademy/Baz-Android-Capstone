@@ -1,29 +1,20 @@
 package com.example.wizelineandroid.ui.home
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.Color
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wizelineandroid.MainActivity
-import com.example.wizelineandroid.RoomApplication
 import com.example.wizelineandroid.core.Resource
 import com.example.wizelineandroid.data.local.entitys.BookEntity
 import com.example.wizelineandroid.data.remote.model.ModelBook
 import com.example.wizelineandroid.databinding.FragmentHomeBinding
 import com.example.wizelineandroid.presentation.books.BookRoomViewModel
-import com.example.wizelineandroid.presentation.books.BookRoomViewModelFactory
 import com.example.wizelineandroid.presentation.books.BooksViewModel
-import com.example.wizelineandroid.repository.available.BookRoomRepoImpl
 import com.example.wizelineandroid.ui.adapter.home.HomeAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,13 +27,7 @@ class HomeFragment : Fragment(com.example.wizelineandroid.R.layout.fragment_home
     private lateinit var binding: FragmentHomeBinding
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var adapterAvBooks: HomeAdapter
-
-
-    private val viewModelRoom: BookRoomViewModel by activityViewModels {
-        BookRoomViewModelFactory(
-            BookRoomRepoImpl((activity?.application as RoomApplication).database.bookDao())
-        )
-    }
+    private val viewModelRoom: BookRoomViewModel by viewModels()
 
     @SuppressLint("ShowToast")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
