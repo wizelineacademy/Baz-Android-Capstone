@@ -1,4 +1,4 @@
-package com.example.wizelineandroid.data.local
+package com.example.wizelineandroid.data.local.entitys
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
