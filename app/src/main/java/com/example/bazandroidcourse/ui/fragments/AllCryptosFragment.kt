@@ -39,7 +39,7 @@ class AllCryptosFragment : Fragment(), AdapterView.OnItemSelectedListener {
         viewModel.currentCurrency.value?.let { viewModel.getAllBooks(it) }
         initVerticalList()
         initSpinner(this)
-        addObservers()
+//        addObservers()
     }
 
     fun initGrdList() {
@@ -74,11 +74,11 @@ class AllCryptosFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.spinnerCurrencies.onItemSelectedListener = allCryptosFragment
     }
 
-    fun addObservers() {
-        viewModel.allBooks.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
-        }
-    }
+//    fun addObservers() {
+//        viewModel.allBooks.observe(viewLifecycleOwner) {
+//            adapter.submitList(it)
+//        }
+//    }
 
     fun navigateTo(item: BookModel) {
         val action = AllCryptosFragmentDirections.actionAllCryptosToDetail(item.book)

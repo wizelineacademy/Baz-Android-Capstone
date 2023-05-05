@@ -1,5 +1,7 @@
 package com.example.bazandroidcourse.ui.viewmodel
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -24,8 +26,8 @@ class BooksViewModel @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope
 ) : ViewModel() {
 
-    private val _allBooks = MutableLiveData<List<BookModel>>()
-    val allBooks: MutableLiveData<List<BookModel>> = _allBooks
+    private val _allBooks : MutableState<List<BookModel>> = mutableStateOf( emptyList())
+    val allBooks = _allBooks
 
     private val _currentBook = MutableLiveData<BookDetailModel>()
     val currentBook: MutableLiveData<BookDetailModel> = _currentBook
@@ -38,12 +40,13 @@ class BooksViewModel @Inject constructor(
 
     val names: List<String> = ApplicationCurrencies.supportedCurrencies
         .filter { it.trading }.map { it.name }
+    init {
+        getAllBooks(currentCurrency.value!!)
+    }
 
     fun getAllBooks(currency: String) {
         viewModelScope.launch(externalScope.coroutineContext) {
-            _allBooks.postValue(
-                getBooksUseCase.invoke(currency)
-            )
+            _allBooks.value = getBooksUseCase.invoke(currency)
         }
     }
 

@@ -11,4 +11,6 @@
     <string name="detail_price">Precio:</string>
     <string name="detail_amount">Monto:</string>
     <string name="home_currency">Moneda:</string>
+    <string name="title_activity_main_cmp">MainActivityCmp</string>
+    <string name="title_activity_main_cmp_t">MainActivityCmpT</string>
 </resources>

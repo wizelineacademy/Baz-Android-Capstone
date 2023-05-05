@@ -25,10 +25,9 @@ fun getCurrency(bookId: String): String {
  * @param bookId:String is the id of a book of an crypto currency, example: "btc_mxn"
  * @param size: int  is the sizer required for the icon, 32 is the default value
  */
-fun createURLImageByBookId(bookId: String, size: Int = 32): String {
+fun createURLImageByBookId(bookId: String): String {
     return createURLImageByTicker(
-        getTicker(bookId),
-        size
+        getTicker(bookId)
     )
 }
 
@@ -37,7 +36,7 @@ fun createURLImageByBookId(bookId: String, size: Int = 32): String {
  * @param ticker:String is the ticker of an crypto currency, example: "btc"
  * @param size: int  is the sizer required for the icon, 32 is the default value
  */
-fun createURLImageByTicker(ticker: String, size: Int = 32) = "${BuildConfig.API_ICONS}$size/$ticker"
+fun createURLImageByTicker(ticker: String) = "${BuildConfig.API_ICONS}$ticker"
 
 /***
  * Extension function of a BookModel class,
