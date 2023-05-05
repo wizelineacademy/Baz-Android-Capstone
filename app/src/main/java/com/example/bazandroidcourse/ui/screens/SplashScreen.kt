@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.example.bazandroidcourse.ui.compose.navigation.ApplicationScreens
+import com.example.bazandroidcourse.ui.navigation.ApplicationScreens
 import kotlinx.coroutines.delay
 
 //@Preview( widthDp = 400, heightDp = 700, showBackground = true)

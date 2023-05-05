@@ -13,9 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.bazandroidcourse.data.entities.BookModel
-import com.example.bazandroidcourse.ui.compose.components.BookItem
-import com.example.bazandroidcourse.ui.compose.components.OptionsBar
-import com.example.bazandroidcourse.ui.compose.components.Title
+import com.example.bazandroidcourse.ui.components.BookItem
+import com.example.bazandroidcourse.ui.components.OptionsBar
+import com.example.bazandroidcourse.ui.components.Title
 import com.example.bazandroidcourse.ui.viewmodel.BooksViewModel
 
 @Composable

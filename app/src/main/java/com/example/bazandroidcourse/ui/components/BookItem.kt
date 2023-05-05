@@ -1,4 +1,4 @@
-package com.example.bazandroidcourse.ui.compose.components
+package com.example.bazandroidcourse.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

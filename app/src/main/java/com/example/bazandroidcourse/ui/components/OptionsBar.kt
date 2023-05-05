@@ -1,4 +1,4 @@
-package com.example.bazandroidcourse.ui.compose.components
+package com.example.bazandroidcourse.ui.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth

@@ -1,4 +1,4 @@
-package com.example.bazandroidcourse.data.di
+package com.example.bazandroidcourse.di
 
 import com.example.bazandroidcourse.data.datasource.local.CollectionLocaleDataSourceInterface
 import com.example.bazandroidcourse.data.datasource.local.GeneralLocalDataSourceInterface
@@ -70,7 +70,7 @@ object DataSourcesModule {
     @Provides
     fun provideRemoteDataSource(
         apiInterface: ApplicationAPIInterface,
-        @ApplicationScope  externalScope: CoroutineScope
+        @ApplicationScope externalScope: CoroutineScope
     ): CryptoRemoteDataSourceInterface {
         return CryptoRemoteDataSourceImpl(
             apiInterface,

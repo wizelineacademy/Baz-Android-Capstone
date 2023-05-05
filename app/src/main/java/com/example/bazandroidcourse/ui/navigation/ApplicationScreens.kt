@@ -1,4 +1,4 @@
-package com.example.bazandroidcourse.ui.compose.navigation
+package com.example.bazandroidcourse.ui.navigation
 
 enum class ApplicationScreens (){
     SPLASH,

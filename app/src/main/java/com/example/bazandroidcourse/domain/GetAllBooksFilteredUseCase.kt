@@ -1,6 +1,6 @@
 package com.example.bazandroidcourse.domain
 
-import com.example.bazandroidcourse.data.di.ApplicationScope
+import com.example.bazandroidcourse.di.ApplicationScope
 import com.example.bazandroidcourse.data.entities.BookModel
 import com.example.bazandroidcourse.data.entities.static.ApplicationCurrencies
 import com.example.bazandroidcourse.data.repository.BooksRepositoryInterface

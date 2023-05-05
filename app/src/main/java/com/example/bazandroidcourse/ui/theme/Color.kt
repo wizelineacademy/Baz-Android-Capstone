@@ -1,4 +1,4 @@
-package com.example.bazandroidcourse.ui.compose.theme
+package com.example.bazandroidcourse.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

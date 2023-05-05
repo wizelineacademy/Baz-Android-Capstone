@@ -16,7 +16,7 @@
         android:theme="@style/Theme.BazAndroidCourse"
        >
         <activity
-            android:name=".MainActivityCmp"
+            android:name=".MainActivity"
             android:exported="true"
             android:label="@string/title_activity_main_cmp"
             android:theme="@style/Theme.BazAndroidCourse" >

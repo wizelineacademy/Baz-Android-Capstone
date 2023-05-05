@@ -1,4 +1,4 @@
-package com.example.bazandroidcourse.data.di
+package com.example.bazandroidcourse.di
 
 import android.os.Build
 import com.example.bazandroidcourse.BuildConfig

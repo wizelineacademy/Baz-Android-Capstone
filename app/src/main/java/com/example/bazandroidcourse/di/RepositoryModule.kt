@@ -1,4 +1,4 @@
-package com.example.bazandroidcourse.data.di
+package com.example.bazandroidcourse.di
 
 import com.example.bazandroidcourse.data.datasource.local.CollectionLocaleDataSourceInterface
 import com.example.bazandroidcourse.data.datasource.local.RXInterface
