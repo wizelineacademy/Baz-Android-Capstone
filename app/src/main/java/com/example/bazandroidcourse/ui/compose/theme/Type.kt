@@ -1,4 +1,4 @@
-package com.example.bazandroidcourse.ui.theme
+package com.example.bazandroidcourse.ui.compose.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

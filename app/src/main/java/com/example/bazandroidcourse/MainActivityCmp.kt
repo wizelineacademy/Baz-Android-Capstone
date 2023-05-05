@@ -10,7 +10,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.bazandroidcourse.ui.compose.navigation.AppNavigation
-import com.example.bazandroidcourse.ui.theme.BazAndroidCourseTheme
+import com.example.bazandroidcourse.ui.compose.theme.BazAndroidCourseTheme
 import com.example.bazandroidcourse.ui.viewmodel.BooksViewModel
 import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
