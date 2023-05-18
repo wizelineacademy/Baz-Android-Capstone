@@ -1,13 +1,15 @@
 package com.example.bazandroidcourse.ui.viewmodel
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.bazandroidcourse.data.di.ApplicationScope
-import com.example.bazandroidcourse.data.entities.BookDetailModel
-import com.example.bazandroidcourse.data.entities.BookModel
-import com.example.bazandroidcourse.data.entities.BookOrdersModel
-import com.example.bazandroidcourse.data.entities.static.ApplicationCurrencies
+import com.example.bazandroidcourse.data.model.BookDetailModel
+import com.example.bazandroidcourse.data.model.BookModel
+import com.example.bazandroidcourse.data.model.BookOrdersModel
+import com.example.bazandroidcourse.data.model.staticdata.ApplicationCurrency
+import com.example.bazandroidcourse.di.ApplicationScope
 import com.example.bazandroidcourse.domain.GetAllBooksFilteredUseCase
 import com.example.bazandroidcourse.domain.GetBookDetailUseCase
 import com.example.bazandroidcourse.domain.GetBookOrdersUseCase
@@ -24,40 +26,41 @@ class BooksViewModel @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope
 ) : ViewModel() {
 
-    private val _allBooks = MutableLiveData<List<BookModel>>()
-    val allBooks: MutableLiveData<List<BookModel>> = _allBooks
+    private val _allBooks : MutableState<List<BookModel>> = mutableStateOf( emptyList())
+    var allBooks = _allBooks
 
-    private val _currentBook = MutableLiveData<BookDetailModel>()
-    val currentBook: MutableLiveData<BookDetailModel> = _currentBook
+    private val _currentBook = mutableStateOf(BookModel())
+    val currentBook: MutableState<BookModel> = _currentBook
+
+    private val _currentBookDetail = mutableStateOf(BookDetailModel())
+    val currentBookDetail:MutableState<BookDetailModel> = _currentBookDetail
 
     private val _currentBookOrders = MutableLiveData<BookOrdersModel>()
     val currentBookOrders: MutableLiveData<BookOrdersModel> = _currentBookOrders
 
-    private val _currentCurrency = MutableLiveData("usd")
+    private val _currentCurrency:MutableState<ApplicationCurrency> = mutableStateOf(ApplicationCurrency.USD)
     val currentCurrency = _currentCurrency
+    val supportedCurrencies = ApplicationCurrency.supportedCurrencies.filter { it.trading }
 
-    val names: List<String> = ApplicationCurrencies.supportedCurrencies
-        .filter { it.trading }.map { it.name }
+    init {
+        getAllBooks(currentCurrency.value.id)
+    }
 
     fun getAllBooks(currency: String) {
         viewModelScope.launch(externalScope.coroutineContext) {
-            _allBooks.postValue(
-                getBooksUseCase.invoke(currency)
-            )
+           val  results = getBooksUseCase.invoke(currency)
+            _allBooks.value = results
         }
     }
 
-    fun getAllBooksByCurrency(className: String) {
-        ApplicationCurrencies.findByName(className)?.let {
-            getAllBooks(it.id)
-        }
+    fun getAllBooksByCurrency() {
+        getAllBooks(currentCurrency.value.id)
     }
 
     fun getBookDetail(bookId: String) {
         viewModelScope.launch(externalScope.coroutineContext) {
-            _currentBook.postValue(
+            _currentBookDetail.value =
                 getBookDetailUseCase.invoke(bookId)
-            )
         }
     }
 
@@ -67,5 +70,9 @@ class BooksViewModel @Inject constructor(
                 getBookOrdersUseCase.invoke(bookId)
             )
         }
+    }
+
+    fun setSelectBook(it: BookModel) {
+        _currentBook.value = it
     }
 }

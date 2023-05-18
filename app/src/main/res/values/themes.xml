@@ -12,7 +12,7 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -25,14 +25,14 @@
         <item name="cardCornerRadius">@dimen/general_corner_radius</item>
     </style>
 
-<!--    <style name="custom_card_view" parent="CardView">-->
-<!--        <item name="android:layout_marginTop">@dimen/general_vertical_margin_min</item>-->
-<!--        <item name="android:layout_marginBottom">@dimen/general_vertical_margin_min</item>-->
-<!--        <item name="android:layout_marginStart">@dimen/general_horizontal_margin</item>-->
-<!--        <item name="android:layout_marginEnd">@dimen/general_horizontal_margin</item>-->
-<!--        <item name="android:padding">3dp</item>-->
-<!--        <item name="cornerRadius">@dimen/general_corner_radius</item>-->
-<!--    </style>-->
+    <!--    <style name="custom_card_view" parent="CardView">-->
+    <!--        <item name="android:layout_marginTop">@dimen/general_vertical_margin_min</item>-->
+    <!--        <item name="android:layout_marginBottom">@dimen/general_vertical_margin_min</item>-->
+    <!--        <item name="android:layout_marginStart">@dimen/general_horizontal_margin</item>-->
+    <!--        <item name="android:layout_marginEnd">@dimen/general_horizontal_margin</item>-->
+    <!--        <item name="android:padding">3dp</item>-->
+    <!--        <item name="cornerRadius">@dimen/general_corner_radius</item>-->
+    <!--    </style>-->
 
     <style name="title" parent="Theme.BazAndroidCourse">
         <item name="android:textSize">@dimen/font_title</item>
@@ -49,6 +49,7 @@
         <item name="marginHorizontal">@dimen/general_horizontal_margin</item>
 
     </style>
+
     <style name="sub_title_min" parent="Theme.BazAndroidCourse">
         <item name="android:textSize">@dimen/font_content_footer</item>
         <item name="marginHorizontal">@dimen/general_horizontal_margin</item>
@@ -65,6 +66,7 @@
         <item name="android:textSize">@dimen/font_content</item>
         <item name="marginHorizontal">@dimen/general_horizontal_margin</item>
     </style>
+
     <style name="regular_text" parent="Theme.BazAndroidCourse">
         <item name="android:textSize">@dimen/font_content</item>
         <item name="marginHorizontal">@dimen/general_horizontal_margin</item>

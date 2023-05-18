@@ -5,7 +5,7 @@ import com.example.bazandroidcourse.data.datasource.remote.api.response.BookResp
 import com.example.bazandroidcourse.data.datasource.remote.api.response.DetailResponse
 import com.example.bazandroidcourse.data.datasource.remote.api.response.OrderPayloadResponse
 import com.example.bazandroidcourse.data.datasource.remote.api.retrofit.ApplicationAPIInterface
-import com.example.bazandroidcourse.data.di.ApplicationScope
+import com.example.bazandroidcourse.di.ApplicationScope
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope

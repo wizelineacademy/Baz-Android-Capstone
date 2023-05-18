@@ -1,6 +1,6 @@
 package com.example.bazandroidcourse.domain
 
-import com.example.bazandroidcourse.data.entities.BookDetailModel
+import com.example.bazandroidcourse.data.model.BookDetailModel
 import com.example.bazandroidcourse.data.repository.BooksRepositoryInterface
 import com.google.common.truth.Truth.assertThat
 

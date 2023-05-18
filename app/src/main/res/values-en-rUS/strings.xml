@@ -12,4 +12,6 @@
     <string name="detail_price">Price:</string>
     <string name="detail_amount">Amount:</string>
     <string name="home_currency">Currency:</string>
+    <string name="title_activity_main_cmp">Crypto</string>
+    <string name="title_activity_main_cmp_t">Crypto</string>
 </resources>

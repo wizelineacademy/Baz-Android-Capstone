@@ -7,9 +7,9 @@ import com.example.bazandroidcourse.data.datasource.local.database.room.entities
 import com.example.bazandroidcourse.data.datasource.local.database.room.entities.BookEntity
 import com.example.bazandroidcourse.data.datasource.local.database.room.entities.BookOrderEntity
 import com.example.bazandroidcourse.data.datasource.remote.CryptoRemoteDataSourceInterface
-import com.example.bazandroidcourse.data.entities.BookDetailModel
-import com.example.bazandroidcourse.data.entities.BookModel
-import com.example.bazandroidcourse.data.entities.BookOrdersModel
+import com.example.bazandroidcourse.data.model.BookDetailModel
+import com.example.bazandroidcourse.data.model.BookModel
+import com.example.bazandroidcourse.data.model.BookOrdersModel
 import com.example.bazandroidcourse.data.utils.mappers.*
 
 
