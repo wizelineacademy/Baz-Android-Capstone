@@ -1,15 +1,23 @@
 package com.example.bazandroidcourse.ui.utils
 
 import com.example.bazandroidcourse.BuildConfig
-import com.example.bazandroidcourse.data.entities.BookModel
-import com.example.bazandroidcourse.data.entities.static.ApplicationCurrencies
+import com.example.bazandroidcourse.data.model.BookModel
+import com.example.bazandroidcourse.data.model.staticdata.ApplicationCurrency
 
 /***
  * Gets the ticker part of a bookId, a bookId is formed by ticker_currency
  * @param bookId:String is the id of a book of an crypto currency, example: "btc_mxn"
  */
 fun getTicker(bookId: String): String {
-    return bookId.substring(0, bookId.indexOf("_"))
+    try{
+        return bookId.substring(0, bookId.indexOf("_"))
+    }catch (e:Exception){
+        return ""
+    }
+}
+
+fun String.getTickerFor():String{
+    return getTicker(this)
 }
 
 /***
@@ -23,7 +31,6 @@ fun getCurrency(bookId: String): String {
 /***
  * Generates the URL of corresponding crypto currency icon by bookId
  * @param bookId:String is the id of a book of an crypto currency, example: "btc_mxn"
- * @param size: int  is the sizer required for the icon, 32 is the default value
  */
 fun createURLImageByBookId(bookId: String): String {
     return createURLImageByTicker(
@@ -34,7 +41,6 @@ fun createURLImageByBookId(bookId: String): String {
 /***
  * Generates the URL of corresponding crypto currency icon by ticker
  * @param ticker:String is the ticker of an crypto currency, example: "btc"
- * @param size: int  is the sizer required for the icon, 32 is the default value
  */
 fun createURLImageByTicker(ticker: String) = "${BuildConfig.API_ICONS}$ticker"
 
@@ -51,5 +57,5 @@ fun BookModel.getIcon(): String {
  * name of the crypto currency otherwise returns the same value
  */
 fun String.cryptoName(): String {
-    return ApplicationCurrencies.findByTicker(this)?.name ?: this
+    return ApplicationCurrency.findByTicker(this)?.name ?: this
 }

@@ -1,8 +1,8 @@
-package com.example.bazandroidcourse.data.entities.static
+package com.example.bazandroidcourse.data.model.staticdata
 
-sealed class ApplicationCurrencies(
-    id: String,
-    name: String,
+sealed class ApplicationCurrency(
+    id: String ="",
+    name: String = "",
     trading: Boolean = false
 ) : CryptoCurrency(id, name, trading) {
     companion object {
@@ -32,9 +32,9 @@ sealed class ApplicationCurrencies(
         inline fun findByProperty(
             ticker: String,
             property: String,
-            list: List<ApplicationCurrencies>,
+            list: List<ApplicationCurrency>,
             finder: (String, String) -> Boolean
-        ): ApplicationCurrencies? {
+        ): ApplicationCurrency? {
             list.forEach {
                 if (finder(ticker, property)) {
                     return it
@@ -43,7 +43,7 @@ sealed class ApplicationCurrencies(
             return null
         }
 
-        fun findByTicker(ticker: String): ApplicationCurrencies? {
+        fun findByTicker(ticker: String): ApplicationCurrency? {
             supportedCurrencies.forEach {
                 if (findByProperty(
                         ticker,
@@ -58,7 +58,7 @@ sealed class ApplicationCurrencies(
             return null
         }
 
-        fun findByName(name: String): ApplicationCurrencies? {
+        fun findByName(name: String): ApplicationCurrency? {
             supportedCurrencies.forEach {
                 if (findByProperty(
                         name,
@@ -74,92 +74,92 @@ sealed class ApplicationCurrencies(
         }
     }
 
-    object PesoMX : ApplicationCurrencies(
+    object PesoMX : ApplicationCurrency(
         "mxn",
         "Pesos MX",
         true
     )
 
-    object Bitcoin : ApplicationCurrencies(
+    object Bitcoin : ApplicationCurrency(
         "btc",
         "Bitcoin",
         true
     )
 
-    object Ethereum : ApplicationCurrencies(
+    object Ethereum : ApplicationCurrency(
         "eth",
         "Ethereum"
     )
 
-    object Ripple : ApplicationCurrencies(
+    object Ripple : ApplicationCurrency(
         "xrp",
         "Ripple"
     )
 
-    object Litecoin : ApplicationCurrencies(
+    object Litecoin : ApplicationCurrency(
         "ltc",
         "Litecoin"
     )
 
-    object BitcoinCash : ApplicationCurrencies(
+    object BitcoinCash : ApplicationCurrency(
         "bch",
         "Bitcoint Cash",
         false
     )
 
-    object TrueUSD : ApplicationCurrencies(
+    object TrueUSD : ApplicationCurrency(
         "tusd",
         "TrueUSD"
     )
 
-    object Mana : ApplicationCurrencies(
+    object Mana : ApplicationCurrency(
         "mana",
         "Decentraland"
     )
 
-    object Bat : ApplicationCurrencies(
+    object Bat : ApplicationCurrency(
         "bat",
         "Basic Attention Token"
     )
 
-    object Aave : ApplicationCurrencies(
+    object Aave : ApplicationCurrency(
         "aave",
         "Aave"
     )
 
-    object NumARS : ApplicationCurrencies(
+    object NumARS : ApplicationCurrency(
         "ars",
         "Num ARS",
         false
     )
 
-    object USD : ApplicationCurrencies(
+    object USD : ApplicationCurrency(
         "usd",
         "USD",
         true
     )
 
-    object Yearn:ApplicationCurrencies(
+    object Yearn: ApplicationCurrency(
         "yfi",
         "Yearn Finance"
     )
-    object Matic:ApplicationCurrencies(
+    object Matic: ApplicationCurrency(
         "matic",
         "Polygon"
     )
-    object Cardano:ApplicationCurrencies(
+    object Cardano: ApplicationCurrency(
         "ada",
         "Cardano"
     )
-    object Solana:ApplicationCurrencies(
+    object Solana: ApplicationCurrency(
         "sol",
         "Solana"
     )
-    object Shiba:ApplicationCurrencies(
+    object Shiba: ApplicationCurrency(
         "shib",
         "Shiba Inu"
     )
-    object Sushi:ApplicationCurrencies(
+    object Sushi: ApplicationCurrency(
         "sushi",
         "SushiSwap"
     )

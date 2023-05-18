@@ -1,5 +1,7 @@
-package com.example.bazandroidcourse.data.entities.static
+package com.example.bazandroidcourse.data.model.static
 
+import com.example.bazandroidcourse.data.model.staticdata.ApplicationCurrency
+import com.example.bazandroidcourse.data.model.staticdata.CryptoCurrency
 import org.junit.Before
 import org.junit.Test
 
@@ -8,7 +10,7 @@ class CryptoCurrencyTest {
 
     @Before
     fun setUp() {
-        cryptoCurrency = ApplicationCurrencies.Bitcoin
+        cryptoCurrency = ApplicationCurrency.Bitcoin
     }
 
     @Test

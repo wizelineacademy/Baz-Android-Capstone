@@ -1,9 +1,9 @@
 package com.example.bazandroidcourse.domain
 
-import com.example.bazandroidcourse.di.ApplicationScope
-import com.example.bazandroidcourse.data.entities.BookModel
-import com.example.bazandroidcourse.data.entities.static.ApplicationCurrencies
+import com.example.bazandroidcourse.data.model.BookModel
+import com.example.bazandroidcourse.data.model.staticdata.ApplicationCurrency
 import com.example.bazandroidcourse.data.repository.BooksRepositoryInterface
+import com.example.bazandroidcourse.di.ApplicationScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -22,7 +22,7 @@ class GetAllBooksFilteredUseCase @Inject constructor(
         withContext(externalScope.coroutineContext) {
             repository.getAllBooks().filter {
                 it.book.endsWith("_$currentCurrency")
-                        && ApplicationCurrencies.findByTicker((it.book)) != null
+                        && ApplicationCurrency.findByTicker((it.book)) != null
             }
         }
 }

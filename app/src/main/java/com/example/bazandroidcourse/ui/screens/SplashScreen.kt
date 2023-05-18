@@ -1,26 +1,40 @@
-package com.example.bazandroidcourse.ui.compose
+package com.example.bazandroidcourse.ui.screens
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.Icon
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import com.example.bazandroidcourse.R
 import com.example.bazandroidcourse.ui.navigation.ApplicationScreens
 import kotlinx.coroutines.delay
 
-//@Preview( widthDp = 400, heightDp = 700, showBackground = true)
+@Preview( widthDp = 400, heightDp = 700, showBackground = true)
 @Composable
-fun SplashScreen( navController: NavController){
-    Surface(modifier = Modifier){
-        Text("Hello I'm the Splash")
-        LaunchedEffect(Unit) {
-            delay(5000)
-            navController.navigate( route = ApplicationScreens.HOME.name)
+fun Content(){
+    Surface(modifier = Modifier.fillMaxWidth()){
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+        Icon(painter = painterResource(id = R.drawable.ic_launcher_foreground) , contentDescription = "")
         }
-//        runBlocking {
-//            delay(5000)
-//        }
-
+    }
+}
+@Composable
+fun SplashScreen ( navController: NavController){
+    Content()
+    LaunchedEffect(Unit) {
+        delay(3000)
+        navController.navigate( route = ApplicationScreens.HOME.name)
     }
 }

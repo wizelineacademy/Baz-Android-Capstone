@@ -1,4 +1,4 @@
-package com.example.bazandroidcourse.data.entities.static
+package com.example.bazandroidcourse.data.model.staticdata
 
 import com.example.bazandroidcourse.ui.utils.createURLImageByBookId
 

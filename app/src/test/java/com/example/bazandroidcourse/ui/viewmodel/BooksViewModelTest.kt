@@ -1,7 +1,7 @@
 package com.example.bazandroidcourse.ui.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.bazandroidcourse.data.entities.BookModel
+import com.example.bazandroidcourse.data.model.BookModel
 import com.example.bazandroidcourse.data.repository.BooksRepositoryImpl
 import com.example.bazandroidcourse.domain.GetAllBooksFilteredUseCase
 import com.example.bazandroidcourse.domain.GetBookDetailUseCase

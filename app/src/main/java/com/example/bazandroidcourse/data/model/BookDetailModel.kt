@@ -1,9 +1,9 @@
-package com.example.bazandroidcourse.data.entities
+package com.example.bazandroidcourse.data.model
 
 data class BookDetailModel(
-    val book: String = "",
+    override val book: String = "",
     val volume: String = "",
     val high: String = "",
     val last: String = "",
     val low: String = ""
-)
+): Book(book = book)

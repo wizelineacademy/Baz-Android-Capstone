@@ -1,8 +1,8 @@
 package com.example.bazandroidcourse.domain
 
-import com.example.bazandroidcourse.di.ApplicationScope
-import com.example.bazandroidcourse.data.entities.BookOrdersModel
+import com.example.bazandroidcourse.data.model.BookOrdersModel
 import com.example.bazandroidcourse.data.repository.BooksRepositoryInterface
+import com.example.bazandroidcourse.di.ApplicationScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

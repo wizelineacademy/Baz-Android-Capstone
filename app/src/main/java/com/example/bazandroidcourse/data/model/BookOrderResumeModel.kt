@@ -1,4 +1,4 @@
-package com.example.bazandroidcourse.data.entities
+package com.example.bazandroidcourse.data.model
 
 data class BookOrderResumeModel(
     val book: String,
