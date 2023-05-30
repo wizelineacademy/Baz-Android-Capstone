@@ -7,6 +7,13 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/baz_android_course.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/baz_android_course.app.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/baz_android_course.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/baz_android_course.app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/baz_android_course.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/baz_android_course.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/baz_android_course.data.iml" filepath="$PROJECT_DIR$/.idea/modules/data/baz_android_course.data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/baz_android_course.data.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/data/baz_android_course.data.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/baz_android_course.data.main.iml" filepath="$PROJECT_DIR$/.idea/modules/data/baz_android_course.data.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/baz_android_course.data.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/data/baz_android_course.data.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/baz_android_course.domain.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/baz_android_course.domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/baz_android_course.domain.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/baz_android_course.domain.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/baz_android_course.domain.test.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/baz_android_course.domain.test.iml" />
     </modules>
   </component>
 </project>

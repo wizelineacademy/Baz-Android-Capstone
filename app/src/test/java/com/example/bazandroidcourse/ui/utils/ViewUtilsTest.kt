@@ -1,5 +1,7 @@
 package com.example.bazandroidcourse.ui.utils
 
+import com.andcourse.domain.utils.getCurrency
+import com.andcourse.domain.utils.getTicker
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test

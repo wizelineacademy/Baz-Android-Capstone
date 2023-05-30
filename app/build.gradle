@@ -4,17 +4,19 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-kapt'
     id "org.jlleitschuh.gradle.ktlint" version '11.0.0'
-    id 'com.google.dagger.hilt.android'
+    //id 'com.google.dagger.hilt.android'
+    //id  'dagger.hilt.android.plugin'
     id 'jacoco'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.bazandroidcourse"
         minSdk 24
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -30,8 +32,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            buildConfigField "String", "API_PRINCIPAL_PATH", '"https://api.bitso.com/v3/"'
-            buildConfigField "String", "API_ICONS", '"https://coinicons-api.vercel.app/api/icon/"'
+//            buildConfigField "String", "API_PRINCIPAL_PATH", '"https://api.bitso.com/v3/"'
+//            buildConfigField "String", "API_ICONS", '"https://coinicons-api.vercel.app/api/icon/"'
             testCoverageEnabled true
         }
     }
@@ -94,20 +96,26 @@ dependencies {
     implementation "androidx.compose.ui:ui:$compose_ui_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
     implementation 'androidx.compose.material:material:1.2.0'
+    implementation project(path: ':domain')
+    implementation project(path: ':data')
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+
+    //dagger hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     // navigation compose
     implementation "androidx.navigation:navigation-compose:$nav_version"
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
-    def retrofitVersion = "2.9.0"
+//    def retrofitVersion = "2.9.0"
     def lifecycle_version = "2.5.1"
+
     def nav_version = "2.5.3"
-    def room_version = "2.4.3"
+//    def room_version = "2.4.3"
     def okhttpVersion = "4.10.0"
-    def mockkVersion = "1.13.2"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -120,9 +128,6 @@ dependencies {
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
 
-    //retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
     // Gson
     implementation 'com.google.code.gson:gson:2.8.6'
@@ -160,21 +165,20 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
 
-    //Room
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.10"
+//    //Room
+//    implementation "androidx.room:room-runtime:$room_version"
+//    annotationProcessor "androidx.room:room-compiler:$room_version"
+//    implementation "androidx.room:room-ktx:$room_version"
+//    kapt "androidx.room:room-compiler:$room_version"
+//    implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.10"
 
-    //Hilt
-    implementation "com.google.dagger:hilt-android:2.44"
-    kapt "com.google.dagger:hilt-compiler:2.44"
 
-    //RxJava
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.10'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+
+//    //RxJava
+//    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
+//    implementation 'io.reactivex.rxjava2:rxjava:2.2.10'
+//    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+
 
 }
 

@@ -1,11 +1,13 @@
 package com.example.bazandroidcourse.ui.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.bazandroidcourse.data.model.BookModel
-import com.example.bazandroidcourse.data.repository.BooksRepositoryImpl
-import com.example.bazandroidcourse.domain.GetAllBooksFilteredUseCase
-import com.example.bazandroidcourse.domain.GetBookDetailUseCase
-import com.example.bazandroidcourse.domain.GetBookOrdersUseCase
+import com.andcourse.domain.model.BookModel
+
+import com.androidcourse.data.GetAllBooksFilteredUseCase
+import com.androidcourse.data.GetBookDetailUseCase
+import com.androidcourse.data.GetBookOrdersUseCase
+import com.androidcourse.data.repository.BooksRepositoryImpl
+import com.example.bazandroidcourse.viewmodel.BooksViewModel
 import com.google.common.truth.Truth.assertThat
 import io.mockk.MockKAnnotations
 import io.mockk.clearAllMocks

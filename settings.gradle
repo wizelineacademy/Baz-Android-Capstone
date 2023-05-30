@@ -14,3 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "baz android course"
 include ':app'
+include ':domain'
+include ':data'
